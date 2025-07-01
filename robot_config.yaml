@@ -1,0 +1,17 @@
+# 机器人系统主配置
+system:
+  name: "XC-ROBOT"
+  version: "1.0.0"
+  
+network:
+  hermes_url: "http://192.168.31.211:1448"  # 根据你的实际配置调整
+  right_arm_ip: "192.168.58.2"
+  left_arm_ip: "192.168.58.3"
+  
+motion:
+  default_velocity: 20
+  timeout: 30
+  
+logging:
+  level: "INFO"
+  file: "logs/robot.log"

@@ -9,15 +9,24 @@ import time
 import sys
 import os
 
-# 添加fairino库路径
-current_dir = os.path.dirname(os.path.abspath(__file__))
-fr3_control_path = os.path.join(current_dir, 'fr3_control')
+# 强制设置到项目根目录
+script_path = os.path.abspath(__file__)
+tests_dir = os.path.dirname(script_path)
+project_root = os.path.dirname(tests_dir)
+
+# 切换到项目根目录
+os.chdir(project_root)
+
+# 添加fr3_control路径
+fr3_control_path = os.path.join(project_root, 'fr3_control')
 
 if os.path.exists(fr3_control_path):
-    sys.path.append(fr3_control_path)
+    sys.path.insert(0, fr3_control_path)
     print(f"✓ 已添加fr3_control路径: {fr3_control_path}")
 else:
     print(f"✗ 未找到fr3_control文件夹: {fr3_control_path}")
+    print(f"当前目录: {os.getcwd()}")
+    print(f"项目根目录: {project_root}")
     sys.exit(1)
 
 # 导入Robot类
