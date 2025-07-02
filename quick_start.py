@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-XC-ROBOT 快速启动和环境检查脚本（修复版本）
-解决subprocess调用时的用户交互阻塞问题
+XC-ROBOT 快速启动和环境检查脚本
+适配现有项目结构，一键检查环境、测试连接、启动系统
 """
 
 import os
@@ -17,7 +17,7 @@ def print_banner():
     """打印启动横幅"""
     print("=" * 80)
     print("    XC-ROBOT 轮式双臂类人形机器人控制系统")
-    print("    基于现有项目结构的快速启动脚本 (修复版)")
+    print("    基于现有项目结构的快速启动脚本")
     print("=" * 80)
     print(f"    启动时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"    工作目录: {os.getcwd()}")
@@ -35,6 +35,7 @@ def check_project_structure():
         ("tests", "测试目录"),
     ]
     
+    # 检查可选目录
     # 检查可选目录
     optional_dirs = [
         ("venv", "虚拟环境目录"),
@@ -209,7 +210,7 @@ def check_fr3_library():
         print(f"  ❌ 缺失 {len(missing_required)} 个必需文件")
         return False
     
-    # 尝试导入测试（使用较短的超时时间）
+    # 尝试导入测试
     try:
         if os.path.exists("venv"):
             if os.name == 'nt':
@@ -233,7 +234,7 @@ except Exception as e:
         
         result = subprocess.run(
             [python_exe, "-c", test_code],
-            capture_output=True, text=True, timeout=10  # 减少超时时间
+            capture_output=True, text=True, timeout=15
         )
         
         if result.returncode == 0 and "fairino导入成功" in result.stdout:
@@ -258,7 +259,7 @@ def test_network_connectivity():
     test_ips = [
         ("192.168.58.2", "FR3右臂机械臂"),
         ("192.168.58.3", "FR3左臂机械臂"),
-        ("192.168.1.100", "Hermes底盘（如果可用）")
+        ("192.168.31.211", "Hermes底盘（如果可用）")
     ]
     
     connectivity_results = []
@@ -289,179 +290,17 @@ def test_network_connectivity():
     # 至少需要一个机械臂连通
     return any(connectivity_results[:2])
 
-def test_fr3_connection_directly():
-    """直接在当前进程中测试FR3连接（避免subprocess阻塞）"""
-    print("\n🧪 [步骤6/6] 直接测试FR3连接")
+def run_test_scripts():
+    """运行现有测试脚本"""
+    print("\n🧪 [步骤6/6] 运行现有测试脚本")
     print("-" * 50)
     
-    # 检查测试脚本是否存在
-    fr3_test_script = "tests/fr3_simple_test.py"
-    dual_arm_test_script = "tests/dual_arm_connection.py"
-    
-    print("  📝 进行FR3连接直接测试（跳过用户交互）")
-    
-    # 尝试直接导入并测试连接
-    try:
-        # 添加路径
-        import sys
-        project_root = os.path.abspath(os.getcwd())
-        fr3_control_path = os.path.join(project_root, 'fr3_control')
-        
-        if fr3_control_path not in sys.path:
-            sys.path.insert(0, fr3_control_path)
-        
-        # 导入fairino
-        from fairino import Robot
-        print("  ✅ fairino库导入成功")
-        
-        # 测试连接（使用较短超时）
-        test_ips = ['192.168.58.2', '192.168.58.3']
-        connection_results = []
-        
-        for i, ip in enumerate(test_ips):
-            arm_name = "右臂" if i == 0 else "左臂"
-            try:
-                print(f"  🔗 测试{arm_name}连接 ({ip})...")
-                
-                # 创建机器人连接（短超时）
-                robot = Robot.RPC(ip)
-                
-                # 测试基本通信
-                try:
-                    sdk_version = robot.GetSDKVersion()
-                    print(f"    ✅ {arm_name}连接成功，SDK版本: {sdk_version}")
-                    connection_results.append(True)
-                    
-                    # 清理连接
-                    robot.CloseRPC()
-                    
-                except Exception as api_e:
-                    print(f"    ⚠️  {arm_name}连接成功但API调用失败: {api_e}")
-                    connection_results.append(True)  # 连接成功，只是API有问题
-                    try:
-                        robot.CloseRPC()
-                    except:
-                        pass
-                        
-            except Exception as conn_e:
-                print(f"    ❌ {arm_name}连接失败: {conn_e}")
-                connection_results.append(False)
-        
-        # 结果汇总
-        successful_connections = sum(connection_results)
-        print(f"\n  📊 连接测试结果: {successful_connections}/2 个机械臂连接成功")
-        
-        if successful_connections > 0:
-            print("  ✅ FR3机械臂基本连接功能正常")
-            return True
-        else:
-            print("  ❌ 所有FR3机械臂连接失败")
-            return False
-            
-    except ImportError as e:
-        print(f"  ❌ 无法导入fairino库: {e}")
-        return False
-    except Exception as e:
-        print(f"  ❌ 连接测试异常: {e}")
-        return False
-
-def create_non_interactive_test_runner():
-    """创建非交互式测试运行器脚本"""
-    print("\n⚙️  创建非交互式测试运行器")
-    print("-" * 50)
-    
-    # 创建简化的测试脚本，去除用户交互
-    test_runner_content = '''#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-非交互式FR3连接测试脚本
-专门用于自动化测试，无用户交互
-"""
-
-import sys
-import os
-import time
-
-# 设置路径
-project_root = os.path.abspath(os.path.dirname(__file__))
-fr3_control_path = os.path.join(project_root, 'fr3_control')
-sys.path.insert(0, fr3_control_path)
-
-def test_single_arm(ip, arm_name):
-    """测试单个机械臂连接"""
-    try:
-        from fairino import Robot
-        
-        print(f"[{arm_name}] 连接测试开始...")
-        robot = Robot.RPC(ip)
-        
-        # 基本信息测试
-        try:
-            sdk_version = robot.GetSDKVersion()
-            print(f"[{arm_name}] ✅ SDK版本: {sdk_version}")
-        except Exception as e:
-            print(f"[{arm_name}] ⚠️ GetSDKVersion失败: {e}")
-        
-        try:
-            controller_ip = robot.GetControllerIP()
-            print(f"[{arm_name}] ✅ 控制器IP: {controller_ip}")
-        except Exception as e:
-            print(f"[{arm_name}] ⚠️ GetControllerIP失败: {e}")
-        
-        # 清理连接
-        robot.CloseRPC()
-        print(f"[{arm_name}] ✅ 连接测试完成")
-        return True
-        
-    except Exception as e:
-        print(f"[{arm_name}] ❌ 连接失败: {e}")
-        return False
-
-def main():
-    """主函数"""
-    print("=== 非交互式FR3连接测试 ===")
-    
-    # 测试两个机械臂
-    results = []
-    test_ips = [
-        ("192.168.58.2", "右臂"),
-        ("192.168.58.3", "左臂")
+    # 查找可用的测试脚本
+    test_scripts = [
+        ("tests/fr3_simple_test.py", "FR3简单连接测试"),
+        ("tests/dual_arm_connection.py", "双臂连接测试"),
+        ("tests/hermes_test_connection.py", "Hermes连接测试")
     ]
-    
-    for ip, arm_name in test_ips:
-        result = test_single_arm(ip, arm_name)
-        results.append(result)
-    
-    # 结果汇总
-    successful = sum(results)
-    print(f"\\n=== 测试结果: {successful}/2 个机械臂连接成功 ===")
-    
-    return 0 if successful > 0 else 1
-
-if __name__ == "__main__":
-    sys.exit(main())
-'''
-    
-    try:
-        test_runner_path = "non_interactive_test.py"
-        with open(test_runner_path, 'w', encoding='utf-8') as f:
-            f.write(test_runner_content)
-        print(f"  ✅ 创建非交互式测试脚本: {test_runner_path}")
-        return test_runner_path
-    except Exception as e:
-        print(f"  ❌ 创建测试脚本失败: {e}")
-        return None
-
-def run_non_interactive_tests():
-    """运行非交互式测试"""
-    print("\n🧪 [可选] 运行非交互式自动测试")
-    print("-" * 50)
-    
-    # 创建非交互式测试脚本
-    test_script = create_non_interactive_test_runner()
-    if not test_script:
-        print("  ❌ 无法创建测试脚本")
-        return False
     
     # 确定Python执行路径
     if os.path.exists("venv"):
@@ -472,61 +311,162 @@ def run_non_interactive_tests():
     else:
         python_exe = sys.executable
     
+    # 检查测试脚本是否存在
+    available_tests = []
+    for script, description in test_scripts:
+        if os.path.exists(script):
+            available_tests.append((script, description))
+    
+    if not available_tests:
+        print("  ⚠️  未找到可用的测试脚本")
+        return True
+    
+    print(f"  发现 {len(available_tests)} 个测试脚本")
+    print("  📝 注意：测试将从项目根目录运行，以确保正确的路径解析")
+    
+    # 询问是否运行测试
+    print("\n  是否运行快速测试？")
+    print("  y - 运行所有测试")
+    print("  s - 选择性运行")
+    print("  n - 跳过测试")
+    
+    choice = input("  请选择 (y/s/n): ").strip().lower()
+    
+    if choice == 'n':
+        print("  ⚠️  跳过测试")
+        return True
+    elif choice == 's':
+        return run_selective_tests(available_tests, python_exe)
+    else:
+        return run_all_tests(available_tests, python_exe)
+
+def run_all_tests(available_tests, python_exe):
+    """运行所有测试"""
+    print("  运行所有测试...")
+    
+    # 获取项目根目录的绝对路径
+    project_root = os.path.abspath(os.getcwd())
+    
+    for script, description in available_tests:
+        print(f"\n  📝 运行 {description}...")
+        try:
+            # 创建修改后的环境变量，包含项目根目录路径
+            env = os.environ.copy()
+            env['PYTHONPATH'] = project_root + os.pathsep + env.get('PYTHONPATH', '')
+            env['PYTHONIOENCODING'] = 'utf-8'  # 强制使用UTF-8编码
+            
+            # 运行测试，确保从项目根目录运行，并传递环境变量
+            result = subprocess.run(
+                [python_exe, script],
+                cwd=project_root,  # 设置工作目录为项目根目录
+                env=env,           # 传递修改后的环境变量
+                capture_output=True, text=True, timeout=60,
+                encoding='utf-8', errors='replace'  # 强制UTF-8编码，遇到问题时替换字符
+            )
+            
+            if result.returncode == 0:
+                print(f"    ✅ {description} - 成功")
+                # 显示成功输出的关键信息
+                if result.stdout:
+                    success_lines = [line for line in result.stdout.split('\n') 
+                                   if '✓' in line or '[OK]' in line or '成功' in line or 'SUCCESS' in line]
+                    for line in success_lines[:3]:  # 只显示前3行成功信息
+                        if line.strip():
+                            try:
+                                print(f"      {line.strip()}")
+                            except UnicodeEncodeError:
+                                # 如果还是有编码问题，安全地显示
+                                safe_line = line.encode('ascii', errors='ignore').decode('ascii')
+                                print(f"      {safe_line.strip()}")
+            else:
+                print(f"    ❌ {description} - 失败")
+                if result.stderr:
+                    # 显示错误信息的关键部分，处理编码问题
+                    error_lines = result.stderr.split('\n')
+                    for line in error_lines[:5]:  # 显示前5行错误信息
+                        if line.strip() and 'Traceback' not in line:
+                            try:
+                                print(f"      {line.strip()}")
+                            except UnicodeEncodeError:
+                                safe_line = line.encode('ascii', errors='ignore').decode('ascii')
+                                print(f"      {safe_line.strip()}")
+                if result.stdout:
+                    # 也检查stdout中的错误信息
+                    stdout_lines = result.stdout.split('\n')
+                    for line in stdout_lines[:3]:
+                        if '✗' in line or '[ERROR]' in line or '失败' in line or 'ERROR' in line:
+                            try:
+                                print(f"      {line.strip()}")
+                            except UnicodeEncodeError:
+                                safe_line = line.encode('ascii', errors='ignore').decode('ascii')
+                                print(f"      {safe_line.strip()}")
+                            
+        except subprocess.TimeoutExpired:
+            print(f"    ⚠️  {description} - 超时（60秒）")
+        except Exception as e:
+            print(f"    ❌ {description} - 异常: {e}")
+    
+    return True
+
+def run_selective_tests(available_tests, python_exe):
+    """选择性运行测试"""
+    print("  可用测试:")
+    for i, (script, description) in enumerate(available_tests, 1):
+        print(f"    {i}. {description}")
+    
     try:
-        print("  🚀 运行非交互式测试...")
+        selection = input("  请输入要运行的测试编号 (多个用逗号分隔): ").strip()
+        if not selection:
+            print("  ⚠️  未选择测试")
+            return True
+        
+        indices = [int(x.strip()) - 1 for x in selection.split(',')]
         
         # 获取项目根目录的绝对路径
         project_root = os.path.abspath(os.getcwd())
         
-        # 创建修改后的环境变量
-        env = os.environ.copy()
-        env['PYTHONPATH'] = project_root + os.pathsep + env.get('PYTHONPATH', '')
-        env['PYTHONIOENCODING'] = 'utf-8'
+        for idx in indices:
+            if 0 <= idx < len(available_tests):
+                script, description = available_tests[idx]
+                print(f"\n  📝 运行 {description}...")
+                
+                try:
+                    # 创建修改后的环境变量
+                    env = os.environ.copy()
+                    env['PYTHONPATH'] = project_root + os.pathsep + env.get('PYTHONPATH', '')
+                    
+                    result = subprocess.run(
+                        [python_exe, script],
+                        cwd=project_root,  # 设置工作目录为项目根目录
+                        env=env,           # 传递修改后的环境变量
+                        capture_output=True, text=True, timeout=60
+                    )
+                    
+                    if result.returncode == 0:
+                        print(f"    ✅ {description} - 成功")
+                        # 显示一些成功的关键信息
+                        if result.stdout:
+                            success_lines = [line for line in result.stdout.split('\n') if '✓' in line or '成功' in line]
+                            for line in success_lines[:2]:
+                                if line.strip():
+                                    print(f"      {line.strip()}")
+                    else:
+                        print(f"    ❌ {description} - 失败")
+                        if result.stderr:
+                            error_lines = result.stderr.split('\n')
+                            for line in error_lines[:3]:
+                                if line.strip() and 'Traceback' not in line:
+                                    print(f"      {line.strip()}")
+                except Exception as e:
+                    print(f"    ❌ {description} - 异常: {e}")
+            else:
+                print(f"    ❌ 无效编号: {idx + 1}")
         
-        # 运行测试
-        result = subprocess.run(
-            [python_exe, test_script],
-            cwd=project_root,
-            env=env,
-            capture_output=True, 
-            text=True, 
-            timeout=30,  # 30秒超时
-            encoding='utf-8', 
-            errors='replace'
-        )
+        return True
         
-        if result.returncode == 0:
-            print("  ✅ 非交互式测试成功完成")
-            # 显示关键输出
-            if result.stdout:
-                print("  📋 测试输出:")
-                for line in result.stdout.split('\n')[:10]:  # 只显示前10行
-                    if line.strip():
-                        print(f"    {line.strip()}")
-            return True
-        else:
-            print("  ❌ 非交互式测试失败")
-            if result.stderr:
-                print("  📋 错误信息:")
-                for line in result.stderr.split('\n')[:5]:  # 显示前5行错误
-                    if line.strip() and 'Traceback' not in line:
-                        print(f"    {line.strip()}")
-            return False
-            
-    except subprocess.TimeoutExpired:
-        print("  ⚠️  非交互式测试超时（30秒）")
+    except ValueError:
+        print("    ❌ 输入格式错误")
         return False
-    except Exception as e:
-        print(f"  ❌ 运行非交互式测试异常: {e}")
-        return False
-    finally:
-        # 清理测试脚本
-        try:
-            if os.path.exists(test_script):
-                os.remove(test_script)
-                print(f"  🗑️  已清理临时测试脚本")
-        except:
-            pass
 
 def create_missing_files():
     """创建缺失的基础文件"""
@@ -600,7 +540,7 @@ def show_system_summary(checks_passed):
         "依赖包",
         "FR3库",
         "网络连通",
-        "FR3连接测试"
+        "测试脚本"
     ]
     
     passed_count = sum(checks_passed)
@@ -610,7 +550,7 @@ def show_system_summary(checks_passed):
     
     for i, (name, passed) in enumerate(zip(check_names, checks_passed)):
         status = "✅ 通过" if passed else "❌ 失败"
-        print(f"  {name:12} {status}")
+        print(f"  {name:10} {status}")
     
     # 给出建议
     if passed_count == total_count:
@@ -645,19 +585,14 @@ def show_next_steps():
         print(f"   请先创建 main.py 主程序文件")
     
     print(f"\n🔧 手动测试:")
-    print(f"   python tests/fr3_simple_test.py          # 测试单臂连接")
-    print(f"   python tests/dual_arm_connection.py      # 测试双臂连接")
+    print(f"   python fr3_simple_test.py          # 测试单臂连接")
+    print(f"   python dual_arm_connection.py      # 测试双臂连接")
     
     print(f"\n📁 项目文件:")
-    print(f"   robot_config.yaml                        # 主配置文件")
-    print(f"   logs/                                    # 日志目录")
-    print(f"   fr3_control/                             # FR3控制库")
-    print(f"   main_control/                            # 主控制模块")
-    
-    print(f"\n💡 解决超时问题:")
-    print(f"   - 现有测试脚本包含用户交互，通过subprocess调用会阻塞")
-    print(f"   - 建议直接运行测试脚本进行调试")
-    print(f"   - 或者使用上面创建的非交互式测试")
+    print(f"   robot_config.yaml                  # 主配置文件")
+    print(f"   logs/                              # 日志目录")
+    print(f"   fr3_control/                       # FR3控制库")
+    print(f"   main_control/                      # 主控制模块")
 
 def main():
     """主函数"""
@@ -678,14 +613,14 @@ def main():
     if created_files:
         print(f"  💾 创建了 {len(created_files)} 个文件")
     
-    # 执行检查步骤（使用直接测试代替subprocess测试）
+    # 执行检查步骤
     checks = [
         check_project_structure,
         check_python_environment,
         check_dependencies,
         check_fr3_library,
         test_network_connectivity,
-        test_fr3_connection_directly  # 使用直接测试代替subprocess
+        run_test_scripts  # 更新函数名
     ]
     
     results = []
@@ -699,16 +634,6 @@ def main():
         except Exception as e:
             print(f"\n❌ 检查过程异常: {e}")
             results.append(False)
-    
-    # 可选的非交互式测试
-    print(f"\n" + "="*50)
-    run_auto_test = input("是否运行自动化非交互式测试？(y/N): ").strip().lower()
-    if run_auto_test in ['y', 'yes']:
-        auto_test_result = run_non_interactive_tests()
-        if auto_test_result:
-            print("  ✅ 自动化测试补充完成")
-        else:
-            print("  ⚠️  自动化测试未完全成功，但不影响主要功能")
     
     # 显示摘要
     system_ready = show_system_summary(results)
