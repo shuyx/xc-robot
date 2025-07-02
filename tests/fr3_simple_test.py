@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-FR3机械臂综合测试程序
+FR3机械臂连接和运动测试程序
 集成连接测试、安全运动测试和标准运动测试
+兼容原有的fr3_simple_test.py接口
 """
 
 import time
