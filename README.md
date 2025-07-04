@@ -1,9 +1,28 @@
 # xc-robot
 xc robot 的调试
+尝试开发 xc-os system，用来调试mvp1.0的场景、功能等各种情况测试和验证
 
 ## Code Reviews
 
-- hermes_controller.py：控制hermes底盘，在几个点之间来回运行；
-- hermes_test_connection.py：连接底盘hermes，测试hermes在wfi连接模式（STA模式）下的连接如何；
-- fr3_simple_test.py：测试单个机械臂，为右臂，运动较为复杂，存在负载过重的问题（运动复杂但速度慢）
-- fr3_safe_test.py：测试单个机械臂，可控运动下的行为（注意，要把当前状态的照片发过去进行分析，好让他们知道机械臂互相之间可能会打架）
+- fr3_control
+    - fairino: sdk文件夹
+    - Robot.py python版本的导入模块
+- function_test
+    - 功能测试用文件夹
+    - 测试时，最好将py文件放到根目录
+- gui
+    - gui界面的weidget组件
+- main_control
+    - 主要控制程序，多为集成功能
+- tests
+    - 独立模块或设备的功能测试，可单独进行测试
+- quick_start.py
+    - 快速检查目前所有设备和连接
+- requirements.txt
+    - 依赖文件
+- start_gui.py
+    - 启动gui界面
+- venv
+    - 虚拟环境启动，里面安装依赖，python解释器
+    - venv\Scripts\activate
+    - deactivate（解除）
