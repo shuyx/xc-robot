@@ -44,6 +44,12 @@ class ChassisSimulationWidget(QWidget):
         self.animation_speed = 100  # 动画速度百分比
         self.is_manual_seeking = False  # 是否正在手动拖动进度
         
+        # 坐标系状态
+        self.x_inverted = False  # X轴是否反向
+        self.y_inverted = False  # Y轴是否反向
+        self.chassis_rotation_offset = 0  # 底盘额外旋转角度
+        self.coordinate_origin = [30, 30]  # 坐标系原点位置
+        
     def paintEvent(self, event):
         """绘制底盘仿真"""
         painter = QPainter(self)
@@ -113,41 +119,65 @@ class ChassisSimulationWidget(QWidget):
         """绘制坐标系"""
         painter.save()
         
-        # 坐标系位置（左上角）
-        origin_x, origin_y = 30, 30
+        # 使用动态原点位置
+        origin_x, origin_y = self.coordinate_origin
         axis_length = 40
         
-        # X轴（红色，向右）
+        # X轴方向（根据反向状态决定）
+        x_direction = -1 if self.x_inverted else 1
+        x_end_x = origin_x + axis_length * x_direction
+        
+        # Y轴方向（根据反向状态决定）
+        y_direction = -1 if self.y_inverted else 1
+        y_end_y = origin_y + axis_length * y_direction
+        
+        # X轴（红色）
         painter.setPen(QPen(QColor(255, 0, 0), 3))
-        painter.drawLine(origin_x, origin_y, origin_x + axis_length, origin_y)
+        painter.drawLine(origin_x, origin_y, x_end_x, origin_y)
         
         # X轴箭头
         painter.setBrush(QBrush(QColor(255, 0, 0)))
-        x_arrow = [
-            QPoint(origin_x + axis_length, origin_y),
-            QPoint(origin_x + axis_length - 8, origin_y - 4),
-            QPoint(origin_x + axis_length - 8, origin_y + 4)
-        ]
+        if self.x_inverted:
+            x_arrow = [
+                QPoint(x_end_x, origin_y),
+                QPoint(x_end_x + 8, origin_y - 4),
+                QPoint(x_end_x + 8, origin_y + 4)
+            ]
+        else:
+            x_arrow = [
+                QPoint(x_end_x, origin_y),
+                QPoint(x_end_x - 8, origin_y - 4),
+                QPoint(x_end_x - 8, origin_y + 4)
+            ]
         painter.drawPolygon(x_arrow)
         
-        # Y轴（绿色，向下）
+        # Y轴（绿色）
         painter.setPen(QPen(QColor(0, 150, 0), 3))
-        painter.drawLine(origin_x, origin_y, origin_x, origin_y + axis_length)
+        painter.drawLine(origin_x, origin_y, origin_x, y_end_y)
         
         # Y轴箭头
         painter.setBrush(QBrush(QColor(0, 150, 0)))
-        y_arrow = [
-            QPoint(origin_x, origin_y + axis_length),
-            QPoint(origin_x - 4, origin_y + axis_length - 8),
-            QPoint(origin_x + 4, origin_y + axis_length - 8)
-        ]
+        if self.y_inverted:
+            y_arrow = [
+                QPoint(origin_x, y_end_y),
+                QPoint(origin_x - 4, y_end_y + 8),
+                QPoint(origin_x + 4, y_end_y + 8)
+            ]
+        else:
+            y_arrow = [
+                QPoint(origin_x, y_end_y),
+                QPoint(origin_x - 4, y_end_y - 8),
+                QPoint(origin_x + 4, y_end_y - 8)
+            ]
         painter.drawPolygon(y_arrow)
         
         # 标签
         painter.setPen(QPen(QColor(50, 50, 50)))
         painter.setFont(QFont("Arial", 12, QFont.Bold))
-        painter.drawText(origin_x + axis_length + 5, origin_y + 5, "X")
-        painter.drawText(origin_x - 5, origin_y + axis_length + 15, "Y")
+        x_label_x = x_end_x + (5 if not self.x_inverted else -15)
+        y_label_y = y_end_y + (15 if not self.y_inverted else -5)
+        painter.drawText(x_label_x, origin_y + 5, "X")
+        painter.drawText(origin_x - 5, y_label_y, "Y")
         painter.drawText(origin_x - 15, origin_y - 5, "O")
         
         painter.restore()
@@ -157,37 +187,33 @@ class ChassisSimulationWidget(QWidget):
         painter.save()
         
         # 比例尺位置（右上角）
-        margin = 20
-        ruler_x = self.width() - 150 - margin
-        ruler_y = margin + 20
+        margin = 15
+        ruler_x = self.width() - 120 - margin
+        ruler_y = margin + 10
         
-        # 绘制比例尺背景
-        painter.setBrush(QBrush(QColor(255, 255, 255, 220)))
-        painter.setPen(QPen(QColor(100, 100, 100), 1))
-        painter.drawRect(ruler_x - 10, ruler_y - 15, 140, 60)
+        # 绘制比例尺标尺（以米为单位）
+        scale_length_m = 0.5  # 0.5米标尺
+        scale_length_pixels = int(scale_length_m * 1000 * self.scale_ratio)  # 转换为像素
         
-        # 绘制比例尺标尺
-        scale_length_mm = 500  # 500mm标尺
-        scale_length_pixels = int(scale_length_mm * self.scale_ratio)
-        
-        # 标尺线
-        painter.setPen(QPen(QColor(50, 50, 50), 2))
-        painter.drawLine(ruler_x, ruler_y + 20, ruler_x + scale_length_pixels, ruler_y + 20)
+        # 标尺线（加粗，黑色）
+        painter.setPen(QPen(QColor(0, 0, 0), 3))
+        painter.drawLine(ruler_x, ruler_y + 15, ruler_x + scale_length_pixels, ruler_y + 15)
         
         # 标尺刻度
-        painter.drawLine(ruler_x, ruler_y + 15, ruler_x, ruler_y + 25)
-        painter.drawLine(ruler_x + scale_length_pixels, ruler_y + 15, ruler_x + scale_length_pixels, ruler_y + 25)
+        painter.setPen(QPen(QColor(0, 0, 0), 2))
+        painter.drawLine(ruler_x, ruler_y + 10, ruler_x, ruler_y + 20)
+        painter.drawLine(ruler_x + scale_length_pixels, ruler_y + 10, ruler_x + scale_length_pixels, ruler_y + 20)
         
-        # 标尺文字
-        painter.setPen(QPen(QColor(50, 50, 50)))
+        # 标尺文字（以米为单位）
+        painter.setPen(QPen(QColor(0, 0, 0)))
         painter.setFont(QFont("Arial", 10, QFont.Bold))
-        painter.drawText(ruler_x, ruler_y + 10, "0")
-        painter.drawText(ruler_x + scale_length_pixels - 15, ruler_y + 10, "500mm")
+        painter.drawText(ruler_x - 5, ruler_y + 8, "0")
+        painter.drawText(ruler_x + scale_length_pixels - 10, ruler_y + 8, "0.5m")
         
-        # 比例信息
+        # 网格信息（简洁显示）
         painter.setFont(QFont("Arial", 8))
-        painter.drawText(ruler_x, ruler_y + 40, f"网格: {self.grid_real_size}mm")
-        painter.drawText(ruler_x, ruler_y + 52, f"比例: 1:{int(1/self.scale_ratio)}")
+        grid_size_m = self.grid_real_size / 1000  # 转换为米
+        painter.drawText(ruler_x, ruler_y + 30, f"网格: {grid_size_m}m")
         
         painter.restore()
     
@@ -196,23 +222,34 @@ class ChassisSimulationWidget(QWidget):
         x = self.chassis_pos[0] * self.grid_size
         y = self.chassis_pos[1] * self.grid_size
         
-        # 保存当前变换
-        painter.save()
-        
-        # 移动到底盘位置并旋转
-        painter.translate(x, y)
-        painter.rotate(self.chassis_angle)
-        
-        # 根据实际尺寸绘制底盘矩形
+        # 根据实际尺寸计算底盘矩形尺寸
         # 465mm x 545mm，按比例缩放
         half_width = self.chassis_pixel_width // 2
         half_length = self.chassis_pixel_length // 2
+        
+        # 1. 绘制底盘矩形（会受到rotation_offset影响）
+        painter.save()
+        painter.translate(x, y)
+        painter.rotate(self.chassis_angle + self.chassis_rotation_offset)
         
         painter.setBrush(QBrush(QColor(255, 150, 50)))
         painter.setPen(QPen(QColor(200, 100, 0), 2))
         painter.drawRect(-half_width, -half_length, self.chassis_pixel_width, self.chassis_pixel_length)
         
-        # 绘制大型方向箭头（更明显，适应底盘尺寸）
+        # 绘制底盘标识和尺寸信息（跟随矩形旋转）
+        painter.setPen(QPen(QColor(255, 255, 255)))
+        painter.setFont(QFont("Arial", 6, QFont.Bold))
+        text_y = -half_length + 8
+        painter.drawText(-half_width + 2, text_y, "HERMES")
+        painter.drawText(-half_width + 2, text_y + 10, f"{self.chassis_real_width}×{self.chassis_real_length}mm")
+        
+        painter.restore()
+        
+        # 2. 绘制方向箭头（不受rotation_offset影响，永远指向chassis_angle方向）
+        painter.save()
+        painter.translate(x, y)
+        painter.rotate(self.chassis_angle)  # 只使用原始角度，不加rotation_offset
+        
         painter.setBrush(QBrush(QColor(220, 50, 50)))
         painter.setPen(QPen(QColor(180, 30, 30), 2))
         
@@ -232,14 +269,6 @@ class ChassisSimulationWidget(QWidget):
         ]
         painter.drawPolygon(main_arrow)
         
-        # 绘制底盘标识和尺寸信息
-        painter.setPen(QPen(QColor(255, 255, 255)))
-        painter.setFont(QFont("Arial", 6, QFont.Bold))
-        text_y = -half_length + 8
-        painter.drawText(-half_width + 2, text_y, "HERMES")
-        painter.drawText(-half_width + 2, text_y + 10, f"{self.chassis_real_width}×{self.chassis_real_length}mm")
-        
-        # 恢复变换
         painter.restore()
     
     def draw_arrow(self, painter, x, y, angle):
@@ -309,6 +338,36 @@ class ChassisSimulationWidget(QWidget):
         if not self.path_points:
             return 0
         return int(self.current_path_index * 100 / len(self.path_points))
+    
+    def toggle_xy_direction(self):
+        """切换X/Y轴方向"""
+        # 计算当前坐标轴构成矩形的对角线角点
+        axis_length = 40
+        if not self.x_inverted and not self.y_inverted:
+            # 从默认状态切换：原点(30,30)，对角线角点(70,70)
+            self.coordinate_origin = [30 + axis_length, 30 + axis_length]
+        elif self.x_inverted and self.y_inverted:
+            # 从反转状态切换回默认：恢复到原始原点
+            self.coordinate_origin = [30, 30]
+        else:
+            # 从部分反转状态切换：计算新的合适原点
+            current_x, current_y = self.coordinate_origin
+            if self.x_inverted != self.y_inverted:
+                # 调整原点位置以保持显示在可见区域
+                if not self.x_inverted:  # Y轴已反转
+                    self.coordinate_origin = [current_x, 30 + axis_length]
+                else:  # X轴已反转
+                    self.coordinate_origin = [30 + axis_length, current_y]
+        
+        # 切换轴向
+        self.x_inverted = not self.x_inverted
+        self.y_inverted = not self.y_inverted
+        self.update()
+    
+    def rotate_chassis_90(self):
+        """底盘矩形旋转90度（不影响红色箭头）"""
+        self.chassis_rotation_offset = (self.chassis_rotation_offset + 90) % 360
+        self.update()
 
 class ArmSimulationWidget(QWidget):
     """机械臂仿真显示区域"""
@@ -552,6 +611,34 @@ class SimulationWidget(QWidget):
         # 左侧：底盘仿真
         chassis_group = QGroupBox("底盘运动仿真")
         chassis_layout = QVBoxLayout(chassis_group)
+        
+        # 底盘仿真控制按钮（在标题旁边）
+        chassis_title_layout = QHBoxLayout()
+        chassis_title_layout.addWidget(QLabel(""))  # 占位
+        chassis_title_layout.addStretch()
+        
+        # X/Y方向切换按钮
+        self.xy_toggle_button = QPushButton("🔄 X/Y切换")
+        self.xy_toggle_button.setToolTip("切换X轴和Y轴方向")
+        self.xy_toggle_button.setMaximumWidth(100)
+        
+        # 90度旋转按钮
+        self.rotate_90_button = QPushButton("🔄 90°旋转")
+        self.rotate_90_button.setToolTip("底盘矩形围绕质心旋转90度")
+        self.rotate_90_button.setMaximumWidth(100)
+        
+        # 设置按钮字体
+        button_font = QFont()
+        button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        button_font.setPointSize(8)
+        self.xy_toggle_button.setFont(button_font)
+        self.rotate_90_button.setFont(button_font)
+        
+        chassis_title_layout.addWidget(self.xy_toggle_button)
+        chassis_title_layout.addWidget(self.rotate_90_button)
+        
+        chassis_layout.addLayout(chassis_title_layout)
+        
         self.chassis_sim = ChassisSimulationWidget()
         chassis_layout.addWidget(self.chassis_sim)
         
@@ -747,6 +834,10 @@ class SimulationWidget(QWidget):
         
         # 程序加载
         self.load_button.clicked.connect(self.load_program)
+        
+        # 底盘控制按钮
+        self.xy_toggle_button.clicked.connect(self.toggle_xy_direction)
+        self.rotate_90_button.clicked.connect(self.rotate_chassis_90)
         
         # 速度和进度控制
         self.chassis_speed_slider.valueChanged.connect(self.update_chassis_speed)
@@ -960,3 +1051,13 @@ class SimulationWidget(QWidget):
                 
         else:
             self.log_message.emit("未选择程序文件", "WARNING")
+    
+    def toggle_xy_direction(self):
+        """切换X/Y轴方向"""
+        self.chassis_sim.toggle_xy_direction()
+        self.log_message.emit("已切换X/Y轴方向", "INFO")
+    
+    def rotate_chassis_90(self):
+        """底盘矩形旋转90度"""
+        self.chassis_sim.rotate_chassis_90()
+        self.log_message.emit("底盘矩形已旋转90度", "INFO")
