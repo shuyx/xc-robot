@@ -368,6 +368,13 @@ class ChassisSimulationWidget(QWidget):
         """底盘矩形旋转90度（不影响红色箭头）"""
         self.chassis_rotation_offset = (self.chassis_rotation_offset + 90) % 360
         self.update()
+    
+    def clear_path(self):
+        """清除路径点和重置状态"""
+        self.path_points = []
+        self.current_path_index = 0
+        self.stop_animation()
+        self.update()
 
 class ArmSimulationWidget(QWidget):
     """机械臂仿真显示区域"""
@@ -627,15 +634,22 @@ class SimulationWidget(QWidget):
         self.rotate_90_button.setToolTip("底盘矩形围绕质心旋转90度")
         self.rotate_90_button.setMaximumWidth(100)
         
+        # 清除路径按钮
+        self.clear_path_button = QPushButton("🗑️ 清除路径")
+        self.clear_path_button.setToolTip("一键清除底盘运动仿真中的蓝色路径线条")
+        self.clear_path_button.setMaximumWidth(100)
+        
         # 设置按钮字体
         button_font = QFont()
         button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
         button_font.setPointSize(8)
         self.xy_toggle_button.setFont(button_font)
         self.rotate_90_button.setFont(button_font)
+        self.clear_path_button.setFont(button_font)
         
         chassis_title_layout.addWidget(self.xy_toggle_button)
         chassis_title_layout.addWidget(self.rotate_90_button)
+        chassis_title_layout.addWidget(self.clear_path_button)
         
         chassis_layout.addLayout(chassis_title_layout)
         
@@ -838,6 +852,7 @@ class SimulationWidget(QWidget):
         # 底盘控制按钮
         self.xy_toggle_button.clicked.connect(self.toggle_xy_direction)
         self.rotate_90_button.clicked.connect(self.rotate_chassis_90)
+        self.clear_path_button.clicked.connect(self.clear_chassis_path)
         
         # 速度和进度控制
         self.chassis_speed_slider.valueChanged.connect(self.update_chassis_speed)
@@ -1061,3 +1076,13 @@ class SimulationWidget(QWidget):
         """底盘矩形旋转90度"""
         self.chassis_sim.rotate_chassis_90()
         self.log_message.emit("底盘矩形已旋转90度", "INFO")
+    
+    def clear_chassis_path(self):
+        """清除底盘路径"""
+        self.chassis_sim.clear_path()
+        # 重置进度条
+        self.chassis_progress_slider.setValue(0)
+        self.chassis_progress_label.setText("0%")
+        # 停止动画
+        self.stop_chassis_animation()
+        self.log_message.emit("已清除底盘路径", "INFO")
