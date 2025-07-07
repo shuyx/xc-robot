@@ -20,6 +20,7 @@ from connection_widget import ConnectionWidget
 from log_widget import LogWidget
 from arm_control_widget import ArmControlWidget
 from chassis_widget import ChassisWidget
+from simulation_widget import SimulationWidget
 
 class XCRobotMainWindow(QMainWindow):
     """XC-ROBOT 主窗口"""
@@ -45,11 +46,13 @@ class XCRobotMainWindow(QMainWindow):
         self.connection_widget = ConnectionWidget()
         self.arm_control_widget = ArmControlWidget()
         self.chassis_widget = ChassisWidget()
+        self.simulation_widget = SimulationWidget()
         
-        # 添加选项卡 (只保留3个)
+        # 添加选项卡 (只保留4个)
         self.tab_widget.addTab(self.connection_widget, "🔗 连接测试")
         self.tab_widget.addTab(self.arm_control_widget, "🤖 机械臂控制")
         self.tab_widget.addTab(self.chassis_widget, "🚛 底盘控制")
+        self.tab_widget.addTab(self.simulation_widget, "🎮 仿真系统")
         
         # 右侧日志面板
         self.log_widget = LogWidget()
@@ -95,6 +98,7 @@ class XCRobotMainWindow(QMainWindow):
         self.connection_widget.log_message.connect(self.log_widget.add_message)
         self.arm_control_widget.log_message.connect(self.log_widget.add_message)
         self.chassis_widget.log_message.connect(self.log_widget.add_message)
+        self.simulation_widget.log_message.connect(self.log_widget.add_message)
         
         # 启动消息
         QTimer.singleShot(100, lambda: self.log_widget.add_message("XC-ROBOT 系统启动完成", "SUCCESS"))
