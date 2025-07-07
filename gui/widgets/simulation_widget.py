@@ -50,6 +50,12 @@ class ChassisSimulationWidget(QWidget):
         self.chassis_rotation_offset = 0  # 底盘额外旋转角度
         self.coordinate_origin = [30, 30]  # 坐标系原点位置
         
+        # 交互式路径绘制状态
+        self.drawing_mode = False  # 是否处于绘制模式
+        self.drawing_path = []  # 正在绘制的路径点
+        self.last_grid_pos = None  # 上一个网格位置
+        self.start_grid_pos = None  # 起始网格位置
+        
     def paintEvent(self, event):
         """绘制底盘仿真"""
         painter = QPainter(self)
@@ -87,33 +93,57 @@ class ChassisSimulationWidget(QWidget):
     
     def draw_path(self, painter):
         """绘制路径"""
-        if len(self.path_points) < 2:
-            return
+        # 绘制已确定的路径
+        if len(self.path_points) >= 2:
+            painter.setPen(QPen(QColor(100, 150, 255), 2))
             
-        painter.setPen(QPen(QColor(100, 150, 255), 2))
+            # 绘制路径线
+            for i in range(len(self.path_points) - 1):
+                x1 = self.path_points[i][0] * self.grid_size
+                y1 = self.path_points[i][1] * self.grid_size
+                x2 = self.path_points[i + 1][0] * self.grid_size
+                y2 = self.path_points[i + 1][1] * self.grid_size
+                painter.drawLine(x1, y1, x2, y2)
+                
+            # 绘制路径点和方向
+            for i, (x, y, angle) in enumerate(self.path_points):
+                px = x * self.grid_size
+                py = y * self.grid_size
+                
+                # 绘制路径点
+                if i == self.current_path_index:
+                    painter.setBrush(QBrush(QColor(255, 100, 100)))
+                else:
+                    painter.setBrush(QBrush(QColor(100, 150, 255)))
+                painter.drawEllipse(px - 4, py - 4, 8, 8)
+                
+                # 绘制方向箭头
+                self.draw_arrow(painter, px, py, angle)
         
-        # 绘制路径线
-        for i in range(len(self.path_points) - 1):
-            x1 = self.path_points[i][0] * self.grid_size
-            y1 = self.path_points[i][1] * self.grid_size
-            x2 = self.path_points[i + 1][0] * self.grid_size
-            y2 = self.path_points[i + 1][1] * self.grid_size
-            painter.drawLine(x1, y1, x2, y2)
+        # 绘制正在绘制的路径（实时预览）
+        if self.drawing_mode and len(self.drawing_path) >= 2:
+            painter.setPen(QPen(QColor(255, 200, 100), 3))  # 橙色，更粗的线条
             
-        # 绘制路径点和方向
-        for i, (x, y, angle) in enumerate(self.path_points):
-            px = x * self.grid_size
-            py = y * self.grid_size
-            
-            # 绘制路径点
-            if i == self.current_path_index:
-                painter.setBrush(QBrush(QColor(255, 100, 100)))
-            else:
-                painter.setBrush(QBrush(QColor(100, 150, 255)))
-            painter.drawEllipse(px - 4, py - 4, 8, 8)
-            
-            # 绘制方向箭头
-            self.draw_arrow(painter, px, py, angle)
+            # 绘制绘制中的路径线
+            for i in range(len(self.drawing_path) - 1):
+                x1 = self.drawing_path[i][0] * self.grid_size
+                y1 = self.drawing_path[i][1] * self.grid_size
+                x2 = self.drawing_path[i + 1][0] * self.grid_size
+                y2 = self.drawing_path[i + 1][1] * self.grid_size
+                painter.drawLine(x1, y1, x2, y2)
+                
+            # 绘制绘制中的路径点
+            painter.setBrush(QBrush(QColor(255, 150, 50)))
+            for i, (x, y, angle) in enumerate(self.drawing_path):
+                px = x * self.grid_size
+                py = y * self.grid_size
+                painter.drawEllipse(px - 3, py - 3, 6, 6)
+                
+                # 为起点绘制特殊标记
+                if i == 0:
+                    painter.setPen(QPen(QColor(50, 200, 50), 2))
+                    painter.drawEllipse(px - 6, py - 6, 12, 12)
+                    painter.setPen(QPen(QColor(255, 200, 100), 3))
     
     def draw_coordinate_system(self, painter):
         """绘制坐标系"""
@@ -375,6 +405,116 @@ class ChassisSimulationWidget(QWidget):
         self.current_path_index = 0
         self.stop_animation()
         self.update()
+    
+    def pixel_to_grid(self, x, y):
+        """将像素坐标转换为网格坐标"""
+        grid_x = round(x / self.grid_size)
+        grid_y = round(y / self.grid_size)
+        return grid_x, grid_y
+    
+    def grid_to_pixel(self, grid_x, grid_y):
+        """将网格坐标转换为像素坐标"""
+        x = grid_x * self.grid_size
+        y = grid_y * self.grid_size
+        return x, y
+    
+    def calculate_direction_angle(self, from_pos, to_pos):
+        """计算从from_pos到to_pos的方向角度"""
+        import math
+        dx = to_pos[0] - from_pos[0]
+        dy = to_pos[1] - from_pos[1]
+        
+        if dx == 0 and dy == 0:
+            return 0
+        
+        # 计算角度，0度为向右，90度为向下
+        angle = math.degrees(math.atan2(dy, dx))
+        # 转换为Qt的角度系统（0度向右，顺时针为正）
+        return angle
+    
+    def mousePressEvent(self, event):
+        """鼠标按下事件"""
+        if event.button() == Qt.LeftButton:
+            # 开始绘制路径
+            x, y = event.x(), event.y()
+            grid_x, grid_y = self.pixel_to_grid(x, y)
+            
+            # 检查是否在有效网格范围内
+            if 0 <= grid_x < self.width() // self.grid_size and 0 <= grid_y < self.height() // self.grid_size:
+                self.drawing_mode = True
+                self.drawing_path = []
+                self.start_grid_pos = (grid_x, grid_y)
+                self.last_grid_pos = (grid_x, grid_y)
+                
+                # 添加起始点（角度暂时为0，后面会根据移动方向调整）
+                self.drawing_path.append([grid_x, grid_y, 0])
+                self.update()
+    
+    def mouseMoveEvent(self, event):
+        """鼠标移动事件"""
+        if self.drawing_mode:
+            x, y = event.x(), event.y()
+            grid_x, grid_y = self.pixel_to_grid(x, y)
+            
+            # 检查是否移动到新的网格位置
+            if (grid_x, grid_y) != self.last_grid_pos:
+                # 计算方向角度
+                angle = self.calculate_direction_angle(self.last_grid_pos, (grid_x, grid_y))
+                
+                # 更新上一个点的角度
+                if len(self.drawing_path) > 0:
+                    self.drawing_path[-1][2] = angle
+                
+                # 添加新的路径点
+                self.drawing_path.append([grid_x, grid_y, angle])
+                self.last_grid_pos = (grid_x, grid_y)
+                self.update()
+    
+    def mouseReleaseEvent(self, event):
+        """鼠标释放事件"""
+        if event.button() == Qt.LeftButton and self.drawing_mode:
+            self.drawing_mode = False
+            
+            if len(self.drawing_path) > 1:
+                # 完成路径绘制，将绘制的路径设置为当前路径
+                self.path_points = self.drawing_path.copy()
+                self.current_path_index = 0
+                
+                # 计算路径统计信息
+                self.show_path_statistics()
+            else:
+                # 路径太短，清除
+                self.drawing_path = []
+            
+            self.update()
+    
+    def show_path_statistics(self):
+        """显示路径统计信息"""
+        if len(self.path_points) < 2:
+            return
+        
+        # 计算总距离和线段数
+        total_distance = 0
+        segment_count = len(self.path_points) - 1
+        
+        for i in range(len(self.path_points) - 1):
+            x1, y1 = self.path_points[i][0], self.path_points[i][1]
+            x2, y2 = self.path_points[i + 1][0], self.path_points[i + 1][1]
+            
+            # 计算实际距离（网格单位 * 实际尺寸）
+            dx = abs(x2 - x1) * self.grid_real_size / 1000  # 转换为米
+            dy = abs(y2 - y1) * self.grid_real_size / 1000  # 转换为米
+            distance = (dx ** 2 + dy ** 2) ** 0.5
+            total_distance += distance
+        
+        # 显示统计信息弹框
+        from PyQt5.QtWidgets import QMessageBox
+        msg = QMessageBox()
+        msg.setWindowTitle("路径绘制完成")
+        msg.setIcon(QMessageBox.Information)
+        msg.setText(f"路径绘制完成！\n\n总距离: {total_distance:.2f} 米\n线段数量: {segment_count} 段")
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()
 
 class ArmSimulationWidget(QWidget):
     """机械臂仿真显示区域"""
@@ -650,6 +790,14 @@ class SimulationWidget(QWidget):
         chassis_title_layout.addWidget(self.xy_toggle_button)
         chassis_title_layout.addWidget(self.rotate_90_button)
         chassis_title_layout.addWidget(self.clear_path_button)
+        
+        # 添加交互式绘制说明
+        drawing_help_layout = QHBoxLayout()
+        help_label = QLabel("💡 提示：在网格上拖拽鼠标可以绘制底盘路径")
+        help_label.setStyleSheet("color: #666; font-size: 10px; margin: 2px;")
+        drawing_help_layout.addWidget(help_label)
+        drawing_help_layout.addStretch()
+        chassis_layout.addLayout(drawing_help_layout)
         
         chassis_layout.addLayout(chassis_title_layout)
         
