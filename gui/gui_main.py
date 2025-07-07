@@ -45,7 +45,10 @@ def main():
     
     # 设置应用样式和字体
     app.setStyle('Fusion')
-    font = QFont("Microsoft YaHei", 9)
+    # 设置跨平台字体
+    font = QFont()
+    font.setFamily("Microsoft YaHei, PingFang SC, Helvetica, Arial")
+    font.setPointSize(9)
     app.setFont(font)
     
     # 检查依赖

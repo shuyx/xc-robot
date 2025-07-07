@@ -62,7 +62,11 @@ def main():
     app.setApplicationName("XC-ROBOT")
     app.setApplicationVersion("1.0.0")
     app.setStyle('Fusion')
-    app.setFont(QFont("Microsoft YaHei", 9))
+    # 设置跨平台字体，Windows用微软雅黑，Mac用系统默认
+    font = QFont()
+    font.setFamily("Microsoft YaHei, PingFang SC, Helvetica, Arial")
+    font.setPointSize(9)
+    app.setFont(font)
     
     try:
         # 导入主窗口

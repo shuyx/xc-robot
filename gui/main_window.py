@@ -151,7 +151,11 @@ def main():
     app = QApplication(sys.argv)
     app.setApplicationName("XC-ROBOT")
     app.setStyle('Fusion')
-    app.setFont(QFont("Microsoft YaHei", 9))
+    # 设置跨平台字体
+    font = QFont()
+    font.setFamily("Microsoft YaHei, PingFang SC, Helvetica, Arial")
+    font.setPointSize(9)
+    app.setFont(font)
     
     window = XCRobotMainWindow()
     window.show()

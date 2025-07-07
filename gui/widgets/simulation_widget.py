@@ -575,10 +575,18 @@ class SimulationWidget(QWidget):
         
         # 底盘播放控制按钮
         chassis_button_layout = QHBoxLayout()
-        self.chassis_play_button = QPushButton("▶️ 播放底盘")
-        self.chassis_pause_button = QPushButton("⏸️ 暂停")
-        self.chassis_stop_button = QPushButton("⏹️ 停止")
-        self.chassis_reset_button = QPushButton("🔄 重置")
+        self.chassis_play_button = QPushButton("播放底盘")
+        self.chassis_pause_button = QPushButton("暂停")
+        self.chassis_stop_button = QPushButton("停止")
+        self.chassis_reset_button = QPushButton("重置")
+        
+        # 设置按钮字体（Mac优先）
+        button_font = QFont()
+        button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        button_font.setPointSize(9)
+        for btn in [self.chassis_play_button, self.chassis_pause_button, 
+                   self.chassis_stop_button, self.chassis_reset_button]:
+            btn.setFont(button_font)
         
         chassis_button_layout.addWidget(self.chassis_play_button)
         chassis_button_layout.addWidget(self.chassis_pause_button)
@@ -639,10 +647,15 @@ class SimulationWidget(QWidget):
         
         # 机械臂播放控制按钮
         arm_button_layout = QHBoxLayout()
-        self.arm_play_button = QPushButton("▶️ 播放机械臂")
-        self.arm_pause_button = QPushButton("⏸️ 暂停")
-        self.arm_stop_button = QPushButton("⏹️ 停止")
-        self.arm_reset_button = QPushButton("🔄 重置")
+        self.arm_play_button = QPushButton("播放机械臂")
+        self.arm_pause_button = QPushButton("暂停")
+        self.arm_stop_button = QPushButton("停止")
+        self.arm_reset_button = QPushButton("重置")
+        
+        # 设置机械臂按钮字体（Mac优先）
+        for btn in [self.arm_play_button, self.arm_pause_button, 
+                   self.arm_stop_button, self.arm_reset_button]:
+            btn.setFont(button_font)
         
         arm_button_layout.addWidget(self.arm_play_button)
         arm_button_layout.addWidget(self.arm_pause_button)
@@ -795,7 +808,7 @@ class SimulationWidget(QWidget):
         if not self.chassis_animation_playing:
             self.chassis_animation_playing = True
             self.chassis_sim.start_animation()
-            self.chassis_play_button.setText("⏸️ 播放中...")
+            self.chassis_play_button.setText("暂停 播放中...")
             self.log_message.emit("开始播放底盘仿真动画", "INFO")
     
     def pause_chassis_animation(self):
@@ -803,7 +816,7 @@ class SimulationWidget(QWidget):
         if self.chassis_animation_playing:
             self.chassis_animation_playing = False
             self.chassis_sim.stop_animation()
-            self.chassis_play_button.setText("▶️ 播放底盘")
+            self.chassis_play_button.setText("播放 播放底盘")
             self.log_message.emit("暂停底盘仿真动画", "INFO")
     
     def stop_chassis_animation(self):
@@ -811,7 +824,7 @@ class SimulationWidget(QWidget):
         self.chassis_animation_playing = False
         self.chassis_sim.stop_animation()
         self.chassis_sim.current_path_index = 0
-        self.chassis_play_button.setText("▶️ 播放底盘")
+        self.chassis_play_button.setText("播放 播放底盘")
         self.chassis_progress_slider.setValue(0)
         self.log_message.emit("停止底盘仿真动画", "INFO")
     
@@ -856,7 +869,7 @@ class SimulationWidget(QWidget):
         """播放机械臂动画"""
         if not self.arm_animation_playing:
             self.arm_animation_playing = True
-            self.arm_play_button.setText("⏸️ 播放中...")
+            self.arm_play_button.setText("暂停 播放中...")
             self.log_message.emit("开始播放机械臂仿真动画", "INFO")
             # TODO: 实现机械臂动画播放逻辑
     
@@ -864,13 +877,13 @@ class SimulationWidget(QWidget):
         """暂停机械臂动画"""
         if self.arm_animation_playing:
             self.arm_animation_playing = False
-            self.arm_play_button.setText("▶️ 播放机械臂")
+            self.arm_play_button.setText("播放 播放机械臂")
             self.log_message.emit("暂停机械臂仿真动画", "INFO")
     
     def stop_arm_animation(self):
         """停止机械臂动画"""
         self.arm_animation_playing = False
-        self.arm_play_button.setText("▶️ 播放机械臂")
+        self.arm_play_button.setText("播放 播放机械臂")
         self.arm_progress_slider.setValue(0)
         self.log_message.emit("停止机械臂仿真动画", "INFO")
     
