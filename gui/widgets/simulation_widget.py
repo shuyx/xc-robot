@@ -24,7 +24,7 @@ class ChassisSimulationWidget(QWidget):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setMinimumSize(400, 300)
+        self.setMinimumSize(400, 400)  # 增加最小高度，给网格更多空间
         self.grid_size = 20  # 网格大小(像素)
         self.grid_real_size = 250  # 单个网格实际物理尺寸(mm)
         self.scale_ratio = self.grid_size / self.grid_real_size  # 像素/mm比例
@@ -95,6 +95,9 @@ class ChassisSimulationWidget(QWidget):
         """绘制路径"""
         # 绘制已确定的路径
         if len(self.path_points) >= 2:
+            # 先绘制包围矩形
+            self.draw_path_bounding_box(painter)
+            
             painter.setPen(QPen(QColor(100, 150, 255), 2))
             
             # 绘制路径线
@@ -144,6 +147,52 @@ class ChassisSimulationWidget(QWidget):
                     painter.setPen(QPen(QColor(50, 200, 50), 2))
                     painter.drawEllipse(px - 6, py - 6, 12, 12)
                     painter.setPen(QPen(QColor(255, 200, 100), 3))
+    
+    def draw_path_bounding_box(self, painter):
+        """绘制路径的最小包围矩形"""
+        bbox = self.calculate_path_bounding_box()
+        if not bbox:
+            return
+            
+        # 绘制包围矩形（虚线）
+        painter.setPen(QPen(QColor(150, 150, 150), 1, Qt.DashLine))
+        painter.setBrush(Qt.NoBrush)
+        
+        rect_x = bbox['min_x'] * self.grid_size
+        rect_y = bbox['min_y'] * self.grid_size
+        rect_w = bbox['width'] * self.grid_size
+        rect_h = bbox['height'] * self.grid_size
+        
+        painter.drawRect(rect_x, rect_y, rect_w, rect_h)
+        
+        # 绘制尺寸标注
+        painter.setPen(QPen(QColor(100, 100, 100), 1))
+        painter.setFont(QFont("Arial", 8))
+        
+        # 宽度标注（顶部）
+        width_text = f"{bbox['width_mm']/1000:.2f}m"
+        text_x = rect_x + rect_w // 2 - 20
+        text_y = rect_y - 5
+        painter.drawText(text_x, text_y, width_text)
+        
+        # 高度标注（右侧）
+        height_text = f"{bbox['height_mm']/1000:.2f}m"
+        text_x = rect_x + rect_w + 5
+        text_y = rect_y + rect_h // 2
+        painter.drawText(text_x, text_y, height_text)
+        
+        # 绘制尺寸线
+        painter.setPen(QPen(QColor(150, 150, 150), 1))
+        
+        # 宽度尺寸线
+        painter.drawLine(rect_x, rect_y - 3, rect_x + rect_w, rect_y - 3)
+        painter.drawLine(rect_x, rect_y - 6, rect_x, rect_y)
+        painter.drawLine(rect_x + rect_w, rect_y - 6, rect_x + rect_w, rect_y)
+        
+        # 高度尺寸线
+        painter.drawLine(rect_x + rect_w + 3, rect_y, rect_x + rect_w + 3, rect_y + rect_h)
+        painter.drawLine(rect_x + rect_w, rect_y, rect_x + rect_w + 6, rect_y)
+        painter.drawLine(rect_x + rect_w, rect_y + rect_h, rect_x + rect_w + 6, rect_y + rect_h)
     
     def draw_coordinate_system(self, painter):
         """绘制坐标系"""
@@ -406,6 +455,33 @@ class ChassisSimulationWidget(QWidget):
         self.stop_animation()
         self.update()
     
+    def calculate_path_bounding_box(self):
+        """计算路径的最小包围矩形"""
+        if len(self.path_points) < 2:
+            return None
+            
+        # 获取所有路径点的坐标
+        x_coords = [point[0] for point in self.path_points]
+        y_coords = [point[1] for point in self.path_points]
+        
+        # 计算包围矩形
+        min_x = min(x_coords)
+        max_x = max(x_coords)
+        min_y = min(y_coords)
+        max_y = max(y_coords)
+        
+        # 返回包围矩形的信息
+        return {
+            'min_x': min_x,
+            'max_x': max_x,
+            'min_y': min_y,
+            'max_y': max_y,
+            'width': max_x - min_x,
+            'height': max_y - min_y,
+            'width_mm': (max_x - min_x) * self.grid_real_size,
+            'height_mm': (max_y - min_y) * self.grid_real_size
+        }
+    
     def pixel_to_grid(self, x, y):
         """将像素坐标转换为网格坐标"""
         grid_x = round(x / self.grid_size)
@@ -517,203 +593,438 @@ class ChassisSimulationWidget(QWidget):
         msg.exec_()
 
 class ArmSimulationWidget(QWidget):
-    """机械臂仿真显示区域"""
+    """机械臂仿真显示区域 - 火柴人风格"""
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setMinimumSize(500, 400)
+        self.setMinimumSize(600, 500)
         
-        # FR3机械臂参数(mm)
-        self.base_height = 140  # 底座到J2高度
-        self.link1_length = 280  # J2到J3连杆长度
-        self.link2_length = 240  # J3到J5连杆长度
-        self.link3_length = 100  # J5到J6连杆长度
-        self.chest_width = 380  # 胸部宽度
-        self.chest_height = 320  # 胸部高度
+        # FR3机械臂精确尺寸参数 (基于参考图)
+        self.arm_dimensions = {
+            'base_to_j2': 140,      # 底座到J2摆动轴 (mm)
+            'j2_to_j3': 280,        # J2摆动轴中心到J3旋转轴中心 (mm)  
+            'j4_to_j6': 102,        # J4摆动轴中心线和J6旋转轴中轴线间距 (mm)
+            'j3_offset': 240,       # J3到J4的偏移距离 (估算)
+            'j5_offset': 100,       # J5到J6的偏移距离 (估算)
+            'end_effector': 50,     # 末端执行器长度 (估算)
+        }
+        
+        # 机器人整体结构配置 (基于参考图)
+        self.robot_structure = {
+            'chest_width': 380,     # 胸部宽度 (mm)
+            'chest_length': 350,    # 胸部长度 (mm) 
+            'chest_height': 200,    # 胸部高度 (mm)
+            'base_separation': 380, # 两臂间距 (mm)
+            'chassis_width': 455,   # 底盘宽度 (mm)
+            'chassis_length': 550,  # 底盘长度 (mm)
+            'lift_column_height': 800, # 升降轴高度 (mm)
+            'lift_column_width': 150,  # 升降轴宽度 (mm)
+        }
         
         # 关节角度 (度)
-        self.left_arm_joints = [0, 0, 0, 0, 0, 0]
-        self.right_arm_joints = [0, 0, 0, 0, 0, 0]
+        self.left_arm_joints = [0, -30, -60, -90, 0, 0]   # 默认姿态
+        self.right_arm_joints = [0, 30, 60, 90, 0, 0]     # 默认姿态
         
-        # 缩放比例
-        self.scale = 0.5
+        # 运动轨迹
+        self.left_arm_trajectory = []   # 左臂轨迹
+        self.right_arm_trajectory = []  # 右臂轨迹
+        self.trajectory_index = 0       # 当前轨迹索引
+        
+        # 显示设置
+        self.scale = 0.5           # 缩放比例（调小以适应完整结构）
+        self.view_angle_x = 25     # X轴视角
+        self.view_angle_y = 30     # Y轴视角
+        
+        # 关节和连杆显示尺寸
+        self.joint_size = 8        # 关节方块尺寸（调小以匹配缩放）
+        self.link_thickness = 4    # 连杆粗细（调小以匹配缩放）
         
     def paintEvent(self, event):
-        """绘制机械臂仿真"""
+        """绘制机械臂仿真 - 火柴人风格"""
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         
-        # 分为上下两部分
-        height = self.height()
-        width = self.width()
+        # 设置背景
+        painter.fillRect(self.rect(), QColor(245, 245, 245))
         
-        # 上半部分：正面视图
-        painter.setViewport(0, 0, width, height // 2)
-        self.draw_front_view(painter)
-        
-        # 下半部分：侧面视图
-        painter.setViewport(0, height // 2, width, height // 2)
-        self.draw_side_view(painter)
-    
-    def draw_front_view(self, painter):
-        """绘制正面视图"""
-        painter.save()
-        
-        # 设置坐标系原点到中心
+        # 设置坐标系中心
         center_x = self.width() // 2
-        center_y = self.height() // 4
+        center_y = self.height() // 2 + 100  # 下移更多以显示完整机器人
         painter.translate(center_x, center_y)
         
-        # 绘制胸部
-        self.draw_chest(painter)
+        # 绘制地面网格
+        self.draw_ground_grid(painter)
         
-        # 绘制左臂（正面视图）
-        left_x = -int(self.chest_width * self.scale) // 2
-        self.draw_arm_front(painter, left_x, 0, self.left_arm_joints, True)
+        # 绘制胸部和基座
+        self.draw_robot_base(painter)
         
-        # 绘制右臂（正面视图）
-        right_x = int(self.chest_width * self.scale) // 2
-        self.draw_arm_front(painter, right_x, 0, self.right_arm_joints, False)
+        # 计算机械臂基座位置（在胸部顶部）
+        arm_base_y = 100 - self.robot_structure['lift_column_height'] * self.scale - self.robot_structure['chest_height'] * self.scale
         
-        painter.restore()
+        # 绘制左臂（火柴人风格）
+        left_base_pos = [-self.robot_structure['base_separation'] // 2 * self.scale, arm_base_y, 0]
+        self.draw_arm_stick_figure(painter, left_base_pos, self.left_arm_joints, "左臂", QColor(50, 150, 255))
+        
+        # 绘制右臂（火柴人风格）
+        right_base_pos = [self.robot_structure['base_separation'] // 2 * self.scale, arm_base_y, 0]
+        self.draw_arm_stick_figure(painter, right_base_pos, self.right_arm_joints, "右臂", QColor(255, 100, 100))
+        
+        # 绘制信息面板
+        self.draw_info_panel(painter)
     
-    def draw_side_view(self, painter):
-        """绘制侧面视图"""
+    def project_3d_to_2d(self, x, y, z):
+        """3D坐标投影到2D显示"""
+        import math
+        
+        # 简化的等轴投影
+        angle_x = math.radians(self.view_angle_x)
+        angle_y = math.radians(self.view_angle_y)
+        
+        # 旋转投影
+        x_2d = x * math.cos(angle_y) + z * math.sin(angle_y)
+        y_2d = -y * math.cos(angle_x) - (x * math.sin(angle_y) - z * math.cos(angle_y)) * math.sin(angle_x)
+        
+        return int(x_2d), int(y_2d)
+    
+    def draw_ground_grid(self, painter):
+        """绘制地面网格"""
         painter.save()
+        painter.setPen(QPen(QColor(200, 200, 200), 1))
         
-        # 设置坐标系原点到中心
-        center_x = self.width() // 2
-        center_y = self.height() // 4
-        painter.translate(center_x, center_y)
+        grid_size = 50
+        grid_count = 10
         
-        # 绘制胸部轮廓
-        painter.setPen(QPen(QColor(100, 100, 100), 2))
-        chest_h = int(self.chest_height * self.scale)
-        painter.drawRect(-20, -chest_h // 2, 40, chest_h)
-        
-        # 绘制左臂（侧面视图）
-        self.draw_arm_side(painter, -100, 0, self.left_arm_joints, "左臂")
-        
-        # 绘制右臂（侧面视图）
-        self.draw_arm_side(painter, 100, 0, self.right_arm_joints, "右臂")
-        
-        painter.restore()
-    
-    def draw_chest(self, painter):
-        """绘制胸部"""
-        painter.setPen(QPen(QColor(100, 100, 100), 3))
-        painter.setBrush(QBrush(QColor(220, 220, 220)))
-        
-        w = int(self.chest_width * self.scale)
-        h = int(self.chest_height * self.scale)
-        painter.drawRect(-w // 2, -h // 2, w, h)
-        
-        # 绘制胸部标识
-        painter.setPen(QPen(QColor(50, 50, 50)))
-        painter.drawText(-20, 0, "胸部")
-    
-    def draw_arm_front(self, painter, base_x, base_y, joints, is_left):
-        """绘制机械臂正面视图"""
-        painter.save()
-        painter.translate(base_x, base_y)
-        
-        # 绘制底座
-        painter.setPen(QPen(QColor(150, 150, 150), 2))
-        painter.setBrush(QBrush(QColor(200, 200, 200)))
-        painter.drawEllipse(-10, -10, 20, 20)
-        
-        # 简化的正面视图，主要显示肩部和肘部运动
-        # J1: 底座旋转 - 影响整个手臂的左右摆动
-        # J2: 肩部摆动 - 影响大臂的上下摆动
-        # J3: 肘部旋转 - 影响小臂的摆动
-        
-        arm_name = "左臂" if is_left else "右臂"
-        painter.setPen(QPen(QColor(50, 50, 50)))
-        painter.drawText(-20, 25, arm_name)
-        
-        # 绘制简化的关节位置
-        y_offset = 40
-        for i, angle in enumerate(joints[:3]):  # 只显示前3个关节
-            painter.setPen(QPen(QColor(100, 100, 200), 2))
-            painter.setBrush(QBrush(QColor(150, 150, 250)))
-            painter.drawEllipse(-5, y_offset - 5, 10, 10)
-            painter.drawText(15, y_offset + 5, f"J{i+1}: {angle:.1f}°")
-            y_offset += 30
-        
-        painter.restore()
-    
-    def draw_arm_side(self, painter, base_x, base_y, joints, arm_name):
-        """绘制机械臂侧面视图"""
-        painter.save()
-        painter.translate(base_x, base_y)
-        
-        # 根据关节角度计算各关节位置
-        # 这里实现简化的运动学正解
-        positions = self.calculate_arm_positions(joints)
-        
-        # 绘制连杆
-        painter.setPen(QPen(QColor(100, 150, 200), 3))
-        for i in range(len(positions) - 1):
-            x1, y1 = positions[i]
-            x2, y2 = positions[i + 1]
+        # 绘制网格线
+        for i in range(-grid_count, grid_count + 1):
+            x = i * grid_size
+            # 水平线
+            x1, y1 = self.project_3d_to_2d(-grid_count * grid_size, 100, x)
+            x2, y2 = self.project_3d_to_2d(grid_count * grid_size, 100, x)
+            painter.drawLine(x1, y1, x2, y2)
+            
+            # 垂直线
+            x1, y1 = self.project_3d_to_2d(x, 100, -grid_count * grid_size)
+            x2, y2 = self.project_3d_to_2d(x, 100, grid_count * grid_size)
             painter.drawLine(x1, y1, x2, y2)
         
-        # 绘制关节
-        painter.setBrush(QBrush(QColor(200, 100, 100)))
-        for i, (x, y) in enumerate(positions):
-            painter.drawEllipse(x - 4, y - 4, 8, 8)
-            if i < len(joints):
-                painter.setPen(QPen(QColor(50, 50, 50)))
-                painter.drawText(x + 8, y - 8, f"J{i+1}")
-                painter.drawText(x + 8, y + 8, f"{joints[i]:.1f}°")
-                painter.setPen(QPen(QColor(100, 150, 200), 3))
+        painter.restore()
+    
+    def draw_robot_base(self, painter):
+        """绘制机器人基座和胸部 - 基于参考图优化"""
+        painter.save()
         
-        # 绘制手臂名称
-        painter.setPen(QPen(QColor(50, 50, 50)))
-        painter.drawText(-30, -30, arm_name)
+        struct = self.robot_structure
+        scale = self.scale
+        
+        # 1. 绘制底盘 (455mm x 550mm)
+        self.draw_chassis_base(painter, struct, scale)
+        
+        # 2. 绘制升降轴
+        self.draw_lift_column(painter, struct, scale)
+        
+        # 3. 绘制胸部结构 (380mm x 350mm)
+        self.draw_chest_structure(painter, struct, scale)
+        
+        # 4. 绘制机械臂基座接口
+        self.draw_arm_mounts(painter, struct, scale)
         
         painter.restore()
     
-    def calculate_arm_positions(self, joints):
-        """计算机械臂各关节位置（简化版运动学）"""
+    def draw_chassis_base(self, painter, struct, scale):
+        """绘制底盘基座"""
+        chassis_w = int(struct['chassis_width'] * scale)
+        chassis_l = int(struct['chassis_length'] * scale)
+        
+        # 底盘3D坐标
+        base_y = 100  # 地面高度
+        chassis_corners = [
+            [-chassis_w//2, base_y, -chassis_l//2],  # 左前
+            [chassis_w//2, base_y, -chassis_l//2],   # 右前
+            [chassis_w//2, base_y, chassis_l//2],    # 右后
+            [-chassis_w//2, base_y, chassis_l//2],   # 左后
+        ]
+        
+        # 绘制底盘
+        painter.setPen(QPen(QColor(80, 80, 80), 2))
+        painter.setBrush(QBrush(QColor(180, 180, 190)))
+        
+        chassis_points = []
+        for corner in chassis_corners:
+            x, y = self.project_3d_to_2d(*corner)
+            chassis_points.append(QPoint(x, y))
+        painter.drawPolygon(chassis_points)
+        
+        # 底盘标识
+        center_x, center_y = self.project_3d_to_2d(0, base_y, 0)
+        painter.setPen(QPen(QColor(50, 50, 50)))
+        painter.setFont(QFont("Arial", 8))
+        painter.drawText(center_x - 30, center_y + 5, f"底盘: {struct['chassis_width']}×{struct['chassis_length']}mm")
+    
+    def draw_lift_column(self, painter, struct, scale):
+        """绘制升降轴"""
+        column_w = int(struct['lift_column_width'] * scale)
+        column_h = int(struct['lift_column_height'] * scale)
+        
+        # 升降轴坐标
+        column_corners = [
+            [-column_w//2, 100, -column_w//2],          # 底部左前
+            [column_w//2, 100, -column_w//2],           # 底部右前
+            [column_w//2, 100-column_h, -column_w//2],  # 顶部右前
+            [-column_w//2, 100-column_h, -column_w//2], # 顶部左前
+            [-column_w//2, 100, column_w//2],           # 底部左后
+            [column_w//2, 100-column_h, column_w//2],   # 顶部右后
+        ]
+        
+        # 绘制升降轴主体
+        painter.setPen(QPen(QColor(60, 60, 60), 2))
+        painter.setBrush(QBrush(QColor(140, 140, 150)))
+        
+        # 前面
+        front_points = []
+        for corner in column_corners[:4]:
+            x, y = self.project_3d_to_2d(*corner)
+            front_points.append(QPoint(x, y))
+        painter.drawPolygon(front_points)
+        
+        # 侧面
+        painter.setBrush(QBrush(QColor(120, 120, 130)))
+        side_points = [
+            QPoint(*self.project_3d_to_2d(*column_corners[1])),
+            QPoint(*self.project_3d_to_2d(*column_corners[2])),
+            QPoint(*self.project_3d_to_2d(*column_corners[5])),
+            QPoint(*self.project_3d_to_2d(column_corners[1][0], column_corners[1][1], column_corners[4][2]))
+        ]
+        painter.drawPolygon(side_points)
+    
+    def draw_chest_structure(self, painter, struct, scale):
+        """绘制胸部结构"""
+        chest_w = int(struct['chest_width'] * scale)
+        chest_l = int(struct['chest_length'] * scale) 
+        chest_h = int(struct['chest_height'] * scale)
+        
+        # 胸部位置（在升降轴顶部）
+        chest_base_y = 100 - struct['lift_column_height'] * scale
+        
+        chest_corners = [
+            [-chest_w//2, chest_base_y, -chest_l//2],          # 底部左前
+            [chest_w//2, chest_base_y, -chest_l//2],           # 底部右前
+            [chest_w//2, chest_base_y, chest_l//2],            # 底部右后
+            [-chest_w//2, chest_base_y, chest_l//2],           # 底部左后
+            [-chest_w//2, chest_base_y-chest_h, -chest_l//2],  # 顶部左前
+            [chest_w//2, chest_base_y-chest_h, -chest_l//2],   # 顶部右前
+            [chest_w//2, chest_base_y-chest_h, chest_l//2],    # 顶部右后
+            [-chest_w//2, chest_base_y-chest_h, chest_l//2],   # 顶部左后
+        ]
+        
+        # 绘制胸部主体
+        painter.setPen(QPen(QColor(100, 100, 100), 2))
+        painter.setBrush(QBrush(QColor(220, 220, 230)))
+        
+        # 前面
+        front_points = []
+        for corner in [chest_corners[0], chest_corners[1], chest_corners[5], chest_corners[4]]:
+            x, y = self.project_3d_to_2d(*corner)
+            front_points.append(QPoint(x, y))
+        painter.drawPolygon(front_points)
+        
+        # 顶面
+        painter.setBrush(QBrush(QColor(190, 190, 200)))
+        top_points = []
+        for corner in chest_corners[4:8]:
+            x, y = self.project_3d_to_2d(*corner)
+            top_points.append(QPoint(x, y))
+        painter.drawPolygon(top_points)
+        
+        # 胸部标识
+        center_x, center_y = self.project_3d_to_2d(0, chest_base_y - chest_h//2, 0)
+        painter.setPen(QPen(QColor(50, 50, 50)))
+        painter.setFont(QFont("Arial", 10, QFont.Bold))
+        painter.drawText(center_x - 30, center_y + 5, "FR3 双臂系统")
+    
+    def draw_arm_mounts(self, painter, struct, scale):
+        """绘制机械臂基座接口"""
+        mount_size = int(30 * scale)
+        mount_y = 100 - struct['lift_column_height'] * scale - struct['chest_height'] * scale
+        
+        # 左臂基座
+        left_mount_x = -struct['base_separation'] * scale // 2
+        left_center = self.project_3d_to_2d(left_mount_x, mount_y, 0)
+        
+        # 右臂基座
+        right_mount_x = struct['base_separation'] * scale // 2
+        right_center = self.project_3d_to_2d(right_mount_x, mount_y, 0)
+        
+        # 绘制基座接口
+        painter.setPen(QPen(QColor(150, 150, 150), 2))
+        painter.setBrush(QBrush(QColor(200, 200, 200)))
+        
+        for center, label in [(left_center, "左臂"), (right_center, "右臂")]:
+            # 确保坐标为整数
+            cx, cy = int(center[0]), int(center[1])
+            painter.drawEllipse(cx - mount_size//2, cy - mount_size//2, 
+                               mount_size, mount_size)
+            
+            # 基座标签
+            painter.setPen(QPen(QColor(50, 50, 50)))
+            painter.setFont(QFont("Arial", 8))
+            painter.drawText(cx - 15, cy + 25, label + "基座")
+    
+    def draw_arm_stick_figure(self, painter, base_pos, joints, arm_name, color):
+        """绘制火柴人风格机械臂"""
+        painter.save()
+        
+        # 计算正向运动学
+        positions = self.calculate_forward_kinematics(base_pos, joints)
+        
+        # 绘制连杆（火柴棍）
+        painter.setPen(QPen(color, self.link_thickness))
+        for i in range(len(positions) - 1):
+            x1, y1 = self.project_3d_to_2d(*positions[i])
+            x2, y2 = self.project_3d_to_2d(*positions[i + 1])
+            painter.drawLine(x1, y1, x2, y2)
+        
+        # 绘制关节（方块）
+        painter.setBrush(QBrush(color.darker(120)))
+        painter.setPen(QPen(color.darker(150), 2))
+        
+        for i, pos in enumerate(positions):
+            x, y = self.project_3d_to_2d(*pos)
+            size = self.joint_size
+            painter.drawRect(x - size//2, y - size//2, size, size)
+            
+            # 绘制关节标签
+            if i < len(joints):
+                painter.setPen(QPen(QColor(50, 50, 50)))
+                painter.setFont(QFont("Arial", 8))
+                painter.drawText(x + size//2 + 3, y - size//2, f"J{i+1}")
+                painter.drawText(x + size//2 + 3, y + size//2, f"{joints[i]:.0f}°")
+                painter.setPen(QPen(color.darker(150), 2))
+        
+        # 绘制末端执行器
+        if len(positions) > 0:
+            end_pos = positions[-1]
+            x, y = self.project_3d_to_2d(*end_pos)
+            painter.setBrush(QBrush(QColor(255, 200, 50)))
+            painter.drawEllipse(x - 8, y - 8, 16, 16)
+        
+        # 绘制机械臂名称
+        if len(positions) > 0:
+            base_x, base_y = self.project_3d_to_2d(*base_pos)
+            painter.setPen(QPen(color))
+            painter.setFont(QFont("Arial", 12, QFont.Bold))
+            painter.drawText(base_x - 20, base_y - 30, arm_name)
+        
+        painter.restore()
+    
+    def calculate_forward_kinematics(self, base_pos, joints):
+        """计算正向运动学 - 基于精确FR3尺寸"""
+        import math
+        
         positions = []
+        scale = self.scale
+        dims = self.arm_dimensions
         
-        # 底座位置
-        x, y = 0, 0
-        positions.append((x, y))
+        # 起始位置
+        x, y, z = base_pos[0], base_pos[1], base_pos[2]
+        positions.append([x, y, z])
         
-        # J1: 底座旋转（在侧面视图中不明显）
-        # J2: 肩部摆动
-        angle2 = math.radians(joints[1])
-        x += 0
-        y -= int(self.base_height * self.scale)
-        positions.append((int(x), int(y)))
+        # 关节角度转换
+        theta1 = math.radians(joints[0])  # J1基座旋转
+        theta2 = math.radians(joints[1])  # J2肩部摆动
+        theta3 = math.radians(joints[2])  # J3肘部旋转
+        theta4 = math.radians(joints[3])  # J4腕部摆动1
+        theta5 = math.radians(joints[4])  # J5腕部旋转
+        theta6 = math.radians(joints[5])  # J6腕部摆动2
         
-        # J3: 大臂
-        angle3 = math.radians(joints[2])
-        x += self.link1_length * self.scale * math.cos(angle2 + angle3)
-        y -= self.link1_length * self.scale * math.sin(angle2 + angle3)
-        positions.append((int(x), int(y)))
+        # J1位置 (基座旋转，位置不变)
+        positions.append([x, y, z])
         
-        # J4: 小臂
-        angle4 = math.radians(joints[3])
-        x += self.link2_length * self.scale * math.cos(angle2 + angle3 + angle4)
-        y -= self.link2_length * self.scale * math.sin(angle2 + angle3 + angle4)
-        positions.append((int(x), int(y)))
+        # J2位置 (底座到J2摆动轴: 140mm)
+        y2 = y - dims['base_to_j2'] * scale
+        positions.append([x, y2, z])
         
-        # J5: 手腕
-        angle5 = math.radians(joints[4])
-        x += self.link3_length * self.scale * math.cos(angle2 + angle3 + angle4 + angle5)
-        y -= self.link3_length * self.scale * math.sin(angle2 + angle3 + angle4 + angle5)
-        positions.append((int(x), int(y)))
+        # J3位置 (J2摆动轴中心到J3旋转轴中心: 280mm)
+        # 考虑J2的摆动角度
+        j3_x = x + dims['j2_to_j3'] * scale * math.cos(theta1) * math.sin(theta2)
+        j3_y = y2 - dims['j2_to_j3'] * scale * math.cos(theta2)
+        j3_z = z + dims['j2_to_j3'] * scale * math.sin(theta1) * math.sin(theta2)
+        positions.append([j3_x, j3_y, j3_z])
         
-        # J6: 末端
-        angle6 = math.radians(joints[5])
-        x += 20 * self.scale * math.cos(angle2 + angle3 + angle4 + angle5 + angle6)
-        y -= 20 * self.scale * math.sin(angle2 + angle3 + angle4 + angle5 + angle6)
-        positions.append((int(x), int(y)))
+        # J4位置 (J3偏移)
+        # 考虑J2和J3的累积角度
+        cumulative_angle = theta2 + theta3
+        j4_x = j3_x + dims['j3_offset'] * scale * math.cos(theta1) * math.sin(cumulative_angle)
+        j4_y = j3_y - dims['j3_offset'] * scale * math.cos(cumulative_angle)
+        j4_z = j3_z + dims['j3_offset'] * scale * math.sin(theta1) * math.sin(cumulative_angle)
+        positions.append([j4_x, j4_y, j4_z])
+        
+        # J5位置 (考虑J4摆动)
+        cumulative_angle = theta2 + theta3 + theta4
+        j5_x = j4_x + dims['j5_offset'] * scale * math.cos(theta1) * math.sin(cumulative_angle)
+        j5_y = j4_y - dims['j5_offset'] * scale * math.cos(cumulative_angle)
+        j5_z = j4_z + dims['j5_offset'] * scale * math.sin(theta1) * math.sin(cumulative_angle)
+        positions.append([j5_x, j5_y, j5_z])
+        
+        # J6位置 (J4摆动轴中心线和J6旋转轴中轴线间距: 102mm)
+        j6_x = j5_x + dims['j4_to_j6'] * scale * math.cos(theta1) * math.sin(cumulative_angle + theta5)
+        j6_y = j5_y - dims['j4_to_j6'] * scale * math.cos(cumulative_angle + theta5)
+        j6_z = j5_z + dims['j4_to_j6'] * scale * math.sin(theta1) * math.sin(cumulative_angle + theta5)
+        positions.append([j6_x, j6_y, j6_z])
+        
+        # 末端执行器位置
+        end_x = j6_x + dims['end_effector'] * scale * math.cos(theta1) * math.sin(cumulative_angle + theta5 + theta6)
+        end_y = j6_y - dims['end_effector'] * scale * math.cos(cumulative_angle + theta5 + theta6)
+        end_z = j6_z + dims['end_effector'] * scale * math.sin(theta1) * math.sin(cumulative_angle + theta5 + theta6)
+        positions.append([end_x, end_y, end_z])
         
         return positions
+    
+    def draw_info_panel(self, painter):
+        """绘制信息面板"""
+        painter.save()
+        painter.resetTransform()
+        
+        # 信息面板位置
+        panel_x = 10
+        panel_y = 10
+        panel_w = 250
+        panel_h = 200
+        
+        # 绘制面板背景
+        painter.setBrush(QBrush(QColor(250, 250, 250, 200)))
+        painter.setPen(QPen(QColor(150, 150, 150), 1))
+        painter.drawRect(panel_x, panel_y, panel_w, panel_h)
+        
+        # 绘制信息文本
+        painter.setPen(QPen(QColor(50, 50, 50)))
+        painter.setFont(QFont("Arial", 9))
+        
+        y_offset = panel_y + 20
+        painter.drawText(panel_x + 10, y_offset, "FR3 双臂机械臂仿真")
+        y_offset += 20
+        
+        painter.drawText(panel_x + 10, y_offset, f"基座间距: {self.robot_structure['base_separation']}mm")
+        y_offset += 15
+        
+        painter.drawText(panel_x + 10, y_offset, f"胸部: {self.robot_structure['chest_width']}×{self.robot_structure['chest_length']}mm")
+        y_offset += 15
+        
+        painter.drawText(panel_x + 10, y_offset, f"底盘: {self.robot_structure['chassis_width']}×{self.robot_structure['chassis_length']}mm")
+        y_offset += 15
+        
+        painter.drawText(panel_x + 10, y_offset, f"视角: X={self.view_angle_x}° Y={self.view_angle_y}°")
+        y_offset += 15
+        
+        painter.drawText(panel_x + 10, y_offset, f"缩放: {self.scale:.1f}x")
+        y_offset += 20
+        
+        # 轨迹信息
+        if self.left_arm_trajectory or self.right_arm_trajectory:
+            painter.drawText(panel_x + 10, y_offset, f"轨迹点: {max(len(self.left_arm_trajectory), len(self.right_arm_trajectory))}")
+            y_offset += 15
+            painter.drawText(panel_x + 10, y_offset, f"当前: {self.trajectory_index}")
+        
+        painter.restore()
     
     def set_left_arm_joints(self, joints):
         """设置左臂关节角度"""
@@ -724,6 +1035,41 @@ class ArmSimulationWidget(QWidget):
         """设置右臂关节角度"""
         self.right_arm_joints = joints[:]
         self.update()
+    
+    def set_arm_trajectories(self, left_trajectory, right_trajectory):
+        """设置机械臂轨迹"""
+        self.left_arm_trajectory = left_trajectory[:] if left_trajectory else []
+        self.right_arm_trajectory = right_trajectory[:] if right_trajectory else []
+        self.trajectory_index = 0
+        self.update()
+    
+    def update_trajectory_position(self, index):
+        """更新轨迹位置"""
+        if 0 <= index < len(self.left_arm_trajectory):
+            self.left_arm_joints = self.left_arm_trajectory[index][:]
+        if 0 <= index < len(self.right_arm_trajectory):
+            self.right_arm_joints = self.right_arm_trajectory[index][:]
+        self.trajectory_index = index
+        self.update()
+    
+    def get_trajectory_length(self):
+        """获取轨迹长度"""
+        return max(len(self.left_arm_trajectory), len(self.right_arm_trajectory))
+    
+    def load_trajectory_from_program(self, program_analyzer):
+        """从程序分析器加载轨迹"""
+        try:
+            # 获取左臂和右臂轨迹
+            left_trajectory = program_analyzer.get_arm_joint_sequence('left')
+            right_trajectory = program_analyzer.get_arm_joint_sequence('right')
+            
+            if left_trajectory or right_trajectory:
+                self.set_arm_trajectories(left_trajectory, right_trajectory)
+                return True
+        except Exception as e:
+            print(f"加载轨迹失败: {e}")
+        
+        return False
 
 class SimulationWidget(QWidget):
     """仿真主界面"""
@@ -759,30 +1105,33 @@ class SimulationWidget(QWidget):
         chassis_group = QGroupBox("底盘运动仿真")
         chassis_layout = QVBoxLayout(chassis_group)
         
-        # 底盘仿真控制按钮（在标题旁边）
+        # 底盘仿真控制按钮（紧凑布局）
         chassis_title_layout = QHBoxLayout()
-        chassis_title_layout.addWidget(QLabel(""))  # 占位
-        chassis_title_layout.addStretch()
+        chassis_title_layout.setSpacing(5)  # 减少间距
+        chassis_title_layout.setContentsMargins(0, 0, 0, 5)  # 减少边距
         
         # X/Y方向切换按钮
-        self.xy_toggle_button = QPushButton("🔄 X/Y切换")
+        self.xy_toggle_button = QPushButton("X/Y切换")
         self.xy_toggle_button.setToolTip("切换X轴和Y轴方向")
-        self.xy_toggle_button.setMaximumWidth(100)
+        self.xy_toggle_button.setMaximumWidth(70)
+        self.xy_toggle_button.setMaximumHeight(25)
         
         # 90度旋转按钮
-        self.rotate_90_button = QPushButton("🔄 90°旋转")
+        self.rotate_90_button = QPushButton("90°旋转")
         self.rotate_90_button.setToolTip("底盘矩形围绕质心旋转90度")
-        self.rotate_90_button.setMaximumWidth(100)
+        self.rotate_90_button.setMaximumWidth(70)
+        self.rotate_90_button.setMaximumHeight(25)
         
         # 清除路径按钮
-        self.clear_path_button = QPushButton("🗑️ 清除路径")
+        self.clear_path_button = QPushButton("清除路径")
         self.clear_path_button.setToolTip("一键清除底盘运动仿真中的蓝色路径线条")
-        self.clear_path_button.setMaximumWidth(100)
+        self.clear_path_button.setMaximumWidth(70)
+        self.clear_path_button.setMaximumHeight(25)
         
-        # 设置按钮字体
+        # 设置按钮字体（更小更紧凑）
         button_font = QFont()
         button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
-        button_font.setPointSize(8)
+        button_font.setPointSize(7)
         self.xy_toggle_button.setFont(button_font)
         self.rotate_90_button.setFont(button_font)
         self.clear_path_button.setFont(button_font)
@@ -791,13 +1140,13 @@ class SimulationWidget(QWidget):
         chassis_title_layout.addWidget(self.rotate_90_button)
         chassis_title_layout.addWidget(self.clear_path_button)
         
-        # 添加交互式绘制说明
-        drawing_help_layout = QHBoxLayout()
-        help_label = QLabel("💡 提示：在网格上拖拽鼠标可以绘制底盘路径")
-        help_label.setStyleSheet("color: #666; font-size: 10px; margin: 2px;")
-        drawing_help_layout.addWidget(help_label)
-        drawing_help_layout.addStretch()
-        chassis_layout.addLayout(drawing_help_layout)
+        # 添加紧凑的提示文字
+        help_label = QLabel("拖拽鼠标绘制路径")
+        help_label.setStyleSheet("color: #666; font-size: 9px; margin: 0px; padding: 2px; font-style: italic;")
+        chassis_title_layout.addWidget(help_label)
+        
+        # 添加弹性空间，让按钮靠左
+        chassis_title_layout.addStretch()
         
         chassis_layout.addLayout(chassis_title_layout)
         
@@ -972,9 +1321,9 @@ class SimulationWidget(QWidget):
         file_layout.addWidget(self.file_label)
         file_layout.addStretch()
         
-        layout.addWidget(QWidget())  # 占位
-        layout.addLayout(display_layout)
-        layout.addLayout(control_layout)
+        # 设置主布局的拉伸比例，让显示区域占更多空间
+        layout.addLayout(display_layout, 4)  # 显示区域占4份
+        layout.addLayout(control_layout, 1)  # 控制区域占1份
         layout.addWidget(file_group)
         
         # 测试数据
@@ -1122,41 +1471,83 @@ class SimulationWidget(QWidget):
     def play_arm_animation(self):
         """播放机械臂动画"""
         if not self.arm_animation_playing:
-            self.arm_animation_playing = True
-            self.arm_play_button.setText("暂停 播放中...")
-            self.log_message.emit("开始播放机械臂仿真动画", "INFO")
-            # TODO: 实现机械臂动画播放逻辑
+            trajectory_length = self.arm_sim.get_trajectory_length()
+            if trajectory_length > 0:
+                self.arm_animation_playing = True
+                self.arm_play_button.setText("暂停 播放中...")
+                self.log_message.emit("开始播放机械臂仿真动画", "INFO")
+                
+                # 启动机械臂动画定时器
+                if not hasattr(self, 'arm_animation_timer'):
+                    self.arm_animation_timer = QTimer()
+                    self.arm_animation_timer.timeout.connect(self.update_arm_animation)
+                
+                interval = max(50, int(200 * 100 / self.arm_speed_slider.value()))
+                self.arm_animation_timer.start(interval)
+            else:
+                self.log_message.emit("没有机械臂轨迹数据", "WARNING")
     
     def pause_arm_animation(self):
         """暂停机械臂动画"""
         if self.arm_animation_playing:
             self.arm_animation_playing = False
             self.arm_play_button.setText("播放 播放机械臂")
+            if hasattr(self, 'arm_animation_timer'):
+                self.arm_animation_timer.stop()
             self.log_message.emit("暂停机械臂仿真动画", "INFO")
     
     def stop_arm_animation(self):
         """停止机械臂动画"""
         self.arm_animation_playing = False
         self.arm_play_button.setText("播放 播放机械臂")
+        if hasattr(self, 'arm_animation_timer'):
+            self.arm_animation_timer.stop()
         self.arm_progress_slider.setValue(0)
+        self.arm_sim.update_trajectory_position(0)
         self.log_message.emit("停止机械臂仿真动画", "INFO")
     
     def reset_arm_animation(self):
         """重置机械臂动画"""
         self.stop_arm_animation()
-        self.load_test_data()
+        # 重置到默认姿态
+        self.arm_sim.set_left_arm_joints([0, -30, -60, -90, 0, 0])
+        self.arm_sim.set_right_arm_joints([0, 30, 60, 90, 0, 0])
         self.log_message.emit("重置机械臂仿真状态", "INFO")
+    
+    def update_arm_animation(self):
+        """更新机械臂动画"""
+        trajectory_length = self.arm_sim.get_trajectory_length()
+        if trajectory_length > 0:
+            current_progress = self.arm_progress_slider.value()
+            next_progress = current_progress + 1
+            
+            if next_progress <= 100:
+                self.arm_progress_slider.setValue(next_progress)
+                # update_arm_progress方法会自动更新轨迹位置
+            else:
+                # 动画结束
+                self.stop_arm_animation()
     
     def update_arm_speed(self, value):
         """更新机械臂速度"""
         speed = value / 100.0
         self.arm_speed_label.setText(f"{speed:.1f}x")
-        # TODO: 实际更新机械臂动画速度
+        
+        # 实际更新机械臂动画速度
+        if hasattr(self, 'arm_animation_timer') and self.arm_animation_timer.isActive():
+            interval = max(50, int(200 * 100 / value))
+            self.arm_animation_timer.start(interval)
     
     def update_arm_progress(self, value):
         """更新机械臂进度"""
         self.arm_progress_label.setText(f"{value}%")
-        # TODO: 根据进度更新机械臂动画位置
+        
+        # 根据进度更新机械臂轨迹位置
+        trajectory_length = self.arm_sim.get_trajectory_length()
+        if trajectory_length > 0:
+            index = int(value * trajectory_length / 100)
+            if 0 <= index < trajectory_length:
+                self.arm_sim.update_trajectory_position(index)
     
     def load_program(self):
         """加载主控程序"""
@@ -1186,22 +1577,24 @@ class SimulationWidget(QWidget):
                         self.chassis_sim.set_path_points(grid_path)
                         self.log_message.emit(f"提取底盘路径点: {len(chassis_path)}个", "INFO")
                     
-                    # 更新机械臂关节序列
-                    left_joints = self.program_analyzer.get_arm_joint_sequence('left')
-                    right_joints = self.program_analyzer.get_arm_joint_sequence('right')
+                    # 加载机械臂轨迹到新的仿真系统
+                    if self.arm_sim.load_trajectory_from_program(self.program_analyzer):
+                        trajectory_length = self.arm_sim.get_trajectory_length()
+                        self.log_message.emit(f"加载机械臂轨迹: {trajectory_length}个动作点", "SUCCESS")
+                        
+                        # 更新进度条范围
+                        self.arm_progress_slider.setRange(0, 100)
+                        self.arm_progress_slider.setValue(0)
+                    else:
+                        # 使用默认轨迹进行演示
+                        demo_left = [[0, -30, -60, -90, 0, 0], [15, -45, -75, -105, 15, 15]]
+                        demo_right = [[0, 30, 60, 90, 0, 0], [-15, 45, 75, 105, -15, -15]]
+                        self.arm_sim.set_arm_trajectories(demo_left, demo_right)
+                        self.log_message.emit("使用默认演示轨迹", "INFO")
                     
-                    if left_joints:
-                        self.arm_sim.set_left_arm_joints(left_joints[0])
-                        self.log_message.emit(f"提取左臂动作: {len(left_joints)}个", "INFO")
-                    
-                    if right_joints:
-                        self.arm_sim.set_right_arm_joints(right_joints[0])
-                        self.log_message.emit(f"提取右臂动作: {len(right_joints)}个", "INFO")
-                    
-                    # 更新进度条范围
-                    if self.animation_sequence:
-                        self.chassis_progress_slider.setRange(0, len(chassis_path) - 1 if chassis_path else 0)
-                        self.arm_progress_slider.setRange(0, max(len(left_joints), len(right_joints)) - 1 if (left_joints or right_joints) else 0)
+                    # 更新底盘进度条范围
+                    if self.animation_sequence and chassis_path:
+                        self.chassis_progress_slider.setRange(0, len(chassis_path) - 1)
                         self.log_message.emit(f"总动作数: {len(self.animation_sequence)}", "SUCCESS")
                     
                     self.log_message.emit("程序分析完成", "SUCCESS")
