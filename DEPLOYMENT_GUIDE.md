@@ -799,7 +799,106 @@ panel_h = len(info_texts) * line_height + spacing + padding_vertical
 - **信息密集应用**: 高效利用界面空间展示关键信息
 - **动态内容显示**: 根据实时数据调整显示尺寸
 
-## 13. 下一步
+## 13. GUI启动问题解决方案
+
+*更新时间：2025-07-08*
+
+### 13.1 问题历史
+
+在v2.3.2版本回滚后，GUI出现了严重的启动和交互问题：
+
+1. **启动卡死**: 运行`python start_gui.py`后GUI窗口卡死，需要强制退出
+2. **交互卡死**: GUI虽能显示但点击任何位置都会卡死
+3. **RobotSim选项卡缺失**: RobotSim控件无法正常加载
+
+### 13.2 根本原因分析
+
+**VTK循环导入问题**:
+- 导入链: `start_gui.py` → `gui.main_window` → `robot_sim_widget` → `VTK import`
+- VTK在QApplication创建之前就被导入，导致初始化冲突
+- 造成GUI启动时的阻塞和卡死
+
+### 13.3 解决方案
+
+#### 13.3.1 延迟导入策略
+**修改文件**: `gui/__init__.py`
+```python
+# 修改前: 直接导入
+from .main_window import XCRobotMainWindow
+
+# 修改后: 延迟导入
+def get_main_window():
+    from .main_window import XCRobotMainWindow
+    return XCRobotMainWindow
+```
+
+#### 13.3.2 主窗口创建流程优化
+**修改文件**: `gui/main_window.py`
+- 重构控件创建和信号连接流程
+- 同步创建所有控件(包括RobotSim)
+- 优化信号连接时序
+
+#### 13.3.3 RobotSim控件稳定性改进
+**修改文件**: `gui/widgets/robot_sim_widget.py`
+```python
+# 添加缺失属性
+self.smooth_motion_enabled = False
+self.target_joint_angles = [0.0] * 6
+self.current_joint_angles = [0.0] * 6
+self.motion_speed = 0.1
+
+# 延迟启动定时器
+QTimer.singleShot(1000, lambda: self.update_timer.start(100))
+```
+
+#### 13.3.4 启动脚本优化
+**修改文件**: `start_gui.py`
+```python
+# 修改前: 直接导入
+from main_window import XCRobotMainWindow
+
+# 修改后: 延迟导入
+from gui import get_main_window
+XCRobotMainWindow = get_main_window()
+```
+
+### 13.4 当前状态
+
+✅ **已解决的问题**:
+- GUI启动不再卡死
+- 所有5个选项卡正常显示
+- RobotSim控件成功创建
+- 用户交互正常响应
+- 所有控件信号正常连接
+
+⚠️ **仍存在的轻微问题**:
+- 字体警告: `Missing font family "Microsoft YaHei"`
+- 布局警告: `QLayout::addChildLayout: layout "" already has a parent`
+
+这些警告不影响功能使用。
+
+### 13.5 使用方法
+
+**标准启动流程**:
+```bash
+# 1. 激活虚拟环境
+source venv/bin/activate
+
+# 2. 启动GUI
+python start_gui.py
+```
+
+### 13.6 技术细节
+
+**核心设计思路**: 采用"先创建QApplication，再导入VTK组件"的策略，彻底解决VTK初始化时序问题。
+
+**修改的关键文件**:
+- `gui/__init__.py` - 延迟导入机制
+- `gui/main_window.py` - 主窗口创建流程
+- `gui/widgets/robot_sim_widget.py` - RobotSim控件稳定性
+- `start_gui.py` - 启动脚本优化
+
+## 14. 下一步
 
 完成基础测试后，你可以：
 - 修改`integrated_controller.py`中的动作序列

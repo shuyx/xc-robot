@@ -49,9 +49,9 @@ class XCRobotMainWindow(QMainWindow):
         layout.addWidget(self.log_widget, 1)  # 右侧日志区域占较少空间
     
     def create_widgets(self):
-        """延迟创建控件，防止VTK在QApplication初始化前被导入"""
+        """创建所有控件，包括RobotSim"""
         try:
-            # 导入基本控件（不含有VTK）
+            # 导入基本控件
             from connection_widget import ConnectionWidget
             from arm_control_widget import ArmControlWidget
             from chassis_widget import ChassisWidget
@@ -63,14 +63,14 @@ class XCRobotMainWindow(QMainWindow):
             self.chassis_widget = ChassisWidget()
             self.simulation_widget = SimulationWidget()
             
-            # 添加选项卡（不包含RobotSim）
+            # 添加基本控件选项卡
             self.tab_widget.addTab(self.connection_widget, "🔗 连接测试")
             self.tab_widget.addTab(self.arm_control_widget, "🤖 机械臂控制")
             self.tab_widget.addTab(self.chassis_widget, "🚛 底盘控制")
             self.tab_widget.addTab(self.simulation_widget, "🎮 仿真系统")
             
-            # 延迟创建 RobotSim 控件（包含VTK）
-            QTimer.singleShot(100, self.create_robot_sim_widget)
+            # 同步创建 RobotSim 控件
+            self.create_robot_sim_widget()
             
         except Exception as e:
             print(f"创建控件失败: {e}")
@@ -161,14 +161,12 @@ class XCRobotMainWindow(QMainWindow):
     
     def setup_connections(self):
         """设置信号连接"""
-        # 延迟连接信号，等待控件创建完成
-        QTimer.singleShot(150, self.connect_basic_signals)
-        
-        # RobotSim 信号将在控件创建后连接
-        QTimer.singleShot(200, self.connect_robot_sim_signals)
+        # 同步连接所有信号
+        self.connect_basic_signals()
+        self.connect_robot_sim_signals()
         
         # 启动消息
-        QTimer.singleShot(300, lambda: self.log_widget.add_message("XC-ROBOT 系统启动完成", "SUCCESS"))
+        QTimer.singleShot(100, lambda: self.log_widget.add_message("XC-ROBOT 系统启动完成", "SUCCESS"))
     
     def save_log(self):
         """保存日志"""
