@@ -39,6 +39,12 @@ class RobotSimWidget(QWidget):
         # 初始化运动学模型
         self.kinematics = FR3Kinematics()
         
+        # 设定默认初始位姿
+        self.default_joint_angles = [0.0, -30.0, 90.0, 0.0, 60.0, 0.0]  # FR3机械臂默认初始位姿
+        self.initial_camera_position = None  # 初始相机位置
+        self.initial_camera_focal_point = None  # 初始相机焦点
+        self.initial_camera_view_up = None  # 初始相机朝向
+        
         # 更新定时器
         self.update_timer = QTimer()
         self.update_timer.timeout.connect(self.update_end_effector_display)
@@ -56,8 +62,8 @@ class RobotSimWidget(QWidget):
         
         # 右侧3D显示区域
         if VTK_AVAILABLE:
-            self.vtk_widget = self.create_vtk_widget()
-            layout.addWidget(self.vtk_widget, 2)
+            vtk_container = self.create_vtk_container()
+            layout.addWidget(vtk_container, 2)
         else:
             placeholder = QLabel("VTK未安装\n请运行: pip install vtk")
             placeholder.setAlignment(Qt.AlignCenter)
@@ -238,6 +244,50 @@ class RobotSimWidget(QWidget):
         
         return panel
     
+    def create_vtk_container(self):
+        """创建VTK容器，包含按钮和3D显示区域"""
+        container = QWidget()
+        layout = QVBoxLayout(container)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(2)
+        
+        # 创建按钮区域
+        button_layout = QHBoxLayout()
+        button_layout.setContentsMargins(5, 2, 5, 2)
+        
+        # 回到初始位姿按钮
+        reset_view_btn = QPushButton("回到初始位姿")
+        reset_view_btn.setFlat(True)
+        reset_view_btn.setMaximumHeight(25)
+        reset_view_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #f0f0f0;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 2px 8px;
+                font-size: 11px;
+            }
+            QPushButton:hover {
+                background-color: #e0e0e0;
+            }
+            QPushButton:pressed {
+                background-color: #d0d0d0;
+            }
+        """)
+        reset_view_btn.clicked.connect(self.reset_to_initial_pose)
+        
+        button_layout.addWidget(reset_view_btn)
+        button_layout.addStretch()
+        
+        # 添加按钮布局
+        layout.addLayout(button_layout)
+        
+        # 创建3D显示区域
+        self.vtk_widget = self.create_vtk_widget()
+        layout.addWidget(self.vtk_widget)
+        
+        return container
+    
     def create_vtk_widget(self):
         """创建VTK 3D显示区域"""
         if not VTK_AVAILABLE:
@@ -265,6 +315,9 @@ class RobotSimWidget(QWidget):
         
         # 初始化交互器
         self.interactor.Initialize()
+        
+        # 设置初始相机位姿
+        self.set_initial_camera_pose()
         
         return vtk_widget
     
@@ -569,6 +622,50 @@ class RobotSimWidget(QWidget):
         except Exception as e:
             # 静默处理，避免过多错误信息
             pass
+    
+    def set_initial_camera_pose(self):
+        """设置初始相机位姿"""
+        if not VTK_AVAILABLE or not hasattr(self, 'renderer'):
+            return
+        
+        camera = self.renderer.GetActiveCamera()
+        
+        # 设置初始相机位置和角度，适合观察机械臂
+        camera.SetPosition(500, -800, 400)  # 相机位置
+        camera.SetFocalPoint(0, 0, 200)     # 焦点位置
+        camera.SetViewUp(0, 0, 1)           # 上方向
+        
+        # 保存初始位姿
+        self.initial_camera_position = camera.GetPosition()
+        self.initial_camera_focal_point = camera.GetFocalPoint()
+        self.initial_camera_view_up = camera.GetViewUp()
+        
+        self.renderer.ResetCameraClippingRange()
+    
+    def reset_to_initial_pose(self):
+        """回到初始位姿"""
+        if not VTK_AVAILABLE:
+            return
+        
+        # 重置关节角度到默认位姿
+        for i, angle in enumerate(self.default_joint_angles):
+            if i < len(self.joint_sliders):
+                self.joint_sliders[i].setValue(int(angle))
+        
+        # 重置相机位姿
+        if (self.initial_camera_position and 
+            self.initial_camera_focal_point and 
+            self.initial_camera_view_up):
+            
+            camera = self.renderer.GetActiveCamera()
+            camera.SetPosition(self.initial_camera_position)
+            camera.SetFocalPoint(self.initial_camera_focal_point)
+            camera.SetViewUp(self.initial_camera_view_up)
+            
+            self.renderer.ResetCameraClippingRange()
+            self.render_window.Render()
+        
+        self.log_message.emit("已回到初始位姿", "SUCCESS")
     
     def emergency_stop(self):
         """紧急停止"""
