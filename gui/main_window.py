@@ -21,13 +21,14 @@ from log_widget import LogWidget
 from arm_control_widget import ArmControlWidget
 from chassis_widget import ChassisWidget
 from simulation_widget import SimulationWidget
+from robot_sim_widget import RobotSimWidget
 
 class XCRobotMainWindow(QMainWindow):
     """XC-ROBOT 主窗口"""
     
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("祥承XC-ROBOT MVP1.0 xc-os v2.2.0")
+        self.setWindowTitle("祥承XC-ROBOT MVP1.0 xc-os v2.3.1")
         self.setGeometry(100, 100, 1200, 800)
         self.setup_ui()
         self.setup_menu()
@@ -47,19 +48,21 @@ class XCRobotMainWindow(QMainWindow):
         self.arm_control_widget = ArmControlWidget()
         self.chassis_widget = ChassisWidget()
         self.simulation_widget = SimulationWidget()
+        self.robot_sim_widget = RobotSimWidget()
         
-        # 添加选项卡 (只保留4个)
+        # 添加选项卡 (现在有5个)
         self.tab_widget.addTab(self.connection_widget, "🔗 连接测试")
         self.tab_widget.addTab(self.arm_control_widget, "🤖 机械臂控制")
         self.tab_widget.addTab(self.chassis_widget, "🚛 底盘控制")
         self.tab_widget.addTab(self.simulation_widget, "🎮 仿真系统")
+        self.tab_widget.addTab(self.robot_sim_widget, "🤖 RobotSim")
         
         # 右侧日志面板
         self.log_widget = LogWidget()
         
-        # 布局
-        layout.addWidget(self.tab_widget, 2)
-        layout.addWidget(self.log_widget, 1)
+        # 布局 - 调整比例，缩小右侧日志框宽度
+        layout.addWidget(self.tab_widget, 3)  # 左侧主控制区域占更多空间
+        layout.addWidget(self.log_widget, 1)  # 右侧日志区域占较少空间
         
     def setup_menu(self):
         """设置菜单栏"""
@@ -99,6 +102,7 @@ class XCRobotMainWindow(QMainWindow):
         self.arm_control_widget.log_message.connect(self.log_widget.add_message)
         self.chassis_widget.log_message.connect(self.log_widget.add_message)
         self.simulation_widget.log_message.connect(self.log_widget.add_message)
+        self.robot_sim_widget.log_message.connect(self.log_widget.add_message)
         
         # 启动消息
         QTimer.singleShot(100, lambda: self.log_widget.add_message("XC-ROBOT 系统启动完成", "SUCCESS"))
@@ -121,6 +125,8 @@ class XCRobotMainWindow(QMainWindow):
                     self.arm_control_widget.emergency_stop()
                 if hasattr(self.chassis_widget, 'emergency_stop'):
                     self.chassis_widget.emergency_stop()
+                if hasattr(self.robot_sim_widget, 'emergency_stop'):
+                    self.robot_sim_widget.emergency_stop()
             except Exception as e:
                 self.log_widget.add_message(f"紧急停止执行异常: {e}", "ERROR")
     
@@ -142,12 +148,23 @@ class XCRobotMainWindow(QMainWindow):
         )
         if reply == QMessageBox.Yes:
             self.log_widget.add_message("系统正在关闭...", "INFO")
-            event.accept()
+            
+            # 清理各个组件的资源
+            try:
+                if hasattr(self.robot_sim_widget, 'cleanup'):
+                    self.robot_sim_widget.cleanup()
+                    
+            except Exception as e:
+                print(f"关闭时清理资源出错: {e}")
+            finally:
+                event.accept()
         else:
             event.ignore()
 
 def main():
     """主函数"""
+    import signal
+    
     app = QApplication(sys.argv)
     app.setApplicationName("XC-ROBOT")
     app.setStyle('Fusion')
@@ -158,9 +175,35 @@ def main():
     app.setFont(font)
     
     window = XCRobotMainWindow()
+    
+    # 处理Ctrl+C信号
+    def signal_handler(signum, frame):
+        print("\n收到退出信号，正在关闭应用...")
+        try:
+            # 清理RobotSim资源
+            if hasattr(window, 'robot_sim_widget') and hasattr(window.robot_sim_widget, 'cleanup'):
+                window.robot_sim_widget.cleanup()
+        except Exception as e:
+            print(f"清理资源时出错: {e}")
+        finally:
+            app.quit()
+    
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+    
+    # 让Python能够处理信号
+    import threading
+    timer = QTimer()
+    timer.timeout.connect(lambda: None)
+    timer.start(100)
+    
     window.show()
     
-    sys.exit(app.exec_())
+    try:
+        sys.exit(app.exec_())
+    except KeyboardInterrupt:
+        print("\n键盘中断，正在退出...")
+        signal_handler(signal.SIGINT, None)
 
 if __name__ == "__main__":
     main()
