@@ -69,11 +69,12 @@ def main():
     app.setFont(font)
     
     try:
-        # 导入主窗口
+        # 使用延迟导入
         sys.path.insert(0, gui_dir)
-        from main_window import XCRobotMainWindow
+        from gui import get_main_window
         
         # 创建并显示主窗口
+        XCRobotMainWindow = get_main_window()
         window = XCRobotMainWindow()
         window.show()
         

@@ -45,12 +45,21 @@ class RobotSimWidget(QWidget):
         self.initial_camera_focal_point = None  # 初始相机焦点
         self.initial_camera_view_up = None  # 初始相机朝向
         
+        # 平滑运动控制参数
+        self.smooth_motion_enabled = False
+        self.target_joint_angles = [0.0] * 6
+        self.current_joint_angles = [0.0] * 6
+        self.motion_speed = 0.1
+        
         # 更新定时器
         self.update_timer = QTimer()
         self.update_timer.timeout.connect(self.update_end_effector_display)
-        self.update_timer.start(100)  # 10Hz更新频率
+        # 延迟启动定时器，避免在初始化时就开始更新
         
         self.setup_ui()
+        
+        # 在界面设置完成后再启动定时器
+        QTimer.singleShot(1000, lambda: self.update_timer.start(100))
         
     def setup_ui(self):
         """设置界面布局"""
@@ -606,18 +615,24 @@ class RobotSimWidget(QWidget):
     def update_end_effector_display(self):
         """更新末端执行器位姿显示"""
         try:
+            # 检查必要的属性是否存在
+            if not hasattr(self, 'kinematics') or not hasattr(self, 'current_pos_labels'):
+                return
+                
             # 获取当前末端位姿
             current_pose = self.kinematics.get_end_effector_pose()
             
             # 更新位置显示
             pos = current_pose['position']
             for i, axis in enumerate(['X', 'Y', 'Z']):
-                self.current_pos_labels[i].setText(f"{axis}: {pos[i]:.1f} mm")
+                if i < len(self.current_pos_labels):
+                    self.current_pos_labels[i].setText(f"{axis}: {pos[i]:.1f} mm")
             
             # 更新姿态显示
             orient = current_pose['orientation']
             for i, axis in enumerate(['Roll', 'Pitch', 'Yaw']):
-                self.current_orient_labels[i].setText(f"{axis}: {orient[i]:.1f}°")
+                if i < len(self.current_orient_labels):
+                    self.current_orient_labels[i].setText(f"{axis}: {orient[i]:.1f}°")
                 
         except Exception as e:
             # 静默处理，避免过多错误信息
