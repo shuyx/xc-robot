@@ -62,9 +62,8 @@ def main():
     app.setApplicationName("XC-ROBOT")
     app.setApplicationVersion("1.0.0")
     app.setStyle('Fusion')
-    # 设置跨平台字体，Windows用微软雅黑，Mac用系统默认
+    # 使用系统默认字体，避免字体警告
     font = QFont()
-    font.setFamily("Microsoft YaHei, PingFang SC, Helvetica, Arial")
     font.setPointSize(9)
     app.setFont(font)
     

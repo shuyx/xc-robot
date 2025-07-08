@@ -1145,7 +1145,7 @@ class SimulationWidget(QWidget):
         
         # 设置按钮字体（更小更紧凑）
         button_font = QFont()
-        button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        # 使用默认字体避免警告
         button_font.setPointSize(9)
         self.xy_toggle_button.setFont(button_font)
         self.rotate_90_button.setFont(button_font)
@@ -1177,8 +1177,6 @@ class SimulationWidget(QWidget):
         
         display_layout.addWidget(chassis_group)
         display_layout.addWidget(arm_group)
-        layout.addWidget(QWidget())  # 占位
-        layout.addLayout(display_layout)
         
         # 控制面板 - 分为两个部分
         control_layout = QHBoxLayout()
@@ -1197,7 +1195,7 @@ class SimulationWidget(QWidget):
         
         # 设置按钮字体（Mac优先）
         button_font = QFont()
-        button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        # 使用默认字体避免警告
         button_font.setPointSize(11)
         for btn in [self.chassis_play_button, self.chassis_pause_button, 
                    self.chassis_stop_button, self.chassis_reset_button]:
@@ -1270,7 +1268,7 @@ class SimulationWidget(QWidget):
         
         # 设置机械臂按钮字体（Mac优先）
         arm_button_font = QFont()
-        arm_button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        # 使用默认字体避免警告
         arm_button_font.setPointSize(11)
         for btn in [self.arm_play_button, self.arm_pause_button, 
                    self.arm_stop_button, self.arm_reset_button]:
@@ -1340,7 +1338,7 @@ class SimulationWidget(QWidget):
         
         # 设置文件加载按钮字体
         load_button_font = QFont()
-        load_button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        # 使用默认字体避免警告
         load_button_font.setPointSize(11)
         self.load_button.setFont(load_button_font)
         
