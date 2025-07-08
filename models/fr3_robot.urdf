@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot name="fr3_dual_arm">
+  <!-- FR3双臂机器人URDF描述文件 -->
+  
+  <!-- 基座 -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.16 0.25 1.2"/>  <!-- 支撑柱: 160x250x1200mm -->
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!-- 胸部 -->
+  <link name="chest">
+    <visual>
+      <geometry>
+        <box size="0.38 0.25 0.32"/>  <!-- 胸部: 380x250x320mm -->
+      </geometry>
+      <material name="light_gray">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!-- 胸部连接到基座 -->
+  <joint name="base_to_chest" type="fixed">
+    <parent link="base_link"/>
+    <child link="chest"/>
+    <origin xyz="0 0 0.76" rpy="0 0 0"/>  <!-- 760mm高度 -->
+  </joint>
+  
+  <!-- 左臂基座 -->
+  <link name="left_arm_base">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.06"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.2 0.4 0.8 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!-- 左臂基座连接 -->
+  <joint name="chest_to_left_base" type="fixed">
+    <parent link="chest"/>
+    <child link="left_arm_base"/>
+    <origin xyz="-0.19 0 0.16" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- 左臂关节1 -->
+  <link name="left_link1">
+    <visual>
+      <geometry>
+        <cylinder length="0.1" radius="0.04"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+  
+  <joint name="left_joint1" type="revolute">
+    <parent link="left_arm_base"/>
+    <child link="left_link1"/>
+    <origin xyz="0 0 0.07" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
+  </joint>
+  
+  <!-- 左臂连杆2 -->
+  <link name="left_link2">
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.28"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+  
+  <joint name="left_joint2" type="revolute">
+    <parent link="left_link1"/>
+    <child link="left_link2"/>
+    <origin xyz="0 0 0.14" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.0" upper="2.0" effort="100" velocity="1.0"/>
+  </joint>
+  
+  <!-- 继续定义其他关节... -->
+  
+  <!-- 右臂基座 -->
+  <link name="right_arm_base">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.06"/>
+      </geometry>
+      <material name="red">
+        <color rgba="0.8 0.2 0.2 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <!-- 右臂基座连接 -->
+  <joint name="chest_to_right_base" type="fixed">
+    <parent link="chest"/>
+    <child link="right_arm_base"/>
+    <origin xyz="0.19 0 0.16" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- 右臂关节定义类似左臂... -->
+  
+</robot>
