@@ -984,45 +984,59 @@ class ArmSimulationWidget(QWidget):
         painter.save()
         painter.resetTransform()
         
-        # 信息面板位置
+        # 准备信息文本内容
+        info_texts = [
+            "FR3 双臂机械臂仿真",
+            f"基座间距: {self.robot_structure['base_separation']}mm",
+            f"胸部: {self.robot_structure['chest_width']}×{self.robot_structure['chest_length']}mm", 
+            f"底盘: {self.robot_structure['chassis_width']}×{self.robot_structure['chassis_length']}mm",
+            f"视角: X={self.view_angle_x}° Y={self.view_angle_y}°",
+            f"缩放: {self.scale:.1f}x"
+        ]
+        
+        # 添加轨迹信息（如果有）
+        if self.left_arm_trajectory or self.right_arm_trajectory:
+            info_texts.extend([
+                f"轨迹点: {max(len(self.left_arm_trajectory), len(self.right_arm_trajectory))}",
+                f"当前: {self.trajectory_index}"
+            ])
+        
+        # 设置字体并计算文本尺寸
+        font = QFont("Arial", 9)
+        painter.setFont(font)
+        fm = painter.fontMetrics()
+        
+        # 计算最大文本宽度
+        max_text_width = 0
+        for text in info_texts:
+            text_width = fm.width(text)
+            max_text_width = max(max_text_width, text_width)
+        
+        # 计算面板尺寸（自适应文字）
+        padding_horizontal = 20  # 左右各10px边距
+        padding_vertical = 30    # 上下边距
+        line_height = fm.height()
+        line_spacing = 4  # 行间距
+        
+        panel_w = max_text_width + padding_horizontal
+        panel_h = len(info_texts) * line_height + (len(info_texts) - 1) * line_spacing + padding_vertical
+        
         panel_x = 10
         panel_y = 10
-        panel_w = 250
-        panel_h = 200
         
         # 绘制面板背景
-        painter.setBrush(QBrush(QColor(250, 250, 250, 200)))
+        painter.setBrush(QBrush(QColor(250, 250, 250, 220)))
         painter.setPen(QPen(QColor(150, 150, 150), 1))
         painter.drawRect(panel_x, panel_y, panel_w, panel_h)
         
         # 绘制信息文本
         painter.setPen(QPen(QColor(50, 50, 50)))
-        painter.setFont(QFont("Arial", 9))
         
-        y_offset = panel_y + 20
-        painter.drawText(panel_x + 10, y_offset, "FR3 双臂机械臂仿真")
-        y_offset += 20
+        y_offset = panel_y + 15 + fm.ascent()  # 从顶部开始，加上边距和字体上升高度
         
-        painter.drawText(panel_x + 10, y_offset, f"基座间距: {self.robot_structure['base_separation']}mm")
-        y_offset += 15
-        
-        painter.drawText(panel_x + 10, y_offset, f"胸部: {self.robot_structure['chest_width']}×{self.robot_structure['chest_length']}mm")
-        y_offset += 15
-        
-        painter.drawText(panel_x + 10, y_offset, f"底盘: {self.robot_structure['chassis_width']}×{self.robot_structure['chassis_length']}mm")
-        y_offset += 15
-        
-        painter.drawText(panel_x + 10, y_offset, f"视角: X={self.view_angle_x}° Y={self.view_angle_y}°")
-        y_offset += 15
-        
-        painter.drawText(panel_x + 10, y_offset, f"缩放: {self.scale:.1f}x")
-        y_offset += 20
-        
-        # 轨迹信息
-        if self.left_arm_trajectory or self.right_arm_trajectory:
-            painter.drawText(panel_x + 10, y_offset, f"轨迹点: {max(len(self.left_arm_trajectory), len(self.right_arm_trajectory))}")
-            y_offset += 15
-            painter.drawText(panel_x + 10, y_offset, f"当前: {self.trajectory_index}")
+        for text in info_texts:
+            painter.drawText(panel_x + 10, y_offset, text)
+            y_offset += line_height + line_spacing
         
         painter.restore()
     
@@ -1103,6 +1117,7 @@ class SimulationWidget(QWidget):
         
         # 左侧：底盘仿真
         chassis_group = QGroupBox("底盘运动仿真")
+        chassis_group.setStyleSheet("QGroupBox::title { font-size: 15px; font-weight: bold; }")
         chassis_layout = QVBoxLayout(chassis_group)
         
         # 底盘仿真控制按钮（紧凑布局）
@@ -1131,7 +1146,7 @@ class SimulationWidget(QWidget):
         # 设置按钮字体（更小更紧凑）
         button_font = QFont()
         button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
-        button_font.setPointSize(7)
+        button_font.setPointSize(9)
         self.xy_toggle_button.setFont(button_font)
         self.rotate_90_button.setFont(button_font)
         self.clear_path_button.setFont(button_font)
@@ -1155,6 +1170,7 @@ class SimulationWidget(QWidget):
         
         # 右侧：机械臂仿真
         arm_group = QGroupBox("机械臂运动仿真")
+        arm_group.setStyleSheet("QGroupBox::title { font-size: 15px; font-weight: bold; }")
         arm_layout = QVBoxLayout(arm_group)
         self.arm_sim = ArmSimulationWidget()
         arm_layout.addWidget(self.arm_sim)
@@ -1169,6 +1185,7 @@ class SimulationWidget(QWidget):
         
         # 底盘控制面板
         chassis_control_group = QGroupBox("底盘仿真控制")
+        chassis_control_group.setStyleSheet("QGroupBox::title { font-size: 15px; font-weight: bold; }")
         chassis_control_layout = QVBoxLayout(chassis_control_group)
         
         # 底盘播放控制按钮
@@ -1181,7 +1198,7 @@ class SimulationWidget(QWidget):
         # 设置按钮字体（Mac优先）
         button_font = QFont()
         button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
-        button_font.setPointSize(9)
+        button_font.setPointSize(11)
         for btn in [self.chassis_play_button, self.chassis_pause_button, 
                    self.chassis_stop_button, self.chassis_reset_button]:
             btn.setFont(button_font)
@@ -1241,6 +1258,7 @@ class SimulationWidget(QWidget):
         
         # 机械臂控制面板
         arm_control_group = QGroupBox("机械臂仿真控制")
+        arm_control_group.setStyleSheet("QGroupBox::title { font-size: 15px; font-weight: bold; }")
         arm_control_layout = QVBoxLayout(arm_control_group)
         
         # 机械臂播放控制按钮
@@ -1251,9 +1269,12 @@ class SimulationWidget(QWidget):
         self.arm_reset_button = QPushButton("重置")
         
         # 设置机械臂按钮字体（Mac优先）
+        arm_button_font = QFont()
+        arm_button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        arm_button_font.setPointSize(11)
         for btn in [self.arm_play_button, self.arm_pause_button, 
                    self.arm_stop_button, self.arm_reset_button]:
-            btn.setFont(button_font)
+            btn.setFont(arm_button_font)
         
         arm_button_layout.addWidget(self.arm_play_button)
         arm_button_layout.addWidget(self.arm_pause_button)
@@ -1316,6 +1337,13 @@ class SimulationWidget(QWidget):
         file_group = QGroupBox("程序加载")
         file_layout = QHBoxLayout(file_group)
         self.load_button = QPushButton("📁 加载主控程序")
+        
+        # 设置文件加载按钮字体
+        load_button_font = QFont()
+        load_button_font.setFamily("PingFang SC, Helvetica, Microsoft YaHei, Arial")
+        load_button_font.setPointSize(11)
+        self.load_button.setFont(load_button_font)
+        
         self.file_label = QLabel("未选择文件")
         file_layout.addWidget(self.load_button)
         file_layout.addWidget(self.file_label)
