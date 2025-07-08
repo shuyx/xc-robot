@@ -54,7 +54,10 @@ class LogWidget(QWidget):
         # 日志显示区域
         self.log_display = QTextEdit()
         self.log_display.setReadOnly(True)
-        self.log_display.setFont(QFont("Consolas", 9))
+        # 使用系统默认字体，避免字体警告
+        font = QFont()
+        font.setPointSize(9)
+        self.log_display.setFont(font)
         layout.addWidget(self.log_display)
         
         # 初始化行数统计
