@@ -779,6 +779,6 @@ self.testing_widget.safety_system = self.safety_manager
 ---
 
 **文档版本**: v1.0  
-**创建日期**: 2025-01-15  
-**维护人**: Claude Code Assistant  
+**创建日期**: 2025-07-14  
+**维护人**: kevin  
 **状态**: 初始版本，待实施验证

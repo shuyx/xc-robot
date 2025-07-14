@@ -492,5 +492,5 @@ python function_test/test_gui_quick.py
 
 **文档版本**: v1.0  
 **最后更新**: 2025-07-08  
-**维护人**: Claude Code Assistant  
+**维护人**: kevin  
 **项目状态**: 活跃开发中

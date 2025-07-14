@@ -547,5 +547,5 @@ def test_kinematics_accuracy():
 
 **文档版本**: v1.0  
 **最后更新**: 2025-07-08  
-**维护人**: Claude Code Assistant  
+**维护人**: kevin  
 **状态**: 技术方案完整，待实施验证
