@@ -1,0 +1,68 @@
+{
+  "connection": {
+    "status": "PASSED",
+    "time": 1.0087029933929443
+  },
+  "initial_position": {
+    "joints": [
+      21.221017837524414,
+      -18.052387237548828,
+      111.20013427734375,
+      -89.99652099609375,
+      90.01957702636719,
+      0.021537553519010544
+    ],
+    "tcp_pose": [
+      -286.8227844238281,
+      -220.75526428222656,
+      -120.2126235961914,
+      93.15122985839844,
+      -0.020428666844964027,
+      -68.79971313476562
+    ]
+  },
+  "joint_motion": [
+    {
+      "motion": "right臂关节6旋转",
+      "status": "PASSED",
+      "time": 0.48604488372802734,
+      "accuracy": 0.005139004439115524
+    },
+    {
+      "motion": "right臂关节6回原位",
+      "status": "PASSED",
+      "time": 0.4852471351623535,
+      "accuracy": 0.004351021721959114
+    }
+  ],
+  "tcp_motion": [
+    {
+      "motion": "right臂Z轴向上运动",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "right臂Z轴回原位",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "右臂Y轴向右运动",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "右臂Y轴回原位",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    }
+  ],
+  "emergency_stop": {
+    "status": "PASSED",
+    "stop_command_result": 0
+  },
+  "return_home": {
+    "status": "PASSED",
+    "accuracy": 0.0430755615234375
+  }
+}
