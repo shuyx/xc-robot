@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>数据结构说明 — 法奥意威协作机器人用户手册 3.8.3 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">数据结构说明 — 法奥意威协作机器人用户手册 3.8.3 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/cpp_intro.html">C++</a> / 1. 数据结构说明</p>
+<p><img src="images/_______________________3_8_3___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>1.</strong> 数据结构说明</p>
+<p><strong>1.1.</strong> 接⼝调⽤返回值类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>typedef</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>int</p>
+</blockquote></td>
+<td><blockquote>
+<p>er rno_t;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.2.</strong> 关节位置数据类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>/**</em></p>
+<p><em>* @brief 关节位置数据类型</em></p>
+<p><em>*/</em></p>
+<p><strong>typedef struct</strong></p>
+<p>{</p>
+<p>double jPos [6]; <em>/* 六个关节位置，</em> <em>单位deg */</em> }JointPos;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.3.</strong> 笛卡尔空间位置数据类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>/**</em></p>
+<p><em>* @brief 笛卡尔空间位置数据类型</em></p>
+<p><em>*/</em></p>
+<p><strong>typedef struct</strong></p>
+<p>{</p>
+<p>double x; <em>/* x轴坐标，</em> <em>单位mm */</em></p>
+<p>double y; <em>/* y轴坐标，</em> <em>单位mm */</em></p>
+<p>double z; <em>/* z轴坐标，</em> <em>单位mm */</em> } DescT ran;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_______________________3_8_3___/media/image3.png" style="width:0.11458in" /><strong>1.4.</strong> 欧拉角姿态数据类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>/**</em></p>
+<p><em>* @brief 欧拉角姿态数据类型</em></p>
+<p><em>*/</em></p>
+<p><strong>typedef struct</strong></p>
+<p>{</p>
+<p>double rx; <em>/* 绕固定轴X旋转角度，</em> <em>单位：deg */</em></p>
+<p>double ry; <em>/* 绕固定轴Y旋转角度，</em> <em>单位：deg */</em></p>
+<p>double rz; <em>/* 绕固定轴Z旋转角度，</em> <em>单位：deg */</em> } Rpy;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.5.</strong> 笛卡尔空间位姿数据类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>/**</em></p>
+<p><em>*@brief 笛卡尔空间位姿类型</em></p>
+<p><em>*/</em></p>
+<p><strong>typedef struct</strong></p>
+<p>{</p>
+<p>DescT ran t ran; <em>/* 笛卡尔空间位置</em> <em>*/</em></p>
+<p>Rpy rpy; <em>/* 笛卡尔空间姿态</em> <em>*/</em></p>
+<p>} DescPose;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.6.</strong> 扩展轴位置数据类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>/**</em></p>
+<p><em>* @brief 扩展轴位置数据类型</em></p>
+<p><em>*/</em></p>
+<p><strong>typedef struct</strong></p>
+<p>{</p>
+<p>double ePos [4]; <em>/* 四个扩展轴位置，</em> <em>单位mm */</em> }ExaxisPos;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.7.</strong> ⼒矩传感器数据类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>/**</em></p>
+<p><em>* @brief ⼒传感器的受⼒分量和⼒矩分量</em></p>
+<p><em>*/</em></p>
+<p><strong>typedef struct</strong></p>
+<p>{</p>
+<p>double fx; <em>/* 沿x轴受⼒分量，</em> <em>单位N */</em></p>
+<p>double fy; <em>/* 沿y轴受⼒分量，</em> <em>单位N */</em></p>
+<p>double fz; <em>/* 沿z轴受⼒分量，</em> <em>单位N */</em> double tx; <em>/* 绕x轴⼒矩分量，</em> <em>单位Nm */</em></p>
+<p>double ty; <em>/* 绕y轴⼒矩分量，</em> <em>单位Nm */</em></p>
+<p>double tz; <em>/* 绕z轴⼒矩分量，</em> <em>单位Nm */</em> } ForceTorque;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.8.</strong> 螺旋参数数据类型</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>/**</em></p>
+<p><em>* @brief 螺旋参数数据类型</em></p>
+<p><em>*/</em></p>
+<p><strong>typedef struct</strong></p>
+<p>{</p>
+<p>int circle_num; <em>/* 螺旋圈数</em> <em>*/</em></p>
+<p>float circle_angle; <em>/* 螺旋倾角</em> <em>*/</em></p>
+<p>float rad_init; <em>/* 螺旋初始半径，</em> <em>单位mm */</em></p>
+<p>float rad_add; <em>/* 半径增量</em> <em>*/</em></p>
+<p>float rotaxis_add; <em>/* 转轴⽅向增量</em> <em>*/</em></p>
+<p>unsigned int rot_direction; <em>/* 旋转⽅向，0-顺时针，1-逆时针</em> <em>*/</em> }SpiralParam;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.9.</strong> 控制器状态反馈数据包</p>
+<p><em>在</em> <em>C++SDK-v2.1.4.0 版本发⽣变更.</em></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/_______________________3_8_3___/media/image8.png" style="width:0.11458in" />1 <img src="images/_______________________3_8_3___/media/image9.png" style="height:0.1753in" /> <em>/**</em></p>
+<p>2 <img src="images/_______________________3_8_3___/media/image10.png" style="height:0.17365in" /> <em>* @brief 控制器状态反馈数据包</em></p>
+<p>3 <img src="images/_______________________3_8_3___/media/image11.png" style="height:0.1595in" /> <em>*/</em></p>
+<p>4 <img src="images/_______________________3_8_3___/media/image12.png" style="height:0.16896in" /> <strong>typedef struct _ROBOT_STATE_PKG</strong></p>
+<p>5 <img src="images/_______________________3_8_3___/media/image13.png" style="height:0.17283in" /> {</p>
+<p>6 <img src="images/_______________________3_8_3___/media/image14.png" style="height:0.17365in" /> uint16_t frame_head; <em>/* 帧头，</em> <em>约定为0x5A5A */</em></p>
+<p>7 <img src="images/_______________________3_8_3___/media/image15.png" style="height:0.17365in" /> uint8_t frame_cnt; <em>/* 帧计数，</em> <em>循环计数0-255 */</em></p>
+<p>8 <img src="images/_______________________3_8_3___/media/image16.png" style="height:0.16092in" /> uint16_t data_len; <em>/* 数据内容的⻓度</em> <em>*/</em></p>
+<p>9 <img src="images/_______________________3_8_3___/media/image17.png" style="height:0.17116in" /> uint8_t program_state; <em>/* 程序运⾏状态，1-停⽌；2-运⾏；3-暂停；*/</em></p>
+<p>10 <img src="images/_______________________3_8_3___/media/image18.png" style="height:0.17365in" /> uint8_t robot_state; <em>/* 机器⼈运动状态，1-停⽌；2-运⾏；3-暂停；4-拖动</em> <em>*/</em></p>
+<p>11 <img src="images/_______________________3_8_3___/media/image19.png" style="height:0.17365in" /> int main_code; <em>/* 主故障码</em> <em>*/</em></p>
+<p>12 <img src="images/_______________________3_8_3___/media/image20.png" style="height:0.17365in" /> int sub_code; <em>/* ⼦故障码</em> <em>*/</em></p>
+<p>13 <img src="images/_______________________3_8_3___/media/image21.png" style="height:0.16009in" /> uint8_t robot_mode; <em>/* 机器⼈模式，1-⼿动模式；0-⾃动模式；</em> <em>*/</em></p>
+<p>14 <img src="images/_______________________3_8_3___/media/image22.png" style="height:0.16951in" /> double jt_cur_pos [6]; <em>/* 6个轴当前关节位置，</em> <em>单位deg */</em></p>
+<p>15 <img src="images/_______________________3_8_3___/media/image23.png" style="height:0.17283in" /> double tl_cur_pos [6]; <em>/* ⼯具当前位置</em></p>
+<p>16 <img src="images/_______________________3_8_3___/media/image24.png" style="height:0.17365in" /> <em>tl_cur_pos[0]，</em> <em>沿x轴位置，</em> <em>单位mm，</em></p>
+<p>17 <img src="images/_______________________3_8_3___/media/image25.png" style="height:0.17365in" /> <em>tl_cur_pos[1]，</em> <em>沿y轴位置，</em> <em>单位mm，</em></p>
+<p>18 <img src="images/_______________________3_8_3___/media/image26.png" style="height:0.16092in" /> <em>tl_cur_pos[2]，</em> <em>沿z轴位置，</em> <em>单位mm，</em></p>
+<p>19 <img src="images/_______________________3_8_3___/media/image27.png" style="height:0.17116in" /> <em>tl_cur_pos[3]，</em> <em>绕固定轴X旋转角度，</em> <em>单位deg</em></p>
+<p>20 <img src="images/_______________________3_8_3___/media/image28.png" style="height:0.17365in" /> <em>tl_cur_pos[4]，</em> <em>绕固定轴y旋转角度，</em> <em>单位deg</em></p>
+<p>21 <img src="images/_______________________3_8_3___/media/image29.png" style="height:0.17279in" /> <em>tl_cur_pos[5]，</em> <em>绕固定轴z旋转角度，</em> <em>单位deg */</em></p>
+<p>22 <img src="images/_______________________3_8_3___/media/image30.png" style="height:0.17283in" /> double flange_cur_pos [6]; <em>/* 末端法兰当前位置</em></p>
+<p>23 <img src="images/_______________________3_8_3___/media/image31.png" style="height:0.16092in" /> <em>flange_cur_pos[0]，</em> <em>沿x轴位置，</em> <em>单位mm，</em></p>
+<p>24 <img src="images/_______________________3_8_3___/media/image32.png" style="height:0.17116in" /> <em>flange_cur_pos[1]，</em> <em>沿y轴位置，</em> <em>单位mm，</em></p>
+<p>25 <img src="images/_______________________3_8_3___/media/image33.png" style="height:0.17365in" /> <em>flange_cur_pos[2]，</em> <em>沿z轴位置，</em> <em>单位mm，</em></p>
+<p>26 <img src="images/_______________________3_8_3___/media/image34.png" style="height:0.17365in" /> <em>flange_cur_pos[3]，</em> <em>绕固定轴X旋转角度，</em> <em>单位deg</em></p>
+<p>27 <img src="images/_______________________3_8_3___/media/image35.png" style="height:0.17365in" /> <em>flange_cur_pos[4]，</em> <em>绕固定轴y旋转角度，</em> <em>单位deg</em></p>
+<p>28 <img src="images/_______________________3_8_3___/media/image36.png" style="height:0.16009in" /> <em>flange_cur_pos[5]，</em> <em>绕固定轴z旋转角度，</em> <em>单位deg */</em></p>
+<p>29 <img src="images/_______________________3_8_3___/media/image37.png" style="height:0.16951in" /> double actual_qd[6]; <em>/* 当前6个关节速度，</em> <em>单位deg/s */</em></p>
+<p>30 <img src="images/_______________________3_8_3___/media/image38.png" style="height:0.17198in" /> double actual_qdd[6]; <em>/* 当前6个关节加速度，</em> <em>单位deg/s^2 */</em></p>
+<p>31 <img src="images/_______________________3_8_3___/media/image39.png" style="height:0.17283in" /> double target_TCP_CmpSpeed[2]; <em>/* target_TCP_CmpSpeed[0]，TCP合成指令速度(位</em></p>
+<p><em>置)，</em> <em>单位mm/s</em></p>
+<p>32 <img src="images/_______________________3_8_3___/media/image40.png" style="height:0.1617in" /> <em>target_TCP_CmpSpeed[1]，TCP合成指令速度(姿态)，</em> <em>单位deg/s */</em></p>
+<p>33 <img src="images/_______________________3_8_3___/media/image41.png" style="height:0.17036in" /> double target_TCP_Speed[6]; <em>/* TCP指令速度</em></p>
+<p>34 <img src="images/_______________________3_8_3___/media/image42.png" style="height:0.17365in" /> <em>target_TCP_Speed[0]，</em> <em>沿x轴速度，</em> <em>单位mm/s，</em></p>
+<p>35 <img src="images/_______________________3_8_3___/media/image43.png" style="height:0.17365in" /> <em>target_TCP_Speed[1]，</em> <em>沿y轴速度，</em> <em>单位mm/s，</em></p>
+<p>36 <img src="images/_______________________3_8_3___/media/image44.png" style="height:0.16092in" /> <em>target_TCP_Speed[2]，</em> <em>沿z轴速度，</em> <em>单位mm/s，</em></p>
+<p>37 <img src="images/_______________________3_8_3___/media/image45.png" style="height:0.17116in" /> <em>target_TCP_Speed[3]，</em> <em>绕固定轴X旋转角速度，</em> <em>单位deg/s</em></p>
+<p>38 <img src="images/_______________________3_8_3___/media/image46.png" style="height:0.17365in" /> <em>target_TCP_Speed[4]，</em> <em>绕固定轴y旋转角速度，</em> <em>单位deg/s</em></p>
+<p>39 <img src="images/_______________________3_8_3___/media/image47.png" style="height:0.17279in" /> <em>target_TCP_Speed[5]，</em> <em>绕固定轴z旋转角速度，</em> <em>单位deg/s */</em></p>
+<p>40 <img src="images/_______________________3_8_3___/media/image48.png" style="height:0.17283in" /> double actual_TCP_CmpSpeed[2];<em>/* actual_TCP_CmpSpeed[0]，TCP合成实际速度(位</em></p>
+<p><em>置)，</em> <em>单位mm/s</em></p>
+<p>41 <img src="images/_______________________3_8_3___/media/image49.png" style="height:0.1703in" /> <em>actual_TCP_CmpSpeed[1]，TCP合成实际速度(姿态)，</em> <em>单位deg/s */</em></p>
+<p>42 <img src="images/_______________________3_8_3___/media/image50.png" style="height:0.17283in" /> double actual_TCP_Speed[6]; <em>/* TCP实际速度</em></p>
+<p>43 <img src="images/_______________________3_8_3___/media/image51.png" style="height:0.17365in" /> <em>actual_TCP_Speed[0]，</em> <em>沿x轴速度，</em> <em>单位mm/s，</em></p>
+<p>44 <img src="images/_______________________3_8_3___/media/image52.png" style="height:0.17365in" /> <em>actual_TCP_Speed[1]，</em> <em>沿y轴速度，</em> <em>单位mm/s，</em></p>
+<p>45 <img src="images/_______________________3_8_3___/media/image53.png" style="height:0.16092in" /> <em>actual_TCP_Speed[2]，</em> <em>沿z轴速度，</em> <em>单位mm/s，</em></p>
+<p>46 <img src="images/_______________________3_8_3___/media/image54.png" style="height:0.17116in" /> <em>actual_TCP_Speed[3]，</em> <em>绕固定轴X旋转角速度，</em> <em>单位deg/s</em></p>
+<p>47 <img src="images/_______________________3_8_3___/media/image55.png" style="height:0.17365in" /> <em>actual_TCP_Speed[4]，</em> <em>绕固定轴y旋转角速度，</em> <em>单位deg/s</em></p>
+<p>48 <img src="images/_______________________3_8_3___/media/image56.png" style="height:0.17279in" /> <em>actual_TCP_Speed[5]，</em> <em>绕固定轴z旋转角速度，</em> <em>单位deg/s */</em></p>
+<p>49 <img src="images/_______________________3_8_3___/media/image57.png" style="height:0.17283in" /> double jt_cur_tor [6]; <em>/* 6个轴当前扭矩，</em> <em>单位N ·m */</em></p>
+<p>50 <img src="images/_______________________3_8_3___/media/image58.png" style="height:0.16092in" /> int tool; <em>/* 应⽤的⼯具坐标系编号</em> <em>*/</em></p>
+<p>51 <img src="images/_______________________3_8_3___/media/image59.png" style="height:0.17116in" /> int user; <em>/* 应⽤的⼯件坐标系编号</em> <em>*/</em></p>
+<p>52 <img src="images/_______________________3_8_3___/media/image60.png" style="height:0.17365in" /> uint8_t cl_dgt_output_h; <em>/* 控制箱数字量IO输出15-8 */</em></p>
+<p>53 <img src="images/_______________________3_8_3___/media/image61.png" style="height:0.17365in" /> uint8_t cl_dgt_output_l; <em>/* 控制箱数字量IO输出7-0 */</em></p>
+<p>54 <img src="images/_______________________3_8_3___/media/image62.png" style="height:0.17279in" /> uint8_t tl_dgt_output_l; <em>/* ⼯具数字量IO输出7-0，</em> <em>仅bit0-bit1有效</em> <em>*/</em></p>
+<p>55 <img src="images/_______________________3_8_3___/media/image63.png" style="height:0.15933in" /> uint8_t cl_dgt_input_h; <em>/* 控制箱数字量IO输⼊15-8 */</em></p>
+<p>56 <img src="images/_______________________3_8_3___/media/image64.png" style="height:0.16951in" /> uint8_t cl_dgt_input_l; <em>/* 控制箱数字量IO输⼊7-0 */</em></p>
+<p>57 <img src="images/_______________________3_8_3___/media/image65.png" style="height:0.17198in" /> uint8_t tl_dgt_input_l; <em>/* ⼯具数字量IO输⼊7-0，</em> <em>仅bit0-bit1 */</em></p>
+<p>58 <img src="images/_______________________3_8_3___/media/image66.png" style="height:0.16827in" /> uint16_t cl_analog_input[2]; <em>/* cl_analog_input[0]，</em> <em>控制箱模拟量</em> <img src="images/_______________________3_8_3___/media/image67.png" style="width:0.16601in;height:0.17815in" /> latest</p>
+<p>59 <img src="images/_______________________3_8_3___/media/image68.png" style="height:0.16768in" /> <em>cl_analog_input[1]，</em> <em>控制箱模拟量</em> <em>*/</em></p>
+<p>60 <img src="images/_______________________3_8_3___/media/image69.png" style="height:0.15933in" /> uint16_t tl_anglog_input; <em>/* ⼯具模拟量输⼊</em> <em>*/</em></p>
+<p>61 <img src="images/_______________________3_8_3___/media/image70.png" style="height:0.172in" /> double ft_sensor_raw_data [6]; <em>/* ⼒矩传感器原始数据</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 92%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>62</p>
+<p>63</p>
+<p>64</p>
+<p>65</p>
+<p>66</p>
+<p>67</p>
+<p>68</p>
+<p>69</p>
+<p>70</p>
+<p>71</p>
+<p>72</p>
+<p>73</p>
+<p>74</p>
+<p>75</p>
+<p>76</p>
+<p>77</p>
+<p>78</p>
+<p>79</p>
+<p>80</p>
+<p>81</p>
+<p>82</p>
+<p>83</p>
+<p>84</p>
+<p>85</p>
+<p>86</p>
+<p>87</p>
+<p>88</p>
+<p>89</p>
+<p>90</p>
+<p>91</p>
+<p>92</p>
+<p>93</p>
+<p>94</p>
+<p>95</p>
+<p>96</p>
+<p>97</p>
+<p>98</p>
+<p>99</p>
+<p>100</p>
+<p>101</p>
+<p>102</p>
+<p>103</p>
+<p>104</p>
+<p>105</p>
+<p>106</p>
+<p>107</p>
+<p>108</p>
+<p>109</p>
+<p>110</p>
+<p>111</p>
+<p>112</p>
+<p>113</p>
+<p>114</p>
+<p>115</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>ft_sensor_raw_data[0]，</em> <em>沿x轴⼒</em> <em>，</em> <em>单位N</em></p>
+<p><em>ft_sensor_raw_data[1]，</em> <em>沿y轴⼒</em> <em>，</em> <em>单位N</em></p>
+<p><em>ft_sensor_raw_data[2]，</em> <em>沿z轴⼒</em> <em>，</em> <em>单位N ft_sensor_raw_data[3]，</em> <em>沿x轴⼒矩，</em> <em>单位Nm</em></p>
+<p><em>ft_sensor_raw_data[4]，</em> <em>沿y轴⼒矩，</em> <em>单位Nm</em></p>
+<p><em>ft_sensor_raw_data[5]，</em> <em>沿z轴⼒矩，</em> <em>单位Nm */</em></p>
+<p>double ft_sensor_data [6]; <em>/* ⼒矩传感器数据，</em></p>
+<p><em>ft_sensor_data[0]，</em> <em>沿x轴⼒</em> <em>，</em> <em>单位N</em></p>
+<p><em>ft_sensor_data[1]，</em> <em>沿y轴⼒</em> <em>，</em> <em>单位N</em></p>
+<p><em>ft_sensor_data[2]，</em> <em>沿z轴⼒</em> <em>，</em> <em>单位N</em></p>
+<p><em>ft_sensor_data[3]，</em> <em>沿x轴⼒矩，</em> <em>单位Nm</em></p>
+<p><em>ft_sensor_data[4]，</em> <em>沿y轴⼒矩，</em> <em>单位Nm</em></p>
+<p><em>ft_sensor_data[5]，</em> <em>沿z轴⼒矩，</em> <em>单位Nm */</em></p>
+<p>uint8_t ft_sensor_active; <em>/* ⼒矩传感器激活状态，0-复位，1-激活</em> <em>*/</em></p>
+<p>uint8_t EmergencyStop; <em>/* 急停标志，0-急停未按下，1-急停按下</em> <em>*/</em></p>
+<p>int motion_done; <em>/* 运动到位信号，1-到位，0-未到位</em> <em>*/</em></p>
+<p>uint8_t gripper_motiondone; <em>/* 夹⽖运动完成信号，1-完成，0-未完成</em> <em>*/</em> int mc_queue_len; <em>/* 运动指令队列⻓度</em> <em>*/</em></p>
+<p>uint8_t collisionState; <em>/* 碰撞检测，1-碰撞，0-⽆碰撞</em> <em>*/</em></p>
+<p>int trajectory_pnum; <em>/* 轨迹点编号</em> <em>*/</em></p>
+<p>uint8_t safety_stop0_state; <em>/* 安全停⽌信号SI0 */</em></p>
+<p>uint8_t safety_stop1_state; <em>/* 安全停⽌信号SI1 */</em></p>
+<p>uint8_t gripper_fault_id; <em>/* 错误夹⽖号</em> <em>*/</em></p>
+<p>uint16_t gripper_fault; <em>/* 夹⽖故障</em> <em>*/</em></p>
+<p>uint16_t gripper_active; <em>/* 夹⽖激活状态</em> <em>*/</em></p>
+<p>uint8_t gripper_position; <em>/* 夹⽖位置</em> <em>*/</em></p>
+<p>int8_t gripper_speed; <em>/* 夹⽖速度</em> <em>*/</em></p>
+<p>int8_t gripper_current; <em>/* 夹⽖电流</em> <em>*/</em></p>
+<p>int gripper_temp; <em>/* 夹⽖温度</em> <em>*/</em></p>
+<p>int gripper_voltage; <em>/* 夹⽖电压</em> <em>*/</em></p>
+<p>robot_aux_state aux_state;</p>
+<p>EXT_AXIS_STATUS extAxisStatus [4]; <em>/* UDP扩展轴状态</em> <em>*/</em></p>
+<p>uint16_t extDIState [8]; <em>//扩展DI输⼊</em></p>
+<p>uint16_t extDOState [8]; <em>//扩展DO输出</em></p>
+<p>uint16_t extAIState [4]; <em>//扩展AI输⼊</em></p>
+<p>uint16_t extAOState [4]; <em>//扩展AO输出</em></p>
+<p>int rbtEnableState; <em>//机器⼈使能状态</em></p>
+<p>double jointDriverTorque[6]; <em>//机器⼈关节驱动器扭矩</em></p>
+<p>double jointDriverTemperature[6]; <em>//机器⼈关节驱动器温度</em></p>
+<p>RobotTime robotTime; <em>//机器⼈系统时间</em></p>
+<p>int softwareUpgradeState; <em>//机器⼈软件升级状态</em></p>
+<p>uint16_t endLuaErrCode; <em>//末端LUA运⾏状态</em></p>
+<p>uint16_t cl_analog_output[2]; <em>//控制箱模拟量输出</em></p>
+<p>uint16_t tl_analog_output; <em>//⼯具模拟量输出</em></p>
+<p>float gripperRotNum; <em>//旋转夹⽖当前旋转圈数</em></p>
+<p>uint8_t gripperRotSpeed; <em>//旋转夹⽖当前旋转速度百分⽐</em></p>
+<p>uint8_t gripperRotTorque; <em>//旋转夹⽖当前旋转⼒矩百分⽐</em></p>
+<p>WELDING_BREAKOFF_STATE weldingBreakOffState; <em>//焊接中断状态</em></p>
+<p>double jt_tgt_tor [6]; <em>//关节指令⼒矩</em></p>
+<p>int smartToolState; <em>//SmartTool⼿柄按钮状态</em></p>
+<p>float wideVoltageCtrlBoxTemp; <em>//宽电压控制箱温度</em></p>
+<p>uint16_t wideVoltageCtrlBoxFanCurrent; <em>//宽电压控制箱⻛扇电流(mA)</em></p>
+<p>uint16_t check_sum; <em>/* 和校验</em> <em>*/</em></p>
+<p>}ROBOT_STATE_PKG;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

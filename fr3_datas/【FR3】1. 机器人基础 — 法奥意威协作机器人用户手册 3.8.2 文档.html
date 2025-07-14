@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR3】1. 机器人基础 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR3】1. 机器人基础 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 1. 机器⼈基础</p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>1.</strong> 机器⼈基础</p>
+<p><strong>1.1.</strong> 实例化机器⼈</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 2%" />
+<col style="width: 66%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>RPC(ip)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>实例化—个机器⼈对象</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. ip ：机器⼈的IP地址，默认出⼚IP为 “192.168.58.2 ”</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image2.png" /> 成功：返回—个机器⼈对象</p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image3.png" /> 失败：创建的对象会被销毁</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.2.</strong> 关闭<strong>RPC</strong>连接</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 8%" />
+<col style="width: 36%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CloseRPC()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>关闭RPC连接</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image4.png" /><img src="images/_FR3_1________________________3_8_2___/media/image5.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR3_1________________________3_8_2___/media/image7.png" style="width:0.5in;height:0.48958in" /><img src="images/_FR3_1________________________3_8_2___/media/image8.png" style="width:0.11458in" /><strong>1.2.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>robot.CloseRPC()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.3.</strong> 查询<strong>SDK</strong>版本号</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 15%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetSDKVersion()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>查询SDK版本号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image9.png" /> 错误码 成功-0 失败-errcode</p>
+<p>. sdk ：SDK版本号、控制器版本号</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.3.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret,version = robot.GetSDKVersion() <em>#查询SDK版本号</em></p>
+<p><strong>if</strong> ret ==0:</p>
+<p>print("SDK版本号为", version )</p>
+<p><strong>else</strong>:</p>
+<p>print("查询失败，错误码为",ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.4.</strong> 获取控制器<strong>IP</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 22%" />
+<col style="width: 32%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetControllerIP()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>查询控制器IP</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><p><img src="images/_FR3_1________________________3_8_2___/media/image10.png" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image11.png" /></p></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ip</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>：控制器IP</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image13.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR3_1________________________3_8_2___/media/image14.png" style="width:0.11458in" /><strong>1.4.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret,ip = robot.GetControllerIP() <em>#查询控制器IP</em></p>
+<p><strong>if</strong> ret ==0:</p>
+<p>print("控制器IP为", ip)</p>
+<p><strong>else</strong>:</p>
+<p>print("查询失败，错误码为",ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.5.</strong> 控制机器⼈⼿⾃动模式切换</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 12%" />
+<col style="width: 5%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td colspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>Mode(state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>控制机器⼈⼿⾃动模式切换</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR3_1________________________3_8_2___/media/image15.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="2"><blockquote>
+<p>：0-⾃动模式，1-⼿动模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em>#机器⼈⼿⾃动模式切换</em></p>
+<p>ret = robot.Mode(0) <em>#机器⼈切⼊⾃动运⾏模式</em></p>
+<p>print("机器⼈切⼊⾃动运⾏模式", ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.Mode(1) <em>#机器⼈切⼊⼿动模式</em></p>
+<p>print("机器⼈切⼊⼿动模式", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.6.</strong> 机器⼈拖动模式</p>
+<p><strong>1.6.1.</strong> 控制机器⼈进⼊或退出拖动示教模式</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 8%" />
+<col style="width: 18%" />
+<col style="width: 45%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>DragTeachSwitch(state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>控制机器⼈进⼊或退出拖动示教模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：1-进⼊拖动示教模式，0-退出拖动示教模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image16.png" style="width:0.34028in;height:0.40449in" /><strong>1.6.2.</strong> 查询机器⼈是否处于拖动模式</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 3%" />
+<col style="width: 24%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>IsInDragTeach()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>查询机器⼈是否处于拖动示教模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image19.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. state ：0-⾮拖动示教模式，1-拖动示教模式</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.6.3.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR3_1________________________3_8_2___/media/image20.png" style="height:0.17401in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR3_1________________________3_8_2___/media/image21.png" style="height:0.16023in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR3_1________________________3_8_2___/media/image22.png" style="height:0.17519in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR3_1________________________3_8_2___/media/image23.png" style="height:0.17519in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>5 <img src="images/_FR3_1________________________3_8_2___/media/image24.png" style="height:0.17452in" /> <em>#机器⼈⼿⾃动模式切换</em></p>
+<p>6 <img src="images/_FR3_1________________________3_8_2___/media/image25.png" style="height:0.17325in" /> ret = robot.Mode(0) <em>#机器⼈切⼊⾃动运⾏模式</em> 7 <img src="images/_FR3_1________________________3_8_2___/media/image26.png" style="height:0.16306in" /> print("机器⼈切⼊⾃动运⾏模式", ret)</p>
+<p>8 <img src="images/_FR3_1________________________3_8_2___/media/image27.png" style="height:0.16963in" /> time.sleep(1)</p>
+<p>9 <img src="images/_FR3_1________________________3_8_2___/media/image28.png" style="height:0.17582in" /> ret = robot.Mode(1) <em>#机器⼈切⼊⼿动模式</em> 10 <img src="images/_FR3_1________________________3_8_2___/media/image29.png" style="height:0.17582in" /> print("机器⼈切⼊⼿动模式", ret)</p>
+<p>11 <img src="images/_FR3_1________________________3_8_2___/media/image30.png" style="height:0.1739in" /></p>
+<p>12 <img src="images/_FR3_1________________________3_8_2___/media/image31.png" style="height:0.15728in" /> <strong>from fairino import</strong> Robot</p>
+<p>13 <img src="images/_FR3_1________________________3_8_2___/media/image32.png" style="height:0.17035in" /> <strong>import time</strong></p>
+<p>14 <img src="images/_FR3_1________________________3_8_2___/media/image33.png" style="height:0.17708in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 15 <img src="images/_FR3_1________________________3_8_2___/media/image34.png" style="height:0.17708in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>16 <img src="images/_FR3_1________________________3_8_2___/media/image35.png" style="height:0.17452in" /> <em>#机器⼈进⼊或退出拖动示教模式</em></p>
+<p>17 <img src="images/_FR3_1________________________3_8_2___/media/image36.png" style="height:0.16422in" /> ret = robot.Mode(1) <em>#机器⼈切⼊⼿动模式</em> 18 <img src="images/_FR3_1________________________3_8_2___/media/image37.png" style="height:0.17448in" /> print("机器⼈切⼊⼿动模式", ret)</p>
+<p>19 <img src="images/_FR3_1________________________3_8_2___/media/image38.png" style="height:0.1721in" /> time.sleep(1)</p>
+<p>20 <img src="images/_FR3_1________________________3_8_2___/media/image39.png" style="height:0.17567in" /> ret = robot.DragTeachSwitch(1) <em>#机器⼈切⼊拖动示教模式，</em> <em>必须在⼿动模式下才能切⼊拖动示教</em> <em>模式</em></p>
+<p>21 <img src="images/_FR3_1________________________3_8_2___/media/image40.png" style="height:0.16186in" /> print("机器⼈切⼊拖动示教模式", ret)</p>
+<p>22 <img src="images/_FR3_1________________________3_8_2___/media/image41.png" style="height:0.16963in" /> time.sleep(1)</p>
+<p>23 <img src="images/_FR3_1________________________3_8_2___/media/image42.png" style="height:0.17567in" /> ret,state = robot.IsInDragTeach() <em>#查询是否处于拖动示教模式，1-拖动示教模式，0-⾮拖动</em> <em>示教模式</em></p>
+<p>24 <img src="images/_FR3_1________________________3_8_2___/media/image43.png" style="height:0.17452in" /> <strong>if</strong> ret == 0:</p>
+<p>25 <img src="images/_FR3_1________________________3_8_2___/media/image44.png" style="height:0.16186in" /> print("当前拖动示教模式状态：", state)</p>
+<p>26 <img src="images/_FR3_1________________________3_8_2___/media/image45.png" style="height:0.17198in" /> <strong>else</strong>:</p>
+<p>27 <img src="images/_FR3_1________________________3_8_2___/media/image46.png" style="height:0.1721in" /> print("查询失败，错误码为：",ret)</p>
+<p>28 <img src="images/_FR3_1________________________3_8_2___/media/image47.png" style="height:0.1721in" /> time.sleep(3)</p>
+<p>29 <img src="images/_FR3_1________________________3_8_2___/media/image48.png" style="height:0.17567in" /> ret = robot.DragTeachSwitch(0) <em>#机器⼈切⼊⾮拖动示教模式，</em> <em>必须在⼿动模式下才能切⼊⾮拖动</em> <em>示教模式</em></p>
+<p>30 <img src="images/_FR3_1________________________3_8_2___/media/image49.png" style="height:0.17459in" /> print("机器⼈切⼊⾮拖动示教模式", ret)</p>
+<p>31 <img src="images/_FR3_1________________________3_8_2___/media/image50.png" style="height:0.1721in" /> time.sleep(1)</p>
+<p>32 <img src="images/_FR3_1________________________3_8_2___/media/image51.png" style="height:0.17567in" /> ret,state = robot.IsInDragTeach() <em>#查询是否处于拖动示教模式，1-拖动示教模式，0-⾮拖动</em> <em>示教模式</em></p>
+<p>33 <img src="images/_FR3_1________________________3_8_2___/media/image52.png" style="height:0.1641in" /> <strong>if</strong> ret == 0:</p>
+<p>34 <img src="images/_FR3_1________________________3_8_2___/media/image53.png" style="height:0.17459in" /> print("当前拖动示教模式状态：", state)</p>
+<p>35 <img src="images/_FR3_1________________________3_8_2___/media/image54.png" style="height:0.17452in" /> <strong>else</strong>:</p>
+<p>36 <img src="images/_FR3_1________________________3_8_2___/media/image55.png" style="height:0.17459in" /> print("查询失败，错误码为：",ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.7.</strong> 控制机器⼈上使能或下使能</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 12%" />
+<col style="width: 18%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>RobotEnable(state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>控制机器⼈上使能或下使能</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：1-上使能，0-下使能</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image56.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image57.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR3_1________________________3_8_2___/media/image58.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>1.7.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 32%" />
+<col style="width: 61%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="2"><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em>#机器⼈上使能或下使能</em></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ret = robot.RobotEnable(0) print("机器⼈下使能", ret) time.sleep(3)</p>
+<p>ret = robot.RobotEnable(1) print("机器⼈上使能", ret)</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>#机器⼈下使能</em></p>
+<p><em>#机器⼈上使能，</em> <em>机器⼈上电后默认⾃动上使能</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.8.</strong> 关节扭矩功率检测</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 13%" />
+<col style="width: 40%" />
+<col style="width: 4%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetPowerLimit(status, power)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>关节扭矩功率检测</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="5"><p><img src="images/_FR3_1________________________3_8_2___/media/image59.png" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image60.png" /></p></td>
+<td></td>
+<td colspan="2" rowspan="5"><blockquote>
+<p>：0-关闭，1-开启 ：设定最⼤功率(W)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>power</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.9.</strong> 设置机器⼈ <strong>20004</strong> 端⼝反馈周期</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 48%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetRobotRealtimeStateSamplePeriod(period)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置机器⼈ 20004 端⼝反馈周期</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：机器⼈ 20004 端⼝反馈周期(ms)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>period</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.10.</strong> 获取机器⼈ <strong>20004</strong> 端⼝反馈周期</p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image61.png" style="width:0.16601in;height:0.18748in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 78%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetRobotRealtimeStateSamplePeriod()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取机器⼈ 20004 端⼝反馈周期</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image63.png" style="width:0.34028in;height:0.40449in" /></p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 9%" />
+<col style="width: 69%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><p><img src="images/_FR3_1________________________3_8_2___/media/image67.png" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image68.png" /></p></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+<p>period ：机器⼈ 20004 端⼝反馈周期(ms)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.11.</strong> 机器⼈软件升级</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 13%" />
+<col style="width: 27%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SoftwareUpgrade(filePath, block)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>机器⼈软件升级</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. filePath ：软件升级包全路径</p>
+<p>. block ：是否阻塞⾄升级完成 true:阻塞；false:⾮阻塞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image69.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>1.12.</strong> 获取机器⼈软件升级状态</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image70.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image71.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image72.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image73.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image74.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>-1：升级软件失败，-2：校验失败，-3：版本校验失败，-4：解压失败，-5：⽤户配置升级失败，-</p>
+</blockquote>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image75.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR3_1________________________3_8_2___/media/image76.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

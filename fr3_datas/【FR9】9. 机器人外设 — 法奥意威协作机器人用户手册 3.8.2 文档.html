@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR9】9. 机器人外设 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR9】9. 机器人外设 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 9. 机器⼈外设</p>
+</blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>9.</strong> 机器⼈外设</p>
+<p><strong>9.1.</strong> 获取夹⽖配置</p>
+</blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image2.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image3.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image4.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image5.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image6.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>灵，3-天机，4-⼤寰，5-知⾏ ;device ，设备号，Robotiq(0-2F-85系列) ，慧灵(0-NK系列,1-Z-EF</p>
+</blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image7.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>9.2.</strong> 激活夹⽖</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 12%" />
+<col style="width: 2%" />
+<col style="width: 30%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>ActGripper(index,action)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>激活夹⽖</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="4"><p><img src="images/_FR9_9________________________3_8_2___/media/image8.png" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image9.png" /></p></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>:夹⽖编号；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>index</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>action</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:0-复位，1-激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>9.3.</strong> 控制夹⽖</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 79%" />
+<col style="width: 2%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>MoveGripper(index,pos,vel,force,maxtime,block,type,rotNum,rotVel,rotTorque)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>控制夹⽖</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image10.png" style="width:0.52794in;height:0.87487in" /></p>
+<blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image11.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR9_9________________________3_8_2___/media/image12.png" style="width:0.11458in" /></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. index :夹⽖编号；</p>
+<p>. pos :位置百分⽐ ，范围[0~100]；</p>
+<p>. vel :速度百分⽐ ，范围[0~100];</p>
+<p>. force :⼒矩百分⽐ ，范围[0~100]；</p>
+<p>. maxtime :最⼤等待时间，范围[0~30000] ，单位[ms]；</p>
+<p>. block :0-阻塞，1-⾮阻塞；</p>
+<p>. type :夹⽖类型，0-平⾏夹⽖； 1-旋转夹⽖；</p>
+<p>. rotNum :rotNum 旋转圈数；</p>
+<p>. rotVel :旋转速度百分⽐[0-100]；</p>
+<p>. rotTorque :旋转⼒矩百分⽐[0-100]。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>9.4.</strong> 获取夹⽖运动状态</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 15%" />
+<col style="width: 4%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetGripperMotionDone()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取夹⽖运动状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>参数</td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>参数</td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image13.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>[fault,status]</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>：夹⽖运动状态，fault:0-⽆错误，1-有错误；status:0-运动未完成，1-运</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image14.png" style="width:6.78125in" /><strong>9.5.</strong> 配置夹⽖</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td>nfig(company,device,softversion=0,bus=0)</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image15.png" style="width:7.12998in;height:0.41803in" /></p>
+<blockquote>
+<p>：夹⽖⼚商，1-Robotiq ，2-慧灵，3-天机，4-⼤寰，5-知⾏；</p>
+<p>设备号，Robotiq(0-2F-85系列) ，慧灵(0-NK系列,1-Z-EFG-100) ，天机(0-TEG-110) ，⼤寰(0-PGI-</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 85%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p>ion ：软件版本号，暂不使⽤ ，默认为0；</p>
+<blockquote>
+<p>备挂载末端总线位置，暂不使⽤ ，默认为0；</p>
+</blockquote></td>
+<td><img src="images/_FR9_9________________________3_8_2___/media/image16.png" style="width:0.16594in;height:0.18748in" /> latest <img src="images/_FR9_9________________________3_8_2___/media/image17.png" style="width:0.11453in" /></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>9.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>desc_pos1= [-333.683,-228.968,404.329,-179.138,-0.781,91.261]</p>
+<p>desc_pos2= [-333.683,-100.8,404.329,-179.138,-0.781,91.261]</p>
+<p>zlength1 =10</p>
+<p>zlength2 =15</p>
+<p>zangle1 =10</p>
+<p>zangle2 =15</p>
+<p><em>#测试外设指令</em></p>
+<p>ret = robot.SetGripperConfig(4,0) <em>#配置夹⽖</em> print("配置夹⽖错误码", ret)</p>
+<p>time.sleep(1)</p>
+<p>config = robot.GetGripperConfig() <em>#获取夹⽖配置</em></p>
+<p>print("获取夹⽖配置",config)</p>
+<p>error = robot.ActGripper(1,0) <em>#激活夹⽖</em> print("激活夹⽖错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.ActGripper(1,1)<em>#激活夹⽖</em> print("激活夹⽖错误码",error)</p>
+<p>time.sleep(2)</p>
+<p>error = robot.MoveGripper(1,100,48,46,30000,0,0,0,0,0) <em>#控制夹⽖</em> print("控制夹⽖错误码",error)</p>
+<p>time.sleep(3)</p>
+<p>error = robot.MoveGripper(1,0,50,0,30000,0,0,0,0,0) <em>#控制夹⽖</em> print("控制夹⽖错误码",error)</p>
+<p>error = robot.GetGripperMotionDone() <em>#获取夹⽖运动状态</em> print("获取夹⽖运动状态错误码",error)</p>
+<p>error = robot.ComputePrePick(desc_pos1, zlength1, zangle1) <em>#计算预抓取点-视觉</em> print("计算预抓取点",error)</p>
+<p>error = robot.ComputePrePick(desc_pos2, zlength2, zangle2) <em>#计算撤退点-视觉</em> print("计算撤退点",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image21.png" style="width:0.34028in;height:0.40449in" /><strong>9.6.</strong> 计算预抓取点<strong>-</strong>视觉</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 2%" />
+<col style="width: 1%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image22.png" style="width:2.29167in" /><img src="images/_FR9_9________________________3_8_2___/media/image23.png" style="width:0.53125in" /><img src="images/_FR9_9________________________3_8_2___/media/image24.jpeg" style="height:0.19792in" /> <u>ComputePrePick(desc_pos, zlength,</u> <u>zangle)</u> <img src="images/_FR9_9________________________3_8_2___/media/image25.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>计算预抓取点-视觉</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="7"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td rowspan="7"><p><img src="images/_FR9_9________________________3_8_2___/media/image26.png" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image27.png" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image28.png" /></p></td>
+<td colspan="4"></td>
+<td rowspan="2"><blockquote>
+<p>：夹抓取点笛卡尔位姿;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>desc_pos</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：z轴偏移量;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>zlength</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>zangle</p>
+</blockquote></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>：绕z轴旋转偏移量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><p><img src="images/_FR9_9________________________3_8_2___/media/image29.png" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image30.png" /></p></td>
+<td colspan="5">错误码 成功-0 失败- errcode pre_pos ：预抓取点笛卡尔位姿</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>9.7.</strong> 计算撤退点<strong>-</strong>视觉</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image34.png" style="width:2.36458in" /><img src="images/_FR9_9________________________3_8_2___/media/image35.png" style="width:0.53125in" /><img src="images/_FR9_9________________________3_8_2___/media/image36.jpeg" style="height:0.19792in" /> <u>ComputePostPick(desc_pos, zlength,</u> <u>zangle)</u> <img src="images/_FR9_9________________________3_8_2___/media/image37.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>计算撤退点-视觉</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. desc_pos ：抓取点笛卡尔位姿;</p>
+<p>. zlength ：z轴偏移量;</p>
+<p>. zangle ：绕z轴旋转偏移量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image38.png" /> 错误码 成功-0 失败- errcode . post_pos ：撤退点笛卡尔位姿</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>9.8.</strong> 设置启⽤夹⽖动作控制功能</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 97%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td>c)</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image39.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>⽖初始化；2-位置设置；3-速度设置；4-⼒矩设置；6-读夹⽖状态；7-读初始化状态；8-读故障码；</p>
+</blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image40.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image41.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image42.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>9.9.</strong> 获取启⽤夹⽖动作控制功能</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image43.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image44.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image45.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image46.png" style="width:6.78125in" /><img src="images/_FR9_9________________________3_8_2___/media/image47.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image48.png" style="width:6.78125in" /></p>
+<p>ode</p>
+<blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image49.png" style="width:6.78125in" />⽖初始化；2-位置设置；3-速度设置；4-⼒矩设置；6-读夹⽖状态；7-读初始化状态；8-读故障码；</p>
+</blockquote>
+<p><strong>9.10.</strong> 获取旋转夹⽖的旋转圈数</p>
+<blockquote>
+<p><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 23%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetGripperRotNum()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取旋转夹⽖的旋转圈数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image50.png" /> 错误码 成功-0 失败- errcode . fault ：0-⽆错误，1-有错误</p>
+<p>. num ：旋转圈数</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>9.11.</strong> 获取旋转夹⽖的旋转速度百分⽐</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.7</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 11%" />
+<col style="width: 23%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetGripperRotSpeed()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取旋转夹⽖的旋转速度百分⽐</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image51.png" /> 错误码 成功-0 失败- errcode . fault ：0-⽆错误，1-有错误</p>
+<p>. speed ：旋转速度百分⽐</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>9.12.</strong> 获取旋转夹⽖的旋转⼒矩百分⽐</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.7</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 1%" />
+<col style="width: 23%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetGripperRotTorque()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取旋转夹⽖的旋转⼒矩百分⽐</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image52.png" /> 错误码 成功-0 失败- errcode . fault ：0-⽆错误，1-有错误</p>
+<p>. torque ：旋转⼒矩百分⽐</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image53.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR9_9________________________3_8_2___/media/image54.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR9_9________________________3_8_2___/media/image55.png" style="width:0.11458in" /></p>
+</body>
+</html>

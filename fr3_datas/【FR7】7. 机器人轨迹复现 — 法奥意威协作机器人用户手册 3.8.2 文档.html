@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR7】7. 机器人轨迹复现 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR7】7. 机器人轨迹复现 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 7. 机器⼈轨迹复现</p>
+</blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>7.</strong> 机器⼈轨迹复现</p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image2.png" style="width:6.78125in" /><strong>7.1.</strong> 设置轨迹记录参数</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetTPDParam(name, period_ms, type=1,di_choose=0, do_choose=0)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>设置轨迹记录参数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>name ：轨迹名；</p>
+<p>period_ms ：采样周期， 固定值，2ms 或 4ms 或 8ms;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>type ：数据类型，1-关节位置；</p>
+<p>di_choose ：DI 选择,bit0~bit7 对应控制箱 DI0~DI7 ，bit8~bit9 对应末端DI0~DI1 ，0-不选择，1-选择</p>
+<p>do_choose ：DO 选择,bit0~bit7 对应控制箱 DO0~DO7 ，bit8~bit9 对应末端 DO0~DO1 ，0-不选择，</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>错误码 成功-0 失败- errcode</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image5.png" style="width:0.52794in;height:0.87487in" /><strong>7.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 60%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I) type = 1 <em># 数据类型，1-关节位置</em></p>
+<p>name = Itpd2023I <em># 轨迹名</em></p>
+<p>period = 4 <em>#采样周期，2ms或4ms或8ms</em> di = 0 <em># di输⼊配置</em></p>
+<p>do = 0 <em># do输出配置</em></p>
+<p>ret = robot.SetTPDParam(name, period, di_choose=di)</p>
+<p>print("配置TPD参数错误码", ret)</p>
+<p>robot.Mode(1) <em># 机器⼈切⼊⼿动模式</em> time.sleep(1)</p>
+<p>robot.DragTeachSwitch(1) <em>#机器⼈切⼊拖动示教模式</em> ret = robot.GetActualTCPPose()</p>
+<p>print("获取当前⼯具位姿", ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTPDStart(name, period, do_choose=do) print("开始记录示教轨迹错误码", ret)</p>
+<p>time.sleep(15)</p>
+<p>ret = robot.SetWebTPDStop() <em># 停⽌记录示教轨迹</em> print("停⽌记录示教轨迹错误码", ret)</p>
+<p>robot.DragTeachSwitch(0) <em>#机器⼈切⼊⾮拖动示教模式</em></p>
+<p><em># robot.SetTPDDelete('tpd2023') # 删除TPD轨迹</em></p>
+</blockquote></td>
+<td><blockquote>
+<p><em>#配置TPD参数</em></p>
+<p><em># 开始记录示教轨迹</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image6.png" style="width:6.78125in" /><img src="images/_FR7_7__________________________3_8_2___/media/image7.png" style="width:6.78125in" /><strong>7.2.</strong> 开始轨迹记录</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetTPDStart(name, period_ms, type=1,di_choose=0, do_choose=0)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image8.png" style="width:6.78125in" />开始轨迹记录</p>
+<p>. name ：轨迹名；</p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image9.png" style="width:6.78125in" />. period_ms ：采样周期， 固定值，2ms或4ms或8ms；</p>
+<p>. type ：数数据类型，1-关节位置 默认1;</p>
+<p>. di_choose ：DI 选择,bit0~bit7 对应控制箱 DI0~DI7 ，bit8~bit9 对应末端DI0~DI1 ，0-不选择，1-选择</p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image10.png" style="width:6.78125in" />. do_choose ：DO 选择,bit0~bit7 对应控制箱 DO0~DO7 ，bit8~bit9 对应末端 DO0~DO1 ，0-不选择，</p>
+</blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image11.png" style="width:6.78125in" />错误码 成功-0 失败- errcode</p>
+<blockquote>
+<p><strong>7.3.</strong> 停⽌轨迹记录</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 34%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SetWebTPDStop()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>停⽌轨迹记录</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>7.4.</strong> 删除轨迹记录</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 12%" />
+<col style="width: 21%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetTPDDelete(name)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>删除轨迹记录</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. name :轨迹名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>7.5.</strong> 轨迹预加载</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>LoadTPD(name)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>轨迹预加载</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>:轨迹名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>name</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image12.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image13.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR7_7__________________________3_8_2___/media/image14.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>7.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em># P1=[-321.821, 125.694, 282.556, 174.106, -15.599, 152.669]</em></p>
+<p>name = Itpd2023I <em>#轨迹名</em></p>
+<p>blend = 1 <em>#是否平滑，1-平滑，0-不平滑</em> ovl = 100.0 <em>#速度缩放</em></p>
+<p>ret = robot.LoadTPD(name) <em>#轨迹预加载</em> print("轨迹预加载错误码",ret)</p>
+<p>ret,P1 = robot.GetTPDStartPose(name) <em>#获取轨迹起始位姿</em> print ("获取轨迹起始位姿错误码",ret,"起始位姿",P1)</p>
+<p>ret = robot.MoveL(P1,0,0) <em>#运动到起始点</em></p>
+<p>print("运动到起始点错误码",ret)</p>
+<p>time.sleep(10)</p>
+<p>ret = robot.MoveTPD(name, blend, ovl) <em>#轨迹复现</em> print("轨迹复现错误码",ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>7.6.</strong> 获取轨迹起始位姿</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 66%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="2"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetTPDStartPose(name)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>获取轨迹起始位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>. name :轨迹名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image15.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><img src="images/_FR7_7__________________________3_8_2___/media/image16.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">desc_pose=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR7_7__________________________3_8_2___/media/image17.png" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image18.png" style="width:0.34028in;height:0.40449in" /><strong>7.7.</strong> 轨迹复现</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 2%" />
+<col style="width: 1%" />
+<col style="width: 24%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>MoveTPD(name,blend,ovl)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>轨迹复现</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="4"><p><img src="images/_FR7_7__________________________3_8_2___/media/image19.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image20.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image21.png" /></p></td>
+<td colspan="2"><blockquote>
+<p>name</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>:轨迹名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：是否平滑，0-不平滑，1-平滑 速度缩放因⼦ ，范围[0~100]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>blend</p>
+</blockquote></td>
+</tr>
+<tr>
+<td style="text-align: right;">ovl</td>
+<td colspan="2"><blockquote>
+<p>:</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image23.png" style="width:0.11458in" /><strong>7.8.</strong> 轨迹预处理</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>LoadTrajectoryJ(name,ovl,opt=1)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 1%" />
+<col style="width: 64%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>轨迹预处理</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td rowspan="4"><p><img src="images/_FR7_7__________________________3_8_2___/media/image27.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image28.png" /></p></td>
+<td colspan="2"></td>
+<td rowspan="3"><blockquote>
+<p>:轨迹名,如 ：/fruser/traj/trajHelix_aima_1.txt;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>name</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ovl</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>：速度缩放百分⽐ ，范围[0~100];</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：1-控制点，默认为1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>opt</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.9.</strong> 轨迹复现</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 38%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>MoveTrajectoryJ()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>轨迹复现</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.10.</strong> 获取轨迹起始位姿</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 66%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td></td>
+<td colspan="2"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetTrajectoryStartPose(name)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>获取轨迹起始位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td></td>
+<td colspan="2"><blockquote>
+<p>name :轨迹名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image29.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR7_7__________________________3_8_2___/media/image30.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">desc_pose=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="3"><img src="images/_FR7_7__________________________3_8_2___/media/image31.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image32.png" style="width:0.34028in;height:0.40449in" /><strong>7.11.</strong> 获取轨迹点编号</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 30%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetTrajectoryPointNum()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取轨迹点编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image33.png" /> 错误码 成功-0 失败- errcode . pnum ：轨迹点编号</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.12.</strong> 设置轨迹运⾏中的速度</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 8%" />
+<col style="width: 39%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>SetTrajectoryJSpeed(ovl)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置轨迹运⾏中的速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p>ovl</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:速度缩放百分⽐ ，范围[0~100]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.13.</strong> 设置轨迹运⾏中的⼒和扭矩</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 60%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetTrajectoryJForceTorque(ft)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>设置轨迹运⾏中的⼒和扭矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>ft= [fx,fy,fz,tx,ty,tz] :单位N和Nm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.14.</strong> 设置轨迹运⾏中的沿<strong>x</strong>⽅向的⼒</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 47%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>SetTrajectoryJForceFx(fx)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置轨迹运⾏中的沿x⽅向的⼒</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"></td>
+<td colspan="2"><blockquote>
+<p>:沿x⽅向的⼒ ，单位N</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image34.png" style="width:0.34028in;height:0.40449in" /><strong>7.15.</strong> 设置轨迹运⾏中的沿<strong>y</strong>⽅向的⼒</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 47%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>SetTrajectoryJForceFx(fy)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置轨迹运⾏中的沿y⽅向的⼒</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"></td>
+<td colspan="2"><blockquote>
+<p>:沿y⽅向的⼒ ，单位N</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.16.</strong> 设置轨迹运⾏中的沿<strong>z</strong>⽅向的⼒</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 47%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>SetTrajectoryJForceFx(fz)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置轨迹运⾏中的沿z⽅向的⼒</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"></td>
+<td colspan="2"><blockquote>
+<p>:沿z⽅向的⼒ ，单位N</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.17.</strong> 设置轨迹运⾏中的绕<strong>x</strong>轴的扭矩</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 49%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>SetTrajectoryJTorqueTx(tx)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置轨迹运⾏中的绕x轴的扭矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"></td>
+<td colspan="2"><blockquote>
+<p>:绕x轴的扭矩，单位Nm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.18.</strong> 设置轨迹运⾏中的绕<strong>y</strong>轴的扭矩</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 49%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>SetTrajectoryJTorqueTx(ty)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置轨迹运⾏中的绕y轴的扭矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"></td>
+<td colspan="2"><blockquote>
+<p>:绕y轴的扭矩，单位Nm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.19.</strong> 设置轨迹运⾏中的绕<strong>z</strong>轴的扭矩</p>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image36.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR7_7__________________________3_8_2___/media/image37.png" style="width:0.11458in" /><em>在</em> <em>Python 版本发⽣变更:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 41%" />
+<col style="width: 10%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetTrajectoryJTorqueTx(tz)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置轨迹运⾏中的绕z轴的扭矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. tz :绕z轴的扭矩，单位Nm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>7.19.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>name = "/fruser/traj/trajHelix_aima_1.txt" <em>#轨迹名</em> blend = 1 <em>#是否平滑，1-平滑，0-不平滑</em></p>
+<p>ovl = 50.0 <em>#速度缩放</em></p>
+<p>ft = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]</p>
+<p>ret = robot.LoadTrajectoryJ(name,ovl) <em>#轨迹预加载</em> print("轨迹预加载错误码",ret)</p>
+<p>ret,P1 = robot.GetTrajectoryStartPose(name) <em>#获取轨迹起始位姿</em> print ("获取轨迹起始位姿错误码",ret,"起始位姿",P1)</p>
+<p>ret = robot.MoveL(P1,1,0) <em>#运动到起始点</em></p>
+<p>print("运动到起始点错误码",ret)</p>
+<p>ret = robot.GetTrajectoryPointNum() <em>#获取轨迹点编号</em></p>
+<p>print("获取轨迹点编号错误码",ret)</p>
+<p>time.sleep(10)</p>
+<p>ret = robot.MoveTrajectoryJ() <em>#轨迹复现</em> print("轨迹复现错误码",ret)</p>
+<p>time.sleep(10)</p>
+<p>ret = robot.SetTrajectoryJSpeed(ovl) <em>#设置轨迹运⾏中的速度</em> print("设置轨迹运⾏中的速度错误码",ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTrajectoryJForceTorque(ft) <em>#设置轨迹运⾏中的⼒和扭矩</em> print("设置轨迹运⾏中的⼒和扭矩错误码",ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTrajectoryJForceFx(0) <em>#设置轨迹运⾏中的沿x ⽅向的⼒</em> print("设置轨迹运⾏中的沿x⽅向的⼒错误码",ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTrajectoryJForceFy(0) <em>#设置轨迹运⾏中的沿y⽅向的⼒</em> print("设置轨迹运⾏中的沿y⽅向的⼒错误码",ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTrajectoryJForceFz(0) <em>#设置轨迹运⾏中的沿z ⽅向的⼒</em> print("设置轨迹运⾏中的沿z⽅向的⼒错误码",ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTrajectoryJTorqueTx(0) <em>#设置轨迹运⾏中的绕x轴的扭矩</em> print("设置轨迹运⾏中的绕x轴的扭矩错误码",ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTrajectoryJTorqueTy(0) <em>#设置轨迹运⾏中的绕y轴的扭矩</em> print("设置轨迹运⾏中的绕y轴的扭矩错误码",ret)</p>
+<p>time.sleep(1)</p>
+<p>ret = robot.SetTrajectoryJTorqueTz(0) <em>#设置轨迹运⾏中的绕z轴的扭矩</em> print("设置轨迹运⾏中的绕z轴的扭矩错误码",ret)</p>
+<p>time.sleep(1)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image38.png" style="width:0.34028in;height:0.40449in" /><strong>7.20.</strong> 上传轨迹<strong>J</strong>⽂件</p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image39.png" style="width:0.16601in;height:0.18748in" /><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 32%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>TrajectoryJUpLoad(filePath)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>上传轨迹J⽂件</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"></td>
+<td colspan="2"><blockquote>
+<p>filePath :上传轨迹⽂件的全路径名，C://test/testJ.txt</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>7.21.</strong> 删除轨迹<strong>J</strong>⽂件</p>
+<p><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>TrajectoryJDelete(filePath)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>删除轨迹J⽂件</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. filePath :删除轨迹⽂件的全路径名，C://test/testJ.txt</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image44.png" style="width:0.34028in;height:0.40449in" /><strong>7.21.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR7_7__________________________3_8_2___/media/image45.png" style="height:0.17377in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR7_7__________________________3_8_2___/media/image46.png" style="height:0.16001in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR7_7__________________________3_8_2___/media/image47.png" style="height:0.17367in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR7_7__________________________3_8_2___/media/image48.png" style="height:0.17367in" /> robot = Robot.RPC( '192.168.58.2')</p>
+<p>5 <img src="images/_FR7_7__________________________3_8_2___/media/image49.png" style="height:0.17187in" /> robot.LoggerInit()</p>
+<p>6 <img src="images/_FR7_7__________________________3_8_2___/media/image50.png" style="height:0.17436in" /> robot.SetLoggerLevel(lvl=1)</p>
+<p>7 <img src="images/_FR7_7__________________________3_8_2___/media/image51.png" style="height:0.16389in" /></p>
+<p>8 <img src="images/_FR7_7__________________________3_8_2___/media/image52.png" style="height:0.17187in" /> retval = robot.TrajectoryJDelete("testA.txt")</p>
+<p>9 <img src="images/_FR7_7__________________________3_8_2___/media/image53.png" style="height:0.17187in" /> print("TrajectoryJDelete return ", retval)</p>
+<p>10 <img src="images/_FR7_7__________________________3_8_2___/media/image54.png" style="height:0.17436in" /> robot.TrajectoryJUpLoad("D://zUP/testA.txt")</p>
+<p>11 <img src="images/_FR7_7__________________________3_8_2___/media/image55.png" style="height:0.17429in" /></p>
+<p>12 <img src="images/_FR7_7__________________________3_8_2___/media/image56.png" style="height:0.15923in" /> traj_file_name = "/fruser/traj/testA.txt"</p>
+<p>13 <img src="images/_FR7_7__________________________3_8_2___/media/image57.png" style="height:0.16941in" /> retval = robot.LoadTrajectoryJ(traj_file_name, 100, 1)</p>
+<p>14 <img src="images/_FR7_7__________________________3_8_2___/media/image58.png" style="height:0.17436in" /> print("LoadTrajectoryJ return ", retval)</p>
+<p>15 <img src="images/_FR7_7__________________________3_8_2___/media/image59.png" style="height:0.17429in" /></p>
+<p>16 <img src="images/_FR7_7__________________________3_8_2___/media/image60.png" style="height:0.17187in" /> retval,traj_start_pose = robot.GetTrajectoryStartPose(traj_file_name)</p>
+<p>17 <img src="images/_FR7_7__________________________3_8_2___/media/image61.png" style="height:0.15923in" /> print("GetTrajectoryStartPose return ", retval)</p>
+<p>18 <img src="images/_FR7_7__________________________3_8_2___/media/image62.png" style="height:0.1743in" /> print("轨迹起始位姿:", traj_start_pose [0], traj_start_pose [1], traj_start_pose [2], traj_start_pose [3], traj_start_pose [4], traj_start_pose [5])</p>
+<p>19 <img src="images/_FR7_7__________________________3_8_2___/media/image63.png" style="height:0.17429in" /></p>
+<p>20 <img src="images/_FR7_7__________________________3_8_2___/media/image64.png" style="height:0.17187in" /> robot.SetSpeed(20)</p>
+<p>21 <img src="images/_FR7_7__________________________3_8_2___/media/image65.png" style="height:0.16164in" /> robot.MoveCart(traj_start_pose, 1, 0)</p>
+<p>22 <img src="images/_FR7_7__________________________3_8_2___/media/image66.png" style="height:0.17175in" /></p>
+<p>23 <img src="images/_FR7_7__________________________3_8_2___/media/image67.png" style="height:0.17436in" /> time.sleep(5)</p>
+<p>24 <img src="images/_FR7_7__________________________3_8_2___/media/image68.png" style="height:0.17429in" /></p>
+<p>25 <img src="images/_FR7_7__________________________3_8_2___/media/image69.png" style="height:0.17187in" /> retval,traj_num = robot.GetTrajectoryPointNum()</p>
+<p>26 <img src="images/_FR7_7__________________________3_8_2___/media/image70.png" style="height:0.15923in" /> print("GetTrajectoryPointNum return ", retval)</p>
+<p>27 <img src="images/_FR7_7__________________________3_8_2___/media/image71.png" style="height:0.17189in" /> print("轨迹点编号 : ", traj_num)</p>
+<p>28 <img src="images/_FR7_7__________________________3_8_2___/media/image72.png" style="height:0.17429in" /></p>
+<p>29 <img src="images/_FR7_7__________________________3_8_2___/media/image73.png" style="height:0.17187in" /> retval = robot.MoveTrajectoryJ()</p>
+<p>30 <img src="images/_FR7_7__________________________3_8_2___/media/image74.png" style="height:0.17436in" /> print("MoveTrajectoryJ return ", retval)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.22.</strong> 轨迹预处理<strong>(</strong>轨迹前瞻<strong>)</strong></p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.1.0</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 4%" />
+<col style="width: 64%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>LoadTrajectoryLA(name, mode, errorLim, type, precision, vamx, amax, jmax)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>轨迹预处理(轨迹前瞻)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><p><img src="images/_FR7_7__________________________3_8_2___/media/image78.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image79.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image80.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image81.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image82.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image83.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image84.png" /></p>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image85.png" /></p></td>
+<td colspan="4"><p><u>name</u> :轨迹⽂件名</p>
+<p>mode ：采样模式，0-不进⾏采样；1-等数据间隔采样；2-等误差限制采样</p>
+<p>errorLim :误差限制，使⽤直线拟合⽣效</p></td>
+</tr>
+<tr>
+<td colspan="4"><p>type :平滑⽅式，0-贝塞尔平滑</p>
+<p>precision :平滑精度，使⽤贝塞尔平滑时⽣效</p>
+<blockquote>
+<p>vamx :设定的最⼤速度，mm/s</p>
+<p>amax :设定的最⼤加速度，mm/s2</p>
+</blockquote>
+<p>jmax :设定的最⼤加加速度，mm/s3</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>7.23.</strong> 轨迹复现<strong>(</strong>轨迹前瞻<strong>)</strong></p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.1.0</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 40%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>MoveTrajectoryLA()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>轨迹复现(轨迹前瞻)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image86.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><strong>7.23.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p><em>条</em></p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>rtn = 0</p>
+<p>rtn = robot.TrajectoryJUpLoad("D://zUP/A.txt")</p>
+<p>print("TrajectoryJUpLoad A.txt rtn is ",rtn)</p>
+<p>rtn = robot.TrajectoryJUpLoad("D://zUP/B.txt")</p>
+<p>print("TrajectoryJUpLoad B.txt rtn is ", rtn)</p>
+<p>nameA = "/fruser/traj/A.txt"</p>
+<p>nameB = "/fruser/traj/B.txt"</p>
+<p><em># rtn = robot.LoadTrajectoryLA(nameA, 2, 0.0, 0, 1.0, 100.0, 200.0, 1000.0) #B样</em></p>
+<p><em># print("LoadTrajectoryLA rtn is ", rtn)</em></p>
+<p>robot.LoadTrajectoryLA(nameB, 0, 0, 0, 1, 100, 100, 1000) <em>#直线连接</em></p>
+<p><em># robot.LoadTrajectoryLA(nameA, 1, 2, 0, 2, 100, 200, 1000) #直线拟合</em></p>
+<p><em># error,startPos = robot.GetTrajectoryStartPose(nameA)</em></p>
+<p>error,startPos = robot.GetTrajectoryStartPose(nameB)</p>
+<p>robot.MoveCart(startPos, 1, 0, 100, 100, 100, -1, -1)</p>
+<p>rtn = robot.MoveTrajectoryLA()</p>
+<p>print("MoveTrajectoryLA rtn is ", rtn)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR7_7__________________________3_8_2___/media/image87.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>
