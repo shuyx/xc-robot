@@ -535,5 +535,5 @@ python -c "import fairino, numpy; print('Dependencies OK')"
 
 **文档版本**: v1.0  
 **创建日期**: 2025-07-15  
-**维护人**: AI Assistant  
+**维护人**: kevin 
 **状态**: 完整版本
