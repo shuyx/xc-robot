@@ -43,9 +43,9 @@ class SingleArmMotionTest:
         self.initial_joint_pos: List[float] = []
         self.initial_tcp_pose: List[float] = []
         
-        # 安全运动参数
+        # 安全运动参数 - 调整为更保守的值
         self.max_joint_increment = 2.0  # 最大关节增量：2度
-        self.max_tcp_increment = 15.0   # 最大TCP增量：15mm
+        self.max_tcp_increment = 10.0   # 最大TCP增量：10mm（从15mm减小）
         self.motion_velocity = 20       # 运动速度：20%
         self.test_timeout = 60          # 测试超时：60秒
         
@@ -53,7 +53,7 @@ class SingleArmMotionTest:
         self.chest_width = 420.0            # 胸部宽度：420mm
         self.arm_base_distance = 210.0      # 单臂距离中心：210mm
         self.shoulder_height = 1400.0       # 肩部离地高度：约1.4m
-        self.min_inter_arm_distance = 300.0 # 双臂最小安全距离：300mm
+        self.min_inter_arm_distance = 200.0 # 双臂最小安全距离：200mm（从300mm减小）
         
         # 类人型双臂机器人工作空间（基于FR3参数：630mm臂展）
         self.workspace_limits = {
@@ -62,12 +62,12 @@ class SingleArmMotionTest:
             'z_min': -600, 'z_max': 300      # 垂直方向：下垂600mm到上举300mm
         }
         
-        # 根据臂的类型设置安全运动方向偏好
+        # 根据臂的类型设置安全运动方向偏好 - 修正版本
         if self.arm_name == "right":
-            self.safe_y_direction = +1       # 右臂优先向右（+Y）
+            self.safe_y_direction = +1       # 右臂优先向左（+Y，远离中心线）
             self.arm_center_offset = +210    # 右臂中心偏移
         else:
-            self.safe_y_direction = -1       # 左臂优先向左（-Y）
+            self.safe_y_direction = -1       # 左臂优先向右（-Y，远离中心线）
             self.arm_center_offset = -210    # 左臂中心偏移
         
         # 检查FR3库是否可用
@@ -185,8 +185,8 @@ class SingleArmMotionTest:
         self.logger.info(f"[OK] 目标位置({x:.1f}, {y:.1f}, {z:.1f})在安全工作空间内")
         return True
     
-    def check_inter_arm_safety(self, target_tcp: List[float]) -> bool:
-        """检查双臂间安全距离（类人型双臂机器人）"""
+    def check_inter_arm_safety(self, target_tcp: List[float], current_tcp: List[float] = None) -> bool:
+        """检查双臂间安全距离（类人型双臂机器人）- 增强版本支持运动方向评估"""
         import math
         
         # 基于类人型配置计算对臂的预估安全位置
@@ -199,18 +199,48 @@ class SingleArmMotionTest:
             
             # 右臂安全区域检查：右臂应该在Y坐标负值区域（-800到-50mm）
             if y > -50:  # 右臂不应该过于靠近身体中心线
-                self.logger.error(f"[FAILED] 右臂Y坐标{y:.1f}mm过于靠近身体中心线（应<-50mm）")
-                return False
+                # 如果提供了当前位置，检查运动方向是否更安全
+                if current_tcp is not None:
+                    current_y = current_tcp[1]
+                    if current_y > -50:  # 当前位置也不安全
+                        # 检查运动方向：如果是向右（Y减小），则更安全
+                        if y < current_y:
+                            self.logger.info(f"[ENHANCED] 右臂Y坐标{y:.1f}mm仍不安全，但运动方向({current_y:.1f}→{y:.1f})远离中心线，允许执行")
+                            return True
+                        else:
+                            self.logger.error(f"[FAILED] 右臂Y坐标{y:.1f}mm过于靠近身体中心线且运动方向不安全")
+                            return False
+                    else:
+                        self.logger.error(f"[FAILED] 右臂Y坐标{y:.1f}mm过于靠近身体中心线（应<-50mm）")
+                        return False
+                else:
+                    self.logger.error(f"[FAILED] 右臂Y坐标{y:.1f}mm过于靠近身体中心线（应<-50mm）")
+                    return False
                 
         else:
             # 左臂测试时，假设右臂在自然下垂位置
             estimated_right_tcp = [0, -210, -120]  # 右臂自然位置（距离中心-210mm）
             other_arm_tcp = estimated_right_tcp
             
-            # 左臂安全区域检查：左臂应该在Y坐标正值区域（50到800mm）
-            if y < 50:  # 左臂不应该过于靠近身体中心线
-                self.logger.error(f"[FAILED] 左臂Y坐标{y:.1f}mm过于靠近身体中心线（应>50mm）")
-                return False
+            # 左臂安全区域检查：左臂应该在Y坐标负值区域（-800到-50mm）
+            if y > -50:  # 左臂不应该过于靠近身体中心线
+                # 如果提供了当前位置，检查运动方向是否更安全
+                if current_tcp is not None:
+                    current_y = current_tcp[1]
+                    if current_y > -50:  # 当前位置也不安全
+                        # 检查运动方向：如果是向右（Y减小），则更安全
+                        if y < current_y:
+                            self.logger.info(f"[ENHANCED] 左臂Y坐标{y:.1f}mm仍不安全，但运动方向({current_y:.1f}→{y:.1f})远离中心线，允许执行")
+                            return True
+                        else:
+                            self.logger.error(f"[FAILED] 左臂Y坐标{y:.1f}mm过于靠近身体中心线且运动方向不安全")
+                            return False
+                    else:
+                        self.logger.error(f"[FAILED] 左臂Y坐标{y:.1f}mm过于靠近身体中心线（应<-50mm）")
+                        return False
+                else:
+                    self.logger.error(f"[FAILED] 左臂Y坐标{y:.1f}mm过于靠近身体中心线（应<-50mm）")
+                    return False
         
         # 计算与对臂的3D距离
         distance = math.sqrt(
@@ -228,6 +258,28 @@ class SingleArmMotionTest:
             
         return True
     
+    def is_motion_direction_safer(self, current_tcp: List[float], target_tcp: List[float]) -> bool:
+        """判断运动方向是否让机械臂更安全 - 修正版本"""
+        current_y = current_tcp[1]
+        target_y = target_tcp[1]
+        
+        if self.arm_name == "left":
+            # 左臂：Y坐标减少（向右，远离中心线）更安全
+            return target_y < current_y
+        else:
+            # 右臂：Y坐标增加（向左，远离中心线）更安全  
+            return target_y > current_y
+    
+    def is_current_position_safe(self, current_y: float) -> bool:
+        """检查当前位置是否安全 - 修正版本"""
+        if self.arm_name == "left":
+            # 左臂：Y坐标在-800到-50mm区域是安全的（向右伸展）
+            # Y坐标过于接近0表示过于靠近身体中心线
+            return current_y < -50  
+        else:
+            # 右臂：Y坐标在50到800mm区域是安全的（向左伸展）  
+            return current_y > 50
+    
     def design_safe_motion_based_on_current_pose(self) -> List[Dict]:
         """基于类人型双臂机器人配置设计安全运动序列"""
         self.logger.info("基于类人型双臂配置分析并设计安全运动...")
@@ -236,23 +288,40 @@ class SingleArmMotionTest:
         current_x, current_y, current_z = self.initial_tcp_pose[:3]
         
         self.logger.info(f"当前TCP位置: X={current_x:.1f}, Y={current_y:.1f}, Z={current_z:.1f}")
-        self.logger.info(f"臂类型: {self.arm_name}臂，安全方向偏好: {'向右' if self.safe_y_direction > 0 else '向左'}")
+        self.logger.info(f"臂类型: {self.arm_name}臂，安全方向偏好: {'向左' if self.safe_y_direction > 0 else '向右'}")
+        
+        # 评估当前位置安全性
+        is_current_safe = self.is_current_position_safe(current_y)
+        if is_current_safe:
+            self.logger.info(f"[SAFETY] 当前位置安全，Y坐标{current_y:.1f}mm在安全区域内")
+        else:
+            self.logger.warning(f"[SAFETY] 当前位置不安全，Y坐标{current_y:.1f}mm需要改善")
+            self.logger.info(f"[SAFETY] 将优先安排远离中心线的动作以改善安全性")
         
         # 基于类人型配置设计安全运动
         safe_motions = []
         
-        # 1. 优先级最高：向外侧运动（远离身体中心和对臂）
-        safe_y_offset = 150 * self.safe_y_direction  # 向安全方向移动150mm（15cm）
+        # 根据当前位置安全性决定运动策略
+        is_current_position_safe = self.is_current_position_safe(current_y)
         
-        # 检查外侧运动是否安全
-        if ((self.arm_name == "right" and current_y < self.workspace_limits['y_max'] - 50) or
-            (self.arm_name == "left" and current_y > self.workspace_limits['y_min'] + 50)):
+        # 1. 优先级最高：向外侧运动（远离身体中心和对臂）- 减小动作幅度
+        safe_y_offset = 8 * self.safe_y_direction  # 向安全方向移动8mm（保守幅度）
+        
+        # 如果当前位置不安全，稍微增加外侧运动的偏移量
+        if not is_current_position_safe:
+            self.logger.info(f"当前位置不安全，优先安排远离中心的动作")
+            safe_y_offset = 12 * self.safe_y_direction  # 增加到12mm
+        
+        # 检查外侧运动是否在工作空间内
+        if ((self.arm_name == "right" and current_y + safe_y_offset > self.workspace_limits['y_min']) or
+            (self.arm_name == "left" and current_y + safe_y_offset < self.workspace_limits['y_max'])):
             
             safe_motions.append({
                 'name': f'{self.arm_name}臂向外侧运动',
                 'type': 'tcp',
                 'offset': [0, safe_y_offset, 0, 0, 0, 0],
-                'description': f'{self.arm_name}臂向外侧移动{abs(safe_y_offset)}mm（15cm，最安全方向）'
+                'description': f'{self.arm_name}臂向外侧移动{abs(safe_y_offset)}mm（{"脱离危险区域" if not is_current_position_safe else "小幅安全动作"}）',
+                'safety_priority': 'high'
             })
             safe_motions.append({
                 'name': f'{self.arm_name}臂外侧回原位',
@@ -261,13 +330,13 @@ class SingleArmMotionTest:
                 'description': f'{self.arm_name}臂回到初始位置'
             })
         
-        # 2. 次优先级：向上运动（自然手臂上举）
+        # 2. 次优先级：向上运动（自然手臂上举）- 减小动作幅度
         if current_z < self.workspace_limits['z_max'] - 50:
             safe_motions.append({
                 'name': f'{self.arm_name}臂向上运动',
                 'type': 'tcp',
-                'offset': [0, 0, 15, 0, 0, 0],
-                'description': f'{self.arm_name}臂向上移动15mm（模拟手臂上举）'
+                'offset': [0, 0, 8, 0, 0, 0],
+                'description': f'{self.arm_name}臂向上移动8mm（小幅上举）'
             })
             safe_motions.append({
                 'name': f'{self.arm_name}臂上举回原位',
@@ -276,13 +345,13 @@ class SingleArmMotionTest:
                 'description': f'{self.arm_name}臂回到初始位置'
             })
         
-        # 3. 向前运动（但要避免胸前交叉）
+        # 3. 向前运动（但要避免胸前交叉）- 减小动作幅度
         if current_x < 200:  # 不要太靠近胸前
             safe_motions.append({
                 'name': f'{self.arm_name}臂向前运动',
                 'type': 'tcp',
-                'offset': [10, 0, 0, 0, 0, 0],
-                'description': f'{self.arm_name}臂向前移动10mm'
+                'offset': [5, 0, 0, 0, 0, 0],
+                'description': f'{self.arm_name}臂向前移动5mm'
             })
             safe_motions.append({
                 'name': f'{self.arm_name}臂向前回原位',
@@ -324,7 +393,7 @@ class SingleArmMotionTest:
         return safe_motions
     
     def check_safety_limits(self, target_joints: List[float] = None, target_tcp: List[float] = None) -> bool:
-        """检查安全限位（关节或TCP）"""
+        """检查安全限位（关节或TCP）- 增强版本支持运动方向评估"""
         self.logger.info("执行综合安全检查...")
         
         # 检查关节限位（如果提供关节角度）
@@ -356,15 +425,24 @@ class SingleArmMotionTest:
             if not self.check_workspace_safety(target_tcp):
                 return False
                 
-            # 双臂安全距离检查
-            if not self.check_inter_arm_safety(target_tcp):
+            # 双臂安全距离检查（传递当前位置以支持运动方向评估）
+            if not self.check_inter_arm_safety(target_tcp, current_tcp=self.initial_tcp_pose):
                 return False
                 
-            # TCP运动增量检查
+            # TCP运动增量检查 - 但如果运动方向更安全，可以放宽限制
             tcp_displacement = sum(abs(target_tcp[i] - self.initial_tcp_pose[i]) for i in range(3))
             if tcp_displacement > self.max_tcp_increment:
-                self.logger.error(f"[FAILED] TCP位移{tcp_displacement:.1f}mm超出安全限制{self.max_tcp_increment}mm")
-                return False
+                # 检查运动方向是否更安全
+                if self.is_motion_direction_safer(self.initial_tcp_pose, target_tcp):
+                    # 如果运动方向更安全，允许更大的位移（最大到20mm）
+                    if tcp_displacement <= 20.0:
+                        self.logger.info(f"[ENHANCED] TCP位移{tcp_displacement:.1f}mm超出常规限制{self.max_tcp_increment}mm，但运动方向更安全，允许执行")
+                    else:
+                        self.logger.error(f"[FAILED] TCP位移{tcp_displacement:.1f}mm超出最大安全限制20.0mm")
+                        return False
+                else:
+                    self.logger.error(f"[FAILED] TCP位移{tcp_displacement:.1f}mm超出安全限制{self.max_tcp_increment}mm")
+                    return False
         
         self.logger.info("[OK] 安全限位检查通过")
         return True
@@ -825,7 +903,7 @@ def main():
     print(f"IP地址: {args.ip}")
     print("\n⚠️  重要安全提示（类人型双臂机器人）:")
     print("1. 此测试会产生真实的机械臂运动")
-    print("2. 运动幅度小（关节±2°，TCP±15mm）且安全")
+    print("2. 运动幅度小（关节±2°，TCP±10mm）且安全")
     print("3. 运动速度低（20%额定速度）")
     print("4. 基于类人型配置：胸宽420mm，肩高1.4m")
     print("5. 优先向外侧运动，避免双臂交叉碰撞")

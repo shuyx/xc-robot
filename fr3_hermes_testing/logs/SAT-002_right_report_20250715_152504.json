@@ -1,0 +1,95 @@
+{
+  "connection": {
+    "status": "PASSED",
+    "time": 1.0077462196350098
+  },
+  "initial_position": {
+    "joints": [
+      21.188167572021484,
+      -18.066743850708008,
+      111.22145080566406,
+      -89.99586486816406,
+      90.02262878417969,
+      0.025018371641635895
+    ],
+    "tcp_pose": [
+      -286.8905029296875,
+      -220.56227111816406,
+      -120.1568374633789,
+      93.15884399414062,
+      -0.023733606562018394,
+      -68.83580017089844
+    ]
+  },
+  "joint_motion": [
+    {
+      "motion": "right臂腕部旋转",
+      "status": "PASSED",
+      "time": 0.7710423469543457,
+      "accuracy": 0.005274452269077301
+    },
+    {
+      "motion": "right臂腕部回原位",
+      "status": "PASSED",
+      "time": 0.6623318195343018,
+      "accuracy": 0.018926940858364105
+    },
+    {
+      "motion": "right臂肘部运动",
+      "status": "PASSED",
+      "time": 0.4833652973175049,
+      "accuracy": 0.00296783447265625
+    },
+    {
+      "motion": "right臂肘部回原位",
+      "status": "PASSED",
+      "time": 0.486114501953125,
+      "accuracy": 0.0026092529296875
+    }
+  ],
+  "tcp_motion": [
+    {
+      "motion": "right臂向外侧运动",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "right臂外侧回原位",
+      "status": "PASSED",
+      "time": 0.13535618782043457,
+      "accuracy": 0.0026612592369636445
+    },
+    {
+      "motion": "right臂向上运动",
+      "status": "PASSED",
+      "time": 0.9596965312957764,
+      "accuracy": 0.11305631022377433
+    },
+    {
+      "motion": "right臂上举回原位",
+      "status": "PASSED",
+      "time": 0.8578705787658691,
+      "accuracy": 0.07358852239903488
+    },
+    {
+      "motion": "right臂向前运动",
+      "status": "PASSED",
+      "time": 0.6092300415039062,
+      "accuracy": 0.14573548254244761
+    },
+    {
+      "motion": "right臂向前回原位",
+      "status": "PASSED",
+      "time": 0.6117863655090332,
+      "accuracy": 0.13305401602615044
+    }
+  ],
+  "emergency_stop": {
+    "status": "PASSED",
+    "stop_command_result": 0
+  },
+  "return_home": {
+    "status": "PASSED",
+    "accuracy": 0.018056869506835938
+  }
+}
