@@ -108,17 +108,20 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255,255,255,0.1);
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(44,62,80,0.4) 100%);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(46,204,113,0.5);
             height: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
         }
 
         .status-text {
             font-size: 11px;
-            color: white;
-            font-weight: 500;
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .main-container {
@@ -391,17 +394,17 @@
 
         .log-panel {
             width: 350px;
-            background: #2c3e50;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
             color: #ecf0f1;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid #34495e;
+            border-left: 2px solid #2ECC71;
         }
 
         .log-header {
             padding: 15px 20px;
-            background: #34495e;
-            border-bottom: 1px solid #4a5f7a;
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
+            border-bottom: 2px solid #2ECC71;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -409,7 +412,9 @@
 
         .log-title {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .log-controls {
@@ -420,28 +425,36 @@
         .log-filter-select {
             padding: 2px 6px;
             font-size: 10px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 100%);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #ffffff;
+            border-radius: 4px;
             margin-right: 6px;
             cursor: pointer;
             height: 20px;
             line-height: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
         }
 
         .log-filter-select option {
             background: #2c3e50;
             color: white;
         }
+        
+        .log-filter-select:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.3) 100%);
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
 
         .log-control {
             padding: 2px 6px;
             font-size: 12px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 100%);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #ffffff;
+            border-radius: 4px;
             cursor: pointer;
             margin-left: 3px;
             transition: all 0.2s;
@@ -450,10 +463,15 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
         }
 
         .log-control:hover {
-            background: rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.3) 100%);
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transform: translateY(-1px);
         }
 
         .log-content {
@@ -463,34 +481,74 @@
             font-family: 'Consolas', 'Monaco', monospace;
             font-size: 12px;
             line-height: 1.4;
+            background: linear-gradient(180deg, #1a252f 0%, #2c3e50 50%, #1e3a2b 100%);
         }
 
         .log-entry {
-            margin-bottom: 8px;
-            padding: 6px 8px;
-            border-radius: 4px;
-            background: rgba(255,255,255,0.05);
+            margin-bottom: 6px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(46,204,113,0.08) 0%, rgba(44,62,80,0.3) 100%);
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .log-entry:hover {
+            background: linear-gradient(135deg, rgba(46,204,113,0.15) 0%, rgba(44,62,80,0.4) 100%);
+            border-left-color: #2ECC71;
+            transform: translateX(2px);
+            box-shadow: 0 2px 8px rgba(46,204,113,0.2);
         }
 
         .log-time {
             color: #95a5a6;
             margin-right: 10px;
+            font-weight: 500;
+            background: rgba(46,204,113,0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
         }
 
         .log-level-SUCCESS {
-            color: #2ecc71;
+            color: #2ECC71;
+            font-weight: 700;
+            background: rgba(46,204,113,0.15);
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 11px;
         }
 
         .log-level-INFO {
             color: #3498db;
+            font-weight: 700;
+            background: rgba(52,152,219,0.15);
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 11px;
         }
 
         .log-level-WARNING {
             color: #f39c12;
+            font-weight: 700;
+            background: rgba(243,156,18,0.15);
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 11px;
         }
 
         .log-level-ERROR {
             color: #e74c3c;
+            font-weight: 700;
+            background: rgba(231,76,60,0.15);
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 11px;
         }
 
         .status-indicator {
@@ -502,8 +560,15 @@
         }
 
         .status-online {
-            background: #27ae60;
-            box-shadow: 0 0 6px rgba(39, 174, 96, 0.6);
+            background: #2ECC71;
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.8), 0 0 12px rgba(46, 204, 113, 0.4);
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 8px rgba(46, 204, 113, 0.8), 0 0 12px rgba(46, 204, 113, 0.4); }
+            50% { box-shadow: 0 0 12px rgba(46, 204, 113, 1), 0 0 16px rgba(46, 204, 113, 0.6); }
+            100% { box-shadow: 0 0 8px rgba(46, 204, 113, 0.8), 0 0 12px rgba(46, 204, 113, 0.4); }
         }
 
         .status-offline {
@@ -520,16 +585,34 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #2c3e50;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
+            background: #2ECC71;
             border-radius: 3px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8;
+            background: #27AE60;
+        }
+        
+        /* 日志面板专用滚动条 */
+        .log-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .log-content::-webkit-scrollbar-track {
+            background: #34495e;
+        }
+        
+        .log-content::-webkit-scrollbar-thumb {
+            background: #2ECC71;
+            border-radius: 4px;
+        }
+        
+        .log-content::-webkit-scrollbar-thumb:hover {
+            background: #27AE60;
         }
 
         /* 关于对话框样式 */
