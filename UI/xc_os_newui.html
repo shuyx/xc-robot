@@ -711,25 +711,25 @@
                 </div>
 
                 <div class="feature-grid">
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="testConnection('right_arm')" style="cursor: pointer;">
                         <div class="feature-icon">🦾</div>
                         <div class="feature-title">FR3 右臂连接</div>
-                        <div class="feature-desc">IP: 192.168.58.2<br>状态: <span style="color: #27ae60;">● 已连接</span><br>延迟: 2ms</div>
+                        <div class="feature-desc" id="right_arm_status">IP: 192.168.58.2<br>状态: <span style="color: #6c757d;">● 未测试</span><br>延迟: --</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="testConnection('left_arm')" style="cursor: pointer;">
                         <div class="feature-icon">🦾</div>
                         <div class="feature-title">FR3 左臂连接</div>
-                        <div class="feature-desc">IP: 192.168.58.3<br>状态: <span style="color: #27ae60;">● 已连接</span><br>延迟: 3ms</div>
+                        <div class="feature-desc" id="left_arm_status">IP: 192.168.58.3<br>状态: <span style="color: #6c757d;">● 未测试</span><br>延迟: --</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="testConnection('chassis')" style="cursor: pointer;">
                         <div class="feature-icon">🚛</div>
                         <div class="feature-title">Hermes 底盘连接</div>
-                        <div class="feature-desc">IP: 192.168.31.211:1448<br>状态: <span style="color: #27ae60;">● 已连接</span><br>延迟: 5ms</div>
+                        <div class="feature-desc" id="chassis_status">IP: 192.168.31.211:1448<br>状态: <span style="color: #6c757d;">● 未测试</span><br>延迟: --</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="testConnection('vision')" style="cursor: pointer;">
                         <div class="feature-icon">📷</div>
                         <div class="feature-title">视觉系统连接</div>
-                        <div class="feature-desc">ToF相机: 3个已连接<br>2D相机: 3个已连接<br>状态: <span style="color: #f39c12;">⚠ 部分异常</span></div>
+                        <div class="feature-desc" id="vision_status">ToF相机: 3个<br>2D相机: 3个<br>状态: <span style="color: #6c757d;">● 未测试</span></div>
                     </div>
                 </div>
             </div>

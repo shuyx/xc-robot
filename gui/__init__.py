@@ -9,4 +9,9 @@ def get_main_window():
     from .main_window import XCRobotMainWindow
     return XCRobotMainWindow
 
-__all__ = ['get_main_window']
+def get_web_main_window():
+    """获取Web主窗口类（延迟导入）"""
+    from .web_main_window import XCRobotWebMainWindow
+    return XCRobotWebMainWindow
+
+__all__ = ['get_main_window', 'get_web_main_window']
