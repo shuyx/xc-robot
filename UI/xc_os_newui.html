@@ -186,11 +186,10 @@
 
         .collapse-icon {
             font-size: 12px;
-            transition: transform 0.2s ease;
-        }
-
-        .nav-group.collapsed .collapse-icon {
-            transform: rotate(-90deg);
+            transition: all 0.2s ease;
+            display: inline-block;
+            width: 16px;
+            text-align: center;
         }
 
         .nav-items {
@@ -198,10 +197,11 @@
             border-left: 2px solid #e9ecef;
             overflow: hidden;
             transition: max-height 0.3s ease;
+            max-height: 300px; /* 默认展开状态 */
         }
 
         .nav-group.collapsed .nav-items {
-            max-height: 0;
+            max-height: 0 !important;
         }
 
         .nav-item {
@@ -580,7 +580,7 @@
                     <span><span class="nav-group-icon">📡</span>设备连接</span>
                     <span class="collapse-icon">▼</span>
                 </div>
-                <div class="nav-items" style="max-height: 200px;">
+                <div class="nav-items">
                     <div class="nav-item active" data-page="connection-test">
                         <span class="nav-item-icon">🔗</span>
                         连接测试
@@ -605,7 +605,7 @@
                     <span><span class="nav-group-icon">🤖</span>机器人控制</span>
                     <span class="collapse-icon">▼</span>
                 </div>
-                <div class="nav-items" style="max-height: 300px;">
+                <div class="nav-items">
                     <div class="nav-item" data-page="arm-control">
                         <span class="nav-item-icon">🦾</span>
                         机械臂控制
@@ -634,7 +634,7 @@
                     <span><span class="nav-group-icon">🎯</span>仿真测试</span>
                     <span class="collapse-icon">▼</span>
                 </div>
-                <div class="nav-items" style="max-height: 250px;">
+                <div class="nav-items">
                     <div class="nav-item" data-page="robot-sim">
                         <span class="nav-item-icon">🎮</span>
                         机械人仿真系统
@@ -658,7 +658,7 @@
                     <span><span class="nav-group-icon">👁️</span>视觉感知</span>
                     <span class="collapse-icon">▼</span>
                 </div>
-                <div class="nav-items" style="max-height: 300px;">
+                <div class="nav-items">
                     <div class="nav-item" data-page="vision-system">
                         <span class="nav-item-icon">📷</span>
                         视觉系统
@@ -688,7 +688,7 @@
                     <span><span class="nav-group-icon">🤝</span>智能交互</span>
                     <span class="collapse-icon">▼</span>
                 </div>
-                <div class="nav-items" style="max-height: 300px;">
+                <div class="nav-items">
                     <div class="nav-item" data-page="face-recognition">
                         <span class="nav-item-icon">👤</span>
                         人脸识别
@@ -717,7 +717,7 @@
                     <span><span class="nav-group-icon">📊</span>数据监控</span>
                     <span class="collapse-icon">▼</span>
                 </div>
-                <div class="nav-items" style="max-height: 250px;">
+                <div class="nav-items">
                     <div class="nav-item" data-page="system-monitor">
                         <span class="nav-item-icon">📈</span>
                         系统监控
@@ -741,7 +741,7 @@
                     <span><span class="nav-group-icon">⚙️</span>系统管理</span>
                     <span class="collapse-icon">▼</span>
                 </div>
-                <div class="nav-items" style="max-height: 250px;">
+                <div class="nav-items">
                     <div class="nav-item" data-page="parameter-config">
                         <span class="nav-item-icon">🔧</span>
                         参数配置
@@ -899,7 +899,18 @@
             groupTitles.forEach(title => {
                 title.addEventListener('click', function() {
                     const group = this.parentElement;
+                    const isCollapsed = group.classList.contains('collapsed');
+                    
+                    // 切换折叠状态
                     group.classList.toggle('collapsed');
+                    
+                    // 更新图标
+                    const icon = this.querySelector('.collapse-icon');
+                    if (icon) {
+                        icon.textContent = isCollapsed ? '▼' : '▶';
+                    }
+                    
+                    console.log('折叠状态:', group.classList.contains('collapsed') ? '已折叠' : '已展开');
                 });
             });
 
