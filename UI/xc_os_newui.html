@@ -13,13 +13,13 @@
 
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f6fa;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2ECC71 100%);
             height: 100vh;
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
             color: white;
             padding: 6px 12px;
             display: flex;
@@ -128,8 +128,8 @@
 
         .sidebar {
             width: 250px;
-            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-            border-right: 1px solid #dee2e6;
+            background: linear-gradient(180deg, #ecf0f1 0%, #bdc3c7 100%);
+            border-right: 1px solid #2ECC71;
             box-shadow: 2px 0 8px rgba(0,0,0,0.1);
             overflow-y: auto;
             transition: width 0.3s ease;
@@ -164,9 +164,9 @@
             padding: 12px 16px;
             font-size: 14px;
             font-weight: 600;
-            color: #495057;
-            background: rgba(0,123,255,0.08);
-            border-left: 3px solid #007bff;
+            color: #2c3e50;
+            background: rgba(46,204,113,0.08);
+            border-left: 3px solid #2ECC71;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -177,7 +177,7 @@
         }
 
         .nav-group-title:hover {
-            background: rgba(0,123,255,0.12);
+            background: rgba(46,204,113,0.12);
         }
 
         .nav-group-title .nav-group-text {
@@ -197,7 +197,7 @@
         }
 
         .collapse-icon:hover {
-            background: rgba(0,123,255,0.15);
+            background: rgba(46,204,113,0.15);
         }
 
         .nav-group-icon {
@@ -231,14 +231,14 @@
         }
 
         .nav-item:hover {
-            background: rgba(0,123,255,0.06);
-            color: #495057;
+            background: rgba(46,204,113,0.06);
+            color: #2c3e50;
         }
 
         .nav-item.active {
-            background: rgba(0,123,255,0.1);
-            border-left-color: #007bff;
-            color: #007bff;
+            background: rgba(46,204,113,0.1);
+            border-left-color: #2ECC71;
+            color: #2ECC71;
             font-weight: 500;
         }
 
@@ -246,7 +246,7 @@
             content: "●";
             position: absolute;
             left: 20px;
-            color: #007bff;
+            color: #2ECC71;
             font-size: 8px;
         }
 
@@ -291,7 +291,7 @@
         }
 
         .quick-item:hover {
-            background: rgba(0,123,255,0.08);
+            background: rgba(46,204,113,0.08);
         }
 
         .quick-item .star {
@@ -319,7 +319,7 @@
         }
 
         .breadcrumb .current {
-            color: #007bff;
+            color: #2ECC71;
             font-weight: 500;
         }
 
@@ -373,7 +373,7 @@
         .feature-icon {
             font-size: 32px;
             margin-bottom: 12px;
-            color: #007bff;
+            color: #2ECC71;
         }
 
         .feature-title {
@@ -576,8 +576,9 @@
         .about-logo {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
-            border-radius: 24px;
+            background: url('xc logo.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -597,7 +598,7 @@
         .about-title p {
             margin: 2px 0 0 0;
             font-size: 12px;
-            color: #667eea;
+            color: #2ECC71;
             font-weight: 600;
         }
 
@@ -646,7 +647,7 @@
             content: "•";
             position: absolute;
             left: -10px;
-            color: #007bff;
+            color: #2ECC71;
         }
 
         .about-footer {
@@ -654,7 +655,7 @@
         }
 
         .about-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
             color: white;
             border: none;
             border-radius: 6px;
@@ -666,7 +667,7 @@
         }
 
         .about-btn:hover {
-            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            background: linear-gradient(135deg, #27AE60 0%, #229954 100%);
             transform: translateY(-1px);
         }
 
@@ -711,7 +712,7 @@
         }
 
         .custom-alert-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
             padding: 12px 20px;
             display: flex;
             align-items: center;
@@ -721,8 +722,9 @@
         .custom-alert-logo {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
-            border-radius: 16px;
+            background: url('xc logo.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -772,7 +774,7 @@
         }
 
         .custom-alert-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
             color: white;
             border: none;
             border-radius: 6px;
@@ -785,7 +787,7 @@
         }
 
         .custom-alert-btn:hover {
-            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            background: linear-gradient(135deg, #27AE60 0%, #229954 100%);
             transform: translateY(-1px);
         }
 
@@ -1510,7 +1512,7 @@
             modal.innerHTML = `
                 <div class="custom-alert-dialog">
                     <div class="custom-alert-header">
-                        <div class="custom-alert-logo">祥</div>
+                        <div class="custom-alert-logo"></div>
                         <div class="custom-alert-title-area">
                             <h3>${title}</h3>
                             <span class="custom-alert-subtitle">XC-ROBOT Control System</span>
@@ -1556,7 +1558,7 @@
             modal.innerHTML = `
                 <div class="about-dialog">
                     <div class="about-header">
-                        <div class="about-logo">祥</div>
+                        <div class="about-logo"></div>
                         <div class="about-title">
                             <h2>XC-ROBOT 控制系统</h2>
                             <p>祥承机器人技术</p>

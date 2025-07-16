@@ -498,8 +498,7 @@ class XCRobotWebMainWindow(QMainWindow):
                 background: transparent;
             }
             QPushButton {
-                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                    stop: 0 #667eea, stop: 1 #764ba2);
+                background: #2ECC71;
                 color: white;
                 border: none;
                 border-radius: 6px;
@@ -508,12 +507,10 @@ class XCRobotWebMainWindow(QMainWindow):
                 font-size: 13px;
             }
             QPushButton:hover {
-                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                    stop: 0 #5a6fd8, stop: 1 #6a4190);
+                background: #27AE60;
             }
             QPushButton:pressed {
-                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                    stop: 0 #4e5fc6, stop: 1 #5e3778);
+                background: #229954;
             }
         """)
         
@@ -524,22 +521,26 @@ class XCRobotWebMainWindow(QMainWindow):
         # 标题和Logo区域
         header_layout = QHBoxLayout()
         
-        # Logo (使用CSS绘制类似提供的绿色logo)
+        # Logo (使用祥承电子实际logo)
         logo_label = QLabel()
-        logo_label.setStyleSheet("""
-            QLabel {
-                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                    stop: 0 #00ff88, stop: 1 #00cc66);
-                border-radius: 24px;
-                padding: 0px;
-                font-size: 28px;
-                font-weight: bold;
-                color: #2c3e50;
-            }
-        """)
-        logo_label.setText("祥")
+        logo_pixmap = QPixmap(os.path.join(os.path.dirname(__file__), '..', 'UI', 'xc logo.jpg'))
+        if not logo_pixmap.isNull():
+            scaled_pixmap = logo_pixmap.scaled(48, 48, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            logo_label.setPixmap(scaled_pixmap)
+        else:
+            # 如果logo文件不存在，使用文字作为备用
+            logo_label.setText("祥")
+            logo_label.setStyleSheet("""
+                QLabel {
+                    background: #2ECC71;
+                    border-radius: 24px;
+                    font-size: 28px;
+                    font-weight: bold;
+                    color: #2c3e50;
+                }
+            """)
+            logo_label.setAlignment(Qt.AlignCenter)
         logo_label.setFixedSize(48, 48)
-        logo_label.setAlignment(Qt.AlignCenter)
         
         # 标题区域
         title_layout = QVBoxLayout()
@@ -556,7 +557,7 @@ class XCRobotWebMainWindow(QMainWindow):
         company_label = QLabel("祥承机器人技术")
         company_label.setStyleSheet("""
             font-size: 12px;
-            color: #667eea;
+            color: #2ECC71;
             font-weight: 600;
         """)
         
@@ -633,8 +634,7 @@ class XCRobotWebMainWindow(QMainWindow):
                 background: transparent;
             }
             QPushButton#confirm {
-                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                    stop: 0 #667eea, stop: 1 #764ba2);
+                background: #2ECC71;
                 color: white;
                 border: none;
                 border-radius: 6px;
@@ -644,12 +644,10 @@ class XCRobotWebMainWindow(QMainWindow):
                 min-width: 80px;
             }
             QPushButton#confirm:hover {
-                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                    stop: 0 #5a6fd8, stop: 1 #6a4190);
+                background: #27AE60;
             }
             QPushButton#cancel {
-                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                    stop: 0 #6c757d, stop: 1 #495057);
+                background: #2c3e50;
                 color: white;
                 border: none;
                 border-radius: 6px;
@@ -659,8 +657,7 @@ class XCRobotWebMainWindow(QMainWindow):
                 min-width: 80px;
             }
             QPushButton#cancel:hover {
-                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                    stop: 0 #5a6268, stop: 1 #343a40);
+                background: #34495e;
             }
         """)
         
@@ -673,19 +670,24 @@ class XCRobotWebMainWindow(QMainWindow):
         
         # Logo
         logo_label = QLabel()
-        logo_label.setStyleSheet("""
-            QLabel {
-                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                    stop: 0 #00ff88, stop: 1 #00cc66);
-                border-radius: 16px;
-                font-size: 18px;
-                font-weight: bold;
-                color: #2c3e50;
-            }
-        """)
-        logo_label.setText("祥")
+        logo_pixmap = QPixmap(os.path.join(os.path.dirname(__file__), '..', 'UI', 'xc logo.jpg'))
+        if not logo_pixmap.isNull():
+            scaled_pixmap = logo_pixmap.scaled(32, 32, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            logo_label.setPixmap(scaled_pixmap)
+        else:
+            # 如果logo文件不存在，使用文字作为备用
+            logo_label.setText("祥")
+            logo_label.setStyleSheet("""
+                QLabel {
+                    background: #2ECC71;
+                    border-radius: 16px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #2c3e50;
+                }
+            """)
+            logo_label.setAlignment(Qt.AlignCenter)
         logo_label.setFixedSize(32, 32)
-        logo_label.setAlignment(Qt.AlignCenter)
         
         # 标题
         title_label = QLabel(title)
