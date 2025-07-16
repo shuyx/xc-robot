@@ -59,7 +59,7 @@ def main():
     
     # 创建应用
     app = QApplication(sys.argv)
-    app.setApplicationName("XC-ROBOT")
+    app.setApplicationName("祥承 XC-ROBOT MVP1.0 Control SYSTEM")
     app.setApplicationVersion("1.0.0")
     app.setStyle('Fusion')
     # 使用系统默认字体，避免字体警告

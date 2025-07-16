@@ -22,7 +22,7 @@ class XCRobotMainWindow(QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("祥承XC-ROBOT MVP1.0 xc-os v2.3.1")
+        self.setWindowTitle("祥承 XC-ROBOT MVP1.0 Control SYSTEM")
         self.setGeometry(100, 100, 1200, 800)
         self.setup_ui()
         self.setup_menu()

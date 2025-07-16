@@ -66,7 +66,7 @@ def main():
     
     # 创建应用
     app = QApplication(sys.argv)
-    app.setApplicationName("XC-ROBOT Web")
+    app.setApplicationName("祥承 XC-ROBOT MVP1.0 Control SYSTEM")
     app.setApplicationVersion("2.0")
     app.setStyle('Fusion')
     
@@ -85,7 +85,7 @@ def main():
         window = XCRobotWebMainWindow()
         window.show()
         
-        print("XC-ROBOT Web GUI 启动成功")
+        print("祥承 XC-ROBOT MVP1.0 Control SYSTEM 启动成功")
         print("界面风格: 现代化HTML5界面")
         print("后端: Python + PyQt5")
         print("前端: HTML5 + CSS3 + JavaScript")
