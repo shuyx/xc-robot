@@ -169,6 +169,26 @@ class WebBridge(QObject):
             return json.dumps(status)
         except Exception as e:
             return json.dumps({"error": str(e)})
+    
+    @pyqtSlot()
+    def clear_logs(self):
+        """清空日志"""
+        try:
+            if hasattr(self, 'log_widget'):
+                self.log_widget.clear_logs()
+            self.log_message.emit("日志已清空", "INFO")
+        except Exception as e:
+            self.log_message.emit(f"清空日志失败: {e}", "ERROR")
+    
+    @pyqtSlot()
+    def download_logs(self):
+        """下载日志"""
+        try:
+            if hasattr(self, 'log_widget'):
+                self.log_widget.save_logs()
+            self.log_message.emit("日志已保存", "SUCCESS")
+        except Exception as e:
+            self.log_message.emit(f"保存日志失败: {e}", "ERROR")
 
 
 class XCRobotWebMainWindow(QMainWindow):
@@ -275,6 +295,20 @@ class XCRobotWebMainWindow(QMainWindow):
                                 var status = JSON.parse(result);
                                 updateAllDeviceStatus(status);
                             });
+                        }
+                    }
+                    
+                    // 清空日志
+                    function clearLogs() {
+                        if (bridge) {
+                            bridge.clear_logs();
+                        }
+                    }
+                    
+                    // 下载日志
+                    function downloadLogs() {
+                        if (bridge) {
+                            bridge.download_logs();
                         }
                     }
                     

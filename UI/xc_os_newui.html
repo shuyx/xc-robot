@@ -21,19 +21,46 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px 20px;
+            padding: 6px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             z-index: 1000;
             position: relative;
+            height: 32px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .header h1 {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 600;
             margin: 0;
+        }
+
+        .header-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-item {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         .header-right {
@@ -42,24 +69,61 @@
             gap: 15px;
         }
 
-        .header-control {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+        .emergency-stop-btn {
+            background: #e74c3c;
+            border: none;
             color: white;
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 4px;
             font-size: 12px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-right: 10px;
+            height: 24px;
         }
 
-        .header-control:hover {
-            background: rgba(255,255,255,0.3);
+        .emergency-stop-btn:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        }
+
+        .emergency-stop-btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-icon {
+            font-size: 12px;
+        }
+
+        .btn-text {
+            font-size: 11px;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.2);
+            height: 24px;
+        }
+
+        .status-text {
+            font-size: 11px;
+            color: white;
+            font-weight: 500;
         }
 
         .main-container {
             display: flex;
-            height: calc(100vh - 60px);
+            height: calc(100vh - 44px);
         }
 
         .sidebar {
@@ -345,14 +409,43 @@
             gap: 8px;
         }
 
-        .log-control {
-            padding: 4px 8px;
-            font-size: 11px;
+        .log-filter-select {
+            padding: 2px 6px;
+            font-size: 10px;
             background: rgba(255,255,255,0.1);
-            border: none;
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            border-radius: 3px;
+            border-radius: 2px;
+            margin-right: 6px;
             cursor: pointer;
+            height: 20px;
+            line-height: 16px;
+        }
+
+        .log-filter-select option {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .log-control {
+            padding: 2px 6px;
+            font-size: 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-left: 3px;
+            transition: all 0.2s;
+            height: 20px;
+            width: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .log-control:hover {
+            background: rgba(255,255,255,0.2);
         }
 
         .log-content {
@@ -456,15 +549,23 @@
 </head>
 <body>
     <div class="header">
-        <h1>XC-OS Version 2.5.0</h1>
+        <div class="header-left">
+            <h1>xc-os system v2.5.0</h1>
+            <div class="header-menu">
+                <span class="menu-item" onclick="showFileMenu()">文件</span>
+                <span class="menu-item" onclick="showToolsMenu()">工具</span>
+                <span class="menu-item" onclick="showHelpMenu()">帮助</span>
+            </div>
+        </div>
         <div class="header-right">
-            <span class="header-control">全屏</span>
-            <span class="header-control">清空</span>
-            <span class="header-control">保存</span>
-            <label>
-                <input type="checkbox" checked> 自动滚动
-            </label>
-            <span>行数: 1</span>
+            <button class="emergency-stop-btn" onclick="emergencyStop()">
+                <span class="btn-icon">⏹</span>
+                <span class="btn-text">紧急停止</span>
+            </button>
+            <div class="system-status">
+                <span class="status-indicator status-online"></span>
+                <span class="status-text">系统在线</span>
+            </div>
         </div>
     </div>
 
@@ -739,9 +840,15 @@
             <div class="log-header">
                 <div class="log-title">📋 系统日志</div>
                 <div class="log-controls">
-                    <button class="log-control">清空</button>
-                    <button class="log-control">保存</button>
-                    <button class="log-control">设置</button>
+                    <select class="log-filter-select" id="logLevelFilter" onchange="filterLogs()">
+                        <option value="all">所有级别</option>
+                        <option value="SUCCESS">成功</option>
+                        <option value="INFO">信息</option>
+                        <option value="WARNING">警告</option>
+                        <option value="ERROR">错误</option>
+                    </select>
+                    <button class="log-control" onclick="clearLogs()">🗑️</button>
+                    <button class="log-control" onclick="downloadLogs()">⬇️</button>
                 </div>
             </div>
             <div class="log-content" id="logContent">
@@ -953,6 +1060,79 @@
             };
             
             return pages[pageId] || pages['connection-test'];
+        }
+        
+        // 菜单功能
+        function showFileMenu() {
+            // 暂时显示提示，后续可扩展为下拉菜单
+            alert('文件菜单功能开发中...');
+        }
+        
+        function showToolsMenu() {
+            alert('工具菜单功能开发中...');
+        }
+        
+        function showHelpMenu() {
+            alert('帮助菜单功能开发中...');
+        }
+        
+        // 日志过滤功能
+        function filterLogs() {
+            const filterValue = document.getElementById('logLevelFilter').value;
+            const logEntries = document.querySelectorAll('.log-entry');
+            
+            logEntries.forEach(entry => {
+                if (filterValue === 'all') {
+                    entry.style.display = 'block';
+                } else {
+                    const levelSpan = entry.querySelector(`[class*="log-level-${filterValue}"]`);
+                    entry.style.display = levelSpan ? 'block' : 'none';
+                }
+            });
+        }
+        
+        // 清空日志
+        function clearLogs() {
+            const logContent = document.getElementById('logContent');
+            logContent.innerHTML = '';
+            addLogEntry('日志已清空', 'INFO');
+        }
+        
+        // 下载日志
+        function downloadLogs() {
+            const logContent = document.getElementById('logContent');
+            const logEntries = logContent.querySelectorAll('.log-entry');
+            let logText = '';
+            
+            logEntries.forEach(entry => {
+                logText += entry.textContent + '\n';
+            });
+            
+            const blob = new Blob([logText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `system_log_${new Date().toISOString().slice(0, 10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addLogEntry('日志已下载', 'SUCCESS');
+        }
+        
+        // 更新系统状态
+        function updateSystemOnlineStatus(isOnline) {
+            const statusIndicator = document.querySelector('.status-indicator');
+            const statusText = document.querySelector('.status-text');
+            
+            if (isOnline) {
+                statusIndicator.className = 'status-indicator status-online';
+                statusText.textContent = '系统在线';
+            } else {
+                statusIndicator.className = 'status-indicator status-offline';
+                statusText.textContent = '系统离线';
+            }
         }
     </script>
 </body>
