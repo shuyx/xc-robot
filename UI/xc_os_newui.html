@@ -173,15 +173,16 @@
             justify-content: space-between;
             transition: all 0.2s ease;
             user-select: none;
+            position: relative;
         }
 
         .nav-group-title:hover {
             background: rgba(0,123,255,0.12);
         }
 
-        .nav-group-icon {
-            margin-right: 8px;
-            font-size: 16px;
+        .nav-group-title .nav-group-text {
+            flex: 1;
+            cursor: pointer;
         }
 
         .collapse-icon {
@@ -190,7 +191,20 @@
             display: inline-block;
             width: 16px;
             text-align: center;
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 2px;
         }
+
+        .collapse-icon:hover {
+            background: rgba(0,123,255,0.15);
+        }
+
+        .nav-group-icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
 
         .nav-items {
             background: white;
@@ -518,6 +532,267 @@
             background: #a8a8a8;
         }
 
+        /* 关于对话框样式 */
+        .about-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .about-dialog {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            width: 480px;
+            max-width: 90vw;
+            padding: 25px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: about-fade-in 0.3s ease-out;
+        }
+
+        @keyframes about-fade-in {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .about-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .about-logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-right: 15px;
+        }
+
+        .about-title h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .about-title p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .about-divider {
+            height: 1px;
+            background: #dee2e6;
+            margin: 20px 0;
+        }
+
+        .about-content {
+            margin-bottom: 25px;
+        }
+
+        .about-version {
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .about-section {
+            margin-bottom: 15px;
+        }
+
+        .about-section h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6c757d;
+            margin: 0 0 5px 0;
+        }
+
+        .about-section ul {
+            margin: 0;
+            padding-left: 15px;
+            list-style: none;
+        }
+
+        .about-section li {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .about-section li:before {
+            content: "•";
+            position: absolute;
+            left: -10px;
+            color: #007bff;
+        }
+
+        .about-footer {
+            text-align: right;
+        }
+
+        .about-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .about-btn:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-1px);
+        }
+
+        .about-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 自定义提示对话框样式 */
+        .custom-alert-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+
+        .custom-alert-dialog {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            width: 360px;
+            max-width: 90vw;
+            padding: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            animation: alert-fade-in 0.25s ease-out;
+            overflow: hidden;
+        }
+
+        @keyframes alert-fade-in {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .custom-alert-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .custom-alert-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-right: 12px;
+        }
+
+        .custom-alert-title-area h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .custom-alert-subtitle {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .custom-alert-content {
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .custom-alert-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .custom-alert-message {
+            font-size: 14px;
+            color: #2c3e50;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .custom-alert-footer {
+            padding: 0 20px 20px 20px;
+            text-align: right;
+        }
+
+        .custom-alert-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 80px;
+        }
+
+        .custom-alert-btn:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-1px);
+        }
+
+        .custom-alert-btn:active {
+            transform: translateY(0);
+        }
+
         /* 响应式设计 */
         @media (max-width: 1200px) {
             .sidebar {
@@ -537,6 +812,10 @@
             }
             .log-panel {
                 display: none;
+            }
+            .about-dialog {
+                width: 90vw;
+                padding: 20px;
             }
         }
     </style>
@@ -571,7 +850,7 @@
 
             <div class="nav-group" data-group="device">
                 <div class="nav-group-title">
-                    <span><span class="nav-group-icon">📡</span>设备连接</span>
+                    <span class="nav-group-text"><span class="nav-group-icon">📡</span>设备连接</span>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -593,7 +872,7 @@
 
             <div class="nav-group" data-group="control">
                 <div class="nav-group-title">
-                    <span><span class="nav-group-icon">🤖</span>机器人控制</span>
+                    <span class="nav-group-text"><span class="nav-group-icon">🤖</span>机器人控制</span>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -616,7 +895,7 @@
 
             <div class="nav-group" data-group="simulation">
                 <div class="nav-group-title">
-                    <span><span class="nav-group-icon">🎯</span>仿真测试</span>
+                    <span class="nav-group-text"><span class="nav-group-icon">🎯</span>仿真测试</span>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -637,7 +916,7 @@
 
             <div class="nav-group" data-group="vision">
                 <div class="nav-group-title">
-                    <span><span class="nav-group-icon">👁️</span>视觉感知</span>
+                    <span class="nav-group-text"><span class="nav-group-icon">👁️</span>视觉感知</span>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -663,7 +942,7 @@
 
             <div class="nav-group" data-group="interaction">
                 <div class="nav-group-title">
-                    <span><span class="nav-group-icon">🤝</span>智能交互</span>
+                    <span class="nav-group-text"><span class="nav-group-icon">🤝</span>智能交互</span>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -688,7 +967,7 @@
 
             <div class="nav-group" data-group="monitoring">
                 <div class="nav-group-title">
-                    <span><span class="nav-group-icon">📊</span>数据监控</span>
+                    <span class="nav-group-text"><span class="nav-group-icon">📊</span>数据监控</span>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -709,7 +988,7 @@
 
             <div class="nav-group" data-group="management">
                 <div class="nav-group-title">
-                    <span><span class="nav-group-icon">⚙️</span>系统管理</span>
+                    <span class="nav-group-text"><span class="nav-group-icon">⚙️</span>系统管理</span>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -865,22 +1144,54 @@
             // 分组折叠功能
             const groupTitles = document.querySelectorAll('.nav-group-title');
             groupTitles.forEach(title => {
-                title.addEventListener('click', function() {
+                title.addEventListener('click', function(e) {
                     const group = this.parentElement;
-                    const isCollapsed = group.classList.contains('collapsed');
+                    const groupType = group.dataset.group;
                     
-                    // 切换折叠状态
-                    group.classList.toggle('collapsed');
-                    
-                    // 更新图标
-                    const icon = this.querySelector('.collapse-icon');
-                    if (icon) {
-                        icon.textContent = isCollapsed ? '▼' : '▶';
+                    // 如果点击的是折叠图标，只执行折叠/展开
+                    if (e.target.classList.contains('collapse-icon')) {
+                        toggleGroupCollapse(group);
+                        return;
                     }
                     
-                    console.log('折叠状态:', group.classList.contains('collapsed') ? '已折叠' : '已展开');
+                    // 点击标题其他部分，进入一级菜单页面
+                    if (groupType) {
+                        // 清除所有导航项的active状态
+                        document.querySelectorAll('.nav-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        
+                        // 更新页面内容为一级菜单总览
+                        updateGroupOverviewPage(groupType);
+                        updateBreadcrumbForGroup(groupType);
+                    }
                 });
+                
+                // 为折叠图标添加单独的点击事件
+                const collapseIcon = title.querySelector('.collapse-icon');
+                if (collapseIcon) {
+                    collapseIcon.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        toggleGroupCollapse(title.parentElement);
+                    });
+                }
             });
+            
+            // 折叠/展开组的函数
+            function toggleGroupCollapse(group) {
+                const isCollapsed = group.classList.contains('collapsed');
+                
+                // 切换折叠状态
+                group.classList.toggle('collapsed');
+                
+                // 更新图标
+                const icon = group.querySelector('.collapse-icon');
+                if (icon) {
+                    icon.textContent = isCollapsed ? '▼' : '▶';
+                }
+                
+                console.log('折叠状态:', group.classList.contains('collapsed') ? '已折叠' : '已展开');
+            }
 
             // 导航项点击
             const navItems = document.querySelectorAll('.nav-item');
@@ -894,7 +1205,7 @@
                     // 更新页面内容
                     const pageId = this.dataset.page;
                     updatePageContent(pageId);
-                    updateBreadcrumb(this);
+                    updateBreadcrumbForPage(pageId);
                 });
             });
 
@@ -941,13 +1252,6 @@
             `;
         }
 
-        function updateBreadcrumb(navItem) {
-            const breadcrumb = document.querySelector('.breadcrumb');
-            const groupTitle = navItem.closest('.nav-group').querySelector('.nav-group-title span').textContent;
-            const itemTitle = navItem.textContent.trim().split('\n')[0];
-            
-            breadcrumb.innerHTML = `${groupTitle} > <span class="current">${itemTitle}</span>`;
-        }
 
         function filterNavigation(query) {
             const navItems = document.querySelectorAll('.nav-item');
@@ -1041,18 +1345,266 @@
             return pages[pageId] || pages['connection-test'];
         }
         
+        // 更新一级菜单总览页面
+        function updateGroupOverviewPage(groupType) {
+            const pageContent = document.getElementById('pageContent');
+            const groupData = getGroupData(groupType);
+            
+            if (!groupData) return;
+            
+            pageContent.innerHTML = `
+                <div class="page-header">
+                    <div>
+                        <h2 class="page-title">${groupData.icon} ${groupData.title}</h2>
+                        <p class="page-description">${groupData.description}</p>
+                    </div>
+                </div>
+                <div class="feature-grid">
+                    ${groupData.features.map(feature => `
+                        <div class="feature-card" onclick="navigateToFeature('${feature.pageId}')" style="cursor: pointer;">
+                            <div class="feature-icon">${feature.icon}</div>
+                            <div class="feature-title">${feature.title}</div>
+                            <div class="feature-desc">${feature.desc}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        // 更新一级菜单的面包屑
+        function updateBreadcrumbForGroup(groupType) {
+            const breadcrumb = document.querySelector('.breadcrumb');
+            const groupData = getGroupData(groupType);
+            
+            if (groupData) {
+                breadcrumb.innerHTML = `<span class="current">${groupData.title}</span>`;
+            }
+        }
+        
+        // 导航到具体功能页面
+        function navigateToFeature(pageId) {
+            // 清除所有导航项的active状态
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // 设置对应导航项为active
+            const targetItem = document.querySelector(`[data-page="${pageId}"]`);
+            if (targetItem) {
+                targetItem.classList.add('active');
+            }
+            
+            // 更新页面内容
+            updatePageContent(pageId);
+            updateBreadcrumbForPage(pageId);
+        }
+        
+        // 更新具体页面的面包屑
+        function updateBreadcrumbForPage(pageId) {
+            const breadcrumb = document.querySelector('.breadcrumb');
+            const navItem = document.querySelector(`[data-page="${pageId}"]`);
+            
+            if (navItem) {
+                const group = navItem.closest('.nav-group');
+                const groupTitle = group.querySelector('.nav-group-title .nav-group-text').textContent;
+                const itemTitle = navItem.textContent.trim().split('\n')[0];
+                
+                breadcrumb.innerHTML = `${groupTitle} > <span class="current">${itemTitle}</span>`;
+            }
+        }
+        
+        // 获取一级菜单数据
+        function getGroupData(groupType) {
+            const groups = {
+                'device': {
+                    icon: '📡',
+                    title: '设备连接',
+                    description: '管理和测试机器人各硬件模块的网络连接状态',
+                    features: [
+                        { icon: '🔗', title: '连接测试', desc: '测试右臂、左臂、底盘的网络连通性', pageId: 'connection-test' },
+                        { icon: '🌐', title: '网络配置', desc: 'IP地址、端口、协议配置', pageId: 'network-config' },
+                        { icon: '📊', title: '连接状态', desc: '实时连接状态监控面板', pageId: 'connection-status' }
+                    ]
+                },
+                'control': {
+                    icon: '🤖',
+                    title: '机器人控制',
+                    description: '控制机械臂和底盘的运动，实现复杂的机器人操作',
+                    features: [
+                        { icon: '🦾', title: '机械臂控制', desc: '右臂控制、左臂控制、双臂协调控制', pageId: 'arm-control' },
+                        { icon: '🚛', title: '底盘控制', desc: '移动控制、导航设置、路径规划', pageId: 'chassis-control' },
+                        { icon: '🔄', title: '协调控制', desc: '移动+机械臂协调、安全联锁', pageId: 'coord-control' }
+                    ]
+                },
+                'simulation': {
+                    icon: '🎯',
+                    title: '仿真测试',
+                    description: '在虚拟环境中测试机器人功能和算法',
+                    features: [
+                        { icon: '🎮', title: '机械人仿真系统', desc: '2D底盘仿真、3D机械臂仿真', pageId: 'robot-sim' },
+                        { icon: '🏗️', title: 'RobotSim 3D', desc: '3D模型加载、物理仿真', pageId: 'robotsim-3d' },
+                        { icon: '📋', title: '任务编排', desc: '可视化编程、行为树编辑', pageId: 'task-orchestration' }
+                    ]
+                },
+                'vision': {
+                    icon: '👁️',
+                    title: '视觉感知',
+                    description: '处理相机数据，实现目标检测和环境感知',
+                    features: [
+                        { icon: '📷', title: '视觉系统', desc: 'ToF相机管理、多相机同步', pageId: 'vision-system' },
+                        { icon: '🎯', title: '相机标定', desc: '单目、立体、手眼标定', pageId: 'camera-calibration' },
+                        { icon: '☁️', title: '点云处理', desc: '实时点云、滤波、位姿估计', pageId: 'pointcloud' },
+                        { icon: '🔍', title: '图像处理', desc: '目标检测、外部视觉接入', pageId: 'image-processing' }
+                    ]
+                },
+                'interaction': {
+                    icon: '🤝',
+                    title: '智能交互',
+                    description: '实现人机交互功能，提升用户体验',
+                    features: [
+                        { icon: '👤', title: '人脸识别', desc: '实时检测、数据库管理、权限控制', pageId: 'face-recognition' },
+                        { icon: '🎤', title: '语音控制', desc: '语音识别、自然语言理解', pageId: 'voice-control' },
+                        { icon: '🏢', title: '梯控系统', desc: '电梯识别、楼层导航', pageId: 'elevator-control' },
+                        { icon: '✋', title: '手势识别', desc: '静态手势、动态手势跟踪', pageId: 'gesture-recognition' }
+                    ]
+                },
+                'monitoring': {
+                    icon: '📊',
+                    title: '数据监控',
+                    description: '监控系统运行状态和性能指标',
+                    features: [
+                        { icon: '📈', title: '系统监控', desc: '硬件资源、网络状态、温度监控', pageId: 'system-monitor' },
+                        { icon: '📋', title: '数据分析', desc: '运行数据、传感器数据分析', pageId: 'data-analytics' },
+                        { icon: '📊', title: '性能统计', desc: '任务执行统计、效率分析', pageId: 'performance-stats' }
+                    ]
+                },
+                'management': {
+                    icon: '⚙️',
+                    title: '系统管理',
+                    description: '配置系统参数和维护管理',
+                    features: [
+                        { icon: '🔧', title: '参数配置', desc: '机械臂、底盘、视觉系统参数', pageId: 'parameter-config' },
+                        { icon: '🛠️', title: '维护管理', desc: '诊断工具、维护计划、系统升级', pageId: 'maintenance' },
+                        { icon: '⚙️', title: '系统设置', desc: '用户管理、权限设置、备份恢复', pageId: 'system-settings' }
+                    ]
+                }
+            };
+            
+            return groups[groupType];
+        }
+        
         // 菜单功能
         function showFileMenu() {
             // 暂时显示提示，后续可扩展为下拉菜单
-            alert('文件菜单功能开发中...');
+            showCustomAlert('文件菜单功能开发中...', '提示');
         }
         
         function showToolsMenu() {
-            alert('工具菜单功能开发中...');
+            showCustomAlert('工具菜单功能开发中...', '提示');
+        }
+        
+        // 自定义提示对话框
+        function showCustomAlert(message, title = '提示') {
+            const modal = document.createElement('div');
+            modal.className = 'custom-alert-modal';
+            modal.innerHTML = `
+                <div class="custom-alert-dialog">
+                    <div class="custom-alert-header">
+                        <div class="custom-alert-logo">祥</div>
+                        <div class="custom-alert-title-area">
+                            <h3>${title}</h3>
+                            <span class="custom-alert-subtitle">XC-ROBOT Control System</span>
+                        </div>
+                    </div>
+                    <div class="custom-alert-content">
+                        <div class="custom-alert-icon">⚠️</div>
+                        <div class="custom-alert-message">${message}</div>
+                    </div>
+                    <div class="custom-alert-footer">
+                        <button onclick="closeCustomAlert()" class="custom-alert-btn">确定</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // 点击模态背景关闭对话框
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeCustomAlert();
+                }
+            });
+        }
+        
+        // 关闭自定义提示对话框
+        function closeCustomAlert() {
+            const modal = document.querySelector('.custom-alert-modal');
+            if (modal) {
+                modal.remove();
+            }
         }
         
         function showHelpMenu() {
-            alert('帮助菜单功能开发中...');
+            showAboutDialog();
+        }
+        
+        // 显示关于对话框
+        function showAboutDialog() {
+            // 创建模态对话框
+            const modal = document.createElement('div');
+            modal.className = 'about-modal';
+            modal.innerHTML = `
+                <div class="about-dialog">
+                    <div class="about-header">
+                        <div class="about-logo">祥</div>
+                        <div class="about-title">
+                            <h2>XC-ROBOT 控制系统</h2>
+                            <p>祥承机器人技术</p>
+                        </div>
+                    </div>
+                    <div class="about-divider"></div>
+                    <div class="about-content">
+                        <div class="about-version">版本: 2.5.0 (Web界面版)</div>
+                        <div class="about-section">
+                            <h3>硬件配置:</h3>
+                            <ul>
+                                <li>思岚Hermes移动底盘</li>
+                                <li>法奥意威FR3双臂机械臂</li>
+                                <li>ToF深度相机 × 3</li>
+                                <li>高性能控制计算机</li>
+                            </ul>
+                        </div>
+                        <div class="about-section">
+                            <h3>软件架构:</h3>
+                            <ul>
+                                <li>Python + PyQt5 + QWebEngine</li>
+                                <li>HTML5 + CSS3 + JavaScript</li>
+                                <li>实时控制 + 可视化界面</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="about-footer">
+                        <button onclick="closeAboutDialog()" class="about-btn">确定</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // 点击模态背景关闭对话框
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeAboutDialog();
+                }
+            });
+        }
+        
+        // 关闭关于对话框
+        function closeAboutDialog() {
+            const modal = document.querySelector('.about-modal');
+            if (modal) {
+                modal.remove();
+            }
         }
         
         // 日志过滤功能

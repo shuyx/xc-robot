@@ -469,11 +469,9 @@ class XCRobotWebMainWindow(QMainWindow):
     
     def emergency_stop(self):
         """紧急停止"""
-        reply = QMessageBox.question(
-            self, "紧急停止", "确定要执行紧急停止吗？\n这将停止所有机械臂和底盘运动！",
-            QMessageBox.Yes | QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
+        reply = self.show_custom_question("紧急停止", 
+            "确定要执行紧急停止吗？\n这将停止所有机械臂和底盘运动！")
+        if reply:
             self.bridge.emergency_stop()
     
     def reload_page(self):
@@ -482,21 +480,262 @@ class XCRobotWebMainWindow(QMainWindow):
     
     def show_about(self):
         """显示关于对话框"""
-        QMessageBox.about(
-            self, "关于 XC-ROBOT",
-            "XC-ROBOT 轮式双臂类人形机器人控制系统\n"
-            "版本: 2.0 (Web界面版)\n"
-            "硬件: 思岚Hermes底盘 + 法奥意威FR3双臂\n"
-            "软件: Python + PyQt5 + QWebEngine + HTML5"
-        )
+        self.show_custom_about_dialog()
+    
+    def show_custom_about_dialog(self):
+        """显示自定义关于对话框"""
+        dialog = QDialog(self)
+        dialog.setWindowTitle("关于 XC-ROBOT")
+        dialog.setFixedSize(480, 320)
+        dialog.setStyleSheet("""
+            QDialog {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                    stop: 0 #f8f9fa, stop: 1 #e9ecef);
+                border-radius: 12px;
+            }
+            QLabel {
+                color: #2c3e50;
+                background: transparent;
+            }
+            QPushButton {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                    stop: 0 #667eea, stop: 1 #764ba2);
+                color: white;
+                border: none;
+                border-radius: 6px;
+                padding: 8px 20px;
+                font-weight: 600;
+                font-size: 13px;
+            }
+            QPushButton:hover {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                    stop: 0 #5a6fd8, stop: 1 #6a4190);
+            }
+            QPushButton:pressed {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                    stop: 0 #4e5fc6, stop: 1 #5e3778);
+            }
+        """)
+        
+        layout = QVBoxLayout(dialog)
+        layout.setSpacing(15)
+        layout.setContentsMargins(30, 25, 30, 25)
+        
+        # 标题和Logo区域
+        header_layout = QHBoxLayout()
+        
+        # Logo (使用CSS绘制类似提供的绿色logo)
+        logo_label = QLabel()
+        logo_label.setStyleSheet("""
+            QLabel {
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #00ff88, stop: 1 #00cc66);
+                border-radius: 24px;
+                padding: 0px;
+                font-size: 28px;
+                font-weight: bold;
+                color: #2c3e50;
+            }
+        """)
+        logo_label.setText("祥")
+        logo_label.setFixedSize(48, 48)
+        logo_label.setAlignment(Qt.AlignCenter)
+        
+        # 标题区域
+        title_layout = QVBoxLayout()
+        title_layout.setSpacing(2)
+        
+        title_label = QLabel("XC-ROBOT 控制系统")
+        title_label.setStyleSheet("""
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        """)
+        
+        company_label = QLabel("祥承机器人技术")
+        company_label.setStyleSheet("""
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 600;
+        """)
+        
+        title_layout.addWidget(title_label)
+        title_layout.addWidget(company_label)
+        
+        header_layout.addWidget(logo_label)
+        header_layout.addSpacing(15)
+        header_layout.addLayout(title_layout)
+        header_layout.addStretch()
+        
+        layout.addLayout(header_layout)
+        
+        # 分割线
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        line.setFrameShadow(QFrame.Sunken)
+        line.setStyleSheet("color: #dee2e6;")
+        layout.addWidget(line)
+        
+        # 产品信息
+        info_layout = QVBoxLayout()
+        info_layout.setSpacing(8)
+        
+        version_label = QLabel("版本: 2.5.0 (Web界面版)")
+        version_label.setStyleSheet("font-size: 14px; font-weight: 600; color: #495057;")
+        
+        hardware_label = QLabel("硬件配置:")
+        hardware_label.setStyleSheet("font-size: 13px; font-weight: 600; color: #6c757d; margin-top: 8px;")
+        
+        hardware_details = QLabel("• 思岚Hermes移动底盘\n• 法奥意威FR3双臂机械臂\n• ToF深度相机 × 3\n• 高性能控制计算机")
+        hardware_details.setStyleSheet("font-size: 12px; color: #6c757d; margin-left: 10px;")
+        
+        software_label = QLabel("软件架构:")
+        software_label.setStyleSheet("font-size: 13px; font-weight: 600; color: #6c757d; margin-top: 8px;")
+        
+        software_details = QLabel("• Python + PyQt5 + QWebEngine\n• HTML5 + CSS3 + JavaScript\n• 实时控制 + 可视化界面")
+        software_details.setStyleSheet("font-size: 12px; color: #6c757d; margin-left: 10px;")
+        
+        info_layout.addWidget(version_label)
+        info_layout.addWidget(hardware_label)
+        info_layout.addWidget(hardware_details)
+        info_layout.addWidget(software_label)
+        info_layout.addWidget(software_details)
+        
+        layout.addLayout(info_layout)
+        
+        # 底部按钮
+        button_layout = QHBoxLayout()
+        button_layout.addStretch()
+        
+        ok_button = QPushButton("确定")
+        ok_button.clicked.connect(dialog.accept)
+        ok_button.setFixedSize(80, 32)
+        
+        button_layout.addWidget(ok_button)
+        layout.addLayout(button_layout)
+        
+        dialog.exec_()
+    
+    def show_custom_question(self, title, message):
+        """显示自定义询问对话框"""
+        dialog = QDialog(self)
+        dialog.setWindowTitle(title)
+        dialog.setFixedSize(400, 200)
+        dialog.setStyleSheet("""
+            QDialog {
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #f8f9fa, stop: 1 #e9ecef);
+                border-radius: 10px;
+            }
+            QLabel {
+                color: #2c3e50;
+                background: transparent;
+            }
+            QPushButton#confirm {
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #667eea, stop: 1 #764ba2);
+                color: white;
+                border: none;
+                border-radius: 6px;
+                padding: 8px 20px;
+                font-weight: 600;
+                font-size: 13px;
+                min-width: 80px;
+            }
+            QPushButton#confirm:hover {
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #5a6fd8, stop: 1 #6a4190);
+            }
+            QPushButton#cancel {
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #6c757d, stop: 1 #495057);
+                color: white;
+                border: none;
+                border-radius: 6px;
+                padding: 8px 20px;
+                font-weight: 600;
+                font-size: 13px;
+                min-width: 80px;
+            }
+            QPushButton#cancel:hover {
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #5a6268, stop: 1 #343a40);
+            }
+        """)
+        
+        layout = QVBoxLayout(dialog)
+        layout.setSpacing(20)
+        layout.setContentsMargins(25, 20, 25, 20)
+        
+        # 顶部标题区域
+        header_layout = QHBoxLayout()
+        
+        # Logo
+        logo_label = QLabel()
+        logo_label.setStyleSheet("""
+            QLabel {
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #00ff88, stop: 1 #00cc66);
+                border-radius: 16px;
+                font-size: 18px;
+                font-weight: bold;
+                color: #2c3e50;
+            }
+        """)
+        logo_label.setText("祥")
+        logo_label.setFixedSize(32, 32)
+        logo_label.setAlignment(Qt.AlignCenter)
+        
+        # 标题
+        title_label = QLabel(title)
+        title_label.setStyleSheet("""
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+        """)
+        
+        header_layout.addWidget(logo_label)
+        header_layout.addSpacing(10)
+        header_layout.addWidget(title_label)
+        header_layout.addStretch()
+        
+        layout.addLayout(header_layout)
+        
+        # 消息内容
+        message_label = QLabel(message)
+        message_label.setStyleSheet("""
+            font-size: 14px;
+            color: #495057;
+            line-height: 1.5;
+        """)
+        message_label.setWordWrap(True)
+        layout.addWidget(message_label)
+        
+        # 按钮区域
+        button_layout = QHBoxLayout()
+        button_layout.addStretch()
+        
+        cancel_button = QPushButton("取消")
+        cancel_button.setObjectName("cancel")
+        cancel_button.clicked.connect(dialog.reject)
+        
+        confirm_button = QPushButton("确定")
+        confirm_button.setObjectName("confirm")
+        confirm_button.clicked.connect(dialog.accept)
+        
+        button_layout.addWidget(cancel_button)
+        button_layout.addSpacing(10)
+        button_layout.addWidget(confirm_button)
+        
+        layout.addLayout(button_layout)
+        
+        return dialog.exec_() == QDialog.Accepted
     
     def closeEvent(self, event):
         """关闭事件"""
-        reply = QMessageBox.question(
-            self, "退出确认", "确定要退出XC-ROBOT控制软件吗？",
-            QMessageBox.Yes | QMessageBox.No
-        )
-        if reply == QMessageBox.Yes:
+        reply = self.show_custom_question("退出确认", "确定要退出XC-ROBOT控制软件吗？")
+        if reply:
             try:
                 # 清理资源
                 if hasattr(self.bridge, 'log_widget'):
