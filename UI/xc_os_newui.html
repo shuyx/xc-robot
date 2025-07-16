@@ -830,6 +830,7 @@
                 <span class="menu-item" onclick="showFileMenu()">文件</span>
                 <span class="menu-item" onclick="showToolsMenu()">工具</span>
                 <span class="menu-item" onclick="showHelpMenu()">帮助</span>
+                <span class="menu-item" onclick="showAboutInfo()">关于</span>
             </div>
         </div>
         <div class="header-right">
@@ -1547,7 +1548,85 @@
         }
         
         function showHelpMenu() {
-            showAboutDialog();
+            showCustomAlert('帮助菜单功能开发中...', '帮助');
+        }
+        
+        // 显示关于信息卡（原帮助菜单功能）
+        function showAboutInfo() {
+            // 创建模态对话框
+            const modal = document.createElement('div');
+            modal.className = 'about-modal';
+            modal.innerHTML = `
+                <div class="about-dialog" style="width: 480px; padding: 0; background: #f0f0f0; border-radius: 12px; overflow: hidden;">
+                    <div style="position: relative; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 30px; border-radius: 12px 12px 0 0;">
+                        <div style="position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; background: url('xc logo.jpg') no-repeat center center; background-size: contain; border-radius: 8px;"></div>
+                        <div style="margin-left: 70px; margin-top: 10px;">
+                            <h2 style="font-size: 28px; font-weight: bold; color: #2c3e50; margin: 0; line-height: 1.2;">XC-ROBOT 控制系统</h2>
+                            <p style="font-size: 16px; color: #2ECC71; margin: 5px 0 0 0; font-weight: 600;">祥承机器人技术</p>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 30px; background: white;">
+                        <div style="margin-bottom: 25px;">
+                            <h3 style="font-size: 16px; font-weight: 600; color: #6c757d; margin: 0 0 15px 0;">版本: 2.5.0 (Web界面版)</h3>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <h3 style="font-size: 16px; font-weight: 600; color: #6c757d; margin: 0 0 10px 0;">硬件配置:</h3>
+                            <ul style="margin: 0; padding-left: 20px; list-style: none;">
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>思岚Hermes移动底盘
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>法奥意威FR3双臂机械臂
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>ToF深度相机 × 3
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>高性能控制计算机
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="font-size: 16px; font-weight: 600; color: #6c757d; margin: 0 0 10px 0;">软件架构:</h3>
+                            <ul style="margin: 0; padding-left: 20px; list-style: none;">
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>Python + PyQt5 + QWebEngine
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>HTML5 + CSS3 + JavaScript
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>实时控制 + 可视化界面
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="text-align: right;">
+                            <button onclick="closeAboutInfo()" style="background: #2ECC71; color: white; border: none; border-radius: 6px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#27AE60'" onmouseout="this.style.background='#2ECC71'">确定</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // 点击模态背景关闭对话框
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeAboutInfo();
+                }
+            });
+        }
+        
+        // 关闭关于信息卡
+        function closeAboutInfo() {
+            const modal = document.querySelector('.about-modal');
+            if (modal) {
+                modal.remove();
+            }
         }
         
         // 显示关于对话框
@@ -1599,6 +1678,84 @@
                     closeAboutDialog();
                 }
             });
+        }
+        
+        // 显示系统关于对话框（点击标题栏时）
+        function showSystemAboutDialog() {
+            // 创建模态对话框
+            const modal = document.createElement('div');
+            modal.className = 'about-modal';
+            modal.innerHTML = `
+                <div class="about-dialog" style="width: 480px; padding: 0; background: #f0f0f0; border-radius: 12px; overflow: hidden;">
+                    <div style="position: relative; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 30px; border-radius: 12px 12px 0 0;">
+                        <div style="position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; background: url('xc logo.jpg') no-repeat center center; background-size: contain; border-radius: 8px;"></div>
+                        <div style="margin-left: 70px; margin-top: 10px;">
+                            <h2 style="font-size: 28px; font-weight: bold; color: #2c3e50; margin: 0; line-height: 1.2;">XC-ROBOT 控制系统</h2>
+                            <p style="font-size: 16px; color: #2ECC71; margin: 5px 0 0 0; font-weight: 600;">祥承机器人技术</p>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 30px; background: white;">
+                        <div style="margin-bottom: 25px;">
+                            <h3 style="font-size: 16px; font-weight: 600; color: #6c757d; margin: 0 0 15px 0;">版本: 2.5.0 (Web界面版)</h3>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <h3 style="font-size: 16px; font-weight: 600; color: #6c757d; margin: 0 0 10px 0;">硬件配置:</h3>
+                            <ul style="margin: 0; padding-left: 20px; list-style: none;">
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>思岚Hermes移动底盘
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>法奥意威FR3双臂机械臂
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>ToF深度相机 × 3
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>高性能控制计算机
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="font-size: 16px; font-weight: 600; color: #6c757d; margin: 0 0 10px 0;">软件架构:</h3>
+                            <ul style="margin: 0; padding-left: 20px; list-style: none;">
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>Python + PyQt5 + QWebEngine
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>HTML5 + CSS3 + JavaScript
+                                </li>
+                                <li style="font-size: 14px; color: #6c757d; margin-bottom: 5px; position: relative;">
+                                    <span style="color: #2ECC71; margin-right: 8px;">•</span>实时控制 + 可视化界面
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="text-align: right;">
+                            <button onclick="closeSystemAboutDialog()" style="background: #2ECC71; color: white; border: none; border-radius: 6px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#27AE60'" onmouseout="this.style.background='#2ECC71'">确定</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // 点击模态背景关闭对话框
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeSystemAboutDialog();
+                }
+            });
+        }
+        
+        // 关闭系统关于对话框
+        function closeSystemAboutDialog() {
+            const modal = document.querySelector('.about-modal');
+            if (modal) {
+                modal.remove();
+            }
         }
         
         // 关闭关于对话框
