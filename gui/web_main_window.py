@@ -190,11 +190,11 @@ class WebBridge(QObject):
         except Exception as e:
             self.log_message.emit(f"保存日志失败: {e}", "ERROR")
     
-    @pyqtSlot(str, result=str)
-    def readHtmlFile(self, filename):
-        """读取HTML文件内容"""
+    @pyqtSlot(str)
+    def showHelpDoc(self, filename):
+        """直接显示帮助文档窗口（简化方案）"""
         try:
-            print(f"[DEBUG] readHtmlFile被调用，文件名: {filename}")
+            print(f"[DEBUG] showHelpDoc被调用，文件名: {filename}")
             
             # 将MD文件名转换为HTML文件名
             if filename.endswith('.md'):
@@ -204,64 +204,30 @@ class WebBridge(QObject):
             
             # 构建文件路径
             base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            file_path = os.path.join(base_dir, "Md_files", html_filename)
             
-            # 尝试不同的路径组合
-            possible_paths = [
-                os.path.join(base_dir, "Md_files", html_filename),
-                os.path.join(base_dir, "Html_files", html_filename),  # 备选路径
-                os.path.join(base_dir, html_filename),  # 如果文件在根目录
-            ]
-            
-            file_path = None
-            for path in possible_paths:
-                print(f"[DEBUG] 尝试路径: {path}")
-                if os.path.exists(path):
-                    file_path = path
-                    print(f"[DEBUG] 找到文件: {file_path}")
-                    break
-            
-            # 检查文件是否存在
-            if not file_path:
-                error_msg = f"HTML文档文件不存在: {html_filename}"
-                print(f"[DEBUG] 错误: {error_msg}")
+            if os.path.exists(file_path):
+                # 创建并显示帮助窗口
+                if not hasattr(self, 'help_window') or self.help_window is None:
+                    from gui.help_viewer import HelpViewerWindow
+                    self.help_window = HelpViewerWindow()
+                
+                self.help_window.load_html_file(file_path)
+                self.help_window.show()
+                self.help_window.raise_()
+                self.help_window.activateWindow()
+                
+                self.log_message.emit(f"成功打开帮助文档: {html_filename}", "SUCCESS")
+                print(f"[DEBUG] 成功显示帮助文档: {file_path}")
+            else:
+                error_msg = f"文档文件不存在: {html_filename}"
                 self.log_message.emit(error_msg, "WARNING")
-                return self._create_error_html(error_msg)
-            
-            # 读取HTML文件内容
-            with open(file_path, 'r', encoding='utf-8') as f:
-                html_content = f.read()
-            
-            print(f"[DEBUG] 读取HTML文件内容长度: {len(html_content)}")
-            
-            # 对于大文件，直接返回完整内容，不提取body
-            if len(html_content) > 50000:
-                print(f"[DEBUG] 大文件，返回完整内容")
-                self.log_message.emit(f"成功加载大型HTML文档: {html_filename}", "SUCCESS")
-                return html_content
-            
-            # 提取body内容（如果需要）
-            body_content = self._extract_body_content(html_content)
-            
-            print(f"[DEBUG] 提取body内容长度: {len(body_content)}")
-            
-            # 验证内容不为空
-            if not body_content or len(body_content.strip()) < 10:
-                print(f"[DEBUG] 内容为空或过短，返回原始内容")
-                self.log_message.emit(f"内容处理异常，返回原始HTML: {html_filename}", "WARNING")
-                return html_content
-            
-            self.log_message.emit(f"成功加载HTML文档: {html_filename}", "SUCCESS")
-            
-            print(f"[DEBUG] 返回内容前100字符: {str(body_content)[:100]}")
-            
-            # 确保返回字符串
-            return str(body_content)
-            
+                print(f"[DEBUG] 文件不存在: {file_path}")
+                
         except Exception as e:
-            error_msg = f"读取HTML文档失败: {filename} - {e}"
+            error_msg = f"显示帮助文档失败: {filename} - {e}"
             print(f"[DEBUG] 异常: {error_msg}")
             self.log_message.emit(error_msg, "ERROR")
-            return self._create_error_html(error_msg)
     
     def _extract_body_content(self, html_content):
         """提取HTML body内容，并包含必要的CSS样式"""

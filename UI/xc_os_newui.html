@@ -2371,96 +2371,24 @@
             }
         }
         
-        // 加载Markdown文档
+        // 加载Markdown文档（简化方案）
         function loadMarkdownDoc(filename, title) {
-            const docContent = document.querySelector('.help-doc-content');
+            // 关闭HTML内的帮助选项卡（如果存在）
+            closeHelpTab();
             
-            // 显示加载状态
-            docContent.innerHTML = `
-                <div style="text-align: center; padding: 50px; color: #666;">
-                    <div style="font-size: 18px; margin-bottom: 10px;">📄 加载中...</div>
-                    <div>正在读取文档: ${filename}</div>
-                </div>
-            `;
-            
-            // 等待bridge初始化完成，然后调用readMdFile
-            let retryCount = 0;
-            const maxRetries = 25; // 最多等待5秒 (25 * 200ms)
-            
-            function tryReadMdFile() {
-                console.log(`尝试读取文件 ${filename}，重试次数: ${retryCount}/${maxRetries}`);
-                
-                if (typeof window.bridge !== 'undefined' && window.bridge && window.bridge.readHtmlFile) {
-                    try {
-                        console.log('Bridge可用，正在调用readHtmlFile:', filename);
-                        
-                        const htmlContent = window.bridge.readHtmlFile(filename);
-                        console.log('readHtmlFile返回:', typeof htmlContent, htmlContent ? htmlContent.length : 0);
-                        
-                        if (htmlContent && typeof htmlContent === 'string' && htmlContent.length > 0) {
-                            // 检查是否包含Promise字符串
-                            if (htmlContent.includes('[object Promise]')) {
-                                console.error('返回了Promise对象，这不应该发生');
-                                showFileNotFoundError(filename, docContent);
-                            } else {
-                                // 直接显示Python后端返回的HTML内容
-                                docContent.innerHTML = htmlContent;
-                                console.log('文档加载成功！');
-                            }
-                        } else {
-                            console.error('返回内容为空或类型不正确');
-                            showFileNotFoundError(filename, docContent);
-                        }
-                    } catch (error) {
-                        console.error('调用readHtmlFile时发生错误:', error);
-                        showFileNotFoundError(filename, docContent);
-                    }
-                } else {
-                    retryCount++;
-                    if (retryCount < maxRetries) {
-                        console.log(`Bridge未初始化，等待中... (${retryCount}/${maxRetries})`);
-                        setTimeout(tryReadMdFile, 200);
-                    } else {
-                        console.error('Bridge初始化超时，显示错误信息');
-                        docContent.innerHTML = `
-                            <div class="doc-error">
-                                <div class="error-icon">⚠️</div>
-                                <div class="error-title">Python后端连接失败</div>
-                                <div class="error-message">
-                                    <p>无法连接到Python后端或bridge未初始化</p>
-                                    <p>请检查web_main_window.py是否正常运行</p>
-                                </div>
-                                <div class="error-details">
-                                    <p>尝试加载文件: <code>${filename}</code></p>
-                                    <p>对应HTML文件: <code>Md_files/${filename.replace('.md', '.html')}</code></p>
-                                </div>
-                            </div>
-                        `;
-                    }
+            // 直接调用Python后端显示帮助窗口
+            if (typeof window.bridge !== 'undefined' && window.bridge && window.bridge.showHelpDoc) {
+                try {
+                    console.log('调用Python showHelpDoc:', filename);
+                    window.bridge.showHelpDoc(filename);
+                } catch (error) {
+                    console.error('调用showHelpDoc时发生错误:', error);
                 }
+            } else {
+                console.error('Bridge未准备好或showHelpDoc方法不存在');
             }
-            
-            // 开始尝试读取文件
-            tryReadMdFile();
         }
         
-        // 显示文件未找到错误
-        function showFileNotFoundError(filename, docContent) {
-            docContent.innerHTML = `
-                <div class="doc-error">
-                    <div class="error-icon">📄</div>
-                    <div class="error-title">文档文件未找到</div>
-                    <div class="error-message">
-                        <p>无法找到文档文件: <code>${filename}</code></p>
-                        <p>请确保文件存在于Md_files文件夹中</p>
-                    </div>
-                    <div class="error-details">
-                        <p>预期文件路径: <code>Md_files/${filename}</code></p>
-                        <p>请检查文件是否存在且可读</p>
-                    </div>
-                </div>
-            `;
-        }
         
         // 注意：Markdown渲染现在在Python后端处理
         // 前端直接显示后端返回的HTML内容
