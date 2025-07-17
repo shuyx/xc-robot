@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/markdown.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">README</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#xc-robot" id="toc-xc-robot"><span class="toc-section-number">1</span> xc-robot</a>
+<ul>
+<li><a href="#code-reviews" id="toc-code-reviews"><span class="toc-section-number">1.1</span> Code Reviews</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="xc-robot"><span class="header-section-number">1</span> xc-robot</h1>
+<p>xc robot 的调试 尝试开发 xc-os system，用来调试mvp1.0的场景、功能等各种情况测试和验证</p>
+<h2 data-number="1.1" id="code-reviews"><span class="header-section-number">1.1</span> Code Reviews</h2>
+<ul>
+<li>fr3_control
+<ul>
+<li>fairino: sdk文件夹</li>
+<li>Robot.py python版本的导入模块</li>
+</ul></li>
+<li>function_test
+<ul>
+<li>功能测试用文件夹</li>
+<li>测试时，最好将py文件放到根目录</li>
+</ul></li>
+<li>gui
+<ul>
+<li>gui界面的weidget组件</li>
+</ul></li>
+<li>main_control
+<ul>
+<li>主要控制程序，多为集成功能</li>
+</ul></li>
+<li>tests
+<ul>
+<li>独立模块或设备的功能测试，可单独进行测试</li>
+</ul></li>
+<li>quick_start.py
+<ul>
+<li>快速检查目前所有设备和连接</li>
+</ul></li>
+<li>requirements.txt
+<ul>
+<li>依赖文件</li>
+</ul></li>
+<li>start_gui.py
+<ul>
+<li>启动gui界面</li>
+</ul></li>
+<li>venv
+<ul>
+<li>虚拟环境启动，里面安装依赖，python解释器</li>
+<li>venv</li>
+<li>deactivate（解除）</li>
+</ul></li>
+</ul>
+</body>
+</html>

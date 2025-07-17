@@ -189,6 +189,214 @@ class WebBridge(QObject):
             self.log_message.emit("日志已保存", "SUCCESS")
         except Exception as e:
             self.log_message.emit(f"保存日志失败: {e}", "ERROR")
+    
+    @pyqtSlot(str, result=str)
+    def readHtmlFile(self, filename):
+        """读取HTML文件内容"""
+        try:
+            print(f"[DEBUG] readHtmlFile被调用，文件名: {filename}")
+            
+            # 将MD文件名转换为HTML文件名
+            if filename.endswith('.md'):
+                html_filename = filename[:-3] + '.html'
+            else:
+                html_filename = filename
+            
+            # 构建文件路径
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            
+            # 尝试不同的路径组合
+            possible_paths = [
+                os.path.join(base_dir, "Md_files", html_filename),
+                os.path.join(base_dir, "Html_files", html_filename),  # 备选路径
+                os.path.join(base_dir, html_filename),  # 如果文件在根目录
+            ]
+            
+            file_path = None
+            for path in possible_paths:
+                print(f"[DEBUG] 尝试路径: {path}")
+                if os.path.exists(path):
+                    file_path = path
+                    print(f"[DEBUG] 找到文件: {file_path}")
+                    break
+            
+            # 检查文件是否存在
+            if not file_path:
+                error_msg = f"HTML文档文件不存在: {html_filename}"
+                print(f"[DEBUG] 错误: {error_msg}")
+                self.log_message.emit(error_msg, "WARNING")
+                return self._create_error_html(error_msg)
+            
+            # 读取HTML文件内容
+            with open(file_path, 'r', encoding='utf-8') as f:
+                html_content = f.read()
+            
+            print(f"[DEBUG] 读取HTML文件内容长度: {len(html_content)}")
+            
+            # 对于大文件，直接返回完整内容，不提取body
+            if len(html_content) > 50000:
+                print(f"[DEBUG] 大文件，返回完整内容")
+                self.log_message.emit(f"成功加载大型HTML文档: {html_filename}", "SUCCESS")
+                return html_content
+            
+            # 提取body内容（如果需要）
+            body_content = self._extract_body_content(html_content)
+            
+            print(f"[DEBUG] 提取body内容长度: {len(body_content)}")
+            
+            # 验证内容不为空
+            if not body_content or len(body_content.strip()) < 10:
+                print(f"[DEBUG] 内容为空或过短，返回原始内容")
+                self.log_message.emit(f"内容处理异常，返回原始HTML: {html_filename}", "WARNING")
+                return html_content
+            
+            self.log_message.emit(f"成功加载HTML文档: {html_filename}", "SUCCESS")
+            
+            print(f"[DEBUG] 返回内容前100字符: {str(body_content)[:100]}")
+            
+            # 确保返回字符串
+            return str(body_content)
+            
+        except Exception as e:
+            error_msg = f"读取HTML文档失败: {filename} - {e}"
+            print(f"[DEBUG] 异常: {error_msg}")
+            self.log_message.emit(error_msg, "ERROR")
+            return self._create_error_html(error_msg)
+    
+    def _extract_body_content(self, html_content):
+        """提取HTML body内容，并包含必要的CSS样式"""
+        import re
+        
+        # 尝试提取body标签内的内容
+        body_match = re.search(r'<body[^>]*>(.*?)</body>', html_content, re.DOTALL)
+        
+        if body_match:
+            body_content = body_match.group(1)
+            
+            # 添加内联CSS样式
+            inline_css = """
+            <style>
+                h1 { color: #2ECC71; border-bottom: 2px solid #2ECC71; padding-bottom: 10px; }
+                h2 { color: #27AE60; border-left: 4px solid #2ECC71; padding-left: 15px; }
+                h3 { color: #2c3e50; }
+                code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; color: #e74c3c; }
+                pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; }
+                table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+                th, td { border: 1px solid #ddd; padding: 8px 12px; }
+                th { background: #2ECC71; color: white; }
+                tr:nth-child(even) { background: #f9f9f9; }
+                nav#TOC { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+            </style>
+            """
+            
+            return inline_css + body_content
+        
+        return html_content
+    
+    def _markdown_to_html(self, markdown):
+        """简单的Markdown转HTML"""
+        import re
+        
+        html = markdown
+        
+        # 处理代码块
+        html = re.sub(r'```([a-z]*)\n(.*?)\n```', r'<pre><code class="language-\1">\2</code></pre>', html, flags=re.DOTALL)
+        html = re.sub(r'```(.*?)```', r'<pre><code>\1</code></pre>', html, flags=re.DOTALL)
+        
+        # 处理内联代码
+        html = re.sub(r'`([^`\n]+)`', r'<code>\1</code>', html)
+        
+        # 处理标题
+        html = re.sub(r'^#### (.*$)', r'<h4>\1</h4>', html, flags=re.MULTILINE)
+        html = re.sub(r'^### (.*$)', r'<h3>\1</h3>', html, flags=re.MULTILINE)
+        html = re.sub(r'^## (.*$)', r'<h2>\1</h2>', html, flags=re.MULTILINE)
+        html = re.sub(r'^# (.*$)', r'<h1>\1</h1>', html, flags=re.MULTILINE)
+        
+        # 处理粗体和斜体
+        html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
+        html = re.sub(r'\*(.*?)\*', r'<em>\1</em>', html)
+        
+        # 处理链接
+        html = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2" target="_blank">\1</a>', html)
+        
+        # 处理图片
+        html = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', r'<img src="\2" alt="\1" style="max-width: 100%; height: auto;">', html)
+        
+        # 处理引用
+        html = re.sub(r'^> (.*$)', r'<blockquote>\1</blockquote>', html, flags=re.MULTILINE)
+        
+        # 处理水平线
+        html = re.sub(r'^---$', r'<hr>', html, flags=re.MULTILINE)
+        html = re.sub(r'^\*\*\*$', r'<hr>', html, flags=re.MULTILINE)
+        
+        # 处理列表
+        html = re.sub(r'^(\d+)\. (.*$)', r'<li>\2</li>', html, flags=re.MULTILINE)
+        html = re.sub(r'^[-*+] (.*$)', r'<li>\1</li>', html, flags=re.MULTILINE)
+        
+        # 将连续的li标签包装在ul中
+        html = re.sub(r'(<li>.*?</li>)', r'<ul>\1</ul>', html, flags=re.DOTALL)
+        
+        # 处理表格
+        lines = html.split('\n')
+        in_table = False
+        table_rows = []
+        result_lines = []
+        
+        for line in lines:
+            if '|' in line and line.strip():
+                if not in_table:
+                    in_table = True
+                    table_rows = []
+                
+                cells = [cell.strip() for cell in line.split('|')[1:-1]]
+                if cells:
+                    if all(cell.strip() in ['', '-', ':---', '---', '---:'] for cell in cells):
+                        continue  # 跳过分隔行
+                    row_html = '<tr>' + ''.join(f'<td>{cell}</td>' for cell in cells) + '</tr>'
+                    table_rows.append(row_html)
+            else:
+                if in_table:
+                    result_lines.append('<table>' + ''.join(table_rows) + '</table>')
+                    table_rows = []
+                    in_table = False
+                result_lines.append(line)
+        
+        if in_table:
+            result_lines.append('<table>' + ''.join(table_rows) + '</table>')
+        
+        html = '\n'.join(result_lines)
+        
+        # 处理段落
+        paragraphs = html.split('\n\n')
+        html_paragraphs = []
+        
+        for para in paragraphs:
+            para = para.strip()
+            if para:
+                # 检查是否是块级元素
+                if any(para.startswith(tag) for tag in ['<h1>', '<h2>', '<h3>', '<h4>', '<ul>', '<ol>', '<pre>', '<blockquote>', '<table>', '<hr>']):
+                    html_paragraphs.append(para)
+                else:
+                    # 处理单行换行
+                    para = para.replace('\n', '<br>')
+                    html_paragraphs.append(f'<p>{para}</p>')
+        
+        return '\n'.join(html_paragraphs)
+    
+    def _create_error_html(self, error_message):
+        """创建错误显示HTML"""
+        return f"""
+        <div class="doc-error">
+            <div class="error-icon">⚠️</div>
+            <div class="error-title">文档加载失败</div>
+            <div class="error-message">
+                <p>{error_message}</p>
+            </div>
+            <div class="error-details">
+                <p>请检查文件是否存在于Md_files文件夹中</p>
+            </div>
+        </div>
+        """
 
 
 class XCRobotWebMainWindow(QMainWindow):
@@ -456,6 +664,15 @@ class XCRobotWebMainWindow(QMainWindow):
         
         # 帮助菜单
         help_menu = menubar.addMenu('帮助')
+        
+        # 使用帮助菜单构建器
+        try:
+            from .help_menu_builder import HelpMenuBuilder
+            self.help_menu_builder = HelpMenuBuilder(self)
+            self.help_menu_builder.build_help_menu(help_menu)
+        except Exception as e:
+            print(f"帮助菜单构建失败: {e}")
+        
         about_action = QAction('关于', self)
         about_action.triggered.connect(self.show_about)
         help_menu.addAction(about_action)

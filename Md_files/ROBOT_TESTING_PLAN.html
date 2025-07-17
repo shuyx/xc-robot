@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ROBOT_TESTING_PLAN</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="css/markdown.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ROBOT_TESTING_PLAN</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#xc-robot-机器人系统综合测试规划" id="toc-xc-robot-机器人系统综合测试规划"><span class="toc-section-number">1</span> XC-ROBOT 机器人系统综合测试规划</a>
+<ul>
+<li><a href="#项目概述" id="toc-项目概述"><span class="toc-section-number">1.1</span> 项目概述</a>
+<ul>
+<li><a href="#测试目标" id="toc-测试目标"><span class="toc-section-number">1.1.1</span> 测试目标</a></li>
+<li><a href="#测试原则" id="toc-测试原则"><span class="toc-section-number">1.1.2</span> 测试原则</a></li>
+<li><a href="#硬件配置" id="toc-硬件配置"><span class="toc-section-number">1.1.3</span> 硬件配置</a></li>
+</ul></li>
+<li><a href="#测试架构" id="toc-测试架构"><span class="toc-section-number">1.2</span> 测试架构</a>
+<ul>
+<li><a href="#测试层级" id="toc-测试层级"><span class="toc-section-number">1.2.1</span> 1. 测试层级</a></li>
+<li><a href="#测试环境配置" id="toc-测试环境配置"><span class="toc-section-number">1.2.2</span> 2. 测试环境配置</a></li>
+</ul></li>
+<li><a href="#详细测试计划" id="toc-详细测试计划"><span class="toc-section-number">1.3</span> 详细测试计划</a>
+<ul>
+<li><a href="#level-1-组件级测试" id="toc-level-1-组件级测试"><span class="toc-section-number">1.3.1</span> Level 1: 组件级测试</a></li>
+<li><a href="#level-2-集成测试" id="toc-level-2-集成测试"><span class="toc-section-number">1.3.2</span> Level 2: 集成测试</a></li>
+<li><a href="#level-3-场景测试" id="toc-level-3-场景测试"><span class="toc-section-number">1.3.3</span> Level 3: 场景测试</a></li>
+<li><a href="#level-4-验收测试" id="toc-level-4-验收测试"><span class="toc-section-number">1.3.4</span> Level 4: 验收测试</a></li>
+</ul></li>
+<li><a href="#测试执行指南" id="toc-测试执行指南"><span class="toc-section-number">1.4</span> 测试执行指南</a>
+<ul>
+<li><a href="#测试准备" id="toc-测试准备"><span class="toc-section-number">1.4.1</span> 1. 测试准备</a></li>
+<li><a href="#测试执行流程" id="toc-测试执行流程"><span class="toc-section-number">1.4.2</span> 2. 测试执行流程</a></li>
+<li><a href="#数据记录格式" id="toc-数据记录格式"><span class="toc-section-number">1.4.3</span> 3. 数据记录格式</a></li>
+<li><a href="#问题处理流程" id="toc-问题处理流程"><span class="toc-section-number">1.4.4</span> 4. 问题处理流程</a></li>
+</ul></li>
+<li><a href="#测试报告模板" id="toc-测试报告模板"><span class="toc-section-number">1.5</span> 测试报告模板</a>
+<ul>
+<li><a href="#测试总结报告" id="toc-测试总结报告"><span class="toc-section-number">1.5.1</span> 测试总结报告</a></li>
+</ul></li>
+<li><a href="#gui测试选项卡建议" id="toc-gui测试选项卡建议"><span class="toc-section-number">1.6</span> GUI测试选项卡建议</a>
+<ul>
+<li><a href="#建议开发gui测试选项卡" id="toc-建议开发gui测试选项卡"><span class="toc-section-number">1.6.1</span> 建议开发GUI测试选项卡</a></li>
+<li><a href="#集成建议" id="toc-集成建议"><span class="toc-section-number">1.6.2</span> 5. 集成建议</a></li>
+</ul></li>
+<li><a href="#下一步行动计划" id="toc-下一步行动计划"><span class="toc-section-number">1.7</span> 下一步行动计划</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="xc-robot-机器人系统综合测试规划"><span class="header-section-number">1</span> XC-ROBOT 机器人系统综合测试规划</h1>
+<h2 data-number="1.1" id="项目概述"><span class="header-section-number">1.1</span> 项目概述</h2>
+<h3 data-number="1.1.1" id="测试目标"><span class="header-section-number">1.1.1</span> 测试目标</h3>
+<p>构建全面、系统化的测试框架，确保XC-ROBOT双臂移动机器人系统的安全性、可靠性和性能表现。测试覆盖FR3双机械臂、Hermes底盘及其协调控制的各个方面。</p>
+<h3 data-number="1.1.2" id="测试原则"><span class="header-section-number">1.1.2</span> 测试原则</h3>
+<ol type="1">
+<li><strong>安全第一</strong>: 所有测试必须在确保人员和设备安全的前提下进行</li>
+<li><strong>渐进式测试</strong>: 从基础功能到复杂场景，逐步推进</li>
+<li><strong>可中断性</strong>: 所有运动测试必须支持紧急停止和远程中断</li>
+<li><strong>可追溯性</strong>: 记录详细的测试日志和结果数据</li>
+<li><strong>可重复性</strong>: 测试过程标准化，确保结果可重现</li>
+</ol>
+<h3 data-number="1.1.3" id="硬件配置"><span class="header-section-number">1.1.3</span> 硬件配置</h3>
+<ul>
+<li><strong>左臂FR3</strong>: IP地址 192.168.58.3</li>
+<li><strong>右臂FR3</strong>: IP地址 192.168.58.2<br />
+</li>
+<li><strong>Hermes底盘</strong>: IP地址 192.168.31.211:1448</li>
+<li><strong>基座间距</strong>: 380mm (胸部宽度)</li>
+<li><strong>单臂最大臂展</strong>: 620mm</li>
+</ul>
+<h2 data-number="1.2" id="测试架构"><span class="header-section-number">1.2</span> 测试架构</h2>
+<h3 data-number="1.2.1" id="测试层级"><span class="header-section-number">1.2.1</span> 1. 测试层级</h3>
+<pre><code>Level 1: 组件级测试 (Component Tests)
+├── 单臂测试 (Single Arm)
+├── 底盘测试 (Chassis)
+└── 仿真测试 (Simulation)
+
+Level 2: 集成测试 (Integration Tests)
+├── 双臂协调测试 (Dual Arms Coordination)
+├── 底盘-机械臂联动 (Chassis-Arm Integration)
+└── 系统通信测试 (System Communication)
+
+Level 3: 场景测试 (Scenario Tests)
+├── 任务场景测试 (Task Scenarios)
+├── 异常处理测试 (Exception Handling)
+└── 性能压力测试 (Performance Tests)
+
+Level 4: 验收测试 (Acceptance Tests)
+├── 功能验收 (Functional Acceptance)
+├── 性能验收 (Performance Acceptance)
+└── 安全验收 (Safety Acceptance)</code></pre>
+<h3 data-number="1.2.2" id="测试环境配置"><span class="header-section-number">1.2.2</span> 2. 测试环境配置</h3>
+<h4 data-number="1.2.2.1" id="安全配置"><span class="header-section-number">1.2.2.1</span> 2.1 安全配置</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safety_config</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">  # 紧急停止</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">emergency_stop</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">hotkey</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Space&quot;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">remote_trigger</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">  # 运动限制</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">motion_limits</span><span class="kw">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">max_joint_velocity</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span><span class="co">  # 度/秒</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">max_tcp_velocity</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span><span class="co">   # mm/秒</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">safe_distance</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span><span class="co">       # mm (双臂最小间距)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  # 碰撞检测</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">collision_detection</span><span class="kw">:</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">force_threshold</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span><span class="co">     # N</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">response_time</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span><span class="co">       # ms</span></span></code></pre></div>
+<h4 data-number="1.2.2.2" id="测试工具配置"><span class="header-section-number">1.2.2.2</span> 2.2 测试工具配置</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_tools</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">  # 数据记录</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">data_logging</span><span class="kw">:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">format</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;JSON&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">frequency</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span><span class="co">  # Hz</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fields</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">&quot;timestamp&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;joint_positions&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;tcp_positions&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;forces&quot;</span><span class="kw">,</span><span class="at"> </span><span class="st">&quot;errors&quot;</span><span class="kw">]</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">  # 远程监控</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">remote_monitoring</span><span class="kw">:</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enable</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dashboard_port</span><span class="kw">:</span><span class="at"> </span><span class="dv">8080</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">api_port</span><span class="kw">:</span><span class="at"> </span><span class="dv">8081</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">  # 测试控制</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">test_control</span><span class="kw">:</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">interactive_mode</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">batch_mode</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pause_between_tests</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span><span class="co">  # 秒</span></span></code></pre></div>
+<h2 data-number="1.3" id="详细测试计划"><span class="header-section-number">1.3</span> 详细测试计划</h2>
+<h3 data-number="1.3.1" id="level-1-组件级测试"><span class="header-section-number">1.3.1</span> Level 1: 组件级测试</h3>
+<h4 data-number="1.3.1.1" id="单臂测试-single-arm-tests"><span class="header-section-number">1.3.1.1</span> 1.1 单臂测试 (Single Arm Tests)</h4>
+<h5 data-number="1.3.1.1.1" id="连接性测试"><span class="header-section-number">1.3.1.1.1</span> 1.1.1 连接性测试</h5>
+<p><strong>测试ID</strong>: SAT-001<br />
+<strong>测试目的</strong>: 验证与FR3机械臂的网络连接和SDK通信<br />
+<strong>测试步骤</strong>: 1. 启动测试脚本 <code>fr3_hermes_testing/single_arm_connection_test.py</code> 2. 输入目标机械臂IP地址 3. 验证连接状态和SDK版本 4. 检查机器人状态反馈</p>
+<p><strong>预期结果</strong>: - 连接成功，延迟 &lt; 50ms - SDK版本匹配 - 状态信息完整</p>
+<h5 data-number="1.3.1.1.2" id="基础运动测试"><span class="header-section-number">1.3.1.1.2</span> 1.1.2 基础运动测试</h5>
+<p><strong>测试ID</strong>: SAT-002<br />
+<strong>测试目的</strong>: 验证单轴运动控制和关节限位<br />
+<strong>测试步骤</strong>: 1. 使能机器人 2. 逐个测试6个关节的正反向运动 3. 测试关节限位保护 4. 验证运动平滑性</p>
+<p><strong>预期结果</strong>: - 各关节运动平滑，无抖动 - 限位保护有效 - 实际角度与指令误差 &lt; 0.1°</p>
+<h5 data-number="1.3.1.1.3" id="笛卡尔空间运动测试"><span class="header-section-number">1.3.1.1.3</span> 1.1.3 笛卡尔空间运动测试</h5>
+<p><strong>测试ID</strong>: SAT-003<br />
+<strong>测试目的</strong>: 验证直线运动和圆弧运动控制<br />
+<strong>测试步骤</strong>: 1. 执行MoveL直线运动测试 2. 执行MoveC圆弧运动测试 3. 测试不同速度下的轨迹精度 4. 验证奇异点回避</p>
+<p><strong>预期结果</strong>: - 轨迹跟踪误差 &lt; 2mm - 速度控制准确 - 奇异点自动回避</p>
+<h5 data-number="1.3.1.1.4" id="工作空间测试"><span class="header-section-number">1.3.1.1.4</span> 1.1.4 工作空间测试</h5>
+<p><strong>测试ID</strong>: SAT-004<br />
+<strong>测试目的</strong>: 验证机械臂可达工作空间<br />
+<strong>测试步骤</strong>: 1. 定义工作空间边界点 2. 测试边界可达性 3. 生成工作空间云图 4. 标记奇异区域</p>
+<p><strong>预期结果</strong>: - 工作空间符合规格 - 边界点可达 - 奇异区域明确标识</p>
+<h4 data-number="1.3.1.2" id="底盘测试-chassis-tests"><span class="header-section-number">1.3.1.2</span> 1.2 底盘测试 (Chassis Tests)</h4>
+<h5 data-number="1.3.1.2.1" id="底盘连接测试"><span class="header-section-number">1.3.1.2.1</span> 1.2.1 底盘连接测试</h5>
+<p><strong>测试ID</strong>: CHT-001<br />
+<strong>测试目的</strong>: 验证Hermes底盘HTTP API连接<br />
+<strong>测试步骤</strong>: 1. 运行 <code>fr3_hermes_testing/chassis_connection_test.py</code> 2. 检查API端点响应 3. 获取底盘状态信息 4. 验证控制权限</p>
+<p><strong>预期结果</strong>: - API响应时间 &lt; 100ms - 状态信息完整 - 控制权限正常</p>
+<h5 data-number="1.3.1.2.2" id="基础移动测试"><span class="header-section-number">1.3.1.2.2</span> 1.2.2 基础移动测试</h5>
+<p><strong>测试ID</strong>: CHT-002<br />
+<strong>测试目的</strong>: 验证底盘基本移动功能<br />
+<strong>测试步骤</strong>: 1. 测试8方向移动 2. 测试旋转控制 3. 测试速度调节 4. 验证制动功能</p>
+<p><strong>预期结果</strong>: - 移动方向准确 - 速度控制线性 - 制动响应 &lt; 0.5秒</p>
+<h5 data-number="1.3.1.2.3" id="定位导航测试"><span class="header-section-number">1.3.1.2.3</span> 1.2.3 定位导航测试</h5>
+<p><strong>测试ID</strong>: CHT-003<br />
+<strong>测试目的</strong>: 验证底盘定位和导航功能<br />
+<strong>测试步骤</strong>: 1. 获取当前位置 2. 设置目标坐标点 3. 执行自主导航 4. 验证到达精度</p>
+<p><strong>预期结果</strong>: - 定位精度 &lt; 10mm - 导航路径合理 - 避障功能正常</p>
+<h4 data-number="1.3.1.3" id="仿真测试-simulation-tests"><span class="header-section-number">1.3.1.3</span> 1.3 仿真测试 (Simulation Tests)</h4>
+<h5 data-number="1.3.1.3.1" id="运动学仿真测试"><span class="header-section-number">1.3.1.3.1</span> 1.3.1 运动学仿真测试</h5>
+<p><strong>测试ID</strong>: SIM-001<br />
+<strong>测试目的</strong>: 验证仿真系统运动学计算<br />
+<strong>测试步骤</strong>: 1. 启动RobotSim仿真界面 2. 输入关节角度，验证正运动学 3. 输入目标位姿，验证逆运动学 4. 对比仿真与实机结果</p>
+<p><strong>预期结果</strong>: - 运动学计算误差 &lt; 1mm - 仿真与实机一致 - 计算时间 &lt; 10ms</p>
+<h5 data-number="1.3.1.3.2" id="轨迹仿真测试"><span class="header-section-number">1.3.1.3.2</span> 1.3.2 轨迹仿真测试</h5>
+<p><strong>测试ID</strong>: SIM-002<br />
+<strong>测试目的</strong>: 验证轨迹规划和仿真<br />
+<strong>测试步骤</strong>: 1. 导入测试轨迹 2. 仿真轨迹执行 3. 检查碰撞检测 4. 导出仿真结果</p>
+<p><strong>预期结果</strong>: - 轨迹平滑连续 - 碰撞检测有效 - 仿真帧率 &gt; 30fps</p>
+<h3 data-number="1.3.2" id="level-2-集成测试"><span class="header-section-number">1.3.2</span> Level 2: 集成测试</h3>
+<h4 data-number="1.3.2.1" id="双臂协调测试"><span class="header-section-number">1.3.2.1</span> 2.1 双臂协调测试</h4>
+<h5 data-number="1.3.2.1.1" id="双臂同步连接测试"><span class="header-section-number">1.3.2.1.1</span> 2.1.1 双臂同步连接测试</h5>
+<p><strong>测试ID</strong>: DAT-001<br />
+<strong>测试目的</strong>: 验证双臂同时连接和控制<br />
+<strong>测试步骤</strong>: 1. 运行 <code>fr3_hermes_testing/dual_arm_sync_test.py</code> 2. 同时连接左右臂 3. 验证独立控制 4. 测试同步状态获取</p>
+<p><strong>预期结果</strong>: - 双臂同时在线 - 控制互不干扰 - 状态同步更新</p>
+<h5 data-number="1.3.2.1.2" id="双臂安全距离测试"><span class="header-section-number">1.3.2.1.2</span> 2.1.2 双臂安全距离测试</h5>
+<p><strong>测试ID</strong>: DAT-002<br />
+<strong>测试目的</strong>: 验证双臂防碰撞功能<br />
+<strong>测试步骤</strong>: 1. 设置安全距离阈值 2. 控制双臂相向运动 3. 验证安全停止 4. 测试不同姿态下的距离计算</p>
+<p><strong>预期结果</strong>: - 安全距离保持 &gt; 50mm - 自动停止响应 &lt; 100ms - 距离计算准确</p>
+<h5 data-number="1.3.2.1.3" id="双臂协调动作测试"><span class="header-section-number">1.3.2.1.3</span> 2.1.3 双臂协调动作测试</h5>
+<p><strong>测试ID</strong>: DAT-003<br />
+<strong>测试目的</strong>: 验证双臂协调任务执行<br />
+<strong>测试步骤</strong>: 1. 执行对称动作（镜像） 2. 执行互补动作（递接物体） 3. 执行协同动作（共同搬运） 4. 验证时序同步</p>
+<p><strong>预期结果</strong>: - 动作同步误差 &lt; 50ms - 相对位置精度 &lt; 5mm - 无碰撞发生</p>
+<h5 data-number="1.3.2.1.4" id="双臂标定测试"><span class="header-section-number">1.3.2.1.4</span> 2.1.4 双臂标定测试</h5>
+<p><strong>测试ID</strong>: DAT-004<br />
+<strong>测试目的</strong>: 验证双臂坐标系标定<br />
+<strong>测试步骤</strong>: 1. 执行自动标定程序 2. 验证标定精度 3. 测试不同姿态下的坐标转换 4. 保存标定数据</p>
+<p><strong>预期结果</strong>: - 标定误差 &lt; 2mm - 坐标转换准确 - 标定数据可复用</p>
+<h4 data-number="1.3.2.2" id="底盘-机械臂联动测试"><span class="header-section-number">1.3.2.2</span> 2.2 底盘-机械臂联动测试</h4>
+<h5 data-number="1.3.2.2.1" id="移动中静态保持测试"><span class="header-section-number">1.3.2.2.1</span> 2.2.1 移动中静态保持测试</h5>
+<p><strong>测试ID</strong>: CAI-001<br />
+<strong>测试目的</strong>: 验证底盘移动时机械臂姿态保持<br />
+<strong>测试步骤</strong>: 1. 设置机械臂固定姿态 2. 控制底盘移动 3. 监测末端位置变化 4. 验证补偿算法</p>
+<p><strong>预期结果</strong>: - 末端位置偏差 &lt; 10mm - 姿态保持稳定 - 无振动累积</p>
+<h5 data-number="1.3.2.2.2" id="协调运动测试"><span class="header-section-number">1.3.2.2.2</span> 2.2.2 协调运动测试</h5>
+<p><strong>测试ID</strong>: CAI-002<br />
+<strong>测试目的</strong>: 验证底盘和机械臂协调运动<br />
+<strong>测试步骤</strong>: 1. 规划联合运动轨迹 2. 同步执行运动 3. 验证时序协调 4. 测试不同速度组合</p>
+<p><strong>预期结果</strong>: - 运动同步性好 - 轨迹跟踪准确 - 速度匹配合理</p>
+<h5 data-number="1.3.2.2.3" id="动态工作空间测试"><span class="header-section-number">1.3.2.2.3</span> 2.2.3 动态工作空间测试</h5>
+<p><strong>测试ID</strong>: CAI-003<br />
+<strong>测试目的</strong>: 验证移动扩展工作空间<br />
+<strong>测试步骤</strong>: 1. 定义扩展工作任务 2. 规划底盘移动路径 3. 执行连续作业 4. 验证作业精度</p>
+<p><strong>预期结果</strong>: - 工作空间有效扩展 - 作业连续性好 - 定位精度保持</p>
+<h3 data-number="1.3.3" id="level-3-场景测试"><span class="header-section-number">1.3.3</span> Level 3: 场景测试</h3>
+<h4 data-number="1.3.3.1" id="典型任务场景"><span class="header-section-number">1.3.3.1</span> 3.1 典型任务场景</h4>
+<h5 data-number="1.3.3.1.1" id="物体抓取与放置"><span class="header-section-number">1.3.3.1.1</span> 3.1.1 物体抓取与放置</h5>
+<p><strong>测试ID</strong>: SCN-001<br />
+<strong>测试目的</strong>: 验证抓放任务执行能力<br />
+<strong>测试步骤</strong>: 1. 识别目标物体位置 2. 规划抓取路径 3. 执行抓取动作 4. 移动并放置物体</p>
+<p><strong>预期结果</strong>: - 抓取成功率 &gt; 95% - 放置精度 &lt; 5mm - 动作流畅自然</p>
+<h5 data-number="1.3.3.1.2" id="双臂协作装配"><span class="header-section-number">1.3.3.1.2</span> 3.1.2 双臂协作装配</h5>
+<p><strong>测试ID</strong>: SCN-002<br />
+<strong>测试目的</strong>: 验证双臂装配作业能力<br />
+<strong>测试步骤</strong>: 1. 左臂固定工件 2. 右臂执行装配 3. 协调力控制 4. 完成装配任务</p>
+<p><strong>预期结果</strong>: - 装配成功率 &gt; 90% - 力控制稳定 - 无损伤发生</p>
+<h5 data-number="1.3.3.1.3" id="移动式巡检作业"><span class="header-section-number">1.3.3.1.3</span> 3.1.3 移动式巡检作业</h5>
+<p><strong>测试ID</strong>: SCN-003<br />
+<strong>测试目的</strong>: 验证移动巡检能力<br />
+<strong>测试步骤</strong>: 1. 设定巡检路线 2. 移动到检查点 3. 机械臂执行检查 4. 记录检查结果</p>
+<p><strong>预期结果</strong>: - 路线执行准确 - 检查点定位精确 - 数据记录完整</p>
+<h4 data-number="1.3.3.2" id="异常处理测试"><span class="header-section-number">1.3.3.2</span> 3.2 异常处理测试</h4>
+<h5 data-number="1.3.3.2.1" id="通信中断恢复测试"><span class="header-section-number">1.3.3.2.1</span> 3.2.1 通信中断恢复测试</h5>
+<p><strong>测试ID</strong>: EXC-001<br />
+<strong>测试目的</strong>: 验证通信异常处理<br />
+<strong>测试步骤</strong>: 1. 模拟网络中断 2. 验证安全停止 3. 恢复通信连接 4. 继续执行任务</p>
+<p><strong>预期结果</strong>: - 安全停止及时 - 状态保持完整 - 恢复后正常工作</p>
+<h5 data-number="1.3.3.2.2" id="碰撞检测与响应测试"><span class="header-section-number">1.3.3.2.2</span> 3.2.2 碰撞检测与响应测试</h5>
+<p><strong>测试ID</strong>: EXC-002<br />
+<strong>测试目的</strong>: 验证碰撞保护功能<br />
+<strong>测试步骤</strong>: 1. 设置碰撞阈值 2. 模拟碰撞场景 3. 验证停止响应 4. 测试恢复流程</p>
+<p><strong>预期结果</strong>: - 碰撞检测灵敏 - 停止响应 &lt; 50ms - 可安全恢复</p>
+<h5 data-number="1.3.3.2.3" id="极限工况测试"><span class="header-section-number">1.3.3.2.3</span> 3.2.3 极限工况测试</h5>
+<p><strong>测试ID</strong>: EXC-003<br />
+<strong>测试目的</strong>: 验证极限条件下的系统表现<br />
+<strong>测试步骤</strong>: 1. 测试最大负载 2. 测试最高速度 3. 测试连续运行 4. 监测系统状态</p>
+<p><strong>预期结果</strong>: - 负载能力达标 - 速度控制稳定 - 长时运行可靠</p>
+<h4 data-number="1.3.3.3" id="性能测试"><span class="header-section-number">1.3.3.3</span> 3.3 性能测试</h4>
+<h5 data-number="1.3.3.3.1" id="响应时间测试"><span class="header-section-number">1.3.3.3.1</span> 3.3.1 响应时间测试</h5>
+<p><strong>测试ID</strong>: PERF-001<br />
+<strong>测试目的</strong>: 测量系统响应性能<br />
+<strong>测试内容</strong>: - 指令响应时间 - 急停响应时间 - 状态更新频率 - 数据传输延迟</p>
+<p><strong>性能指标</strong>: - 指令响应 &lt; 20ms - 急停响应 &lt; 50ms - 状态更新 &gt; 100Hz - 数据延迟 &lt; 10ms</p>
+<h5 data-number="1.3.3.3.2" id="运动平滑性测试"><span class="header-section-number">1.3.3.3.2</span> 3.3.2 运动平滑性测试</h5>
+<p><strong>测试ID</strong>: PERF-002<br />
+<strong>测试目的</strong>: 评估运动控制质量<br />
+<strong>测试内容</strong>: - 速度曲线平滑度 - 加速度连续性 - 轨迹跟踪精度 - 振动抑制效果</p>
+<p><strong>性能指标</strong>: - 速度波动 &lt; 5% - 加速度跳变 &lt; 10% - 轨迹误差 &lt; 2mm - 振动幅度 &lt; 1mm</p>
+<h5 data-number="1.3.3.3.3" id="系统稳定性测试"><span class="header-section-number">1.3.3.3.3</span> 3.3.3 系统稳定性测试</h5>
+<p><strong>测试ID</strong>: PERF-003<br />
+<strong>测试目的</strong>: 验证长时运行稳定性<br />
+<strong>测试内容</strong>: - 连续运行测试 (24小时) - 内存泄漏检查 - CPU使用率监测 - 温度监控</p>
+<p><strong>性能指标</strong>: - 无崩溃发生 - 内存稳定 - CPU &lt; 80% - 温升 &lt; 10°C</p>
+<h3 data-number="1.3.4" id="level-4-验收测试"><span class="header-section-number">1.3.4</span> Level 4: 验收测试</h3>
+<h4 data-number="1.3.4.1" id="功能验收清单"><span class="header-section-number">1.3.4.1</span> 4.1 功能验收清单</h4>
+<table>
+<thead>
+<tr>
+<th>功能模块</th>
+<th>测试项</th>
+<th>验收标准</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单臂控制</td>
+<td>基础运动功能</td>
+<td>6轴独立控制正常</td>
+<td>□</td>
+</tr>
+<tr>
+<td>单臂控制</td>
+<td>笛卡尔运动</td>
+<td>直线/圆弧精度达标</td>
+<td>□</td>
+</tr>
+<tr>
+<td>双臂协调</td>
+<td>同步控制</td>
+<td>双臂协调动作流畅</td>
+<td>□</td>
+</tr>
+<tr>
+<td>双臂协调</td>
+<td>防碰撞</td>
+<td>安全距离保持有效</td>
+<td>□</td>
+</tr>
+<tr>
+<td>底盘控制</td>
+<td>移动导航</td>
+<td>定位精度 &lt; 10mm</td>
+<td>□</td>
+</tr>
+<tr>
+<td>底盘控制</td>
+<td>避障功能</td>
+<td>障碍物检测可靠</td>
+<td>□</td>
+</tr>
+<tr>
+<td>系统集成</td>
+<td>联动控制</td>
+<td>底盘臂协调正常</td>
+<td>□</td>
+</tr>
+<tr>
+<td>安全功能</td>
+<td>急停功能</td>
+<td>响应时间 &lt; 50ms</td>
+<td>□</td>
+</tr>
+<tr>
+<td>安全功能</td>
+<td>碰撞保护</td>
+<td>力控保护有效</td>
+<td>□</td>
+</tr>
+<tr>
+<td>用户界面</td>
+<td>GUI操作</td>
+<td>界面响应流畅</td>
+<td>□</td>
+</tr>
+</tbody>
+</table>
+<h4 data-number="1.3.4.2" id="性能验收标准"><span class="header-section-number">1.3.4.2</span> 4.2 性能验收标准</h4>
+<table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>要求值</th>
+<th>实测值</th>
+<th>是否达标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重复定位精度</td>
+<td>&lt; 0.1mm</td>
+<td>___</td>
+<td>□</td>
+</tr>
+<tr>
+<td>轨迹精度</td>
+<td>&lt; 2mm</td>
+<td>___</td>
+<td>□</td>
+</tr>
+<tr>
+<td>最大速度</td>
+<td>&gt; 1m/s</td>
+<td>___</td>
+<td>□</td>
+</tr>
+<tr>
+<td>响应时间</td>
+<td>&lt; 20ms</td>
+<td>___</td>
+<td>□</td>
+</tr>
+<tr>
+<td>工作空间</td>
+<td>&gt; 600mm</td>
+<td>___</td>
+<td>□</td>
+</tr>
+<tr>
+<td>负载能力</td>
+<td>&gt; 3kg</td>
+<td>___</td>
+<td>□</td>
+</tr>
+<tr>
+<td>连续运行</td>
+<td>&gt; 24h</td>
+<td>___</td>
+<td>□</td>
+</tr>
+</tbody>
+</table>
+<h4 data-number="1.3.4.3" id="安全验收要求"><span class="header-section-number">1.3.4.3</span> 4.3 安全验收要求</h4>
+<ol type="1">
+<li><strong>机械安全</strong>
+<ul>
+<li>□ 紧急停止按钮功能正常</li>
+<li>□ 软件急停响应及时</li>
+<li>□ 运动范围限制有效</li>
+<li>□ 碰撞检测灵敏度合适</li>
+</ul></li>
+<li><strong>电气安全</strong>
+<ul>
+<li>□ 接地保护完善</li>
+<li>□ 过流保护正常</li>
+<li>□ 绝缘电阻合格</li>
+<li>□ 电磁兼容达标</li>
+</ul></li>
+<li><strong>操作安全</strong>
+<ul>
+<li>□ 安全区域标识清晰</li>
+<li>□ 操作规程完整</li>
+<li>□ 警示标识齐全</li>
+<li>□ 培训记录完备</li>
+</ul></li>
+</ol>
+<h2 data-number="1.4" id="测试执行指南"><span class="header-section-number">1.4</span> 测试执行指南</h2>
+<h3 data-number="1.4.1" id="测试准备"><span class="header-section-number">1.4.1</span> 1. 测试准备</h3>
+<h4 data-number="1.4.1.1" id="环境准备"><span class="header-section-number">1.4.1.1</span> 1.1 环境准备</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 激活虚拟环境</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> venv/bin/activate</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 安装测试依赖</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pytest pytest-asyncio pytest-timeout</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 检查网络连接</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> 192.168.58.2  <span class="co"># 右臂</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> 192.168.58.3  <span class="co"># 左臂</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> 192.168.31.211  <span class="co"># 底盘</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 启动测试监控</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> fr3_hermes_testing/test_monitor.py</span></code></pre></div>
+<h4 data-number="1.4.1.2" id="安全检查"><span class="header-section-number">1.4.1.2</span> 1.2 安全检查</h4>
+<ul class="task-list">
+<li><label><input type="checkbox" />急停按钮就位</label></li>
+<li><label><input type="checkbox" />安全区域清空</label></li>
+<li><label><input type="checkbox" />测试人员到位</label></li>
+<li><label><input type="checkbox" />监控系统启动</label></li>
+</ul>
+<h3 data-number="1.4.2" id="测试执行流程"><span class="header-section-number">1.4.2</span> 2. 测试执行流程</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 测试主程序示例</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RobotTestSuite:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.safety_check <span class="op">=</span> SafetyChecker()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data_logger <span class="op">=</span> DataLogger()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.remote_control <span class="op">=</span> RemoteController()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> run_test(<span class="va">self</span>, test_id):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 1. 安全检查</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.safety_check.is_safe():</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 2. 初始化日志</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data_logger.start(test_id)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 3. 启用远程监控</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.remote_control.enable()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 4. 执行测试</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            result <span class="op">=</span> <span class="va">self</span>.execute_test(test_id)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.emergency_stop()</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            result <span class="op">=</span> TestResult.FAILED</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 5. 保存结果</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data_logger.save()</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span></code></pre></div>
+<h3 data-number="1.4.3" id="数据记录格式"><span class="header-section-number">1.4.3</span> 3. 数据记录格式</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;test_id&quot;</span><span class="fu">:</span> <span class="st">&quot;SAT-001&quot;</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;timestamp&quot;</span><span class="fu">:</span> <span class="st">&quot;2025-01-15T10:30:00&quot;</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;duration&quot;</span><span class="fu">:</span> <span class="fl">120.5</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;result&quot;</span><span class="fu">:</span> <span class="st">&quot;PASSED&quot;</span><span class="fu">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;data&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;joint_positions&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;tcp_positions&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;forces&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">...</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;errors&quot;</span><span class="fu">:</span> <span class="ot">[]</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;notes&quot;</span><span class="fu">:</span> <span class="st">&quot;测试正常完成&quot;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 data-number="1.4.4" id="问题处理流程"><span class="header-section-number">1.4.4</span> 4. 问题处理流程</h3>
+<ol type="1">
+<li><strong>发现问题</strong>
+<ul>
+<li>记录问题现象</li>
+<li>保存当前数据</li>
+<li>截图/录像</li>
+</ul></li>
+<li><strong>分析问题</strong>
+<ul>
+<li>查看日志文件</li>
+<li>分析数据曲线</li>
+<li>复现问题</li>
+</ul></li>
+<li><strong>解决问题</strong>
+<ul>
+<li>定位问题原因</li>
+<li>制定解决方案</li>
+<li>实施修复</li>
+</ul></li>
+<li><strong>验证修复</strong>
+<ul>
+<li>重新测试</li>
+<li>确认问题解决</li>
+<li>更新文档</li>
+</ul></li>
+</ol>
+<h2 data-number="1.5" id="测试报告模板"><span class="header-section-number">1.5</span> 测试报告模板</h2>
+<h3 data-number="1.5.1" id="测试总结报告"><span class="header-section-number">1.5.1</span> 测试总结报告</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># XC-ROBOT 系统测试报告</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 测试概况</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>测试日期: ____年__月__日</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>测试版本: v_____</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>测试人员: _____</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>测试环境: _____</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## 测试结果汇总</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>总测试项: ___</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>通过项: ___</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>失败项: ___</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>跳过项: ___</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>通过率: ___%</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题清单</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="co">[</span><span class="ot">问题ID</span><span class="co">]</span> 问题描述</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>严重程度: 高/中/低</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>影响范围: _____</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>解决状态: 已解决/进行中/待解决</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 性能数据</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>平均响应时间: ___ms</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>定位精度: ___mm</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>连续运行时间: ___小时</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 结论和建议</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>_____</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## 附件</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>详细测试数据</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>问题截图</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>测试视频</span></code></pre></div>
+<h2 data-number="1.6" id="gui测试选项卡建议"><span class="header-section-number">1.6</span> GUI测试选项卡建议</h2>
+<h3 data-number="1.6.1" id="建议开发gui测试选项卡"><span class="header-section-number">1.6.1</span> 建议开发GUI测试选项卡</h3>
+<p>基于测试需求分析，<strong>强烈建议</strong>开发一个专门的GUI测试选项卡，理由如下：</p>
+<h4 data-number="1.6.1.1" id="功能需求"><span class="header-section-number">1.6.1.1</span> 1. 功能需求</h4>
+<ul>
+<li><strong>交互式测试配置</strong>: 可视化设置测试参数、安全阈值、运动范围</li>
+<li><strong>实时监控面板</strong>: 显示双臂距离、速度、力矩等关键参数</li>
+<li><strong>测试序列管理</strong>: 创建、编辑、保存测试序列</li>
+<li><strong>结果可视化</strong>: 实时显示测试曲线、轨迹、错误信息</li>
+</ul>
+<h4 data-number="1.6.1.2" id="设计方案"><span class="header-section-number">1.6.1.2</span> 2. 设计方案</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestingWidget(QWidget):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;测试功能选项卡&quot;&quot;&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.init_ui()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> init_ui(<span class="va">self</span>):</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 1. 测试配置区</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_config_group <span class="op">=</span> <span class="va">self</span>.create_test_config()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 2. 安全监控区  </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.safety_monitor_group <span class="op">=</span> <span class="va">self</span>.create_safety_monitor()</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 3. 测试控制区</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_control_group <span class="op">=</span> <span class="va">self</span>.create_test_control()</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 4. 数据显示区</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.data_display_group <span class="op">=</span> <span class="va">self</span>.create_data_display()</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 5. 结果记录区</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.result_log_group <span class="op">=</span> <span class="va">self</span>.create_result_log()</span></code></pre></div>
+<h4 data-number="1.6.1.3" id="核心功能模块"><span class="header-section-number">1.6.1.3</span> 3. 核心功能模块</h4>
+<h5 data-number="1.6.1.3.1" id="测试配置模块"><span class="header-section-number">1.6.1.3.1</span> 3.1 测试配置模块</h5>
+<ul>
+<li>测试类型选择（单臂/双臂/底盘/联动）</li>
+<li>参数设置（速度/加速度/安全距离）</li>
+<li>测试模式（手动/自动/批量）</li>
+</ul>
+<h5 data-number="1.6.1.3.2" id="安全监控模块"><span class="header-section-number">1.6.1.3.2</span> 3.2 安全监控模块</h5>
+<ul>
+<li>实时距离显示（双臂间距、障碍物距离）</li>
+<li>力矩监控（关节力矩、末端力）</li>
+<li>紧急停止按钮（大型红色按钮）</li>
+<li>状态指示灯（正常/警告/错误）</li>
+</ul>
+<h5 data-number="1.6.1.3.3" id="测试执行模块"><span class="header-section-number">1.6.1.3.3</span> 3.3 测试执行模块</h5>
+<ul>
+<li>开始/暂停/停止按钮</li>
+<li>进度条显示</li>
+<li>当前测试步骤</li>
+<li>远程中断接口</li>
+</ul>
+<h5 data-number="1.6.1.3.4" id="数据可视化模块"><span class="header-section-number">1.6.1.3.4</span> 3.4 数据可视化模块</h5>
+<ul>
+<li>实时曲线图（位置/速度/力矩）</li>
+<li>3D轨迹显示</li>
+<li>错误分布图</li>
+<li>性能指标仪表盘</li>
+</ul>
+<h5 data-number="1.6.1.3.5" id="结果管理模块"><span class="header-section-number">1.6.1.3.5</span> 3.5 结果管理模块</h5>
+<ul>
+<li>测试日志列表</li>
+<li>结果导出（Excel/PDF）</li>
+<li>截图/录像功能</li>
+<li>报告生成</li>
+</ul>
+<h4 data-number="1.6.1.4" id="实现优先级"><span class="header-section-number">1.6.1.4</span> 4. 实现优先级</h4>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>紧急停止</td>
+<td>最高优先级安全功能</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>实时监控</td>
+<td>双臂距离、速度监控</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>测试配置</td>
+<td>基础测试参数设置</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>手动测试</td>
+<td>交互式单步测试</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>自动测试</td>
+<td>批量测试执行</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>数据记录</td>
+<td>测试数据保存</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>可视化</td>
+<td>高级图表显示</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>报告生成</td>
+<td>自动生成测试报告</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.6.2" id="集成建议"><span class="header-section-number">1.6.2</span> 5. 集成建议</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 main_window.py 中添加</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.testing_widget <span class="op">=</span> TestingWidget()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.tab_widget.addTab(<span class="va">self</span>.testing_widget, <span class="st">&quot;测试中心&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 与现有模块集成</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.testing_widget.arm_controller <span class="op">=</span> <span class="va">self</span>.arm_control_widget.controller</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.testing_widget.chassis_controller <span class="op">=</span> <span class="va">self</span>.chassis_widget.controller</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.testing_widget.safety_system <span class="op">=</span> <span class="va">self</span>.safety_manager</span></code></pre></div>
+<h2 data-number="1.7" id="下一步行动计划"><span class="header-section-number">1.7</span> 下一步行动计划</h2>
+<ol type="1">
+<li><strong>立即执行</strong>
+<ul class="task-list">
+<li><label><input type="checkbox" />在 <code>fr3_hermes_testing/</code> 创建基础测试脚本</label></li>
+<li><label><input type="checkbox" />实现紧急停止和安全监控模块</label></li>
+<li><label><input type="checkbox" />开发单臂基础测试程序</label></li>
+</ul></li>
+<li><strong>短期计划</strong> (1-2周)
+<ul class="task-list">
+<li><label><input type="checkbox" />完成Level 1组件级测试脚本</label></li>
+<li><label><input type="checkbox" />开发GUI测试选项卡原型</label></li>
+<li><label><input type="checkbox" />建立测试数据记录系统</label></li>
+</ul></li>
+<li><strong>中期计划</strong> (1个月)
+<ul class="task-list">
+<li><label><input type="checkbox" />完成Level 2集成测试</label></li>
+<li><label><input type="checkbox" />实现完整的GUI测试界面</label></li>
+<li><label><input type="checkbox" />开始场景测试</label></li>
+</ul></li>
+<li><strong>长期计划</strong> (2-3个月)
+<ul class="task-list">
+<li><label><input type="checkbox" />完成全部测试用例</label></li>
+<li><label><input type="checkbox" />优化测试自动化</label></li>
+<li><label><input type="checkbox" />建立持续集成测试</label></li>
+</ul></li>
+</ol>
+<hr />
+<p><strong>文档版本</strong>: v1.0<br />
+<strong>创建日期</strong>: 2025-01-15<br />
+<strong>维护人</strong>: Claude Code Assistant<br />
+<strong>状态</strong>: 初始版本，待实施验证</p>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PROJECT_TECHNICAL_OVERVIEW</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="css/markdown.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">PROJECT_TECHNICAL_OVERVIEW</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#xc-robot-项目技术全览" id="toc-xc-robot-项目技术全览"><span class="toc-section-number">1</span> XC-ROBOT 项目技术全览</a>
+<ul>
+<li><a href="#项目概述" id="toc-项目概述"><span class="toc-section-number">1.1</span> 项目概述</a>
+<ul>
+<li><a href="#基本信息" id="toc-基本信息"><span class="toc-section-number">1.1.1</span> 基本信息</a></li>
+<li><a href="#项目目标" id="toc-项目目标"><span class="toc-section-number">1.1.2</span> 项目目标</a></li>
+</ul></li>
+<li><a href="#项目结构详解" id="toc-项目结构详解"><span class="toc-section-number">1.2</span> 项目结构详解</a>
+<ul>
+<li><a href="#目录架构" id="toc-目录架构"><span class="toc-section-number">1.2.1</span> 目录架构</a></li>
+</ul></li>
+<li><a href="#核心技术架构" id="toc-核心技术架构"><span class="toc-section-number">1.3</span> 核心技术架构</a>
+<ul>
+<li><a href="#gui系统架构-pyqt5" id="toc-gui系统架构-pyqt5"><span class="toc-section-number">1.3.1</span> 1. GUI系统架构 (PyQt5)</a></li>
+<li><a href="#vtk循环导入问题解决方案" id="toc-vtk循环导入问题解决方案"><span class="toc-section-number">1.3.2</span> 2. VTK循环导入问题解决方案</a></li>
+<li><a href="#机械臂运动学系统" id="toc-机械臂运动学系统"><span class="toc-section-number">1.3.3</span> 3. 机械臂运动学系统</a></li>
+<li><a href="#底盘控制系统" id="toc-底盘控制系统"><span class="toc-section-number">1.3.4</span> 4. 底盘控制系统</a></li>
+<li><a href="#仿真系统设计" id="toc-仿真系统设计"><span class="toc-section-number">1.3.5</span> 5. 仿真系统设计</a></li>
+<li><a href="#开发过程记录" id="toc-开发过程记录"><span class="toc-section-number">1.3.6</span> 6. 开发过程记录</a></li>
+</ul></li>
+<li><a href="#依赖环境详解" id="toc-依赖环境详解"><span class="toc-section-number">1.4</span> 依赖环境详解</a>
+<ul>
+<li><a href="#python依赖-requirements.txt" id="toc-python依赖-requirements.txt"><span class="toc-section-number">1.4.1</span> Python依赖 (<code>requirements.txt</code>)</a></li>
+<li><a href="#开发环境配置" id="toc-开发环境配置"><span class="toc-section-number">1.4.2</span> 开发环境配置</a></li>
+<li><a href="#系统兼容性" id="toc-系统兼容性"><span class="toc-section-number">1.4.3</span> 系统兼容性</a></li>
+</ul></li>
+<li><a href="#网络架构" id="toc-网络架构"><span class="toc-section-number">1.5</span> 网络架构</a>
+<ul>
+<li><a href="#硬件网络配置" id="toc-硬件网络配置"><span class="toc-section-number">1.5.1</span> 硬件网络配置</a></li>
+<li><a href="#通信协议" id="toc-通信协议"><span class="toc-section-number">1.5.2</span> 通信协议</a></li>
+</ul></li>
+<li><a href="#测试策略" id="toc-测试策略"><span class="toc-section-number">1.6</span> 测试策略</a>
+<ul>
+<li><a href="#单元测试" id="toc-单元测试"><span class="toc-section-number">1.6.1</span> 单元测试</a></li>
+<li><a href="#集成测试" id="toc-集成测试"><span class="toc-section-number">1.6.2</span> 集成测试</a></li>
+<li><a href="#gui测试" id="toc-gui测试"><span class="toc-section-number">1.6.3</span> GUI测试</a></li>
+</ul></li>
+<li><a href="#代码风格与规范" id="toc-代码风格与规范"><span class="toc-section-number">1.7</span> 代码风格与规范</a>
+<ul>
+<li><a href="#编码规范" id="toc-编码规范"><span class="toc-section-number">1.7.1</span> 编码规范</a></li>
+<li><a href="#注释风格" id="toc-注释风格"><span class="toc-section-number">1.7.2</span> 注释风格</a></li>
+<li><a href="#git版本管理" id="toc-git版本管理"><span class="toc-section-number">1.7.3</span> Git版本管理</a></li>
+</ul></li>
+<li><a href="#性能优化记录" id="toc-性能优化记录"><span class="toc-section-number">1.8</span> 性能优化记录</a>
+<ul>
+<li><a href="#gui性能优化" id="toc-gui性能优化"><span class="toc-section-number">1.8.1</span> GUI性能优化</a></li>
+<li><a href="#网络通信优化" id="toc-网络通信优化"><span class="toc-section-number">1.8.2</span> 网络通信优化</a></li>
+<li><a href="#仿真渲染优化" id="toc-仿真渲染优化"><span class="toc-section-number">1.8.3</span> 仿真渲染优化</a></li>
+</ul></li>
+<li><a href="#未来发展规划" id="toc-未来发展规划"><span class="toc-section-number">1.9</span> 未来发展规划</a>
+<ul>
+<li><a href="#短期目标-v2.4.x" id="toc-短期目标-v2.4.x"><span class="toc-section-number">1.9.1</span> 短期目标 (v2.4.x)</a></li>
+<li><a href="#中期目标-v2.5.x" id="toc-中期目标-v2.5.x"><span class="toc-section-number">1.9.2</span> 中期目标 (v2.5.x)</a></li>
+<li><a href="#长期目标-v3.0" id="toc-长期目标-v3.0"><span class="toc-section-number">1.9.3</span> 长期目标 (v3.0+)</a></li>
+</ul></li>
+<li><a href="#故障排除指南" id="toc-故障排除指南"><span class="toc-section-number">1.10</span> 故障排除指南</a>
+<ul>
+<li><a href="#常见问题" id="toc-常见问题"><span class="toc-section-number">1.10.1</span> 常见问题</a></li>
+<li><a href="#调试工具" id="toc-调试工具"><span class="toc-section-number">1.10.2</span> 调试工具</a></li>
+<li><a href="#日志分析" id="toc-日志分析"><span class="toc-section-number">1.10.3</span> 日志分析</a></li>
+</ul></li>
+<li><a href="#技术债务与改进计划" id="toc-技术债务与改进计划"><span class="toc-section-number">1.11</span> 技术债务与改进计划</a>
+<ul>
+<li><a href="#已知技术债务" id="toc-已知技术债务"><span class="toc-section-number">1.11.1</span> 已知技术债务</a></li>
+<li><a href="#代码重构计划" id="toc-代码重构计划"><span class="toc-section-number">1.11.2</span> 代码重构计划</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="xc-robot-项目技术全览"><span class="header-section-number">1</span> XC-ROBOT 项目技术全览</h1>
+<h2 data-number="1.1" id="项目概述"><span class="header-section-number">1.1</span> 项目概述</h2>
+<h3 data-number="1.1.1" id="基本信息"><span class="header-section-number">1.1.1</span> 基本信息</h3>
+<ul>
+<li><strong>项目名称</strong>: XC-ROBOT 轮式双臂类人形机器人控制系统</li>
+<li><strong>版本</strong>: v2.3.2 (当前稳定版本)</li>
+<li><strong>开发语言</strong>: Python 3.x</li>
+<li><strong>主要框架</strong>: PyQt5 (GUI) + VTK (3D可视化) + FR3 API (机械臂控制)</li>
+<li><strong>硬件平台</strong>: 思岚Hermes底盘 + 法奥意威FR3双机械臂</li>
+<li><strong>开发环境</strong>: 虚拟环境 (venv)</li>
+</ul>
+<h3 data-number="1.1.2" id="项目目标"><span class="header-section-number">1.1.2</span> 项目目标</h3>
+<p>构建一个完整的双臂移动机器人控制系统，包含： 1. <strong>硬件控制</strong>: FR3双机械臂 + Hermes移动底盘的集成控制 2. <strong>仿真系统</strong>: 基于VTK的3D机器人运动仿真 3. <strong>GUI界面</strong>: PyQt5构建的用户友好控制界面 4. <strong>运动学计算</strong>: FR3机械臂的正向/逆向运动学求解 5. <strong>轨迹规划</strong>: 双臂协调运动和底盘路径规划</p>
+<h2 data-number="1.2" id="项目结构详解"><span class="header-section-number">1.2</span> 项目结构详解</h2>
+<h3 data-number="1.2.1" id="目录架构"><span class="header-section-number">1.2.1</span> 目录架构</h3>
+<pre><code>xc-robot/
+├── FR3_ROBOT_ANALYSIS.md          # FR3机械臂运动学分析文档
+├── DEPLOYMENT_GUIDE.md            # 部署和问题解决指南
+├── PROJECT_TECHNICAL_OVERVIEW.md  # 项目技术全览 (本文档)
+├── start_gui.py                   # GUI主启动脚本
+├── venv/                          # Python虚拟环境
+├── requirements.txt               # Python依赖清单
+├── robot_config.yaml             # 机器人配置文件
+├── 
+├── gui/                           # GUI界面模块
+│   ├── __init__.py               # 延迟导入机制
+│   ├── main_window.py            # 主窗口类
+│   └── widgets/                  # 界面控件
+│       ├── connection_widget.py  # 连接测试控件
+│       ├── arm_control_widget.py # 机械臂控制控件
+│       ├── chassis_widget.py     # 底盘控制控件
+│       ├── simulation_widget.py  # 仿真系统控件
+│       ├── robot_sim_widget.py   # RobotSim 3D控件
+│       ├── log_widget.py         # 日志显示控件
+│       └── fr3_kinematics.py     # FR3运动学模型
+│
+├── fr3_control/                   # FR3机械臂控制模块
+│   ├── fairino/                  # 法奥意威官方SDK
+│   │   └── Robot.py              # FR3 API封装
+│   └── example/                  # 官方示例代码
+│
+├── main_control/                  # 主控制模块
+│   ├── integrated_controller.py  # 集成控制器
+│   ├── dual_arm_controller.py    # 双臂控制器
+│   ├── hermer_controller.py      # 底盘控制器
+│   └── utils/                    # 工具模块
+│
+├── function_test/                 # 功能测试模块
+│   ├── dual_arm_simulation_trajectory.py  # 双臂轨迹生成
+│   ├── test_dual_arm_simulation.py        # 仿真测试
+│   ├── chassis_relative_move.py           # 底盘相对运动
+│   └── ...                               # 其他测试脚本
+│
+├── models/                        # 3D模型文件
+│   ├── fr3_base.stl              # FR3基座模型
+│   ├── fr3_robot.urdf            # 机器人URDF描述
+│   └── ...                       # 其他STL模型
+│
+└── tests/                         # 单元测试
+    ├── dual_arm_connection.py     # 双臂连接测试
+    ├── fr3_simple_test.py         # FR3基础测试
+    └── ...                        # 其他测试脚本</code></pre>
+<h2 data-number="1.3" id="核心技术架构"><span class="header-section-number">1.3</span> 核心技术架构</h2>
+<h3 data-number="1.3.1" id="gui系统架构-pyqt5"><span class="header-section-number">1.3.1</span> 1. GUI系统架构 (PyQt5)</h3>
+<h4 data-number="1.3.1.1" id="主窗口设计-guimain_window.py"><span class="header-section-number">1.3.1.1</span> 1.1 主窗口设计 (<code>gui/main_window.py</code>)</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> XCRobotMainWindow(QMainWindow):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 采用选项卡式界面设计</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5个主要功能模块：连接测试、机械臂控制、底盘控制、仿真系统、RobotSim</span></span></code></pre></div>
+<p><strong>核心设计模式</strong>: - <strong>延迟导入策略</strong>: 解决VTK循环导入问题 - <strong>信号槽机制</strong>: 模块间通信 - <strong>模块化设计</strong>: 每个控件独立开发和维护</p>
+<h4 data-number="1.3.1.2" id="关键控件详解"><span class="header-section-number">1.3.1.2</span> 1.2 关键控件详解</h4>
+<p><strong>连接测试控件</strong> (<code>connection_widget.py</code>): - <strong>功能</strong>: 测试FR3双臂和Hermes底盘的网络连接 - <strong>技术</strong>: 多线程连接测试，避免UI阻塞 - <strong>特性</strong>: 支持批量测试、配置保存</p>
+<p><strong>机械臂控制控件</strong> (<code>arm_control_widget.py</code>): - <strong>功能</strong>: 双臂独立/协调控制 - <strong>技术</strong>: FR3 API封装，正向/逆向运动学 - <strong>特性</strong>: 关节空间控制、笛卡尔空间控制</p>
+<p><strong>底盘控制控件</strong> (<code>chassis_widget.py</code>): - <strong>功能</strong>: Hermes底盘运动控制 - <strong>技术</strong>: RESTful API调用 - <strong>特性</strong>: 预设位置、手动控制、坐标导航</p>
+<p><strong>仿真系统控件</strong> (<code>simulation_widget.py</code>): - <strong>功能</strong>: 底盘运动轨迹仿真 - <strong>技术</strong>: 2D Canvas绘制，动画播放 - <strong>特性</strong>: 交互式路径绘制、坐标系变换</p>
+<p><strong>RobotSim控件</strong> (<code>robot_sim_widget.py</code>): - <strong>功能</strong>: 3D机械臂可视化仿真 - <strong>技术</strong>: VTK 3D渲染 - <strong>特性</strong>: 实时运动学可视化、STL模型加载</p>
+<h3 data-number="1.3.2" id="vtk循环导入问题解决方案"><span class="header-section-number">1.3.2</span> 2. VTK循环导入问题解决方案</h3>
+<h4 data-number="1.3.2.1" id="问题分析"><span class="header-section-number">1.3.2.1</span> 2.1 问题分析</h4>
+<p><strong>导入链</strong>: <code>start_gui.py</code> → <code>main_window.py</code> → <code>robot_sim_widget.py</code> → <code>VTK</code> <strong>问题</strong>: VTK在QApplication创建前导入导致GUI卡死</p>
+<h4 data-number="1.3.2.2" id="解决策略"><span class="header-section-number">1.3.2.2</span> 2.2 解决策略</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gui/__init__.py - 延迟导入函数</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_main_window():</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> .main_window <span class="im">import</span> XCRobotMainWindow</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> XCRobotMainWindow</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># main_window.py - 延迟控件创建</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_widgets(<span class="va">self</span>):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 先创建基础控件</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 后创建VTK相关控件</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.create_robot_sim_widget()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># start_gui.py - 延迟导入使用</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gui <span class="im">import</span> get_main_window</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>XCRobotMainWindow <span class="op">=</span> get_main_window()</span></code></pre></div>
+<h3 data-number="1.3.3" id="机械臂运动学系统"><span class="header-section-number">1.3.3</span> 3. 机械臂运动学系统</h3>
+<h4 data-number="1.3.3.1" id="fr3运动学参数-fr3_kinematics.py"><span class="header-section-number">1.3.3.1</span> 3.1 FR3运动学参数 (<code>fr3_kinematics.py</code>)</h4>
+<p><strong>Modified DH参数表</strong>: | 关节 | α(i-1) | a(i-1) | d(i) | θ(i) | 范围 | |——|——–|——–|——|——|——| | J1 | 0° | 0 | 333 | q1 | ±170° | | J2 | -90° | 0 | 0 | q2-90°| ±120° | | J3 | 0° | 316 | 0 | q3+90°| ±170° | | J4 | 90° | 0 | 384 | q4 | ±170° | | J5 | -90° | 0 | 0 | q5 | ±120° | | J6 | 90° | 0 | 107 | q6 | ±175° |</p>
+<h4 data-number="1.3.3.2" id="双臂配置"><span class="header-section-number">1.3.3.2</span> 3.2 双臂配置</h4>
+<ul>
+<li><strong>基座间距</strong>: 380mm (胸部宽度)</li>
+<li><strong>左臂偏移</strong>: X=-190mm</li>
+<li><strong>右臂偏移</strong>: X=+190mm</li>
+<li><strong>坐标系</strong>: 右手坐标系，Z轴向上</li>
+</ul>
+<h4 data-number="1.3.3.3" id="fr3-api接口"><span class="header-section-number">1.3.3.3</span> 3.3 FR3 API接口</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 状态读取</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>error, joints <span class="op">=</span> robot.GetActualJointPosDegree()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>error, pose <span class="op">=</span> robot.GetActualToolFlangePose()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 运动学求解</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>error, pose <span class="op">=</span> robot.GetForwardKin(joint_pos)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>error, joints <span class="op">=</span> robot.GetInverseKin(<span class="bu">type</span>, desc_pos, config)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 运动控制</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>robot.MoveJ(joint_pos, tool<span class="op">=</span><span class="dv">0</span>, user<span class="op">=</span><span class="dv">0</span>, vel<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>robot.MoveL(desc_pos, tool<span class="op">=</span><span class="dv">0</span>, user<span class="op">=</span><span class="dv">0</span>, vel<span class="op">=</span><span class="dv">30</span>)</span></code></pre></div>
+<h3 data-number="1.3.4" id="底盘控制系统"><span class="header-section-number">1.3.4</span> 4. 底盘控制系统</h3>
+<h4 data-number="1.3.4.1" id="hermes底盘api"><span class="header-section-number">1.3.4.1</span> 4.1 Hermes底盘API</h4>
+<p><strong>基础信息</strong>: - <strong>型号</strong>: 思岚科技 Hermes - <strong>通信</strong>: HTTP RESTful API - <strong>默认地址</strong>: http://192.168.31.211:1448</p>
+<p><strong>核心API端点</strong>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 状态查询</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>GET <span class="op">/</span>api<span class="op">/</span>core<span class="op">/</span>system<span class="op">/</span>v1<span class="op">/</span>power<span class="op">/</span>status</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 运动控制</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>POST <span class="op">/</span>api<span class="op">/</span>core<span class="op">/</span>motion<span class="op">/</span>v1<span class="op">/</span>actions</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>POST <span class="op">/</span>api<span class="op">/</span>core<span class="op">/</span>motion<span class="op">/</span>v1<span class="op">/</span>manual</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>POST <span class="op">/</span>api<span class="op">/</span>core<span class="op">/</span>motion<span class="op">/</span>v1<span class="op">/</span>stop</span></code></pre></div>
+<h4 data-number="1.3.4.2" id="运动控制模式"><span class="header-section-number">1.3.4.2</span> 4.2 运动控制模式</h4>
+<ol type="1">
+<li><strong>预设位置</strong>: 原点、工作站1/2、充电站</li>
+<li><strong>手动控制</strong>: 8方向运动 + 速度控制</li>
+<li><strong>坐标导航</strong>: 指定XYθ坐标移动</li>
+<li><strong>相对运动</strong>: 基于当前位置的相对移动</li>
+</ol>
+<h3 data-number="1.3.5" id="仿真系统设计"><span class="header-section-number">1.3.5</span> 5. 仿真系统设计</h3>
+<h4 data-number="1.3.5.1" id="d底盘仿真-simulation_widget.py"><span class="header-section-number">1.3.5.1</span> 5.1 2D底盘仿真 (<code>simulation_widget.py</code>)</h4>
+<p><strong>技术特性</strong>: - <strong>渲染引擎</strong>: QPainter 2D绘制 - <strong>网格系统</strong>: 250mm网格，支持轴向变换 - <strong>动画系统</strong>: QTimer驱动的平滑动画 - <strong>交互功能</strong>: 鼠标拖拽绘制路径</p>
+<p><strong>核心功能</strong>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 坐标系变换</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> toggle_xy_direction(<span class="va">self</span>):  <span class="co"># X/Y轴反转</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rotate_chassis_90(<span class="va">self</span>):    <span class="co"># 底盘90°旋转</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 路径管理</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mousePressEvent(<span class="va">self</span>):      <span class="co"># 开始绘制</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mouseMoveEvent(<span class="va">self</span>):       <span class="co"># 实时预览</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mouseReleaseEvent(<span class="va">self</span>):    <span class="co"># 完成绘制</span></span></code></pre></div>
+<h4 data-number="1.3.5.2" id="d机械臂仿真-robot_sim_widget.py"><span class="header-section-number">1.3.5.2</span> 5.2 3D机械臂仿真 (<code>robot_sim_widget.py</code>)</h4>
+<p><strong>技术架构</strong>: - <strong>渲染引擎</strong>: VTK (Visualization Toolkit) - <strong>模型格式</strong>: STL 3D模型 - <strong>交互组件</strong>: QVTKRenderWindowInteractor - <strong>更新机制</strong>: QTimer定时更新</p>
+<p><strong>核心特性</strong>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># VTK组件</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.vtk_widget <span class="op">=</span> QVTKRenderWindowInteractor()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.renderer <span class="op">=</span> vtk.vtkRenderer()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.render_window <span class="op">=</span> <span class="va">self</span>.vtk_widget.GetRenderWindow()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 运动学集成</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.kinematics <span class="op">=</span> FR3Kinematics()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">self</span>.update_timer <span class="op">=</span> QTimer()  <span class="co"># 100Hz更新</span></span></code></pre></div>
+<h3 data-number="1.3.6" id="开发过程记录"><span class="header-section-number">1.3.6</span> 6. 开发过程记录</h3>
+<h4 data-number="1.3.6.1" id="关键开发里程碑"><span class="header-section-number">1.3.6.1</span> 6.1 关键开发里程碑</h4>
+<p><strong>v2.3.0</strong>: 基于VTK+Qt5的仿真系统重构 - 初步建立3D仿真框架 - 集成FR3运动学模型</p>
+<p><strong>v2.3.1</strong>: 新增RobotSim独立仿真界面 - 添加独立的3D仿真选项卡 - 实现STL模型加载和显示</p>
+<p><strong>v2.3.2</strong>: 增加回到初始位姿功能 - 完善机械臂控制功能 - 添加仿真控制增强</p>
+<p><strong>GUI启动问题解决</strong> (v2.3.2后): - 诊断VTK循环导入问题 - 实现延迟导入策略 - 修复RobotSim控件创建</p>
+<h4 data-number="1.3.6.2" id="重要技术挑战与解决"><span class="header-section-number">1.3.6.2</span> 6.2 重要技术挑战与解决</h4>
+<p><strong>挑战1: VTK循环导入导致GUI卡死</strong> - <strong>现象</strong>: 启动和交互时GUI完全卡死 - <strong>原因</strong>: VTK在QApplication创建前被导入 - <strong>解决</strong>: 延迟导入策略 + 控件创建优化</p>
+<p><strong>挑战2: FR3运动学参数不准确</strong> - <strong>现象</strong>: 仿真与实际机械臂运动不符 - <strong>原因</strong>: DH参数和关节偏移理解错误 - <strong>解决</strong>: 深入分析FR3 API和官方文档，建立精确模型</p>
+<p><strong>挑战3: 双臂协调控制复杂性</strong> - <strong>现象</strong>: 左右臂运动干涉和碰撞 - <strong>原因</strong>: 工作空间规划不合理 - <strong>解决</strong>: 基于物理尺寸的精确建模和安全距离控制</p>
+<p><strong>挑战4: 底盘仿真交互性不足</strong> - <strong>现象</strong>: 路径规划缺乏直观性 - <strong>原因</strong>: 缺少交互式绘制功能 - <strong>解决</strong>: 实现鼠标拖拽绘制和实时预览</p>
+<h4 data-number="1.3.6.3" id="核心技术创新"><span class="header-section-number">1.3.6.3</span> 6.3 核心技术创新</h4>
+<p><strong>延迟导入架构</strong>: - 解决VTK初始化时序问题 - 保证GUI启动稳定性 - 为大型PyQt+VTK项目提供范例</p>
+<p><strong>精确运动学建模</strong>: - 基于Modified DH Convention - 考虑关节偏移和物理约束 - 支持双臂独立和协调控制</p>
+<p><strong>混合仿真系统</strong>: - 2D底盘仿真 + 3D机械臂仿真 - 实时交互和动画播放 - 轨迹数据导入导出</p>
+<h2 data-number="1.4" id="依赖环境详解"><span class="header-section-number">1.4</span> 依赖环境详解</h2>
+<h3 data-number="1.4.1" id="python依赖-requirements.txt"><span class="header-section-number">1.4.1</span> Python依赖 (<code>requirements.txt</code>)</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>PyQt5&gt;=5.15.0          # GUI框架</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>vtk&gt;=9.0.0             # 3D可视化</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>numpy&gt;=1.20.0          # 数值计算</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>requests&gt;=2.25.0       # HTTP客户端</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>PyYAML&gt;=5.4.0          # YAML配置解析</span></code></pre></div>
+<h3 data-number="1.4.2" id="开发环境配置"><span class="header-section-number">1.4.2</span> 开发环境配置</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 创建虚拟环境</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv venv</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 激活虚拟环境</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> venv/bin/activate  <span class="co"># Mac/Linux</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># .\venv\Scripts\activate  # Windows</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 安装依赖</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 启动应用</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> start_gui.py</span></code></pre></div>
+<h3 data-number="1.4.3" id="系统兼容性"><span class="header-section-number">1.4.3</span> 系统兼容性</h3>
+<ul>
+<li><strong>操作系统</strong>: Windows 10/11, macOS (Intel/Apple Silicon), Linux (Ubuntu/Debian)</li>
+<li><strong>Python版本</strong>: 3.7+</li>
+<li><strong>Qt版本</strong>: 5.15+</li>
+<li><strong>VTK版本</strong>: 9.0+</li>
+</ul>
+<h2 data-number="1.5" id="网络架构"><span class="header-section-number">1.5</span> 网络架构</h2>
+<h3 data-number="1.5.1" id="硬件网络配置"><span class="header-section-number">1.5.1</span> 硬件网络配置</h3>
+<pre><code>控制计算机 (192.168.58.1)
+├── 右臂FR3 (192.168.58.2)
+├── 左臂FR3 (192.168.58.3)
+└── Hermes底盘 (192.168.31.211:1448)</code></pre>
+<h3 data-number="1.5.2" id="通信协议"><span class="header-section-number">1.5.2</span> 通信协议</h3>
+<ul>
+<li><strong>FR3机械臂</strong>: TCP/RPC (法奥意威私有协议)</li>
+<li><strong>Hermes底盘</strong>: HTTP RESTful API</li>
+</ul>
+<h2 data-number="1.6" id="测试策略"><span class="header-section-number">1.6</span> 测试策略</h2>
+<h3 data-number="1.6.1" id="单元测试"><span class="header-section-number">1.6.1</span> 单元测试</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FR3连接测试</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> tests/fr3_simple_test.py 192.168.58.2</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 双臂连接测试</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> tests/dual_arm_connection.py</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 底盘连接测试</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> tests/hermes_test_connection.py</span></code></pre></div>
+<h3 data-number="1.6.2" id="集成测试"><span class="header-section-number">1.6.2</span> 集成测试</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 完整系统测试</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> main_control/integrated_controller.py</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 仿真系统测试</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> function_test/test_dual_arm_simulation.py</span></code></pre></div>
+<h3 data-number="1.6.3" id="gui测试"><span class="header-section-number">1.6.3</span> GUI测试</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 快速GUI测试</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> start_gui.py</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 仿真功能测试</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 在GUI中选择对应选项卡进行交互测试</span></span></code></pre></div>
+<h2 data-number="1.7" id="代码风格与规范"><span class="header-section-number">1.7</span> 代码风格与规范</h2>
+<h3 data-number="1.7.1" id="编码规范"><span class="header-section-number">1.7.1</span> 编码规范</h3>
+<ul>
+<li><strong>PEP 8</strong>: Python代码风格标准</li>
+<li><strong>类型注解</strong>: 关键函数使用类型提示</li>
+<li><strong>文档字符串</strong>: 所有公共方法包含docstring</li>
+<li><strong>错误处理</strong>: 完善的try-catch机制</li>
+</ul>
+<h3 data-number="1.7.2" id="注释风格"><span class="header-section-number">1.7.2</span> 注释风格</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FR3Kinematics:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;FR3机械臂运动学模型</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">    实现正向运动学和逆运动学计算</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">    基于Modified DH Convention</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward_kinematics(<span class="va">self</span>, joint_angles: List[<span class="bu">float</span>]) <span class="op">-&gt;</span> Dict:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">&quot;&quot;&quot;计算正向运动学</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">        Args:</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">            joint_angles: 6个关节角度 (度)</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">            </span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">        Returns:</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">            Dict: 包含position和orientation的末端位姿</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">        &quot;&quot;&quot;</span></span></code></pre></div>
+<h3 data-number="1.7.3" id="git版本管理"><span class="header-section-number">1.7.3</span> Git版本管理</h3>
+<ul>
+<li><strong>分支策略</strong>: main(主分支) + mac-dev(开发分支)</li>
+<li><strong>提交信息</strong>: 版本号 + 功能描述</li>
+<li><strong>标签管理</strong>: 每个稳定版本打tag</li>
+</ul>
+<h2 data-number="1.8" id="性能优化记录"><span class="header-section-number">1.8</span> 性能优化记录</h2>
+<h3 data-number="1.8.1" id="gui性能优化"><span class="header-section-number">1.8.1</span> GUI性能优化</h3>
+<ol type="1">
+<li><strong>延迟导入</strong>: 减少启动时间</li>
+<li><strong>定时器优化</strong>: 避免过频繁更新</li>
+<li><strong>内存管理</strong>: VTK资源正确释放</li>
+<li><strong>界面布局</strong>: 紧凑布局提升空间利用率</li>
+</ol>
+<h3 data-number="1.8.2" id="网络通信优化"><span class="header-section-number">1.8.2</span> 网络通信优化</h3>
+<ol type="1">
+<li><strong>连接池</strong>: 复用HTTP连接</li>
+<li><strong>超时设置</strong>: 合理的网络超时</li>
+<li><strong>异步处理</strong>: 避免界面阻塞</li>
+<li><strong>错误重试</strong>: 网络故障自动重连</li>
+</ol>
+<h3 data-number="1.8.3" id="仿真渲染优化"><span class="header-section-number">1.8.3</span> 仿真渲染优化</h3>
+<ol type="1">
+<li><strong>帧率控制</strong>: 合理的更新频率</li>
+<li><strong>LOD管理</strong>: 距离相关的细节层次</li>
+<li><strong>剔除优化</strong>: 视锥体外对象不渲染</li>
+</ol>
+<h2 data-number="1.9" id="未来发展规划"><span class="header-section-number">1.9</span> 未来发展规划</h2>
+<h3 data-number="1.9.1" id="短期目标-v2.4.x"><span class="header-section-number">1.9.1</span> 短期目标 (v2.4.x)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />完善双臂碰撞检测</label></li>
+<li><label><input type="checkbox" />增加轨迹录制回放功能</label></li>
+<li><label><input type="checkbox" />优化3D模型加载性能</label></li>
+<li><label><input type="checkbox" />添加配置文件热重载</label></li>
+</ul>
+<h3 data-number="1.9.2" id="中期目标-v2.5.x"><span class="header-section-number">1.9.2</span> 中期目标 (v2.5.x)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />实现力控制集成</label></li>
+<li><label><input type="checkbox" />添加视觉系统接口</label></li>
+<li><label><input type="checkbox" />支持自定义工具配置</label></li>
+<li><label><input type="checkbox" />完善安全监控系统</label></li>
+</ul>
+<h3 data-number="1.9.3" id="长期目标-v3.0"><span class="header-section-number">1.9.3</span> 长期目标 (v3.0+)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />迁移到Qt6框架</label></li>
+<li><label><input type="checkbox" />集成AI决策模块</label></li>
+<li><label><input type="checkbox" />支持多机器人协作</label></li>
+<li><label><input type="checkbox" />云端仿真和监控</label></li>
+</ul>
+<h2 data-number="1.10" id="故障排除指南"><span class="header-section-number">1.10</span> 故障排除指南</h2>
+<h3 data-number="1.10.1" id="常见问题"><span class="header-section-number">1.10.1</span> 常见问题</h3>
+<ol type="1">
+<li><strong>GUI启动卡死</strong>: 检查VTK安装，确保在虚拟环境中运行</li>
+<li><strong>连接超时</strong>: 检查网络配置和IP地址</li>
+<li><strong>3D显示异常</strong>: 确认VTK版本兼容性</li>
+<li><strong>关节角度异常</strong>: 检查DH参数和单位转换</li>
+</ol>
+<h3 data-number="1.10.2" id="调试工具"><span class="header-section-number">1.10.2</span> 调试工具</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 依赖检查</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">&quot;import PyQt5, vtk, numpy; print(&#39;所有依赖正常&#39;)&quot;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 网络测试</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> 192.168.58.2</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://192.168.31.211:1448/api/core/system/v1/power/status</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># GUI快速测试</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> function_test/test_gui_quick.py</span></code></pre></div>
+<h3 data-number="1.10.3" id="日志分析"><span class="header-section-number">1.10.3</span> 日志分析</h3>
+<ul>
+<li><strong>GUI日志</strong>: 界面右侧日志面板</li>
+<li><strong>控制台输出</strong>: 详细的错误堆栈信息</li>
+<li><strong>网络日志</strong>: requests库的调试输出</li>
+</ul>
+<h2 data-number="1.11" id="技术债务与改进计划"><span class="header-section-number">1.11</span> 技术债务与改进计划</h2>
+<h3 data-number="1.11.1" id="已知技术债务"><span class="header-section-number">1.11.1</span> 已知技术债务</h3>
+<ol type="1">
+<li><strong>字体兼容性</strong>: Mac系统字体回退机制需要完善</li>
+<li><strong>布局警告</strong>: QLayout父子关系需要优化</li>
+<li><strong>错误处理</strong>: 部分网络异常处理不够完善</li>
+<li><strong>内存泄漏</strong>: VTK资源释放需要加强</li>
+</ol>
+<h3 data-number="1.11.2" id="代码重构计划"><span class="header-section-number">1.11.2</span> 代码重构计划</h3>
+<ol type="1">
+<li><strong>配置管理</strong>: 统一配置文件格式和加载机制</li>
+<li><strong>错误处理</strong>: 建立统一的异常处理框架</li>
+<li><strong>接口抽象</strong>: 硬件控制接口标准化</li>
+<li><strong>测试覆盖</strong>: 增加单元测试覆盖率</li>
+</ol>
+<hr />
+<p><strong>文档版本</strong>: v1.0<br />
+<strong>最后更新</strong>: 2025-07-08<br />
+<strong>维护人</strong>: Claude Code Assistant<br />
+<strong>项目状态</strong>: 活跃开发中</p>
+</body>
+</html>

@@ -878,6 +878,391 @@
             transform: translateY(0);
         }
 
+        /* 帮助下拉菜单样式 */
+        .help-dropdown {
+            position: fixed;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #2ECC71;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            min-width: 300px;
+            max-width: 350px;
+            animation: dropdown-fade-in 0.2s ease-out;
+        }
+        
+        @keyframes dropdown-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .help-dropdown-content {
+            padding: 10px;
+        }
+        
+        .help-category {
+            margin-bottom: 8px;
+        }
+        
+        .help-category:last-child {
+            margin-bottom: 0;
+        }
+        
+        .help-category-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2c3e50;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, rgba(46,204,113,0.1) 0%, rgba(46,204,113,0.15) 100%);
+            border-radius: 4px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+        
+        .help-category-title:hover {
+            background: linear-gradient(135deg, rgba(46,204,113,0.2) 0%, rgba(46,204,113,0.25) 100%);
+            transform: translateX(2px);
+        }
+        
+        .category-icon {
+            margin-right: 8px;
+        }
+        
+        .toggle-arrow {
+            font-size: 10px;
+            color: #2ECC71;
+            transition: transform 0.2s ease;
+        }
+        
+        .help-subcategory {
+            padding-left: 20px;
+            margin-bottom: 8px;
+            border-left: 2px solid rgba(46,204,113,0.2);
+            animation: subcategory-slide-in 0.2s ease-out;
+        }
+        
+        @keyframes subcategory-slide-in {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 200px;
+            }
+        }
+        
+        .help-item {
+            font-size: 12px;
+            color: #495057;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            margin-bottom: 2px;
+            position: relative;
+        }
+        
+        .help-subcategory .help-item {
+            padding-left: 8px;
+            margin-left: 8px;
+            border-left: 2px solid transparent;
+        }
+        
+        .help-item:hover {
+            background: linear-gradient(135deg, rgba(46,204,113,0.1) 0%, rgba(46,204,113,0.2) 100%);
+            color: #2c3e50;
+            transform: translateX(2px);
+        }
+        
+        .help-subcategory .help-item:hover {
+            border-left-color: #2ECC71;
+            background: linear-gradient(135deg, rgba(46,204,113,0.05) 0%, rgba(46,204,113,0.1) 100%);
+        }
+        
+        .help-item:active {
+            transform: translateX(0);
+        }
+        
+        /* 帮助文档选项卡样式 */
+        .help-tab {
+            position: fixed;
+            top: 44px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .help-tab-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .help-tab-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .help-tab-close {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 12px;
+        }
+        
+        .help-tab-close:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-1px);
+        }
+        
+        .help-tab-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        
+        .help-doc-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* Markdown 渲染样式 */
+        .help-doc-content h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #2ECC71;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 26px;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .help-doc-content h1::before {
+            content: '📚';
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        .help-doc-content h2 {
+            color: #34495e;
+            border-left: 4px solid #2ECC71;
+            background: linear-gradient(135deg, rgba(46,204,113,0.05) 0%, rgba(46,204,113,0.1) 100%);
+            padding: 10px 15px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-radius: 0 6px 6px 0;
+            position: relative;
+        }
+        
+        .help-doc-content h2::before {
+            content: '🔖';
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .help-doc-content h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .help-doc-content h3::before {
+            content: '▶';
+            color: #2ECC71;
+            position: absolute;
+            left: 0;
+            font-size: 12px;
+        }
+        
+        .help-doc-content p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .help-doc-content ul, .help-doc-content ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .help-doc-content li {
+            margin-bottom: 8px;
+            color: #555;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .help-doc-content ul li::before {
+            content: '•';
+            color: #2ECC71;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .help-doc-content code {
+            background: linear-gradient(135deg, #f4f4f4 0%, #e9ecef 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #e74c3c;
+            border: 1px solid #ddd;
+            font-size: 0.9em;
+        }
+        
+        .help-doc-content pre {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border-left: 4px solid #2ECC71;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .help-doc-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .help-doc-content blockquote {
+            border-left: 4px solid #2ECC71;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            color: #555;
+            border-radius: 0 6px 6px 0;
+            position: relative;
+            font-style: italic;
+        }
+        
+        .help-doc-content blockquote::before {
+            content: '💬';
+            position: absolute;
+            left: -2px;
+            top: 10px;
+            font-size: 18px;
+            background: white;
+            padding: 2px;
+        }
+        
+        .help-doc-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .help-doc-content table th,
+        .help-doc-content table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        
+        .help-doc-content table th {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .help-doc-content table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        /* 错误显示样式 */
+        .doc-error {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 8px;
+            border: 2px dashed #e74c3c;
+            margin: 20px 0;
+        }
+        
+        .error-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .error-title {
+            font-size: 24px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .error-message {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .error-message p {
+            margin-bottom: 10px;
+        }
+        
+        .error-details {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .error-details code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #e74c3c;
+            font-family: inherit;
+            border: 1px solid #ddd;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 1200px) {
             .sidebar {
@@ -1631,7 +2016,109 @@
         }
         
         function showHelpMenu() {
-            showCustomAlert('帮助菜单功能开发中...', '帮助');
+            showHelpDropdown();
+        }
+        
+        // 显示帮助下拉菜单
+        function showHelpDropdown() {
+            // 先关闭已存在的下拉菜单
+            const existingDropdown = document.querySelector('.help-dropdown');
+            if (existingDropdown) {
+                existingDropdown.remove();
+                return;
+            }
+            
+            const dropdown = document.createElement('div');
+            dropdown.className = 'help-dropdown';
+            dropdown.innerHTML = `
+                <div class="help-dropdown-content">
+                    <div class="help-category">
+                        <div class="help-category-title" onclick="toggleHelpCategory('quick-start')">
+                            <span class="category-icon">🚀</span>
+                            <span>快速开始</span>
+                            <span class="toggle-arrow" id="arrow-quick-start">▶</span>
+                        </div>
+                        <div class="help-subcategory" id="quick-start" style="display: none;">
+                            <div class="help-item" onclick="openHelpDoc('README.md', '项目概述')">项目概述</div>
+                            <div class="help-item" onclick="openHelpDoc('DEPLOYMENT_GUIDE.md', '系统部署指南')">系统部署指南</div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-category">
+                        <div class="help-category-title" onclick="toggleHelpCategory('user-guide')">
+                            <span class="category-icon">👥</span>
+                            <span>用户指南</span>
+                            <span class="toggle-arrow" id="arrow-user-guide">▶</span>
+                        </div>
+                        <div class="help-subcategory" id="user-guide" style="display: none;">
+                            <div class="help-item" onclick="openHelpDoc('GUI_DESCRIPTION.md', 'GUI界面说明')">界面使用说明</div>
+                            <div class="help-item" onclick="openHelpDoc('README_WEB_GUI.md', 'Web界面使用')">网页界面使用</div>
+                            <div class="help-item" onclick="openHelpDoc('ROBOTSIM_GUIDE.md', '仿真系统指南')">仿真系统指南</div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-category">
+                        <div class="help-category-title" onclick="toggleHelpCategory('tech-reference')">
+                            <span class="category-icon">🔧</span>
+                            <span>技术参考</span>
+                            <span class="toggle-arrow" id="arrow-tech-reference">▶</span>
+                        </div>
+                        <div class="help-subcategory" id="tech-reference" style="display: none;">
+                            <div class="help-item" onclick="openHelpDoc('PROJECT_TECHNICAL_OVERVIEW.md', '项目技术概览')">项目技术概览</div>
+                            <div class="help-item" onclick="openHelpDoc('FR3_ROBOT_ANALYSIS.md', 'FR3机械臂分析')">机械臂分析</div>
+                            <div class="help-item" onclick="openHelpDoc('FR3_STL_DH_ANALYSIS.md', 'STL文件与DH参数分析')">三维建模与仿真</div>
+                            <div class="help-item" onclick="openHelpDoc('XC_ROBOT_WEB_GUI_2.0_技术说明.md', 'Web GUI 2.0技术说明')">混合架构技术</div>
+                            <div class="help-item" onclick="openHelpDoc('STL_NAMING_GUIDE.md', 'STL文件命名规范')">文件命名规范</div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-category">
+                        <div class="help-category-title" onclick="toggleHelpCategory('dev-tools')">
+                            <span class="category-icon">🛠️</span>
+                            <span>开发工具</span>
+                            <span class="toggle-arrow" id="arrow-dev-tools">▶</span>
+                        </div>
+                        <div class="help-subcategory" id="dev-tools" style="display: none;">
+                            <div class="help-item" onclick="openHelpDoc('ROBOT_TESTING_PLAN.md', '测试规划方案')">测试规划方案</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 计算位置
+            const helpMenuItem = document.querySelector('.menu-item:nth-child(3)');
+            const rect = helpMenuItem.getBoundingClientRect();
+            
+            dropdown.style.position = 'fixed';
+            dropdown.style.top = (rect.bottom + 5) + 'px';
+            dropdown.style.left = rect.left + 'px';
+            dropdown.style.zIndex = '10000';
+            
+            document.body.appendChild(dropdown);
+            
+            // 点击其他地方关闭下拉菜单
+            setTimeout(() => {
+                document.addEventListener('click', function closeDropdown(e) {
+                    if (!dropdown.contains(e.target) && !helpMenuItem.contains(e.target)) {
+                        dropdown.remove();
+                        document.removeEventListener('click', closeDropdown);
+                    }
+                });
+            }, 100);
+        }
+        
+        // 切换帮助子菜单
+        function toggleHelpCategory(categoryId) {
+            const subcategory = document.getElementById(categoryId);
+            const arrow = document.getElementById('arrow-' + categoryId);
+            
+            if (subcategory.style.display === 'none') {
+                subcategory.style.display = 'block';
+                arrow.textContent = '▼';
+            } else {
+                subcategory.style.display = 'none';
+                arrow.textContent = '▶';
+            }
         }
         
         // 显示关于信息卡（原帮助菜单功能）
@@ -1839,6 +2326,754 @@
             if (modal) {
                 modal.remove();
             }
+        }
+        
+        // 打开帮助文档
+        function openHelpDoc(filename, title) {
+            // 关闭下拉菜单
+            const dropdown = document.querySelector('.help-dropdown');
+            if (dropdown) {
+                dropdown.remove();
+            }
+            
+            // 创建帮助文档选项卡
+            const helpTab = document.createElement('div');
+            helpTab.className = 'help-tab';
+            helpTab.innerHTML = `
+                <div class="help-tab-header">
+                    <div class="help-tab-title">
+                        <span>📚</span>
+                        <span>${title}</span>
+                    </div>
+                    <button class="help-tab-close" onclick="closeHelpTab()">关闭</button>
+                </div>
+                <div class="help-tab-content">
+                    <div class="help-doc-content">
+                        <div style="text-align: center; padding: 50px; color: #666;">
+                            <div style="font-size: 18px; margin-bottom: 10px;">📄 加载中...</div>
+                            <div>正在读取文档内容</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(helpTab);
+            
+            // 加载文档内容
+            loadMarkdownDoc(filename, title);
+        }
+        
+        // 关闭帮助文档选项卡
+        function closeHelpTab() {
+            const helpTab = document.querySelector('.help-tab');
+            if (helpTab) {
+                helpTab.remove();
+            }
+        }
+        
+        // 加载Markdown文档
+        function loadMarkdownDoc(filename, title) {
+            const docContent = document.querySelector('.help-doc-content');
+            
+            // 显示加载状态
+            docContent.innerHTML = `
+                <div style="text-align: center; padding: 50px; color: #666;">
+                    <div style="font-size: 18px; margin-bottom: 10px;">📄 加载中...</div>
+                    <div>正在读取文档: ${filename}</div>
+                </div>
+            `;
+            
+            // 等待bridge初始化完成，然后调用readMdFile
+            let retryCount = 0;
+            const maxRetries = 25; // 最多等待5秒 (25 * 200ms)
+            
+            function tryReadMdFile() {
+                console.log(`尝试读取文件 ${filename}，重试次数: ${retryCount}/${maxRetries}`);
+                
+                if (typeof window.bridge !== 'undefined' && window.bridge && window.bridge.readHtmlFile) {
+                    try {
+                        console.log('Bridge可用，正在调用readHtmlFile:', filename);
+                        
+                        const htmlContent = window.bridge.readHtmlFile(filename);
+                        console.log('readHtmlFile返回:', typeof htmlContent, htmlContent ? htmlContent.length : 0);
+                        
+                        if (htmlContent && typeof htmlContent === 'string' && htmlContent.length > 0) {
+                            // 检查是否包含Promise字符串
+                            if (htmlContent.includes('[object Promise]')) {
+                                console.error('返回了Promise对象，这不应该发生');
+                                showFileNotFoundError(filename, docContent);
+                            } else {
+                                // 直接显示Python后端返回的HTML内容
+                                docContent.innerHTML = htmlContent;
+                                console.log('文档加载成功！');
+                            }
+                        } else {
+                            console.error('返回内容为空或类型不正确');
+                            showFileNotFoundError(filename, docContent);
+                        }
+                    } catch (error) {
+                        console.error('调用readHtmlFile时发生错误:', error);
+                        showFileNotFoundError(filename, docContent);
+                    }
+                } else {
+                    retryCount++;
+                    if (retryCount < maxRetries) {
+                        console.log(`Bridge未初始化，等待中... (${retryCount}/${maxRetries})`);
+                        setTimeout(tryReadMdFile, 200);
+                    } else {
+                        console.error('Bridge初始化超时，显示错误信息');
+                        docContent.innerHTML = `
+                            <div class="doc-error">
+                                <div class="error-icon">⚠️</div>
+                                <div class="error-title">Python后端连接失败</div>
+                                <div class="error-message">
+                                    <p>无法连接到Python后端或bridge未初始化</p>
+                                    <p>请检查web_main_window.py是否正常运行</p>
+                                </div>
+                                <div class="error-details">
+                                    <p>尝试加载文件: <code>${filename}</code></p>
+                                    <p>对应HTML文件: <code>Md_files/${filename.replace('.md', '.html')}</code></p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            }
+            
+            // 开始尝试读取文件
+            tryReadMdFile();
+        }
+        
+        // 显示文件未找到错误
+        function showFileNotFoundError(filename, docContent) {
+            docContent.innerHTML = `
+                <div class="doc-error">
+                    <div class="error-icon">📄</div>
+                    <div class="error-title">文档文件未找到</div>
+                    <div class="error-message">
+                        <p>无法找到文档文件: <code>${filename}</code></p>
+                        <p>请确保文件存在于Md_files文件夹中</p>
+                    </div>
+                    <div class="error-details">
+                        <p>预期文件路径: <code>Md_files/${filename}</code></p>
+                        <p>请检查文件是否存在且可读</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 注意：Markdown渲染现在在Python后端处理
+        // 前端直接显示后端返回的HTML内容
+        
+        // 获取文档备用内容（简化版本）
+        function getDocumentFallback(filename, title) {
+            return `
+                <div style="text-align: center; padding: 50px; color: #666;">
+                    <div style="font-size: 18px; margin-bottom: 10px;">📄 ${title}</div>
+                    <div>文档文件: ${filename}</div>
+                    <div style="margin-top: 20px;">
+                        <p>此文档将直接从Md_files文件夹读取</p>
+                        <p>文件路径: Md_files/${filename}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 原始的文档内容定义（保留作为参考）
+        function getOriginalDocumentContents() {
+            const docContents = {
+                'README.md': `
+                    <h1>${title}</h1>
+                    <h2>项目简介</h2>
+                    <p>XC-ROBOT是一个集成了法奥意威FR3双臂机械臂和思岚Hermes移动底盘的智能机器人系统。</p>
+                    <p>项目采用模块化设计，包含控制系统、用户界面、测试模块和仿真系统。</p>
+                    
+                    <h2>快速开始</h2>
+                    <h3>环境要求</h3>
+                    <ul>
+                        <li>Python 3.8 或更高版本</li>
+                        <li>PyQt5 和 PyQtWebEngine</li>
+                        <li>VTK 和相关依赖包</li>
+                    </ul>
+                    
+                    <h3>安装步骤</h3>
+                    <ol>
+                        <li>克隆项目代码到本地</li>
+                        <li>安装依赖包：<code>pip install -r requirements.txt</code></li>
+                        <li>运行传统界面：<code>python start_gui.py</code></li>
+                        <li>运行网页界面：<code>python start_web_gui.py</code></li>
+                    </ol>
+                    
+                    <h2>主要模块</h2>
+                    <h3>🔧 fr3_control</h3>
+                    <ul>
+                        <li><strong>fairino</strong>: SDK文件夹</li>
+                        <li><strong>Robot.py</strong>: Python版本的导入模块</li>
+                    </ul>
+                    
+                    <h3>🧪 function_test</h3>
+                    <ul>
+                        <li>功能测试用文件夹</li>
+                        <li>测试时，最好将py文件放到根目录</li>
+                    </ul>
+                    
+                    <h3>🖥️ gui</h3>
+                    <ul>
+                        <li>GUI界面的widget组件</li>
+                        <li>传统PyQt5界面和现代Web混合界面</li>
+                    </ul>
+                    
+                    <h3>🎛️ main_control</h3>
+                    <ul>
+                        <li>主要控制程序，多为集成功能</li>
+                        <li>双臂协调控制和底盘联动</li>
+                    </ul>
+                    
+                    <h3>✅ tests</h3>
+                    <ul>
+                        <li>独立模块或设备的功能测试</li>
+                        <li>可单独进行测试</li>
+                    </ul>
+                    
+                    <h2>快速启动</h2>
+                    <h3>环境激活</h3>
+                    <pre><code># 虚拟环境启动
+cd xc-robot
+venv\\Scripts\\activate
+# 解除虚拟环境
+deactivate</code></pre>
+                    
+                    <h3>主要启动脚本</h3>
+                    <ul>
+                        <li><strong>quick_start.py</strong>: 快速检查目前所有设备和连接</li>
+                        <li><strong>start_gui.py</strong>: 启动传统GUI界面</li>
+                        <li><strong>start_web_gui.py</strong>: 启动Web混合界面</li>
+                    </ul>
+                    
+                    <h2>依赖管理</h2>
+                    <p>项目使用 <code>requirements.txt</code> 管理所有依赖包，确保环境一致性。</p>
+                    <pre><code>pip install -r requirements.txt</code></pre>
+                `,
+                'PROJECT_TECHNICAL_OVERVIEW.md': `
+                    <h1>${title}</h1>
+                    <h2>项目概述</h2>
+                    <p>XC-ROBOT是一个集成了双臂机械臂、移动底盘和多相机视觉系统的智能机器人平台。</p>
+                    <h2>技术架构</h2>
+                    <ul>
+                        <li><strong>用户界面</strong>：基于Qt+HTML的混合架构</li>
+                        <li><strong>机械臂控制</strong>：法奥意威FR3双臂系统</li>
+                        <li><strong>底盘控制</strong>：思岚Hermes移动底盘</li>
+                        <li><strong>视觉系统</strong>：ToF相机阵列</li>
+                    </ul>
+                    <h2>核心特性</h2>
+                    <ul>
+                        <li>实时机械臂控制和监控</li>
+                        <li>底盘自主导航和路径规划</li>
+                        <li>3D可视化仿真环境</li>
+                        <li>多相机融合和标定</li>
+                    </ul>
+                `,
+                'GUI_DESCRIPTION.md': `
+                    <h1>${title}</h1>
+                    <h2>GUI界面总览</h2>
+                    <p>XC-ROBOT提供了两种版本的用户界面：传统的PyQt5界面和现代化的Web混合界面。</p>
+                    <p>两种界面都提供了完整的机器人控制和监控功能，用户可以根据需要选择适合的版本。</p>
+                    
+                    <h2>界面版本</h2>
+                    <h3>传统版本</h3>
+                    <ul>
+                        <li><strong>启动方式</strong>：<code>python start_gui.py</code></li>
+                        <li><strong>技术基础</strong>：PyQt5 + VTK</li>
+                        <li><strong>特点</strong>：稳定可靠，开发成熟</li>
+                        <li><strong>适用场景</strong>：工业环境、高可靠性要求</li>
+                    </ul>
+                    
+                    <h3>Web混合版本</h3>
+                    <ul>
+                        <li><strong>启动方式</strong>：<code>python start_web_gui.py</code></li>
+                        <li><strong>技术基础</strong>：PyQt5 + QWebEngine + HTML5</li>
+                        <li><strong>特点</strong>：现代化设计，响应式布局</li>
+                        <li><strong>适用场景</strong>：演示、开发调试、新功能验证</li>
+                    </ul>
+                    
+                    <h2>主要功能模块</h2>
+                    <h3>🔗 连接测试</h3>
+                    <ul>
+                        <li>FR3双臂机械臂网络连接测试</li>
+                        <li>Hermes移动底盘通信状态</li>
+                        <li>ToF相机阵列连接验证</li>
+                        <li>实时网络延迟监控</li>
+                    </ul>
+                    
+                    <h3>🤖 机械臂控制</h3>
+                    <ul>
+                        <li>实时关节角度显示和控制</li>
+                        <li>笛卡尔空间位置和姿态控制</li>
+                        <li>双臂协调操作模式</li>
+                        <li>力矩反馈和安全监控</li>
+                        <li>运动轨迹记录和回放</li>
+                    </ul>
+                    
+                    <h3>🚛 底盘控制</h3>
+                    <ul>
+                        <li>手动遥控模式（前后左右、旋转）</li>
+                        <li>自主导航和路径规划</li>
+                        <li>障碍物检测和避障</li>
+                        <li>定点导航和路径跟随</li>
+                    </ul>
+                    
+                    <h3>🎮 仿真系统</h3>
+                    <ul>
+                        <li>3D机器人模型显示</li>
+                        <li>VTK基础的运动学仿真</li>
+                        <li>RobotSim高级仿真功能</li>
+                        <li>轨迹可视化和分析</li>
+                    </ul>
+                    
+                    <h2>日志系统</h2>
+                    <ul>
+                        <li>实时系统日志显示</li>
+                        <li>日志等级过滤（INFO/WARNING/ERROR）</li>
+                        <li>日志导出和保存功能</li>
+                        <li>系统性能和状态监控</li>
+                    </ul>
+                `,
+                'DEPLOYMENT_GUIDE.md': `
+                    <h1>${title}</h1>
+                    <h2>FR3机械臂部署指南</h2>
+                    <p>本文档提供了FR3双臂机械臂系统的详细部署指南，包括环境配置、网络连接和功能测试。</p>
+                    
+                    <h2>系统要求</h2>
+                    <h3>硬件要求</h3>
+                    <ul>
+                        <li>法奥意威FR3机械臂 × 2</li>
+                        <li>思岚Hermes移动底盘</li>
+                        <li>以太网连接的控制计算机</li>
+                        <li>ToF相机阵列（可选）</li>
+                    </ul>
+                    
+                    <h3>软件要求</h3>
+                    <ul>
+                        <li>Python 3.8 或更高版本</li>
+                        <li>PyQt5 和 PyQtWebEngine</li>
+                        <li>VTK 9.0+ 用于3D可视化</li>
+                        <li>网络连接至机械臂和底盘</li>
+                    </ul>
+                    
+                    <h2>安装步骤</h2>
+                    <ol>
+                        <li><strong>克隆项目</strong>：<code>git clone [repository]</code></li>
+                        <li><strong>安装依赖</strong>：<code>pip install -r requirements.txt</code></li>
+                        <li><strong>配置网络</strong>：设置机械臂IP地址（默认192.168.58.2/3）</li>
+                        <li><strong>运行测试</strong>：<code>python fr3_hermes_testing/test_fr3_basic.py</code></li>
+                        <li><strong>启动系统</strong>：<code>python start_web_gui.py</code></li>
+                    </ol>
+                    
+                    <h2>网络配置</h2>
+                    <h3>默认IP地址</h3>
+                    <ul>
+                        <li>右臂机械臂：192.168.58.2</li>
+                        <li>左臂机械臂：192.168.58.3</li>
+                        <li>Hermes底盘：192.168.31.211</li>
+                    </ul>
+                    
+                    <h2>常见问题与解决</h2>
+                    <h3>网络连接问题</h3>
+                    <ul>
+                        <li>检查网络线连接是否正常</li>
+                        <li>防火墙设置检查</li>
+                        <li>使用<code>ping</code>命令测试连通性</li>
+                    </ul>
+                    
+                    <h3>Python依赖问题</h3>
+                    <ul>
+                        <li>更新pip到最新版本</li>
+                        <li>使用虚拟环境隔离依赖</li>
+                        <li>检查系统兼容性（Windows/Linux/macOS）</li>
+                    </ul>
+                `,
+                'FR3_ROBOT_ANALYSIS.md': `
+                    <h1>${title}</h1>
+                    <h2>FR3机械臂概述</h2>
+                    <p>FR3是一款7自由度协作机械臂，具有高精度和灵活性。</p>
+                    <h2>运动学参数</h2>
+                    <h3>DH参数表</h3>
+                    <table>
+                        <tr><th>关节</th><th>a(mm)</th><th>d(mm)</th><th>α(rad)</th><th>θ(rad)</th></tr>
+                        <tr><td>1</td><td>0</td><td>333</td><td>0</td><td>θ1</td></tr>
+                        <tr><td>2</td><td>0</td><td>0</td><td>-π/2</td><td>θ2</td></tr>
+                        <tr><td>3</td><td>0</td><td>316</td><td>π/2</td><td>θ3</td></tr>
+                        <tr><td>4</td><td>82.5</td><td>0</td><td>π/2</td><td>θ4</td></tr>
+                        <tr><td>5</td><td>-82.5</td><td>384</td><td>-π/2</td><td>θ5</td></tr>
+                        <tr><td>6</td><td>0</td><td>0</td><td>π/2</td><td>θ6</td></tr>
+                        <tr><td>7</td><td>88</td><td>107</td><td>π/2</td><td>θ7</td></tr>
+                    </table>
+                    <h2>控制接口</h2>
+                    <ul>
+                        <li>实时位置控制</li>
+                        <li>速度和加速度限制</li>
+                        <li>力矩反馈监控</li>
+                        <li>安全停止功能</li>
+                    </ul>
+                `,
+                'ROBOTSIM_GUIDE.md': `
+                    <h1>${title}</h1>
+                    <h2>概述</h2>
+                    <p>RobotSim 是基于 VTK+PyQt5 的机器人仿真模块，为 XC-ROBOT 系统提供了 3D 机器人仿真功能。支持 STL 模型导入、关节角度控制、正逆运动学计算，以及与 FR3 SDK 的集成。</p>
+                    
+                    <h2>功能特性</h2>
+                    <h3>🎨 3D 可视化</h3>
+                    <ul>
+                        <li>基于 VTK 的 3D 渲染引擎</li>
+                        <li>浅色背景设计，提供更好的模型对比度</li>
+                        <li>右上角坐标轴指示器，带XYZ字母标注</li>
+                        <li>清洁的3D场景，专注于机器人模型显示</li>
+                        <li>支持网格显示和实时模型变换</li>
+                    </ul>
+                    
+                    <h3>🤖 STL 模型支持</h3>
+                    <ul>
+                        <li>导入和显示 STL 格式的机器人模型</li>
+                        <li>支持FR3机械臂标准命名规则</li>
+                        <li>模型材质和光照效果</li>
+                        <li>支持犀牛导出的高精度STL文件</li>
+                    </ul>
+                    
+                    <h3>⚙️ 关节控制</h3>
+                    <ul>
+                        <li>6 个关节的独立角度控制</li>
+                        <li>基于 FR3 机械臂的关节限制</li>
+                        <li>实时关节角度显示</li>
+                    </ul>
+                    
+                    <h3>🧮 运动学计算</h3>
+                    <ul>
+                        <li>正向运动学：关节角度 → 末端位姿</li>
+                        <li>逆运动学：末端位姿 → 关节角度</li>
+                        <li>基于 DH 参数的运动学模型</li>
+                    </ul>
+                    
+                    <h3>🎯 末端位姿控制</h3>
+                    <ul>
+                        <li>实时末端位姿显示</li>
+                        <li>目标位姿设置</li>
+                        <li>逆运动学求解</li>
+                    </ul>
+                    
+                    <h3>🎬 预设动作</h3>
+                    <ul>
+                        <li>回到原点位置</li>
+                        <li>挥手动作演示</li>
+                        <li>可扩展的动作库</li>
+                    </ul>
+                    
+                    <h2>安装要求</h2>
+                    <h3>必需依赖</h3>
+                    <pre><code>pip install vtk>=9.0.0
+pip install PyQt5>=5.15.0
+pip install numpy>=1.21.0</code></pre>
+                    
+                    <h3>推荐依赖</h3>
+                    <pre><code>pip install pyyaml>=6.0     # 配置文件支持
+pip install colorlog>=6.0.0 # 日志增强</code></pre>
+                    
+                    <h2>使用方法</h2>
+                    <h3>启动仿真系统</h3>
+                    <h4>方法一：使用启动脚本（推荐）</h4>
+                    <pre><code># 激活虚拟环境
+source venv/bin/activate
+
+# 使用启动脚本
+python start_robotsim.py</code></pre>
+                    
+                    <h4>方法二：直接启动</h4>
+                    <pre><code># 激活虚拟环境
+source venv/bin/activate
+
+# 启动主程序
+python gui/main_window.py</code></pre>
+                    
+                    <h3>安全退出</h3>
+                    <ul>
+                        <li><strong>正常退出</strong>: 点击窗口的关闭按钮</li>
+                        <li><strong>终端退出</strong>: 在终端中按 <code>Ctrl+C</code> (已优化，会正确清理资源)</li>
+                        <li><strong>紧急退出</strong>: 如果程序无响应，使用 <code>Ctrl+Z</code> 然后 <code>kill %1</code></li>
+                    </ul>
+                    
+                    <h2>关节角度限制</h2>
+                    <ul>
+                        <li>关节1: -165° ~ 165°</li>
+                        <li>关节2: -110° ~ 110°</li>
+                        <li>关节3: -165° ~ 165°</li>
+                        <li>关节4: -110° ~ 110°</li>
+                        <li>关节5: -165° ~ 165°</li>
+                        <li>关节6: -180° ~ 180°</li>
+                    </ul>
+                    
+                    <h2>故障排除</h2>
+                    <h3>VTK 安装问题</h3>
+                    <pre><code># 如果 VTK 安装失败，尝试：
+pip install --upgrade pip
+pip install vtk==9.3.0</code></pre>
+                    
+                    <h3>模型加载失败</h3>
+                    <ul>
+                        <li>确保 STL 文件格式正确</li>
+                        <li>检查文件路径是否存在</li>
+                        <li>确认文件读取权限</li>
+                    </ul>
+                    
+                    <h3>运动学计算错误</h3>
+                    <ul>
+                        <li>检查关节角度是否在限制范围内</li>
+                        <li>确认 DH 参数设置正确</li>
+                        <li>验证目标位姿是否可达</li>
+                    </ul>
+                `,
+                'XC_ROBOT_WEB_GUI_2.0_技术说明.md': `
+                    <h1>${title}</h1>
+                    <h2>Qt+HTML混合架构概述</h2>
+                    <p>XC-ROBOT Web GUI 2.0采用创新的Qt+HTML混合架构，结合了桁面应用的稳定性和Web技术的灵活性。</p>
+                    <p>这种架构在保持高性能和系统集成的同时，提供了现代化的用户界面体验。</p>
+                    
+                    <h2>技术栈组成</h2>
+                    <h3>后端技术</h3>
+                    <ul>
+                        <li><strong>Python 3.8+</strong> - 核心逻辑层</li>
+                        <li><strong>PyQt5</strong> - 窗口管理和系统集成</li>
+                        <li><strong>QWebEngine</strong> - Web内容渲染引擎</li>
+                        <li><strong>Qt Web Channel</strong> - JS-Python通信桥接</li>
+                    </ul>
+                    
+                    <h3>前端技术</h3>
+                    <ul>
+                        <li><strong>HTML5</strong> - 结构层和语义化</li>
+                        <li><strong>CSS3</strong> - 样式和动画效果</li>
+                        <li><strong>JavaScript ES6</strong> - 交互逻辑和动态功能</li>
+                        <li><strong>Chromium内核</strong> - 高性能渲染</li>
+                    </ul>
+                    
+                    <h2>架构优势</h2>
+                    <h3>性能优势</h3>
+                    <ul>
+                        <li>原生性能和系统集成</li>
+                        <li>硬件资源直接访问</li>
+                        <li>低延迟实时控制</li>
+                        <li>稳定的长时间运行</li>
+                    </ul>
+                    
+                    <h3>开发优势</h3>
+                    <ul>
+                        <li>现代化用户界面设计</li>
+                        <li>快速开发和迭代</li>
+                        <li>丰富的Web组件生态</li>
+                        <li>响应式布局支持</li>
+                    </ul>
+                    
+                    <h2>实现细节</h2>
+                    <h3>通信机制</h3>
+                    <ul>
+                        <li>JavaScript与Python双向通信</li>
+                        <li>实时数据更新机制</li>
+                        <li>事件驱动的异步处理</li>
+                        <li>错误处理和重连机制</li>
+                    </ul>
+                    
+                    <h3>界面设计</h3>
+                    <ul>
+                        <li>组件化架构设计</li>
+                        <li>主题化样式系统</li>
+                        <li>动画和过渡效果</li>
+                        <li>无障碍和可用性支持</li>
+                    </ul>
+                    
+                    <h2>部署和性能</h2>
+                    <ul>
+                        <li>跨平台兼容性（Windows/Linux/macOS）</li>
+                        <li>单文件打包部署</li>
+                        <li>资源优化和懒加载</li>
+                        <li>内存管理和性能监控</li>
+                    </ul>
+                `,
+                'README_WEB_GUI.md': `
+                    <h1>${title}</h1>
+                    <h2>概述</h2>
+                    <p>XC-ROBOT Web GUI 是基于 Qt + HTML 混合架构的现代化机器人控制界面，将原有的传统 Qt 控件替换为美观的 HTML5 界面，同时保持 Python 后端的稳定性。</p>
+                    
+                    <h2>🎨 功能特点</h2>
+                    <h3>现代化界面设计</h3>
+                    <ul>
+                        <li><strong>渐变背景</strong>: 专业的黑绿色渐变设计</li>
+                        <li><strong>流畅动画</strong>: CSS3 过渡效果和悬停动画</li>
+                        <li><strong>响应式布局</strong>: 自适应不同屏幕尺寸</li>
+                        <li><strong>卡片式设计</strong>: 现代化的功能模块展示</li>
+                    </ul>
+                    
+                    <h3>🔧 技术架构</h3>
+                    <ul>
+                        <li><strong>前端</strong>: HTML5 + CSS3 + JavaScript</li>
+                        <li><strong>后端</strong>: Python + PyQt5 + QWebEngineView</li>
+                        <li><strong>通信</strong>: Qt Web Channel 双向通信</li>
+                        <li><strong>渲染</strong>: Chrome 内核渲染引擎</li>
+                    </ul>
+                    
+                    <h2>🚀 主要功能</h2>
+                    <h3>设备连接测试</h3>
+                    <ul>
+                        <li><strong>右臂连接</strong>: FR3 右臂 (192.168.58.2)</li>
+                        <li><strong>左臂连接</strong>: FR3 左臂 (192.168.58.3)</li>
+                        <li><strong>底盘连接</strong>: Hermes 底盘 (192.168.31.211:1448)</li>
+                        <li><strong>视觉系统</strong>: ToF相机和2D相机状态</li>
+                    </ul>
+                    
+                    <h3>机械臂控制</h3>
+                    <ul>
+                        <li>单臂控制（左臂/右臂）</li>
+                        <li>双臂协调控制</li>
+                        <li>实时状态监控</li>
+                    </ul>
+                    
+                    <h3>底盘控制</h3>
+                    <ul>
+                        <li>移动控制</li>
+                        <li>导航功能</li>
+                        <li>路径规划</li>
+                    </ul>
+                    
+                    <h3>仿真系统</h3>
+                    <ul>
+                        <li>机器人仿真</li>
+                        <li>3D 仿真环境</li>
+                        <li>任务编排</li>
+                    </ul>
+                    
+                    <h3>系统监控</h3>
+                    <ul>
+                        <li>实时日志显示</li>
+                        <li>系统状态监控</li>
+                        <li>性能统计</li>
+                    </ul>
+                    
+                    <h2>安装要求</h2>
+                    <h3>基础依赖</h3>
+                    <pre><code>pip install PyQt5 PyQtWebEngine PyYAML requests</code></pre>
+                    
+                    <h3>系统要求</h3>
+                    <ul>
+                        <li>Python 3.6+</li>
+                        <li>Qt 5.12+</li>
+                        <li>Chrome/Chromium 内核支持</li>
+                    </ul>
+                    
+                    <h2>启动方式</h2>
+                    <h3>方式1: 直接启动</h3>
+                    <pre><code>python start_web_gui.py</code></pre>
+                    
+                    <h3>方式2: 模块启动</h3>
+                    <pre><code>from gui import get_web_main_window
+XCRobotWebMainWindow = get_web_main_window()
+window = XCRobotWebMainWindow()
+window.show()</code></pre>
+                    
+                    <h2>界面操作</h2>
+                    <h3>连接测试</h3>
+                    <ol>
+                        <li>点击设备连接卡片</li>
+                        <li>系统自动执行连接测试</li>
+                        <li>实时显示连接状态和延迟</li>
+                    </ol>
+                    
+                    <h3>功能导航</h3>
+                    <ul>
+                        <li><strong>侧边栏</strong>: 功能模块分组导航</li>
+                        <li><strong>搜索框</strong>: 快速查找功能</li>
+                        <li><strong>收藏夹</strong>: 常用功能快速访问</li>
+                        <li><strong>最近使用</strong>: 历史操作记录</li>
+                    </ul>
+                    
+                    <h3>日志系统</h3>
+                    <ul>
+                        <li><strong>实时日志</strong>: 系统操作实时记录</li>
+                        <li><strong>日志级别</strong>: SUCCESS/INFO/WARNING/ERROR</li>
+                        <li><strong>自动清理</strong>: 保持最新20条日志</li>
+                        <li><strong>保存导出</strong>: 支持日志保存功能</li>
+                    </ul>
+                    
+                    <h2>快捷键</h2>
+                    <ul>
+                        <li><strong>Ctrl+E</strong>: 紧急停止</li>
+                        <li><strong>F5</strong>: 重新加载界面</li>
+                        <li><strong>Ctrl+S</strong>: 保存日志</li>
+                    </ul>
+                    
+                    <h2>架构优势</h2>
+                    <h3>视觉效果</h3>
+                    <ul>
+                        <li>完全保持 HTML 设计的现代化外观</li>
+                        <li>流畅的动画和过渡效果</li>
+                        <li>专业的UI设计风格</li>
+                    </ul>
+                    
+                    <h3>功能完整</h3>
+                    <ul>
+                        <li>保持所有原有功能</li>
+                        <li>Python 后端稳定可靠</li>
+                        <li>与硬件设备的完整集成</li>
+                    </ul>
+                    
+                    <h3>开发便利</h3>
+                    <ul>
+                        <li>前端样式易于修改</li>
+                        <li>后端逻辑清晰分离</li>
+                        <li>双向通信机制完善</li>
+                    </ul>
+                    
+                    <h2>故障排除</h2>
+                    <h3>常见问题</h3>
+                    <ol>
+                        <li><strong>PyQtWebEngine 未安装</strong>
+                            <pre><code>pip install PyQtWebEngine</code></pre>
+                        </li>
+                        <li><strong>HTML 文件未找到</strong>
+                            <ul>
+                                <li>检查 <code>UI/xc_os_newui.html</code> 文件是否存在</li>
+                                <li>确保文件路径正确</li>
+                            </ul>
+                        </li>
+                        <li><strong>连接测试失败</strong>
+                            <ul>
+                                <li>检查设备IP地址配置</li>
+                                <li>确认网络连接正常</li>
+                                <li>验证设备电源状态</li>
+                            </ul>
+                        </li>
+                        <li><strong>界面显示异常</strong>
+                            <ul>
+                                <li>按 F5 重新加载界面</li>
+                                <li>检查浏览器内核版本</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <h3>调试模式</h3>
+                    <ul>
+                        <li>按 F12 打开开发者工具（如果支持）</li>
+                        <li>查看控制台输出信息</li>
+                        <li>检查网络请求状态</li>
+                    </ul>
+                    
+                    <h2>版本信息</h2>
+                    <p><strong>版本</strong>: 2.0<br>
+                    <strong>更新日期</strong>: 2024年<br>
+                    <strong>开发团队</strong>: XC-ROBOT项目组</p>
+                `
+            };
+            
+            return docContents[filename] || `
+                <h1>${title}</h1>
+                <p>文档内容正在完善中...</p>
+                <p>文件名：${filename}</p>
+            `;
         }
         
         // 关闭关于对话框

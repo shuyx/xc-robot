@@ -155,10 +155,68 @@ class XCRobotMainWindow(QMainWindow):
         
         # 帮助菜单
         help_menu = menubar.addMenu('帮助')
+        self.setup_help_menu(help_menu)
+
+        help_menu.addSeparator()
+
         about_action = QAction('关于', self)
         about_action.triggered.connect(self.show_about)
         help_menu.addAction(about_action)
-    
+
+    def setup_help_menu(self, help_menu):
+        """动态创建帮助文档菜单"""
+        # 导入帮助查看器窗口
+        from help_viewer import HelpViewerWindow
+        self.help_viewer = None
+
+        # 获取Md_files目录路径
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        md_files_dir = os.path.join(project_root, 'Md_files')
+
+        if not os.path.isdir(md_files_dir):
+            no_docs_action = QAction("文档目录未找到", self)
+            no_docs_action.setEnabled(False)
+            help_menu.addAction(no_docs_action)
+            return
+
+        # 遍历目录并创建菜单项
+        try:
+            for item in sorted(os.listdir(md_files_dir)):
+                if item.endswith('.html'):
+                    # 从文件名创建菜单项文本 (e.g., "README.html" -> "README")
+                    action_text = os.path.splitext(item)[0]
+                    action = QAction(action_text, self)
+                    
+                    # 构建HTML文件的绝对路径
+                    html_file_path = os.path.join(md_files_dir, item)
+                    
+                    # 使用lambda函数传递文件路径参数
+                    action.triggered.connect(
+                        lambda checked, path=html_file_path: self.show_help_document(path)
+                    )
+                    help_menu.addAction(action)
+        except Exception as e:
+            error_action = QAction(f"无法加载文档: {e}", self)
+            error_action.setEnabled(False)
+            help_menu.addAction(error_action)
+
+    def show_help_document(self, file_path):
+        """显示帮助文档"""
+        try:
+            # 如果帮助窗口不存在，则创建它
+            if self.help_viewer is None:
+                from help_viewer import HelpViewerWindow
+                self.help_viewer = HelpViewerWindow(self)
+
+            # 加载并显示HTML文件
+            self.help_viewer.load_html_file(file_path)
+            self.log_widget.add_message(f"正在显示帮助文档: {os.path.basename(file_path)}", "INFO")
+
+        except ImportError:
+            self.log_widget.add_message("无法导入HelpViewerWindow，请检查文件是否存在。", "ERROR")
+        except Exception as e:
+            self.log_widget.add_message(f"无法显示帮助文档: {e}", "ERROR")
+            
     def setup_connections(self):
         """设置信号连接"""
         # 同步连接所有信号
