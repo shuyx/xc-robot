@@ -2434,6 +2434,484 @@
                 padding: 20px;
             }
         }
+        /* ==================== CONTROL PAGES STYLES ==================== */
+        
+        /* Common Control Page Styles */
+        .arm-control-container,
+        .chassis-control-container,
+        .coordination-control-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .control-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #2ECC71;
+        }
+        
+        /* Control Buttons */
+        .control-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+        
+        .control-btn.primary {
+            background: #2ECC71;
+        }
+        
+        .control-btn.primary:hover {
+            background: #27ae60;
+        }
+        
+        .control-btn.emergency {
+            background: #e74c3c;
+        }
+        
+        .control-btn.emergency:hover {
+            background: #c0392b;
+        }
+        
+        .control-btn.large {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        /* Status Indicators */
+        .status-indicator {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-indicator.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-indicator.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* ARM CONTROL SPECIFIC STYLES */
+        .connection-panel {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .arm-selector label {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .arm-selector select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .basic-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .action-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .speed-control label {
+            font-weight: 600;
+        }
+        
+        .speed-control input[type="range"] {
+            width: 150px;
+        }
+        
+        .speed-control span {
+            font-weight: 600;
+            min-width: 40px;
+        }
+        
+        .joint-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .joint-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .joint-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .joint-label {
+            font-weight: 600;
+            min-width: 30px;
+        }
+        
+        .jog-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .jog-btn:hover {
+            background: #5a6268;
+        }
+        
+        .jog-btn:active {
+            background: #495057;
+            transform: scale(0.95);
+        }
+        
+        .joint-position {
+            font-family: monospace;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .jog-speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        /* CHASSIS CONTROL SPECIFIC STYLES */
+        .ip-config {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .ip-config label {
+            font-weight: 600;
+        }
+        
+        .ip-config input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .status-display {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .status-item label {
+            font-weight: 600;
+            color: #6c757d;
+        }
+        
+        .status-item span {
+            font-family: monospace;
+            font-weight: 600;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 3px;
+        }
+        
+        .preset-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .manual-controls {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .direction-pad {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 5px;
+            width: 150px;
+            height: 150px;
+        }
+        
+        .dir-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .dir-btn:hover {
+            background: #5a6268;
+            transform: scale(1.05);
+        }
+        
+        .dir-btn:nth-child(1) { grid-column: 2; grid-row: 1; } /* Up */
+        .dir-btn:nth-child(3) { grid-column: 1; grid-row: 2; } /* Left */
+        .dir-btn:nth-child(4) { grid-column: 3; grid-row: 2; } /* Right */
+        .dir-btn:nth-child(5) { grid-column: 2; grid-row: 3; } /* Down */
+        
+        .middle-row {
+            display: contents;
+        }
+        
+        .middle-row .dir-btn:nth-child(2) { 
+            grid-column: 2; 
+            grid-row: 2; 
+            font-size: 12px;
+        }
+        
+        .navigation-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .coord-inputs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .coord-inputs label {
+            font-weight: 600;
+        }
+        
+        .coord-inputs input {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-family: monospace;
+        }
+        
+        /* COORDINATION CONTROL SPECIFIC STYLES */
+        .init-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .system-status {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .task-config {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .config-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .config-row label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+        
+        .config-row select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+        
+        .coordination-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .task-progress {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .task-progress label {
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            min-width: 200px;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ECC71, #27ae60);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .monitoring-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .monitor-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #2ECC71;
+        }
+        
+        .monitor-card h4 {
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+        
+        .monitor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .monitor-item:last-child {
+            border-bottom: none;
+        }
+        
+        .monitor-item span:first-child {
+            font-weight: 600;
+            color: #6c757d;
+        }
+        
+        .monitor-item span:last-child {
+            font-family: monospace;
+            font-weight: 600;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .arm-control-container,
+            .chassis-control-container,
+            .coordination-control-container {
+                padding: 10px;
+            }
+            
+            .control-section {
+                padding: 15px;
+            }
+            
+            .connection-panel,
+            .action-controls,
+            .manual-controls,
+            .navigation-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .direction-pad {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .monitoring-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2878,6 +3356,24 @@
                 return;
             }
             
+            // Special handling for arm control page
+            if (pageId === 'arm-control') {
+                showArmControlPage();
+                return;
+            }
+            
+            // Special handling for chassis control page
+            if (pageId === 'chassis-control') {
+                showChassisControlPage();
+                return;
+            }
+            
+            // Special handling for coordination control page
+            if (pageId === 'coord-control') {
+                showCoordinationControlPage();
+                return;
+            }
+            
             pageContent.innerHTML = `
                 <div class="page-header">
                     <div>
@@ -2981,6 +3477,28 @@
                         { icon: '🔄', title: '双臂协调', desc: '双臂同步运动控制<br>碰撞避免和负载分配' },
                         { icon: '📊', title: '状态监控', desc: '实时关节角度、速度、力矩<br>温度和电流监控' },
                         { icon: '⚙️', title: '参数配置', desc: '运动速度、加速度设置<br>安全限位和保护参数' }
+                    ]
+                },
+                'chassis-control': {
+                    icon: '🚛',
+                    title: '底盘控制',
+                    description: '控制思岚科技Hermes底盘的移动、导航和路径规划',
+                    features: [
+                        { icon: '🎮', title: '手动控制', desc: '实时方向控制和速度调节<br>支持键盘和手柄操作' },
+                        { icon: '📍', title: '预设位置', desc: '快速导航到预设位置<br>工作站和充电站导航' },
+                        { icon: '🗺️', title: '坐标导航', desc: '精确坐标定位和导航<br>支持XY坐标和角度控制' },
+                        { icon: '📊', title: '状态监控', desc: '实时位置、电池、运动状态<br>网络连接和错误监控' }
+                    ]
+                },
+                'coord-control': {
+                    icon: '🔄',
+                    title: '协调控制',
+                    description: '机械臂与底盘的协调控制，实现复杂的移动操作任务',
+                    features: [
+                        { icon: '🤖', title: '系统初始化', desc: '双臂和底盘系统初始化<br>连接状态检查和配置' },
+                        { icon: '⚙️', title: '任务配置', desc: '协调任务参数设置<br>运动约束和安全配置' },
+                        { icon: '🔄', title: '双臂协调', desc: '双臂同步协调控制<br>复杂操作任务执行' },
+                        { icon: '📊', title: '3D可视化', desc: '实时3D模型显示<br>关节角度和位置监控' }
                     ]
                 },
                 'vision-system': {
@@ -5195,6 +5713,319 @@ window.show()</code></pre>
             initConnectionStatusDashboard();
         }
         
+        // ==================== ARM CONTROL PAGE ====================
+        
+        function showArmControlPage() {
+            const pageContent = document.getElementById('pageContent');
+            
+            pageContent.innerHTML = `
+                <div class="page-header">
+                    <div>
+                        <h2 class="page-title">🦾 机械臂控制</h2>
+                        <p class="page-description">控制FR3双机械臂系统，支持单臂和双臂协调操作</p>
+                    </div>
+                </div>
+                
+                <div class="arm-control-container">
+                    <!-- 连接控制 -->
+                    <div class="control-section">
+                        <h3 class="section-title">连接控制</h3>
+                        <div class="connection-panel">
+                            <div class="arm-selector">
+                                <label>选择机械臂:</label>
+                                <select id="arm-selector">
+                                    <option value="right">右臂 (192.168.58.2)</option>
+                                    <option value="left">左臂 (192.168.58.3)</option>
+                                    <option value="both">双臂协调</option>
+                                </select>
+                            </div>
+                            <button id="arm-connect-btn" class="control-btn primary" onclick="toggleArmConnection()">连接</button>
+                            <span id="arm-status" class="status-indicator disconnected">未连接</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 基本控制 -->
+                    <div class="control-section">
+                        <h3 class="section-title">基本控制</h3>
+                        <div class="basic-controls">
+                            <button class="control-btn" onclick="armBasicControl('enable')">上使能</button>
+                            <button class="control-btn" onclick="armBasicControl('disable')">去使能</button>
+                            <button class="control-btn" onclick="armBasicControl('home')">回零</button>
+                            <button class="control-btn emergency" onclick="armBasicControl('stop')">紧急停止</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 预定义动作 -->
+                    <div class="control-section">
+                        <h3 class="section-title">预定义动作</h3>
+                        <div class="action-controls">
+                            <div class="action-selector">
+                                <label>动作:</label>
+                                <select id="action-selector">
+                                    <option value="wave">挥手动作</option>
+                                    <option value="grab_ready">抓取准备</option>
+                                    <option value="home">回零位</option>
+                                </select>
+                                <button class="control-btn" onclick="executeAction()">执行动作</button>
+                            </div>
+                            <div class="speed-control">
+                                <label>速度:</label>
+                                <input type="range" id="action-speed" min="1" max="100" value="20" oninput="updateSpeedDisplay('action')">
+                                <span id="action-speed-display">20%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 关节点动 -->
+                    <div class="control-section">
+                        <h3 class="section-title">关节点动</h3>
+                        <div class="joint-controls">
+                            <div class="joint-grid">
+                                ${Array.from({length: 6}, (_, i) => `
+                                    <div class="joint-row">
+                                        <span class="joint-label">J${i+1}</span>
+                                        <button class="jog-btn" onmousedown="startJog(${i+1}, 'negative')" onmouseup="stopJog()" onmouseleave="stopJog()">◀</button>
+                                        <span class="joint-position" id="joint-${i+1}-pos">0.0°</span>
+                                        <button class="jog-btn" onmousedown="startJog(${i+1}, 'positive')" onmouseup="stopJog()" onmouseleave="stopJog()">▶</button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="jog-speed-control">
+                                <label>点动速度:</label>
+                                <input type="range" id="jog-speed" min="1" max="50" value="10" oninput="updateSpeedDisplay('jog')">
+                                <span id="jog-speed-display">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Initialize arm control page
+            initArmControlPage();
+        }
+        
+        // ==================== CHASSIS CONTROL PAGE ====================
+        
+        function showChassisControlPage() {
+            const pageContent = document.getElementById('pageContent');
+            
+            pageContent.innerHTML = `
+                <div class="page-header">
+                    <div>
+                        <h2 class="page-title">🚛 底盘控制</h2>
+                        <p class="page-description">控制Hermes移动底盘，支持手动控制和自动导航</p>
+                    </div>
+                </div>
+                
+                <div class="chassis-control-container">
+                    <!-- 连接控制 -->
+                    <div class="control-section">
+                        <h3 class="section-title">连接控制</h3>
+                        <div class="connection-panel">
+                            <div class="ip-config">
+                                <label>底盘IP:</label>
+                                <input type="text" id="chassis-ip" value="192.168.31.211">
+                                <label>端口:</label>
+                                <input type="number" id="chassis-port" value="1448">
+                            </div>
+                            <button id="chassis-connect-btn" class="control-btn primary" onclick="toggleChassisConnection()">连接</button>
+                            <span id="chassis-status" class="status-indicator disconnected">未连接</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 状态显示 -->
+                    <div class="control-section">
+                        <h3 class="section-title">状态显示</h3>
+                        <div class="status-display">
+                            <div class="status-item">
+                                <label>位置:</label>
+                                <span id="chassis-position">(0, 0, 0, 0°)</span>
+                            </div>
+                            <div class="status-item">
+                                <label>电池:</label>
+                                <span id="chassis-battery">0%</span>
+                            </div>
+                            <div class="status-item">
+                                <label>状态:</label>
+                                <span id="chassis-motion-status">静止</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 预设位置 -->
+                    <div class="control-section">
+                        <h3 class="section-title">预设位置</h3>
+                        <div class="preset-controls">
+                            <button class="control-btn" onclick="moveToPreset('origin')">原点</button>
+                            <button class="control-btn" onclick="moveToPreset('work1')">工作站1</button>
+                            <button class="control-btn" onclick="moveToPreset('work2')">工作站2</button>
+                            <button class="control-btn" onclick="moveToPreset('charge')">充电点</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 手动控制 -->
+                    <div class="control-section">
+                        <h3 class="section-title">手动控制</h3>
+                        <div class="manual-controls">
+                            <div class="direction-pad">
+                                <button class="dir-btn" onclick="manualMove('forward')">↑</button>
+                                <div class="middle-row">
+                                    <button class="dir-btn" onclick="manualMove('left')">←</button>
+                                    <button class="dir-btn emergency" onclick="manualMove('stop')">停止</button>
+                                    <button class="dir-btn" onclick="manualMove('right')">→</button>
+                                </div>
+                                <button class="dir-btn" onclick="manualMove('backward')">↓</button>
+                            </div>
+                            <div class="speed-control">
+                                <label>速度:</label>
+                                <input type="range" id="chassis-speed" min="1" max="100" value="30" oninput="updateSpeedDisplay('chassis')">
+                                <span id="chassis-speed-display">30%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 坐标导航 -->
+                    <div class="control-section">
+                        <h3 class="section-title">坐标导航</h3>
+                        <div class="navigation-controls">
+                            <div class="coord-inputs">
+                                <label>X:</label>
+                                <input type="number" id="nav-x" value="0.00" step="0.01">
+                                <label>Y:</label>
+                                <input type="number" id="nav-y" value="0.00" step="0.01">
+                                <label>θ:</label>
+                                <input type="number" id="nav-theta" value="0.00" step="0.01">
+                            </div>
+                            <button class="control-btn" onclick="navigateToCoordinate()">导航</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Initialize chassis control page
+            initChassisControlPage();
+        }
+        
+        // ==================== COORDINATION CONTROL PAGE ====================
+        
+        function showCoordinationControlPage() {
+            const pageContent = document.getElementById('pageContent');
+            
+            pageContent.innerHTML = `
+                <div class="page-header">
+                    <div>
+                        <h2 class="page-title">🤝 协调控制</h2>
+                        <p class="page-description">XC-ROBOT整合控制系统，支持双臂机械臂与移动底盘的协调作业</p>
+                    </div>
+                </div>
+                
+                <div class="coordination-control-container">
+                    <!-- 系统初始化 -->
+                    <div class="control-section">
+                        <h3 class="section-title">系统初始化</h3>
+                        <div class="init-controls">
+                            <button class="control-btn primary" onclick="initializeSystem()">初始化系统</button>
+                            <button class="control-btn emergency" onclick="emergencyStopAll()">全系统紧急停止</button>
+                            <div class="system-status">
+                                <span id="system-status">系统未初始化</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 任务配置 -->
+                    <div class="control-section">
+                        <h3 class="section-title">任务配置</h3>
+                        <div class="task-config">
+                            <div class="config-row">
+                                <label>工作站:</label>
+                                <select id="work-station">
+                                    <option value="work_station_1">工作站1</option>
+                                    <option value="work_station_2">工作站2</option>
+                                    <option value="custom">自定义位置</option>
+                                </select>
+                            </div>
+                            <div class="config-row">
+                                <label>右臂动作:</label>
+                                <select id="right-arm-action">
+                                    <option value="pick_ready">抓取准备</option>
+                                    <option value="wave">挥手动作</option>
+                                    <option value="home">回零位</option>
+                                </select>
+                            </div>
+                            <div class="config-row">
+                                <label>左臂动作:</label>
+                                <select id="left-arm-action">
+                                    <option value="wave">挥手动作</option>
+                                    <option value="pick_ready">抓取准备</option>
+                                    <option value="home">回零位</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 协调作业控制 -->
+                    <div class="control-section">
+                        <h3 class="section-title">协调作业控制</h3>
+                        <div class="coordination-controls">
+                            <button class="control-btn primary large" onclick="executeCoordinatedTask()">执行协调任务</button>
+                            <button class="control-btn" onclick="previewTask()">预览任务</button>
+                            <button class="control-btn emergency" onclick="stopCoordinatedTask()">停止任务</button>
+                        </div>
+                        <div class="task-progress">
+                            <label>任务进度:</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="task-progress" style="width: 0%"></div>
+                            </div>
+                            <span id="task-progress-text">等待执行</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 系统状态监控 -->
+                    <div class="control-section">
+                        <h3 class="section-title">系统状态监控</h3>
+                        <div class="monitoring-grid">
+                            <div class="monitor-card">
+                                <h4>底盘状态</h4>
+                                <div class="monitor-item">
+                                    <span>连接:</span>
+                                    <span id="chassis-monitor-status">离线</span>
+                                </div>
+                                <div class="monitor-item">
+                                    <span>位置:</span>
+                                    <span id="chassis-monitor-pos">--</span>
+                                </div>
+                            </div>
+                            <div class="monitor-card">
+                                <h4>右臂状态</h4>
+                                <div class="monitor-item">
+                                    <span>连接:</span>
+                                    <span id="right-arm-monitor-status">离线</span>
+                                </div>
+                                <div class="monitor-item">
+                                    <span>状态:</span>
+                                    <span id="right-arm-monitor-state">--</span>
+                                </div>
+                            </div>
+                            <div class="monitor-card">
+                                <h4>左臂状态</h4>
+                                <div class="monitor-item">
+                                    <span>连接:</span>
+                                    <span id="left-arm-monitor-status">离线</span>
+                                </div>
+                                <div class="monitor-item">
+                                    <span>状态:</span>
+                                    <span id="left-arm-monitor-state">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Initialize coordination control page
+            initCoordinationControlPage();
+        }
+        
         // Connection Status Dashboard Functions
         let autoRefreshInterval = null;
         
@@ -5820,6 +6651,514 @@ window.show()</code></pre>
                 alert('配置已保存（模拟）');
             }
         }
+        // ==================== ARM CONTROL JAVASCRIPT FUNCTIONS ====================
+        
+        let armControlState = {
+            selectedArm: 'right',
+            connected: false,
+            enabled: false,
+            jointPositions: [0, 0, 0, 0, 0, 0],
+            jogging: false
+        };
+        
+        function initArmControlPage() {
+            console.log('Initializing arm control page');
+            updateArmControlUI();
+        }
+        
+        function toggleArmConnection() {
+            const connectBtn = document.getElementById('arm-connect-btn');
+            const statusIndicator = document.getElementById('arm-status');
+            
+            if (!armControlState.connected) {
+                // Connect to arm
+                const armType = document.getElementById('arm-selector').value;
+                console.log(`Connecting to ${armType} arm...`);
+                
+                // Simulate connection process
+                connectBtn.textContent = '连接中...';
+                connectBtn.disabled = true;
+                
+                setTimeout(() => {
+                    armControlState.connected = true;
+                    armControlState.selectedArm = armType;
+                    connectBtn.textContent = '断开';
+                    connectBtn.disabled = false;
+                    statusIndicator.textContent = '已连接';
+                    statusIndicator.className = 'status-indicator connected';
+                    
+                    console.log(`${armType} arm connected successfully`);
+                    addLogMessage(`${armType === 'right' ? '右臂' : armType === 'left' ? '左臂' : '双臂'}连接成功`, 'SUCCESS');
+                }, 1500);
+            } else {
+                // Disconnect from arm
+                armControlState.connected = false;
+                armControlState.enabled = false;
+                connectBtn.textContent = '连接';
+                statusIndicator.textContent = '未连接';
+                statusIndicator.className = 'status-indicator disconnected';
+                
+                console.log('Arm disconnected');
+                addLogMessage('机械臂已断开连接', 'INFO');
+            }
+        }
+        
+        function armBasicControl(action) {
+            if (!armControlState.connected) {
+                addLogMessage('请先连接机械臂', 'WARNING');
+                return;
+            }
+            
+            console.log(`Executing arm basic control: ${action}`);
+            
+            switch(action) {
+                case 'enable':
+                    armControlState.enabled = true;
+                    addLogMessage('机械臂已上使能', 'SUCCESS');
+                    break;
+                case 'disable':
+                    armControlState.enabled = false;
+                    addLogMessage('机械臂已去使能', 'INFO');
+                    break;
+                case 'home':
+                    if (armControlState.enabled) {
+                        armControlState.jointPositions = [0, -90, 90, 0, 0, 0];
+                        updateJointPositionDisplay();
+                        addLogMessage('机械臂回零中...', 'INFO');
+                    } else {
+                        addLogMessage('请先上使能机械臂', 'WARNING');
+                    }
+                    break;
+                case 'stop':
+                    addLogMessage('紧急停止执行', 'WARNING');
+                    break;
+            }
+        }
+        
+        function executeAction() {
+            if (!armControlState.connected || !armControlState.enabled) {
+                addLogMessage('请先连接并使能机械臂', 'WARNING');
+                return;
+            }
+            
+            const action = document.getElementById('action-selector').value;
+            const speed = document.getElementById('action-speed').value;
+            
+            console.log(`Executing predefined action: ${action} at ${speed}% speed`);
+            
+            const actionPositions = {
+                'wave': [0, -45, 45, 0, 45, 0],
+                'grab_ready': [0, -60, 60, 0, 30, 0],
+                'home': [0, -90, 90, 0, 0, 0]
+            };
+            
+            if (actionPositions[action]) {
+                armControlState.jointPositions = actionPositions[action];
+                updateJointPositionDisplay();
+                addLogMessage(`执行动作: ${action} (速度: ${speed}%)`, 'INFO');
+            }
+        }
+        
+        function startJog(joint, direction) {
+            if (!armControlState.connected || !armControlState.enabled) {
+                addLogMessage('请先连接并使能机械臂', 'WARNING');
+                return;
+            }
+            
+            if (armControlState.jogging) return;
+            
+            armControlState.jogging = true;
+            const speed = document.getElementById('jog-speed').value;
+            const dirText = direction === 'positive' ? '正向' : '负向';
+            
+            console.log(`Starting jog: J${joint} ${dirText} at ${speed}% speed`);
+            addLogMessage(`J${joint} ${dirText}点动 (速度: ${speed}%)`, 'INFO');
+            
+            // Simulate joint movement
+            const jogInterval = setInterval(() => {
+                if (!armControlState.jogging) {
+                    clearInterval(jogInterval);
+                    return;
+                }
+                
+                const increment = direction === 'positive' ? 1 : -1;
+                armControlState.jointPositions[joint - 1] += increment;
+                
+                // Joint limits (simplified)
+                if (armControlState.jointPositions[joint - 1] > 170) {
+                    armControlState.jointPositions[joint - 1] = 170;
+                }
+                if (armControlState.jointPositions[joint - 1] < -170) {
+                    armControlState.jointPositions[joint - 1] = -170;
+                }
+                
+                updateJointPositionDisplay();
+            }, 100);
+        }
+        
+        function stopJog() {
+            if (armControlState.jogging) {
+                armControlState.jogging = false;
+                addLogMessage('停止点动', 'INFO');
+                console.log('Jog stopped');
+            }
+        }
+        
+        function updateJointPositionDisplay() {
+            for (let i = 1; i <= 6; i++) {
+                const element = document.getElementById(`joint-${i}-pos`);
+                if (element) {
+                    element.textContent = `${armControlState.jointPositions[i-1].toFixed(1)}°`;
+                }
+            }
+        }
+        
+        function updateSpeedDisplay(type) {
+            const speed = document.getElementById(`${type}-speed`).value;
+            document.getElementById(`${type}-speed-display`).textContent = `${speed}%`;
+        }
+        
+        function updateArmControlUI() {
+            updateJointPositionDisplay();
+        }
+        
+        // ==================== CHASSIS CONTROL JAVASCRIPT FUNCTIONS ====================
+        
+        let chassisControlState = {
+            connected: false,
+            position: {x: 0, y: 0, theta: 0},
+            battery: 0,
+            status: '静止'
+        };
+        
+        function initChassisControlPage() {
+            console.log('Initializing chassis control page');
+            updateChassisControlUI();
+        }
+        
+        function toggleChassisConnection() {
+            const connectBtn = document.getElementById('chassis-connect-btn');
+            const statusIndicator = document.getElementById('chassis-status');
+            
+            if (!chassisControlState.connected) {
+                // Connect to chassis
+                const ip = document.getElementById('chassis-ip').value;
+                const port = document.getElementById('chassis-port').value;
+                
+                console.log(`Connecting to chassis at ${ip}:${port}...`);
+                
+                connectBtn.textContent = '连接中...';
+                connectBtn.disabled = true;
+                
+                setTimeout(() => {
+                    chassisControlState.connected = true;
+                    connectBtn.textContent = '断开';
+                    connectBtn.disabled = false;
+                    statusIndicator.textContent = '已连接';
+                    statusIndicator.className = 'status-indicator connected';
+                    
+                    console.log('Chassis connected successfully');
+                    addLogMessage(`底盘连接成功 (${ip}:${port})`, 'SUCCESS');
+                    updateChassisControlUI();
+                }, 1500);
+            } else {
+                // Disconnect from chassis
+                chassisControlState.connected = false;
+                connectBtn.textContent = '连接';
+                statusIndicator.textContent = '未连接';
+                statusIndicator.className = 'status-indicator disconnected';
+                
+                console.log('Chassis disconnected');
+                addLogMessage('底盘已断开连接', 'INFO');
+                updateChassisControlUI();
+            }
+        }
+        
+        function moveToPreset(presetName) {
+            if (!chassisControlState.connected) {
+                addLogMessage('请先连接底盘', 'WARNING');
+                return;
+            }
+            
+            const presetPositions = {
+                'origin': {x: 0, y: 0, theta: 0},
+                'work1': {x: 2.0, y: 1.0, theta: 90},
+                'work2': {x: -1.5, y: 2.0, theta: -45},
+                'charge': {x: 0.5, y: -1.0, theta: 180}
+            };
+            
+            const presetNames = {
+                'origin': '原点',
+                'work1': '工作站1',
+                'work2': '工作站2',
+                'charge': '充电点'
+            };
+            
+            if (presetPositions[presetName]) {
+                chassisControlState.position = presetPositions[presetName];
+                chassisControlState.status = '运动中';
+                
+                console.log(`Moving to preset: ${presetName}`);
+                addLogMessage(`移动到${presetNames[presetName]}`, 'INFO');
+                
+                setTimeout(() => {
+                    chassisControlState.status = '静止';
+                    addLogMessage(`已到达${presetNames[presetName]}`, 'SUCCESS');
+                    updateChassisControlUI();
+                }, 3000);
+                
+                updateChassisControlUI();
+            }
+        }
+        
+        function manualMove(direction) {
+            if (!chassisControlState.connected) {
+                addLogMessage('请先连接底盘', 'WARNING');
+                return;
+            }
+            
+            const speed = document.getElementById('chassis-speed').value;
+            
+            console.log(`Manual move: ${direction} at ${speed}% speed`);
+            
+            const directionNames = {
+                'forward': '前进',
+                'backward': '后退',
+                'left': '左转',
+                'right': '右转',
+                'stop': '停止'
+            };
+            
+            if (direction === 'stop') {
+                chassisControlState.status = '静止';
+                addLogMessage('底盘停止', 'INFO');
+            } else {
+                chassisControlState.status = '运动中';
+                addLogMessage(`底盘${directionNames[direction]} (速度: ${speed}%)`, 'INFO');
+                
+                // Simulate movement effect on position
+                setTimeout(() => {
+                    chassisControlState.status = '静止';
+                    updateChassisControlUI();
+                }, 1000);
+            }
+            
+            updateChassisControlUI();
+        }
+        
+        function navigateToCoordinate() {
+            if (!chassisControlState.connected) {
+                addLogMessage('请先连接底盘', 'WARNING');
+                return;
+            }
+            
+            const x = parseFloat(document.getElementById('nav-x').value);
+            const y = parseFloat(document.getElementById('nav-y').value);
+            const theta = parseFloat(document.getElementById('nav-theta').value);
+            
+            chassisControlState.position = {x, y, theta};
+            chassisControlState.status = '导航中';
+            
+            console.log(`Navigating to coordinates: (${x}, ${y}, ${theta}°)`);
+            addLogMessage(`导航到坐标: (${x}, ${y}, ${theta}°)`, 'INFO');
+            
+            setTimeout(() => {
+                chassisControlState.status = '静止';
+                addLogMessage('导航完成', 'SUCCESS');
+                updateChassisControlUI();
+            }, 5000);
+            
+            updateChassisControlUI();
+        }
+        
+        function updateChassisControlUI() {
+            // Update position display
+            const positionElement = document.getElementById('chassis-position');
+            if (positionElement) {
+                const pos = chassisControlState.position;
+                positionElement.textContent = `(${pos.x.toFixed(2)}, ${pos.y.toFixed(2)}, ${pos.theta.toFixed(1)}°)`;
+            }
+            
+            // Update battery display
+            const batteryElement = document.getElementById('chassis-battery');
+            if (batteryElement) {
+                batteryElement.textContent = `${chassisControlState.battery}%`;
+            }
+            
+            // Update status display
+            const statusElement = document.getElementById('chassis-motion-status');
+            if (statusElement) {
+                statusElement.textContent = chassisControlState.status;
+            }
+        }
+        
+        // ==================== COORDINATION CONTROL JAVASCRIPT FUNCTIONS ====================
+        
+        let coordinationControlState = {
+            systemInitialized: false,
+            taskRunning: false,
+            taskProgress: 0,
+            chassisStatus: {connected: false, position: '--'},
+            rightArmStatus: {connected: false, state: '--'},
+            leftArmStatus: {connected: false, state: '--'}
+        };
+        
+        function initCoordinationControlPage() {
+            console.log('Initializing coordination control page');
+            updateCoordinationControlUI();
+        }
+        
+        function initializeSystem() {
+            console.log('Initializing integrated system...');
+            addLogMessage('开始初始化XC-ROBOT系统...', 'INFO');
+            
+            const systemStatusElement = document.getElementById('system-status');
+            systemStatusElement.textContent = '系统初始化中...';
+            
+            // Simulate system initialization
+            setTimeout(() => {
+                coordinationControlState.systemInitialized = true;
+                coordinationControlState.chassisStatus.connected = true;
+                coordinationControlState.rightArmStatus.connected = true;
+                coordinationControlState.leftArmStatus.connected = true;
+                
+                systemStatusElement.textContent = '系统已初始化';
+                systemStatusElement.parentElement.style.borderLeftColor = '#2ECC71';
+                
+                addLogMessage('XC-ROBOT系统初始化完成', 'SUCCESS');
+                updateCoordinationControlUI();
+            }, 3000);
+        }
+        
+        function executeCoordinatedTask() {
+            if (!coordinationControlState.systemInitialized) {
+                addLogMessage('请先初始化系统', 'WARNING');
+                return;
+            }
+            
+            if (coordinationControlState.taskRunning) {
+                addLogMessage('任务正在运行中', 'WARNING');
+                return;
+            }
+            
+            const workStation = document.getElementById('work-station').value;
+            const rightArmAction = document.getElementById('right-arm-action').value;
+            const leftArmAction = document.getElementById('left-arm-action').value;
+            
+            console.log(`Executing coordinated task: ${workStation}, right: ${rightArmAction}, left: ${leftArmAction}`);
+            
+            coordinationControlState.taskRunning = true;
+            coordinationControlState.taskProgress = 0;
+            
+            const progressText = document.getElementById('task-progress-text');
+            const progressFill = document.getElementById('task-progress');
+            
+            addLogMessage('开始执行协调任务', 'INFO');
+            progressText.textContent = '执行中...';
+            
+            // Simulate task execution with progress updates
+            const progressInterval = setInterval(() => {
+                coordinationControlState.taskProgress += 20;
+                progressFill.style.width = `${coordinationControlState.taskProgress}%`;
+                
+                if (coordinationControlState.taskProgress >= 100) {
+                    clearInterval(progressInterval);
+                    coordinationControlState.taskRunning = false;
+                    progressText.textContent = '任务完成';
+                    addLogMessage('协调任务执行完成', 'SUCCESS');
+                }
+            }, 1000);
+        }
+        
+        function previewTask() {
+            const workStation = document.getElementById('work-station').value;
+            const rightArmAction = document.getElementById('right-arm-action').value;
+            const leftArmAction = document.getElementById('left-arm-action').value;
+            
+            addLogMessage(`预览任务: ${workStation} -> 右臂:${rightArmAction}, 左臂:${leftArmAction}`, 'INFO');
+        }
+        
+        function stopCoordinatedTask() {
+            if (coordinationControlState.taskRunning) {
+                coordinationControlState.taskRunning = false;
+                coordinationControlState.taskProgress = 0;
+                
+                const progressText = document.getElementById('task-progress-text');
+                const progressFill = document.getElementById('task-progress');
+                
+                progressText.textContent = '任务已停止';
+                progressFill.style.width = '0%';
+                
+                addLogMessage('协调任务已停止', 'WARNING');
+            }
+        }
+        
+        function emergencyStopAll() {
+            console.log('Emergency stop all systems');
+            
+            coordinationControlState.taskRunning = false;
+            coordinationControlState.taskProgress = 0;
+            
+            const progressText = document.getElementById('task-progress-text');
+            const progressFill = document.getElementById('task-progress');
+            
+            if (progressText) progressText.textContent = '紧急停止';
+            if (progressFill) progressFill.style.width = '0%';
+            
+            addLogMessage('全系统紧急停止执行', 'ERROR');
+        }
+        
+        function updateCoordinationControlUI() {
+            // Update chassis monitor
+            const chassisStatusElement = document.getElementById('chassis-monitor-status');
+            const chassisPosElement = document.getElementById('chassis-monitor-pos');
+            
+            if (chassisStatusElement) {
+                chassisStatusElement.textContent = coordinationControlState.chassisStatus.connected ? '在线' : '离线';
+                chassisStatusElement.style.color = coordinationControlState.chassisStatus.connected ? '#2ECC71' : '#e74c3c';
+            }
+            
+            if (chassisPosElement) {
+                chassisPosElement.textContent = coordinationControlState.chassisStatus.position;
+            }
+            
+            // Update arm monitors
+            const rightArmStatusElement = document.getElementById('right-arm-monitor-status');
+            const rightArmStateElement = document.getElementById('right-arm-monitor-state');
+            const leftArmStatusElement = document.getElementById('left-arm-monitor-status');
+            const leftArmStateElement = document.getElementById('left-arm-monitor-state');
+            
+            if (rightArmStatusElement) {
+                rightArmStatusElement.textContent = coordinationControlState.rightArmStatus.connected ? '在线' : '离线';
+                rightArmStatusElement.style.color = coordinationControlState.rightArmStatus.connected ? '#2ECC71' : '#e74c3c';
+            }
+            
+            if (rightArmStateElement) {
+                rightArmStateElement.textContent = coordinationControlState.rightArmStatus.state;
+            }
+            
+            if (leftArmStatusElement) {
+                leftArmStatusElement.textContent = coordinationControlState.leftArmStatus.connected ? '在线' : '离线';
+                leftArmStatusElement.style.color = coordinationControlState.leftArmStatus.connected ? '#2ECC71' : '#e74c3c';
+            }
+            
+            if (leftArmStateElement) {
+                leftArmStateElement.textContent = coordinationControlState.leftArmStatus.state;
+            }
+        }
+        
+        // Update coordination monitoring data every 3 seconds
+        setInterval(() => {
+            if (coordinationControlState.systemInitialized) {
+                // Simulate real-time data updates
+                coordinationControlState.chassisStatus.position = `(${(Math.random() * 2 - 1).toFixed(2)}, ${(Math.random() * 2 - 1).toFixed(2)}, ${(Math.random() * 360 - 180).toFixed(1)}°)`;
+                coordinationControlState.rightArmStatus.state = coordinationControlState.taskRunning ? '运动中' : '待机';
+                coordinationControlState.leftArmStatus.state = coordinationControlState.taskRunning ? '运动中' : '待机';
+                
+                updateCoordinationControlUI();
+            }
+        }, 3000);
+        
     </script>
 </body>
 </html>
