@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>机器人控制器8083端口状态反馈用户手册</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">机器人控制器8083端口状态反馈用户手册</h1>
+</header>
+<blockquote>
+<p><img src="images/______8083__________/media/image1.png" style="width:8.25681in;height:11.66667in" />FR 协作机器人 8083 端口状态反馈</p>
+<p>目 录</p>
+<p><a href="#bookmark2">1 机器人 8083 端口状态反馈概述 1</a></p>
+<p><a href="#bookmark3">2 8083 端口状态反馈操作说明 1</a></p>
+<p><a href="#bookmark3">2.1 通信协议格式定义 1</a></p>
+<p><a href="#bookmark5">2.2 8083 端口状态反馈数据内容说明 2</a></p>
+<p><a href="#bookmark6">2.2.1 数据内容总表 2</a></p>
+<p><a href="#bookmark7">2.2.2 数据内容-结构体定义 9</a></p>
+<p><a href="#bookmark8">附录一 错误码对应表 10</a></p>
+<p><span id="bookmark2" class="anchor"></span><strong>1</strong> <strong>机器人</strong> <strong>8083</strong> <strong>端口状态反馈概述</strong></p>
+<p>用户可通过 TCP/TP，与机器人控制器的 8083 端口建立连接，8083 端口在 建立连接后默认每 100ms 发送一次数据帧，数据帧中包含了机器人的一些实时 的状态反馈数据，供用户使用，通信拓扑图如图 1-1 所示。 此外状态反馈的周 期用户可配置，在系统设置-&gt;维护模式中，可对 8083 端口的状态反馈发送周期 进行设置，设置范围为 8-100ms 。如图 1-2 所示。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/______8083__________/media/image4.png" style="width:1.6534in;height:1.34438in" /><img src="images/______8083__________/media/image5.png" style="width:0.94312in;height:0.64404in" />机器人状态反馈</p>
+</blockquote>
+<p><img src="images/______8083__________/media/image6.png" style="width:2.44212in;height:0.50401in" /></p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>图 1-1 机器人 8083 端口状态反馈通信拓扑图</p>
+</blockquote>
+<p><img src="images/______8083__________/media/image7.jpeg" /></p>
+<blockquote>
+<p>图 1-2 机器人 8083 端口状态反馈周期设置</p>
+<p><span id="bookmark3" class="anchor"></span><strong>2</strong> <strong>8083</strong> <strong>端口状态反馈操作说明</strong></p>
+<p><strong>2.1</strong> <strong>通信协议格式定义</strong></p>
+<p>8083 端口的数据帧格式如表 2-1 所示，用户可按照以下格式进行解包和校</p>
+<p>验。</p>
+<p>表 2-1 8083 端口数据反馈协议格式</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 17%" />
+<col style="width: 22%" />
+<col style="width: 24%" />
+<col style="width: 19%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>帧头</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>帧计数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据长度</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据内容</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>和校验</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>0x5A5A</p>
+</blockquote></td>
+<td><blockquote>
+<p>CNT</p>
+</blockquote></td>
+<td><blockquote>
+<p>LEN</p>
+</blockquote></td>
+<td><blockquote>
+<p>DATA</p>
+</blockquote></td>
+<td><blockquote>
+<p>Checksum</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>其中对每项进行详细说明：</p>
+<p>（1） 帧头： 约定为 0x5A5A，数据格式为 uint16_t</p>
+<p>（2） 帧计数：循环计数 0-255 ，数据格式 uint8_t</p>
+<p>（3） 数据长度： 数据内容的长度，数据格式 uint16_t</p>
+<p>（4） 数据内容：机器人实时的状态反馈的数据，详细描述见 2.2 小节</p>
+<p>（5） 和校验：对帧头至数据内容的所有字节求和，数据格式 uint16_t</p>
+<p><span id="bookmark5" class="anchor"></span><strong>2.2</strong> <strong>8083</strong> <strong>端口状态反馈数据内容说明</strong></p>
+<p><span id="bookmark6" class="anchor"></span><strong>2.2.1</strong> <strong>数据内容总表</strong></p>
+<p>完成数据帧校验后，可按照数据内容获取到机器人当前时刻的反馈的状态反 馈数据，具体的数据内容总表见表 2-2。</p>
+<p>表 2-2 8083 端口状态反馈数据内容总表</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 21%" />
+<col style="width: 15%" />
+<col style="width: 8%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>程序运行</p>
+<p>状态</p>
+</blockquote></td>
+<td><blockquote>
+<p>program_state</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>1-停止；2-运行； 3-暂停；</p>
+<p>4-拖动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>故障码</p>
+</blockquote></td>
+<td><blockquote>
+<p>error_code</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>返回当前错误码，错误码说</p>
+<p>明见附录 1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器人模</p>
+<p>式</p>
+</blockquote></td>
+<td><blockquote>
+<p>robot_mode</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-自动模式， 1-手动模式； 2-拖动模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 轴当前</p>
+<p>关节位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_pos[0]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>表 2-2（续表）</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 21%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 轴当前</p>
+<p>关节位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_pos[1]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>3 轴当前</p>
+<p>关节位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_pos[2]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p>4 轴当前</p>
+<p>关节位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_pos[3]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>5 轴当前</p>
+<p>关节位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_pos[4]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p>6 轴当前</p>
+<p>关节位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_pos[5]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具当前 位置 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_cur_pos[0]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[mm]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>11</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具当前 位置 y</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_cur_pos[1]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[mm]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具当前 位置 z</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_cur_pos[2]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[mm]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>13</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具当前 姿态 a</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_cur_pos[3]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>14</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具当前 姿态 b</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_cur_pos[4]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>15</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具当前 姿态 c</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_cur_pos[5]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[deg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>16</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具号</p>
+</blockquote></td>
+<td><blockquote>
+<p>toolNum</p>
+</blockquote></td>
+<td><blockquote>
+<p>int</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>17</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 轴当前 扭矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_tor[0]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>表 2-2（续表）</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 14%" />
+<col style="width: 24%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>18</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 轴当前 扭矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_tor[1]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>19</p>
+</blockquote></td>
+<td><blockquote>
+<p>3 轴当前 扭矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_tor[2]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>20</p>
+</blockquote></td>
+<td><blockquote>
+<p>4 轴当前 扭矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_tor[3]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>21</p>
+</blockquote></td>
+<td><blockquote>
+<p>5 轴当前 扭矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_tor[4]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>22</p>
+</blockquote></td>
+<td><blockquote>
+<p>6 轴当前 扭矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>jt_cur_tor[5]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>23</p>
+</blockquote></td>
+<td><blockquote>
+<p>运行程序</p>
+<p>名</p>
+</blockquote></td>
+<td><blockquote>
+<p>program_name[20]</p>
+</blockquote></td>
+<td><blockquote>
+<p>char</p>
+</blockquote></td>
+<td><blockquote>
+<p>20</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>24</p>
+</blockquote></td>
+<td><blockquote>
+<p>运行程序 总行数</p>
+</blockquote></td>
+<td><blockquote>
+<p>prog_total_line</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>25</p>
+</blockquote></td>
+<td><blockquote>
+<p>运行程序 当前行</p>
+</blockquote></td>
+<td><blockquote>
+<p>prog_cur_line</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>26</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数</p>
+<p>字量 IO 输出 15-8</p>
+</blockquote></td>
+<td><blockquote>
+<p>cl_dgt_output_h</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>27</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数</p>
+<p>字量 IO 输出 7-0</p>
+</blockquote></td>
+<td><blockquote>
+<p>cl_dgt_output_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>28</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具数字</p>
+<p>量 IO 输</p>
+<p>出 7-0</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_dgt_output_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>仅 bit0-bit1 有效</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>表 2-2（续表）</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 22%" />
+<col style="width: 15%" />
+<col style="width: 11%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>29</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数</p>
+<p>字量 IO 输入 15-8</p>
+</blockquote></td>
+<td><blockquote>
+<p>cl_dgt_input_h</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>30</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数</p>
+<p>字量 IO 输入 7-0</p>
+</blockquote></td>
+<td><blockquote>
+<p>cl_dgt_input_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>31</p>
+</blockquote></td>
+<td><blockquote>
+<p>工具数字</p>
+<p>量 IO 输</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_dgt_input_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>仅 bit0-bit1 有效</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>32</p>
+</blockquote></td>
+<td><blockquote>
+<p>入 7-0 力/扭矩传 感器数据</p>
+</blockquote></td>
+<td><blockquote>
+<p>FT_data[0]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>33</p>
+</blockquote></td>
+<td><blockquote>
+<p>Fx</p>
+<p>力/扭矩传 感器数据</p>
+<p>Fy</p>
+</blockquote></td>
+<td><blockquote>
+<p>FT_data[1]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>34</p>
+</blockquote></td>
+<td><blockquote>
+<p>力/扭矩传 感器数据</p>
+</blockquote></td>
+<td><blockquote>
+<p>FT_data[2]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>35</p>
+</blockquote></td>
+<td><blockquote>
+<p>Fz</p>
+<p>力/扭矩传 感器数据</p>
+</blockquote></td>
+<td><blockquote>
+<p>FT_data[3]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>36</p>
+</blockquote></td>
+<td><blockquote>
+<p>Tx</p>
+<p>力/扭矩传 感器数据</p>
+<p>Ty</p>
+</blockquote></td>
+<td><blockquote>
+<p>FT_data[4]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>表 2-2（续表）</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 14%" />
+<col style="width: 25%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>37</p>
+</blockquote></td>
+<td><blockquote>
+<p>力/扭矩传 感器数据</p>
+</blockquote></td>
+<td><blockquote>
+<p>FT_data[5]</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>[N ·m]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>38</p>
+</blockquote></td>
+<td><blockquote>
+<p>Tz</p>
+<p>力/扭矩传 感器激活</p>
+</blockquote></td>
+<td><blockquote>
+<p>FT_ActStatus</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-复位， 1-激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>39</p>
+</blockquote></td>
+<td><blockquote>
+<p>状态</p>
+<p>急停标志</p>
+</blockquote></td>
+<td><blockquote>
+<p>EmergencyStop</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>1-急停，0-无</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>40</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器人运</p>
+<p>动到位信</p>
+</blockquote></td>
+<td><blockquote>
+<p>robot_motion_done</p>
+</blockquote></td>
+<td><blockquote>
+<p>int</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>1-到位，0-未到位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>41</p>
+</blockquote></td>
+<td><blockquote>
+<p>号</p>
+<p>夹爪运动</p>
+<p>到位信号</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_motion_done</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>robotiq:0-运动未完成， 1-夹</p>
+<p>爪停止（打开过程中碰到物</p>
+<p>体），2-夹爪停止（关闭过</p>
+<p>程中碰到物体），3-夹爪停</p>
+<p>止（指定位置未碰到物</p>
+<p>体）；</p>
+<p>慧灵、天机：0-运动未完</p>
+<p>成， 1-运动完成；</p>
+<p>大寰：0-运动未完成， 1-夹</p>
+<p>爪停止（未夹到物体），2-</p>
+<p>夹爪停止（夹到物体），3-</p>
+<p>夹到物体后掉落</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>42</p>
+</blockquote></td>
+<td><blockquote>
+<p>外部伺服 驱动器 id</p>
+</blockquote></td>
+<td><blockquote>
+<p>servo_id</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>范围[1~16]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>表 2-2（续表）</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 26%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>43</p>
+</blockquote></td>
+<td><blockquote>
+<p>外部伺服</p>
+<p>驱动器故</p>
+</blockquote></td>
+<td><blockquote>
+<p>servo_errcode</p>
+</blockquote></td>
+<td><blockquote>
+<p>int32_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>和机器人驱动故障码保持一</p>
+<p>致</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>44</p>
+</blockquote></td>
+<td><blockquote>
+<p>障码</p>
+<p>外部伺服</p>
+<p>驱动器状</p>
+<p>态</p>
+<p>（485）</p>
+</blockquote></td>
+<td><blockquote>
+<p>servo_state</p>
+</blockquote></td>
+<td><blockquote>
+<p>int32_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>bit0:0-伺服未使能， 1-伺服</p>
+<p>使能</p>
+<p>bit1:0-伺服已停止， 1-伺服</p>
+<p>运行中</p>
+<p>bit2:0-正限位未触发， 1-正 限位已触发</p>
+<p>bit3:0-负限位未触发， 1-负 限位已触发</p>
+<p>bit4:0-定位未完成， 1-定位</p>
+<p>已完成</p>
+<p>bit5:0-回零未完成， 1-回零</p>
+<p>已完成</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>45</p>
+</blockquote></td>
+<td><blockquote>
+<p>外部伺服</p>
+<p>当前位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>servo_actual_pos</p>
+</blockquote></td>
+<td><blockquote>
+<p>double</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>46</p>
+</blockquote></td>
+<td><blockquote>
+<p>外部伺服</p>
+<p>当前速度</p>
+</blockquote></td>
+<td><blockquote>
+<p>servo_actual_speed</p>
+</blockquote></td>
+<td><blockquote>
+<p>float</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>47</p>
+</blockquote></td>
+<td><blockquote>
+<p>外部伺服</p>
+<p>当前转矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>servo_actual_torque</p>
+</blockquote></td>
+<td><blockquote>
+<p>float</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>48</p>
+</blockquote></td>
+<td><blockquote>
+<p>外部轴</p>
+<p>(UDP)超</p>
+<p>出软限位</p>
+<p>错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>exaxis_out_slimit_error</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>表 2-2（续表）</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>49</p>
+</blockquote></td>
+<td><blockquote>
+<p>外部轴 (UDP)状</p>
+<p>态</p>
+</blockquote></td>
+<td><blockquote>
+<p>exaxis_status[4]</p>
+</blockquote></td>
+<td><blockquote>
+<p>详细见表</p>
+<p>2-3</p>
+</blockquote></td>
+<td><blockquote>
+<p>116</p>
+</blockquote></td>
+<td><blockquote>
+<p>详见结构体定义,最大支持 4</p>
+<p>个轴</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>50</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>外部轴 (UDP)激 活标志</p>
+</blockquote></td>
+<td><blockquote>
+<p>exaxis_active_flag</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-未激活， 1-激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>51</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>外部轴 (UDP)运 动状态</p>
+</blockquote></td>
+<td><blockquote>
+<p>exaxis_motion_status</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-完成， 1-运动中，2-暂停 中，3-暂停完成</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>52</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱模</p>
+<p>拟量输入</p>
+</blockquote></td>
+<td><blockquote>
+<p>cl_analog_input[2]</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint16_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-4095</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>53</p>
+</blockquote></td>
+<td><blockquote>
+<p>末端模拟 量输入</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_analog_input</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint16_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-4095</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>54</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱模</p>
+<p>拟量输出</p>
+</blockquote></td>
+<td><blockquote>
+<p>cl_analog_output[2]</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint16_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-4095</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>55</p>
+</blockquote></td>
+<td><blockquote>
+<p>末端模拟 量输出</p>
+</blockquote></td>
+<td><blockquote>
+<p>tl_analog_output</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint16_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>0-4095</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>56</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误夹爪</p>
+<p>号</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_fault_id</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>57</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪故障</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_fault</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint16_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>58</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪激活 状态</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_active</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint16_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>59</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪位置</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_position</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>60</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪速度</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_speed</p>
+</blockquote></td>
+<td><blockquote>
+<p>int8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>61</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪电流</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_current</p>
+</blockquote></td>
+<td><blockquote>
+<p>int8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>表 2-2（续表）</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 14%" />
+<col style="width: 24%" />
+<col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 32%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序</strong> <strong>号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>字节</strong> <strong>数</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>62</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪温度</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_temp</p>
+</blockquote></td>
+<td><blockquote>
+<p>int</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>63</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪电压</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_voltage</p>
+</blockquote></td>
+<td><blockquote>
+<p>int</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>64</p>
+</blockquote></td>
+<td><blockquote>
+<p>旋转夹爪</p>
+<p>当前圈数</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_rotNum</p>
+</blockquote></td>
+<td><blockquote>
+<p>float</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>65</p>
+</blockquote></td>
+<td><blockquote>
+<p>旋转夹爪</p>
+<p>当前速度</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_rotSpeed</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>百分比</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>66</p>
+</blockquote></td>
+<td><blockquote>
+<p>旋转夹爪</p>
+<p>当前力矩</p>
+</blockquote></td>
+<td><blockquote>
+<p>gripper_rotTorque</p>
+</blockquote></td>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>百分比</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>67</p>
+</blockquote></td>
+<td><blockquote>
+<p>主故障码</p>
+</blockquote></td>
+<td><blockquote>
+<p>main_errcode</p>
+</blockquote></td>
+<td><blockquote>
+<p>int</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>68</p>
+</blockquote></td>
+<td><blockquote>
+<p>子故障码</p>
+</blockquote></td>
+<td><blockquote>
+<p>sub_errcode</p>
+</blockquote></td>
+<td><blockquote>
+<p>int</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>-</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>69</p>
+</blockquote></td>
+<td><blockquote>
+<p>焊接状态</p>
+</blockquote></td>
+<td><blockquote>
+<p>welding_state</p>
+</blockquote></td>
+<td><blockquote>
+<p>详细见表</p>
+<p>2-4</p>
+</blockquote></td>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>焊接状态详见结构体定义</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span id="bookmark7" class="anchor"></span><strong>2.2.2</strong> <strong>数据内容-结构体定义</strong></p>
+<p>（1）外部轴(UDP)状态结构体定义如下表2-3 所示</p>
+<p>表 2-3 外部轴(UDP)状态结构体定义</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 28%" />
+<col style="width: 58%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="3"><blockquote>
+<p><strong>数据类型</strong> <strong>变量名称</strong> <strong>含义详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>double</p>
+<p>double</p>
+<p>int</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>exaxis_pos_back</p>
+<p>exaxis_speed_back</p>
+<p>exaxis_error_code</p>
+<p>exaxis_rdy</p>
+<p>exaxis_inpos</p>
+<p>exaxis_alm</p>
+<p>exaxis_flerr exaxis_nlimit</p>
+<p>exaxis_plimit</p>
+<p>exaxis_absofln</p>
+<p>exaxis_oflin</p>
+<p><img src="images/______8083__________/media/image8.png" style="width:1.17143in;height:0.13332in" /></p>
+</blockquote></td>
+<td><blockquote>
+<p>外部轴位置，单位 mm</p>
+<p>外部轴速度</p>
+<p>外部轴故障码</p>
+<p>伺服准备好</p>
+<p>伺服到位</p>
+<p>伺服报警</p>
+<p>跟随误差</p>
+<p>到负限位</p>
+<p>到正限位</p>
+<p>驱动器 485 总线掉线</p>
+<p>通信超时，控制卡与控制箱板 485 通信超时</p>
+<p>外部轴回零状态</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>（2）焊接状态结构体定义如下表 2-4 所示</p>
+<p>表 2-4 焊接状态结构体定义</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 31%" />
+<col style="width: 52%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>数据类型</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>变量名称</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>含义详细说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>breakOffState</p>
+</blockquote></td>
+<td><blockquote>
+<p>焊接中断状态：</p>
+<p>0-焊接未中断</p>
+<p>1-焊接已中断</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>uint8_t</p>
+</blockquote></td>
+<td><blockquote>
+<p>weldArcState</p>
+</blockquote></td>
+<td><blockquote>
+<p>焊接电弧状态：</p>
+<p>0-电弧未中断</p>
+<p>1-电弧已中断</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span id="bookmark8" class="anchor"></span><strong>附录一</strong> <strong>错误码对应表</strong></p>
+<p>当机器人出现报警或故障时，用户可在状态反馈的“错误码”数据中获取当 前机器人报错的具体内容，如下所示。</p>
+<p>附表 1 机器人错误码定义</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>故障码</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>说明</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>0</p>
+</blockquote></td>
+<td><blockquote>
+<p>无故障</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>驱动器故障</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>超出软限位故障</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞故障</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>奇异位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>从站错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>指令点错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p>IO 错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹爪错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p>文件错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p>参数错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>11</p>
+</blockquote></td>
+<td><blockquote>
+<p>扩展轴超出软限位错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12</p>
+</blockquote></td>
+<td><blockquote>
+<p>关节配置警告</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

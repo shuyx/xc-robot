@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR3】3. 机器人IO — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR3】3. 机器人IO — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 3. 机器⼈IO</p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>3.</strong> 机器⼈<strong>IO</strong></p>
+<p><strong>3.1.</strong> 设置控制箱数字量输出</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 3%" />
+<col style="width: 2%" />
+<col style="width: 1%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td></td>
+<td colspan="6"><img src="images/_FR3_3_____IO_________________3_8_2___/media/image2.png" style="width:1.88542in" /><img src="images/_FR3_3_____IO_________________3_8_2___/media/image3.png" style="width:1.88542in" />SetDO(id, status, smooth=0, <u>block=0)</u> <img src="images/_FR3_3_____IO_________________3_8_2___/media/image4.png" style="height:0.19792in" /></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>设置控制箱数字量输出</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>. id :io编号，范围[0~15]；</p>
+<p>. status :0-关，1-开；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="5"><p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image5.png" /></p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image6.png" /></p></td>
+<td colspan="4"></td>
+<td rowspan="3"><blockquote>
+<p>:0-不平滑，1-平滑 默认0;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>smooth</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>block</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:0-阻塞，1-⾮阻塞 默认0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import Robot</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em># 测试控制箱DO</em></p>
+<p><strong>for</strong> i <strong>in</strong> range(0,16):</p>
+<p>error = robot.SetDO(i,1) <em>#打开控制箱DO</em></p>
+<p>time.sleep(1)</p>
+<p><strong>for</strong> i <strong>in</strong> range(0,16):</p>
+<p>robot.SetDO(i,0) <em>#关闭控制箱DO</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.2.</strong> 设置⼯具数字量输出</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image7.png" style="width:2.22917in" /><img src="images/_FR3_3_____IO_________________3_8_2___/media/image8.png" style="width:0.60417in" /><img src="images/_FR3_3_____IO_________________3_8_2___/media/image9.png" style="height:0.19783in" /> <u>SetToolDO (id, status, smooth=0,</u> <u>block=0)</u> <img src="images/_FR3_3_____IO_________________3_8_2___/media/image10.png" style="height:0.19783in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>设置⼯具数字量输出</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. id :io编号，范围[0~1]；</p>
+<p>. status :0-关，1-开；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. smooth :0-不平滑，1-平滑；</p>
+<p>. block :0-阻塞，1-⾮阻塞。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image11.png" style="width:0.52794in;height:0.87487in" /></p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image12.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR3_3_____IO_________________3_8_2___/media/image13.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.2.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em># 测试⼯具DO</em></p>
+<p>error_tooldo = 0</p>
+<p><strong>for</strong> i <strong>in</strong> range(0,2):</p>
+<p>error = robot.SetToolDO(i,1) <em>#打开⼯具DO</em> robot.WaitMs(1000)</p>
+<p><strong>for</strong> i <strong>in</strong> range(0,2):</p>
+<p>error = robot.SetToolDO(i,0) <em>#关闭⼯具DO</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.3.</strong> 设置控制箱模拟量输出</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 14%" />
+<col style="width: 60%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>SetAO(id,value,block=0)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置控制箱模拟量输出</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image14.png" /></p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image15.png" /></p></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>:io编号，范围[0~1]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>id</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>value</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>:电流或电压值百分⽐ ，范围[0~100%]对应电流值[0~20mA]或电压[0~10V]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td colspan="2"></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:[0]-阻塞，[1]-⾮阻塞 默认0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>block</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image16.png" style="width:0.34028in;height:0.40449in" /><strong>3.3.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em># 测试控制箱AO</em></p>
+<p>error = robot.SetAO(0,100.0)</p>
+<p>print("设置AO0错误码:", error)</p>
+<p>error = robot.SetAO(1,100.0)</p>
+<p>print("设置AO1错误码:", error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.4.</strong> 设置⼯具模拟量输出</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 87%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetToolAO(id,value,block=0)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>设置⼯具模拟量输出</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. id :io编号，范围[0]；</p>
+<p>. value :电流或电压值百分⽐ ，范围[0~100%]对应电流值[0~20mA]或电压[0~10V]；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 87%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. block :[0]-阻塞，[1]-⾮阻塞 默认0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.4.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em># 测试末端AO</em></p>
+<p>error = robot.SetToolAO(0,100.0)</p>
+<p>print("设置ToolAO0错误码:", error)</p>
+<p>Robot.WaitMs(1000)</p>
+<p>error = robot.SetToolAO(0,0.0)</p>
+<p>print("设置ToolAO0错误码:", error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.5.</strong> 获取控制箱数字量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 5%" />
+<col style="width: 17%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetDI(id, block=0)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取控制箱数字量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. id :io编号，范围[0~15]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. block :0-阻塞，1-⾮阻塞 默认0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image19.png" /> 错误码 成功-0 失败- errcode . di : 0-低电平，1-⾼电平</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.GetDI(0,0)</p>
+<p>print("获取DI0",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image20.png" style="width:0.34028in;height:0.40449in" /><strong>3.6.</strong> 获取⼯具数字量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 3%" />
+<col style="width: 17%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetToolDI(id, block=0)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取⼯具数字量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. id :io编号，范围[0~1]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. block :0-阻塞，1-⾮阻塞 默认0</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode - di : 0-低电平，1-⾼电平</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.6.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>tool_di = robot.GetToolDI(1,0)</p>
+<p>print("获取ToolDI",tool_di)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.7.</strong> 等待控制箱数字量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 18%" />
+<col style="width: 57%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>WaitDI(id,status,maxtime,opt)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>等待控制箱数字量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td colspan="7"><blockquote>
+<p>. id :io编号，范围[0~15]；</p>
+<p>. status :0-关，1-开；</p>
+<p>. maxtime :最⼤等待时间，单位[ms]；</p>
+</blockquote>
+<p>. opt :超时后策略，0-程序停⽌并提示超时，1-忽略超时提示程序继续执⾏ ，2-—直等待</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.7.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I) max_waittime = 2000</p>
+<p><em>#等待控制箱DI</em></p>
+<p>error = robot.WaitDI(0,1,max_waittime,0) print("WaitDI错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image23.png" style="width:0.11458in" /><img src="images/_FR3_3_____IO_________________3_8_2___/media/image24.png" style="width:0.34028in;height:0.40449in" /><strong>3.8.</strong> 等待控制箱多路数字量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 2%" />
+<col style="width: 0%" />
+<col style="width: 28%" />
+<col style="width: 32%" />
+<col style="width: 15%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="7"><blockquote>
+<p>WaitMultiDI(mode,id,status,maxtime,opt)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="8"></td>
+</tr>
+<tr>
+<td>描述</td>
+<td colspan="10"><blockquote>
+<p>等待控制箱多路数字量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="5"><p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image25.png" /></p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image26.png" /></p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image27.png" /></p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image28.png" /></p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image29.png" /></p></td>
+<td colspan="3"></td>
+<td colspan="5" rowspan="2"><blockquote>
+<p>:[0]-多路与，[1]-多路或；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>mode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="7"><p>id :io编号，bit0~bit7对应DI0~DI7 ，bit8~bit15对应CI0~CI7；</p>
+<p>status :bit0~bit7对应DI0~DI7状态，bit8~bit15对应CI0~CI7状态位的</p></td>
+<td><blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image30.png" style="width:0.16601in;height:0.17428in" /> latest</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>maxtime</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>:最⼤等待时间，单位[ms]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>opt</p>
+</blockquote></td>
+<td colspan="6" style="text-align: right;">:超时后策略，0-程序停⽌并提示超时，1-忽略超时提示程序继续执⾏ ，2-—直等待</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>返回值</td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.8.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I) max_waittime = 2000</p>
+<p><em>#等待控制箱多路DI</em></p>
+<p>error = robot.WaitMultiDI(1,3,1,max_waittime,0) print("WaitMultiDI错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.9.</strong> 等待⼯具数字量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 4%" />
+<col style="width: 1%" />
+<col style="width: 3%" />
+<col style="width: 22%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>WaitToolDI(id,status,maxtime,opt)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>等待末端数字量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td colspan="7"><blockquote>
+<p>. id :io编号，范围[0~1]；</p>
+<p>. status :0-关，1-开；</p>
+<p>. maxtime :最⼤等待时间，单位[ms]；</p>
+</blockquote>
+<p>. opt :超时后策略，0-程序停⽌并提示超时，1-忽略超时提示程序继续执⾏ ，2-—直等待</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image31.png" style="width:0.34028in;height:0.40449in" /><strong>3.9.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I) max_waittime = 2000</p>
+<p><em>#等待⼯具DI</em></p>
+<p>error = robot.WaitToolDI(1,1,max_waittime,0) print("WaitToolDI错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.10.</strong> 获取控制箱模拟量输⼊</p>
+</blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image32.png" style="width:6.78125in" /><img src="images/_FR3_3_____IO_________________3_8_2___/media/image35.png" /></p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 77%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="2">返回值</td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image36.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><img src="images/_FR3_3_____IO_________________3_8_2___/media/image37.png" /></td>
+<td><blockquote>
+<p>value</p>
+</blockquote></td>
+<td style="text-align: right;">: 输⼊电流或电压值百分⽐ ，范围 [0~100] 对应电流值 [0~20mA] 或电压 [0~10V</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.10.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.GetAI(0)</p>
+<p>print("获取AI0",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.11.</strong> 获取⼯具模拟量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 16%" />
+<col style="width: 60%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetToolAI (id, block = 0)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取末端模拟量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2">必选参数</td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>:io编号，范围[0]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>id</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. block :0-阻塞，1-⾮阻塞 默认0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image38.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote>
+<p>. value : 输⼊电流或电压值百分⽐ ，范围 [0~100] 对应电流值 [0~20mA] 或电压 [0~10V</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.11.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.GetToolAI(0)</p>
+<p>print("获取ToolAI0",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image39.png" style="width:0.34028in;height:0.40449in" /><strong>3.12.</strong> 等待控制箱模拟量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 4%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 2%" />
+<col style="width: 22%" />
+<col style="width: 52%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>WaitAI(id,sign,value,maxtime,opt)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>等待控制箱模拟量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td colspan="8"><blockquote>
+<p>. id :io编号，范围[0~1]；</p>
+<p>. sign :0-⼤于，1-⼩于</p>
+<p>. value :输⼊电流或电压值百分⽐ ，范围[0~100]对应电流值[0~20mA]或电压[0~10V]；</p>
+<p>. maxtime :最⼤等待时间，单位[ms]；</p>
+<p>. opt :超时后策略，0-程序停⽌并提示超时，1-忽略超时提示程序继</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 89%" />
+</colgroup>
+<tbody>
+<tr>
+<td>返回值</td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.12.1.</strong> 代码示例</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 55%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I) max_waittime = 2000</p>
+<p><em>#等待控制箱AI</em></p>
+<p>error = robot.WaitAI(0,0,50,max_waittime,1) print("WaitAI错误码",error)</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>#忽略超时提示程序继续执⾏</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.13.</strong> 等待⼯具模拟量输⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 2%" />
+<col style="width: 26%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="7"><blockquote>
+<p>WaitToolAI(id,sign,value,maxtime,opt)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="7"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="9"><blockquote>
+<p>等待末端模拟量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td colspan="9"><blockquote>
+<p>. id :io编号，范围[0]；</p>
+<p>. sign :0-⼤于，1-⼩于</p>
+<p>. value :输⼊电流或电压值百分⽐ ，范围[0~100]对应电流值[0~20mA]或电压[0~10V]；</p>
+<p>. maxtime :最⼤等待时间，单位[ms]；</p>
+</blockquote>
+<p>. opt :超时后策略，0-程序停⽌并提示超时，1-忽略超时提示程序继续执⾏ ，2-—直等待</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="9"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="9"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.13.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I) max_waittime = 2000</p>
+<p><em>#等待⼯具AI</em></p>
+<p>error = robot.WaitToolAI(0,0,50,max_waittime,0) print("WaitToolAI错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image42.png" style="width:0.34028in;height:0.40449in" /><strong>3.14.</strong> 设置控制箱<strong>DO</strong>停⽌<strong>/</strong>暂停后输出是否复位</p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image44.png" style="width:0.11458in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 17%" />
+<col style="width: 34%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetOutputResetCtlBoxDO(resetFlag)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置控制箱DO停⽌/暂停后输出是否复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. resetFlag ：0-不复位；1-复位</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image48.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image49.png" style="width:0.11458in" /><img src="images/_FR3_3_____IO_________________3_8_2___/media/image50.png" style="width:0.34028in;height:0.40449in" /><strong>3.14.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 66%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+<p>55</p>
+<p>56</p>
+<p>57</p>
+<p>58</p>
+<p>59</p>
+<p>60</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>time.sleep(5)</p>
+<p>error = robot.SetDO(1,1)</p>
+<p>print("SetDO 1 return:",error)</p>
+<p>error = robot.SetDO(3,1)</p>
+<p>print("SetDO 3 return:",error)</p>
+<p>error = robot.SetToolDO(1,1)</p>
+<p>print("SetToolDO return:",error)</p>
+<p>error = robot.SetAO(0,25)</p>
+<p>print("SetAO 0 return:",error)</p>
+<p>error = robot.SetAO(1,87)</p>
+<p>print("SetAO 1 return:",error)</p>
+<p>error = robot.SetToolAO(0,54)</p>
+<p>print("SetToolAO return:",error)</p>
+<p>error = robot.SetOutputResetCtlBoxDO(1)</p>
+<p>print("SetOutputResetCtlBoxDO return:",error)</p>
+<p>error = robot.SetOutputResetCtlBoxAO(1)</p>
+<p>print("SetOutputResetCtlBoxAO return:",error)</p>
+<p>error = robot.SetOutputResetAxleDO(1)</p>
+<p>print("SetOutputResetCtlBoxDO return:",error)</p>
+<p>error = robot.SetOutputResetAxleAO(1)</p>
+<p>print("SetOutputResetCtlBoxAO return:",error)</p>
+<p>error = robot.ProgramRun()</p>
+<p>print("ProgramRun return:",error)</p>
+<p>time.sleep(3)</p>
+<p>error = robot.ProgramStop()</p>
+<p>print("ProgramPause return:",error)</p>
+<p>time.sleep(5)</p>
+<p>error = robot.SetDO(1,1)</p>
+<p>print("SetDO 1 return:",error)</p>
+<p>error = robot.SetDO(3,1)</p>
+<p>print("SetDO 3 return:",error)</p>
+<p>error = robot.SetToolDO(1,1)</p>
+<p>print("SetToolDO return:",error)</p>
+<p>error = robot.SetAO(0,25)</p>
+<p>print("SetAO 0 return:",error)</p>
+<p>error = robot.SetAO(1,87)</p>
+<p>print("SetAO 1 return:",error)</p>
+<p>error = robot.SetToolAO(0,54)</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image51.png" style="width:0.16601in;height:0.18734in" /> latest</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>61</p>
+<p>62</p>
+<p>63</p>
+<p>64</p>
+<p>65</p>
+<p>66</p>
+<p>67</p>
+<p>68</p>
+<p>69</p>
+<p>70</p>
+<p>71</p>
+<p>72</p>
+<p>73</p>
+<p>74</p>
+<p>75</p>
+<p>76</p>
+<p>77</p>
+<p>78</p>
+</blockquote></td>
+<td><blockquote>
+<p>print("SetToolAO return:",error)</p>
+<p>error = robot.SetOutputResetCtlBoxDO(0)</p>
+<p>print("SetOutputResetCtlBoxDO return:",error)</p>
+<p>error = robot.SetOutputResetCtlBoxAO(0)</p>
+<p>print("SetOutputResetCtlBoxAO return:",error)</p>
+<p>error = robot.SetOutputResetAxleDO(0)</p>
+<p>print("SetOutputResetCtlBoxDO return:",error)</p>
+<p>error = robot.SetOutputResetAxleAO(0)</p>
+<p>print("SetOutputResetCtlBoxAO return:",error)</p>
+<p>error = robot.ProgramRun()</p>
+<p>print("ProgramRun return:",error)</p>
+<p>time.sleep(3)</p>
+<p>error = robot.ProgramStop()</p>
+<p>print("ProgramPause return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.15.</strong> 设置控制箱<strong>AO</strong>停⽌<strong>/</strong>暂停后输出是否复位</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 17%" />
+<col style="width: 35%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetOutputResetCtlBoxDO(resetFlag)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置控制箱AO停⽌/暂停后输出是否复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：0-不复位；1-复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>resetFlag</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.16.</strong> 设置末端⼯具<strong>DO</strong>停⽌<strong>/</strong>暂停后输出是否复位</p>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image52.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 17%" />
+<col style="width: 30%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetOutputResetAxleDO(resetFlag)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置末端⼯具DO停⽌/暂停后输出是否复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：0-不复位；1-复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>resetFlag</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>3.17.</strong> 设置末端⼯具<strong>AO</strong>停⽌<strong>/</strong>暂停后输出是否复位</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 17%" />
+<col style="width: 30%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetOutputResetAxleAO(resetFlag)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置末端⼯具AO停⽌/暂停后输出是否复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：0-不复位；1-复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>resetFlag</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>3.18.</strong> 设置扩展<strong>DO</strong>停⽌<strong>/</strong>暂停后输出是否复位</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 18%" />
+<col style="width: 33%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetOutputResetExtDO (resetFlag)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置扩展DO停⽌/暂停后输出是否复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：0-不复位；1-复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>resetFlag</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image59.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image63.png" style="width:0.34028in;height:0.40449in" /><strong>3.18.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.SetAuxDO(1,<strong>True</strong>,<strong>False</strong>,<strong>False</strong>)</p>
+<p>print("SetAuxDO 1 return:",error)</p>
+<p>error = robot.SetAuxDO(3,<strong>True</strong>,<strong>False</strong>,<strong>False</strong>)</p>
+<p>print("SetAuxDO 3 return:",error)</p>
+<p>error = robot.SetAuxAO(0,10,<strong>False</strong>)</p>
+<p>print("SetAuxAO 0 return:",error)</p>
+<p>error = robot.SetAuxAO(1,87,<strong>False</strong>)</p>
+<p>print("SetAuxAO 1 return:",error)</p>
+<p>error = robot.SetOutputResetExtDO(1)</p>
+<p>print("SetOutputResetExtDO return:",error)</p>
+<p>error = robot.SetOutputResetExtAO(1)</p>
+<p>print("SetOutputResetExtAO return:",error)</p>
+<p>error = robot.ProgramRun()</p>
+<p>print("ProgramRun return:",error)</p>
+<p>time.sleep(3)</p>
+<p>error = robot.ProgramStop()</p>
+<p>print("ProgramPause return:",error)</p>
+<p>time.sleep(3)</p>
+<p>error = robot.SetAuxDO(1,<strong>True</strong>,<strong>False</strong>,<strong>False</strong>)</p>
+<p>print("SetAuxDO 1 return:",error)</p>
+<p>error = robot.SetAuxDO(3,<strong>True</strong>,<strong>False</strong>,<strong>False</strong>)</p>
+<p>print("SetAuxDO 3 return:",error)</p>
+<p>error = robot.SetAuxAO(0,10,<strong>False</strong>)</p>
+<p>print("SetAuxAO 0 return:",error)</p>
+<p>error = robot.SetAuxAO(1,87,<strong>False</strong>)</p>
+<p>print("SetAuxAO 1 return:",error)</p>
+<p>error = robot.SetOutputResetExtDO(0)</p>
+<p>print("SetOutputResetExtDO return:",error)</p>
+<p>error = robot.SetOutputResetExtAO(0)</p>
+<p>print("SetOutputResetExtAO return:",error)</p>
+<p>error = robot.ProgramRun()</p>
+<p>print("ProgramRun return:",error)</p>
+<p>time.sleep(3)</p>
+<p>error = robot.ProgramStop()</p>
+<p>print("ProgramPause return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>3.19.</strong> 设置扩展<strong>AO</strong>停⽌<strong>/</strong>暂停后输出是否复位</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 18%" />
+<col style="width: 33%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetOutputResetExtAO (resetFlag)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置扩展AO停⽌/暂停后输出是否复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：0-不复位；1-复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>resetFlag</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_3_____IO_________________3_8_2___/media/image67.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "connection": {
+    "status": "PASSED",
+    "time": 1.0105867385864258
+  },
+  "sdk_version": [
+    "SDK:V2.0.8",
+    "Robot:V3.7.8"
+  ],
+  "controller_ip": "192.168.58.2",
+  "robot_state": "已停止",
+  "robot_mode": "手动模式",
+  "program_state": 1,
+  "error_codes": {
+    "main": 5,
+    "sub": 1
+  },
+  "motion_done": 1,
+  "joint_positions": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "joint_speeds": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "tcp_pose": [
+    -520.0,
+    -202.0,
+    38.0,
+    90.0,
+    -0.0,
+    0.0
+  ]
+}

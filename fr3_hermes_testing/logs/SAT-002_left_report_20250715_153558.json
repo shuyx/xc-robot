@@ -1,0 +1,90 @@
+{
+  "connection": {
+    "status": "PASSED",
+    "time": 1.0105397701263428
+  },
+  "initial_position": {
+    "joints": [
+      88.6914291381836,
+      -0.17578125,
+      84.02800750732422,
+      -8.483185768127441,
+      4.696274757385254,
+      2.9858882427215576
+    ],
+    "tcp_pose": [
+      196.83702087402344,
+      -213.62753295898438,
+      -131.447021484375,
+      111.41202545166016,
+      -77.46741485595703,
+      66.55613708496094
+    ]
+  },
+  "joint_motion": [
+    {
+      "motion": "left臂腕部旋转",
+      "status": "PASSED",
+      "time": 0.7797667980194092,
+      "accuracy": 0.005709409713745117
+    },
+    {
+      "motion": "left臂腕部回原位",
+      "status": "PASSED",
+      "time": 0.7629284858703613,
+      "accuracy": 0.004350900650024414
+    },
+    {
+      "motion": "left臂肘部运动",
+      "status": "PASSED",
+      "time": 0.4837381839752197,
+      "accuracy": 0.00818490982055664
+    },
+    {
+      "motion": "left臂肘部回原位",
+      "status": "PASSED",
+      "time": 0.38441967964172363,
+      "accuracy": 0.022624969482421875
+    }
+  ],
+  "tcp_motion": [
+    {
+      "motion": "left臂向外侧运动",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "left臂外侧回原位",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "left臂向上运动",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "left臂上举回原位",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "left臂向前运动",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    },
+    {
+      "motion": "left臂向前回原位",
+      "status": "FAILED",
+      "reason": "安全检查失败"
+    }
+  ],
+  "emergency_stop": {
+    "status": "PASSED",
+    "stop_command_result": 0
+  },
+  "return_home": {
+    "status": "PASSED",
+    "accuracy": 0.03850555419921875
+  }
+}
