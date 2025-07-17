@@ -202,6 +202,46 @@
         .collapse-icon:hover {
             background: rgba(46,204,113,0.15);
         }
+        
+        /* 收藏按钮样式 */
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            margin-left: 5px;
+        }
+        
+        .favorite-btn:hover {
+            color: #f39c12;
+            background: rgba(243, 156, 18, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .favorite-btn.favorited {
+            color: #f39c12;
+            background: rgba(243, 156, 18, 0.1);
+        }
+        
+        .group-favorite {
+            margin-right: 5px;
+        }
+        
+        .item-favorite {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .nav-item {
+            position: relative;
+            padding-right: 35px;
+        }
 
         .nav-group-icon {
             margin-right: 8px;
@@ -1319,9 +1359,29 @@
                 <input type="text" class="search-box" placeholder="🔍 搜索功能模块..." id="searchInput">
             </div>
 
+            <div class="nav-group" data-group="quickstart">
+                <div class="nav-group-title">
+                    <span class="nav-group-text"><span class="nav-group-icon">⚡</span>快速启动</span>
+                    <button class="favorite-btn group-favorite" onclick="toggleFavorite('group', 'quickstart', '⚡ 快速启动')" title="收藏此分组">☆</button>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="nav-items" id="favorites-list">
+                    <div class="nav-item" data-page="favorites-overview">
+                        <span class="nav-item-icon">⭐</span>
+                        收藏夹
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'favorites-overview', '⭐ 收藏夹')" title="收藏此功能">☆</button>
+                    </div>
+                    <div class="nav-item" data-page="recent-used">
+                        <span class="nav-item-icon">📜</span>
+                        最近使用
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'recent-used', '📜 最近使用')" title="收藏此功能">☆</button>
+                    </div>
+                </div>
+            </div>
             <div class="nav-group" data-group="device">
                 <div class="nav-group-title">
                     <span class="nav-group-text"><span class="nav-group-icon">📡</span>设备连接</span>
+                    <button class="favorite-btn group-favorite" onclick="toggleFavorite('group', 'device', '📡 设备连接')" title="收藏此分组">☆</button>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -1329,14 +1389,17 @@
                         <span class="nav-item-icon">🔗</span>
                         连接测试
                         <span class="status-indicator status-online"></span>
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'connection-test', '🔗 连接测试')" title="收藏此功能">☆</button>
                     </div>
                     <div class="nav-item" data-page="network-config">
                         <span class="nav-item-icon">🌐</span>
                         网络配置
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'network-config', '🌐 网络配置')" title="收藏此功能">☆</button>
                     </div>
                     <div class="nav-item" data-page="connection-status">
                         <span class="nav-item-icon">📊</span>
                         连接状态
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'connection-status', '📊 连接状态')" title="收藏此功能">☆</button>
                     </div>
                 </div>
             </div>
@@ -1344,6 +1407,7 @@
             <div class="nav-group" data-group="control">
                 <div class="nav-group-title">
                     <span class="nav-group-text"><span class="nav-group-icon">🤖</span>机器人控制</span>
+                    <button class="favorite-btn group-favorite" onclick="toggleFavorite('group', 'control', '🤖 机器人控制')" title="收藏此分组">☆</button>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -1351,15 +1415,18 @@
                         <span class="nav-item-icon">🦾</span>
                         机械臂控制
                         <span class="status-indicator status-online"></span>
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'arm-control', '🦾 机械臂控制')" title="收藏此功能">☆</button>
                     </div>
                     <div class="nav-item" data-page="chassis-control">
                         <span class="nav-item-icon">🚛</span>
                         底盘控制
                         <span class="status-indicator status-online"></span>
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'chassis-control', '🚛 底盘控制')" title="收藏此功能">☆</button>
                     </div>
                     <div class="nav-item" data-page="coord-control">
                         <span class="nav-item-icon">🔄</span>
                         协调控制
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'coord-control', '🔄 协调控制')" title="收藏此功能">☆</button>
                     </div>
                 </div>
             </div>
@@ -1367,6 +1434,7 @@
             <div class="nav-group" data-group="simulation">
                 <div class="nav-group-title">
                     <span class="nav-group-text"><span class="nav-group-icon">🎯</span>仿真测试</span>
+                    <button class="favorite-btn group-favorite" onclick="toggleFavorite('group', 'simulation', '🎯 仿真测试')" title="收藏此分组">☆</button>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
@@ -1478,43 +1546,6 @@
                 </div>
             </div>
 
-            <div class="quick-access">
-                <div class="quick-section">
-                    <div class="quick-title">
-                        <span>⭐ 收藏夹</span>
-                    </div>
-                    <div class="quick-item">
-                        <span>🦾 机械臂控制</span>
-                        <span class="star">⭐</span>
-                    </div>
-                    <div class="quick-item">
-                        <span>👁️ 视觉系统</span>
-                        <span class="star">⭐</span>
-                    </div>
-                    <div class="quick-item">
-                        <span>📈 系统监控</span>
-                        <span class="star">⭐</span>
-                    </div>
-                </div>
-
-                <div class="quick-section">
-                    <div class="quick-title">
-                        <span>📜 最近使用</span>
-                    </div>
-                    <div class="quick-item">
-                        <span>🔗 连接测试</span>
-                        <span class="time">2分钟前</span>
-                    </div>
-                    <div class="quick-item">
-                        <span>🚛 底盘控制</span>
-                        <span class="time">5分钟前</span>
-                    </div>
-                    <div class="quick-item">
-                        <span>🔧 参数配置</span>
-                        <span class="time">10分钟前</span>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="content-area">
@@ -2392,6 +2423,82 @@
         
         // 注意：Markdown渲染现在在Python后端处理
         // 前端直接显示后端返回的HTML内容
+        
+        // 收藏功能
+        let favorites = JSON.parse(localStorage.getItem('xc-robot-favorites') || '[]');
+        
+        function toggleFavorite(type, id, title) {
+            const favoriteItem = { type, id, title };
+            const existingIndex = favorites.findIndex(item => item.type === type && item.id === id);
+            
+            if (existingIndex > -1) {
+                // 取消收藏
+                favorites.splice(existingIndex, 1);
+                updateFavoriteButton(type, id, false);
+            } else {
+                // 添加收藏
+                favorites.push(favoriteItem);
+                updateFavoriteButton(type, id, true);
+            }
+            
+            localStorage.setItem('xc-robot-favorites', JSON.stringify(favorites));
+            updateFavoritesList();
+        }
+        
+        function updateFavoriteButton(type, id, isFavorited) {
+            const selector = type === 'group' ? 
+                `[data-group="${id}"] .group-favorite` : 
+                `[data-page="${id}"] .item-favorite`;
+            const button = document.querySelector(selector);
+            
+            if (button) {
+                button.textContent = isFavorited ? '★' : '☆';
+                button.classList.toggle('favorited', isFavorited);
+            }
+        }
+        
+        function updateFavoritesList() {
+            const favoritesList = document.getElementById('favorites-list');
+            if (!favoritesList) return;
+            
+            // 保留原有的静态项目
+            const staticItems = `
+                <div class="nav-item" data-page="favorites-overview">
+                    <span class="nav-item-icon">⭐</span>
+                    收藏夹
+                    <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'favorites-overview', '⭐ 收藏夹')" title="收藏此功能">☆</button>
+                </div>
+                <div class="nav-item" data-page="recent-used">
+                    <span class="nav-item-icon">📜</span>
+                    最近使用
+                    <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'recent-used', '📜 最近使用')" title="收藏此功能">☆</button>
+                </div>
+            `;
+            
+            // 清空并重新添加
+            favoritesList.innerHTML = staticItems;
+            
+            // 添加收藏的项目
+            favorites.forEach(item => {
+                const favoriteItem = document.createElement('div');
+                favoriteItem.className = 'nav-item';
+                favoriteItem.setAttribute('data-page', item.id);
+                favoriteItem.innerHTML = `
+                    <span class="nav-item-icon">⭐</span>
+                    ${item.title}
+                    <button class="favorite-btn item-favorite favorited" onclick="toggleFavorite('${item.type}', '${item.id}', '${item.title}')" title="取消收藏">★</button>
+                `;
+                favoritesList.appendChild(favoriteItem);
+            });
+        }
+        
+        function initializeFavorites() {
+            // 初始化收藏按钮状态
+            favorites.forEach(item => {
+                updateFavoriteButton(item.type, item.id, true);
+            });
+            updateFavoritesList();
+        }
         
         // 获取文档备用内容（简化版本）
         function getDocumentFallback(filename, title) {
