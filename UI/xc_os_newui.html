@@ -242,6 +242,106 @@
             position: relative;
             padding-right: 35px;
         }
+        
+        /* 下拉菜单样式 */
+        .dropdown-menu {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #2ECC71;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            min-width: 200px;
+            padding: 6px 0;
+            font-size: 13px;
+            animation: menuDropIn 0.2s ease-out;
+        }
+        
+        @keyframes menuDropIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .menu-item-dropdown {
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .menu-item-dropdown:hover {
+            background: linear-gradient(135deg, rgba(46,204,113,0.1) 0%, rgba(46,204,113,0.15) 100%);
+            color: #2c3e50;
+        }
+        
+        .menu-item-dropdown[data-has-submenu="true"]:hover .submenu {
+            display: block;
+        }
+        
+        .menu-icon {
+            margin-right: 10px;
+            font-size: 14px;
+            min-width: 16px;
+        }
+        
+        .menu-text {
+            flex: 1;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .menu-shortcut {
+            font-size: 11px;
+            color: #7f8c8d;
+            margin-left: 10px;
+            font-family: 'Consolas', monospace;
+        }
+        
+        .submenu-arrow {
+            margin-left: 8px;
+            color: #2ECC71;
+            font-size: 10px;
+        }
+        
+        .menu-separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #dee2e6 20%, #dee2e6 80%, transparent 100%);
+            margin: 4px 12px;
+        }
+        
+        .submenu {
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #2ECC71;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            padding: 6px 0;
+            z-index: 10001;
+            animation: submenuSlideIn 0.2s ease-out;
+        }
+        
+        @keyframes submenuSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
         .nav-group-icon {
             margin-right: 8px;
@@ -1336,6 +1436,7 @@
             <h1>xc-os system v2.5.0</h1>
             <div class="header-menu">
                 <span class="menu-item" onclick="showFileMenu()">文件</span>
+                <span class="menu-item" onclick="showViewMenu()">视图</span>
                 <span class="menu-item" onclick="showToolsMenu()">工具</span>
                 <span class="menu-item" onclick="showHelpMenu()">帮助</span>
                 <span class="menu-item" onclick="showAboutInfo()">关于</span>
@@ -1997,12 +2098,157 @@
         
         // 菜单功能
         function showFileMenu() {
-            // 暂时显示提示，后续可扩展为下拉菜单
-            showCustomAlert('文件菜单功能开发中...', '提示');
+            showDropdownMenu('file', [
+                { icon: '📂', text: '新建项目', shortcut: 'Ctrl+N', action: () => console.log('新建项目') },
+                { icon: '📖', text: '打开项目', shortcut: 'Ctrl+O', action: () => console.log('打开项目') },
+                { icon: '📁', text: '最近项目', action: () => showRecentProjects() },
+                { type: 'separator' },
+                { icon: '💾', text: '保存配置', shortcut: 'Ctrl+S', action: () => console.log('保存配置') },
+                { icon: '📄', text: '另存为', shortcut: 'Ctrl+Shift+S', action: () => console.log('另存为') },
+                { type: 'separator' },
+                { icon: '📤', text: '导出数据', submenu: [
+                    { icon: '📊', text: '导出日志', action: () => console.log('导出日志') },
+                    { icon: '📈', text: '导出报告', action: () => console.log('导出报告') },
+                    { icon: '🗂️', text: '导出配置', action: () => console.log('导出配置') }
+                ]},
+                { icon: '📥', text: '导入配置', action: () => console.log('导入配置') },
+                { type: 'separator' },
+                { icon: '🖨️', text: '打印报告', shortcut: 'Ctrl+P', action: () => console.log('打印报告') },
+                { type: 'separator' },
+                { icon: '❌', text: '退出', shortcut: 'Alt+F4', action: () => window.close() }
+            ]);
+        }
+        
+        function showViewMenu() {
+            showDropdownMenu('view', [
+                { icon: '📊', text: '仪表板视图', shortcut: 'F1', action: () => console.log('仪表板视图') },
+                { icon: '📈', text: '监控面板', shortcut: 'F2', action: () => console.log('监控面板') },
+                { icon: '🎮', text: '控制台', shortcut: 'F3', action: () => console.log('控制台') },
+                { type: 'separator' },
+                { icon: '📱', text: '布局选项', submenu: [
+                    { icon: '⬜', text: '单面板布局', action: () => console.log('单面板布局') },
+                    { icon: '🔲', text: '双面板布局', action: () => console.log('双面板布局') },
+                    { icon: '⬛', text: '多面板布局', action: () => console.log('多面板布局') },
+                    { type: 'separator' },
+                    { icon: '🔄', text: '重置布局', action: () => console.log('重置布局') }
+                ]},
+                { icon: '🎨', text: '主题设置', submenu: [
+                    { icon: '☀️', text: '浅色主题', action: () => console.log('浅色主题') },
+                    { icon: '🌙', text: '深色主题', action: () => console.log('深色主题') },
+                    { icon: '🎯', text: '高对比度', action: () => console.log('高对比度') },
+                    { icon: '🔧', text: '自定义主题', action: () => console.log('自定义主题') }
+                ]},
+                { type: 'separator' },
+                { icon: '📏', text: '缩放选项', submenu: [
+                    { icon: '🔍', text: '放大 (Ctrl++)', action: () => console.log('放大') },
+                    { icon: '🔎', text: '缩小 (Ctrl+-)', action: () => console.log('缩小') },
+                    { icon: '📐', text: '重置缩放 (Ctrl+0)', action: () => console.log('重置缩放') },
+                    { type: 'separator' },
+                    { icon: '📱', text: '适应屏幕', action: () => console.log('适应屏幕') }
+                ]},
+                { type: 'separator' },
+                { icon: '👁️', text: '显示选项', submenu: [
+                    { icon: '📋', text: '显示状态栏', action: () => console.log('显示状态栏') },
+                    { icon: '🗂️', text: '显示侧边栏', action: () => console.log('显示侧边栏') },
+                    { icon: '📊', text: '显示日志面板', action: () => console.log('显示日志面板') },
+                    { icon: '🧭', text: '显示导航栏', action: () => console.log('显示导航栏') }
+                ]},
+                { icon: '🖥️', text: '全屏模式', shortcut: 'F11', action: () => console.log('全屏模式') }
+            ]);
         }
         
         function showToolsMenu() {
-            showCustomAlert('工具菜单功能开发中...', '提示');
+            showDropdownMenu('tools', [
+                { icon: '🔧', text: '系统诊断', action: () => console.log('系统诊断') },
+                { icon: '🔍', text: '网络扫描', action: () => console.log('网络扫描') },
+                { icon: '📡', text: '设备检测', action: () => console.log('设备检测') },
+                { type: 'separator' },
+                { icon: '🎯', text: '校准工具', submenu: [
+                    { icon: '📐', text: '机械臂校准', action: () => console.log('机械臂校准') },
+                    { icon: '📷', text: '相机校准', action: () => console.log('相机校准') },
+                    { icon: '🧭', text: '传感器校准', action: () => console.log('传感器校准') }
+                ]},
+                { icon: '⚖️', text: '负载测试', action: () => console.log('负载测试') },
+                { icon: '📊', text: '性能监控', action: () => console.log('性能监控') },
+                { type: 'separator' },
+                { icon: '🛠️', text: '维护工具', submenu: [
+                    { icon: '🧹', text: '清理缓存', action: () => console.log('清理缓存') },
+                    { icon: '🔄', text: '重置配置', action: () => console.log('重置配置') },
+                    { icon: '📋', text: '备份数据', action: () => console.log('备份数据') },
+                    { icon: '🔧', text: '修复工具', action: () => console.log('修复工具') }
+                ]},
+                { type: 'separator' },
+                { icon: '⚙️', text: '选项设置', shortcut: 'Ctrl+,', action: () => showSettings() },
+                { icon: '🔐', text: '安全设置', action: () => console.log('安全设置') }
+            ]);
+        }
+        
+        // 通用下拉菜单系统
+        function showDropdownMenu(menuType, items) {
+            // 移除已存在的菜单
+            const existingMenu = document.querySelector('.dropdown-menu');
+            if (existingMenu) {
+                existingMenu.remove();
+                return;
+            }
+            
+            const menuMap = {
+                'file': 'File',
+                'view': 'View', 
+                'tools': 'Tools'
+            };
+            const menuItem = document.querySelector(`[onclick="show${menuMap[menuType]}Menu()"]`);
+            const rect = menuItem.getBoundingClientRect();
+            
+            const menu = document.createElement('div');
+            menu.className = 'dropdown-menu';
+            menu.style.position = 'fixed';
+            menu.style.top = (rect.bottom + 2) + 'px';
+            menu.style.left = rect.left + 'px';
+            
+            menu.innerHTML = generateMenuHTML(items);
+            document.body.appendChild(menu);
+            
+            // 点击外部关闭菜单
+            setTimeout(() => {
+                document.addEventListener('click', function closeMenu(e) {
+                    if (!menu.contains(e.target) && !menuItem.contains(e.target)) {
+                        menu.remove();
+                        document.removeEventListener('click', closeMenu);
+                    }
+                });
+            }, 100);
+        }
+        
+        function generateMenuHTML(items) {
+            return items.map(item => {
+                if (item.type === 'separator') {
+                    return '<div class="menu-separator"></div>';
+                }
+                
+                const shortcut = item.shortcut ? `<span class="menu-shortcut">${item.shortcut}</span>` : '';
+                const arrow = item.submenu ? '<span class="submenu-arrow">▶</span>' : '';
+                const submenuHTML = item.submenu ? `<div class="submenu">${generateMenuHTML(item.submenu)}</div>` : '';
+                
+                return `
+                    <div class="menu-item-dropdown" onclick="${item.action ? `(${item.action.toString()})()` : ''}" ${item.submenu ? 'data-has-submenu="true"' : ''}>
+                        <span class="menu-icon">${item.icon}</span>
+                        <span class="menu-text">${item.text}</span>
+                        ${shortcut}
+                        ${arrow}
+                        ${submenuHTML}
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 辅助功能
+        function showRecentProjects() {
+            showCustomAlert('最近项目:\n• 双臂协作测试项目\n• 视觉识别演示\n• 移动底盘导航测试', '最近项目');
+        }
+        
+        function showSettings() {
+            showCustomAlert('系统设置面板开发中...', '设置');
         }
         
         // 自定义提示对话框
