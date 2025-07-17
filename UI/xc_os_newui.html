@@ -506,8 +506,39 @@
         .page-header {
             display: flex;
             align-items: center;
-            justify-content: between;
+            justify-content: space-between;
             margin-bottom: 20px;
+        }
+        
+        .test-all-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .test-all-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+        }
+        
+        .test-all-btn:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+        }
+        
+        .test-all-btn .btn-icon {
+            font-size: 16px;
         }
 
         .page-title {
@@ -4476,6 +4507,12 @@ window.show()</code></pre>
                         <h2 class="page-title">🔗 连接测试</h2>
                         <p class="page-description">测试控制计算机与机器人各个硬件模块之间的连通性</p>
                     </div>
+                    <div class="test-all-section">
+                        <button class="test-all-btn" onclick="testAllDevicesConnection()">
+                            <span class="btn-icon">🔍</span>
+                            一键检测全部设备
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="tab-container">
@@ -4705,6 +4742,48 @@ window.show()</code></pre>
             
             // Add active class to selected tab button
             event.target.classList.add('active');
+        }
+        
+        // 一键检测全部设备连接
+        function testAllDevicesConnection() {
+            const deviceList = [
+                'right_arm', 'left_arm', 'left_tool', 'right_tool',
+                'hermes_chassis', 'lift_axis',
+                'tof_camera_1', 'tof_camera_2', 'tof_camera_3', 'fisheye_camera_1', 'fisheye_camera_2', 'face_camera',
+                'display_screen', 'voice_module',
+                'main_power', 'backup_power'
+            ];
+            
+            addLogEntry('开始一键检测全部设备连接', 'INFO');
+            
+            // 禁用按钮避免重复点击
+            const testBtn = document.querySelector('.test-all-btn');
+            if (testBtn) {
+                testBtn.disabled = true;
+                testBtn.innerHTML = '<span class="btn-icon">⏳</span>检测中...';
+            }
+            
+            let completedTests = 0;
+            const totalTests = deviceList.length;
+            
+            // 依次测试每个设备
+            deviceList.forEach((deviceName, index) => {
+                setTimeout(() => {
+                    testSingleDevice(deviceName);
+                    completedTests++;
+                    
+                    // 所有测试完成后恢复按钮
+                    if (completedTests === totalTests) {
+                        setTimeout(() => {
+                            if (testBtn) {
+                                testBtn.disabled = false;
+                                testBtn.innerHTML = '<span class="btn-icon">🔍</span>一键检测全部设备';
+                            }
+                            addLogEntry(`全部设备检测完成，共测试 ${totalTests} 个设备`, 'SUCCESS');
+                        }, 500);
+                    }
+                }, index * 200); // 每个设备间隔200ms测试
+            });
         }
         
         function switchConfigTab(tabName) {
