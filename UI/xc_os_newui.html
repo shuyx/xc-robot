@@ -799,6 +799,92 @@
             font-size: 14px;
         }
 
+        /* Connection Test Page Styles */
+        .connection-test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .connection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .connection-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .connection-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-color: #2ecc71;
+        }
+
+        .device-icon {
+            font-size: 32px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .device-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .device-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .device-details {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+
+        .device-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .status-text {
+            color: #495057;
+            font-weight: 500;
+        }
+
+        /* Status indicator animations for connection test */
+        .connection-card .status-indicator {
+            width: 10px;
+            height: 10px;
+        }
+
+        .connection-card:hover .device-icon {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+
         .log-panel {
             width: 350px;
             background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
@@ -2131,6 +2217,12 @@
                 return;
             }
             
+            // Special handling for connection test page
+            if (pageData.isConnectionTest) {
+                showConnectionTestPage();
+                return;
+            }
+            
             pageContent.innerHTML = `
                 <div class="page-header">
                     <div>
@@ -2222,13 +2314,8 @@
                 'connection-test': {
                     icon: '🔗',
                     title: '连接测试',
-                    description: '测试控制计算机与机器人各个硬件模块之间的网络连通性',
-                    features: [
-                        { icon: '🦾', title: 'FR3 右臂连接', desc: 'IP: 192.168.58.2<br>状态: <span style="color: #27ae60;">● 已连接</span><br>延迟: 2ms' },
-                        { icon: '🦾', title: 'FR3 左臂连接', desc: 'IP: 192.168.58.3<br>状态: <span style="color: #27ae60;">● 已连接</span><br>延迟: 3ms' },
-                        { icon: '🚛', title: 'Hermes 底盘连接', desc: 'IP: 192.168.31.211:1448<br>状态: <span style="color: #27ae60;">● 已连接</span><br>延迟: 5ms' },
-                        { icon: '📷', title: '视觉系统连接', desc: 'ToF相机: 3个已连接<br>2D相机: 3个已连接<br>状态: <span style="color: #f39c12;">⚠ 部分异常</span>' }
-                    ]
+                    description: '测试控制计算机与机器人各个硬件模块之间的连通性',
+                    isConnectionTest: true
                 },
                 'arm-control': {
                     icon: '🦾',
@@ -3736,6 +3823,329 @@ window.show()</code></pre>
             } else {
                 statusIndicator.className = 'status-indicator status-offline';
                 statusText.textContent = '系统离线';
+            }
+        }
+        
+        // Connection Test Page
+        function showConnectionTestPage() {
+            const pageContent = document.getElementById('pageContent');
+            
+            pageContent.innerHTML = `
+                <div class="page-header">
+                    <div>
+                        <h2 class="page-title">🔗 连接测试</h2>
+                        <p class="page-description">测试控制计算机与机器人各个硬件模块之间的连通性</p>
+                    </div>
+                </div>
+                
+                <div class="connection-test-container">
+                    <!-- One-click test all devices -->
+                    <div class="test-all-section">
+                        <button class="test-all-btn" onclick="testAllDevicesConnection()">
+                            <span class="btn-icon">🔍</span>
+                            一键测试所有设备连接
+                        </button>
+                    </div>
+                    
+                    <!-- Robot Arms -->
+                    <div class="config-section">
+                        <h3 class="section-title">🦾 机械臂系统</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card" onclick="testSingleDevice('right_arm')">
+                                <div class="device-icon">🦾</div>
+                                <div class="device-info">
+                                    <div class="device-name">FR3 右臂</div>
+                                    <div class="device-details">IP: 192.168.58.2</div>
+                                    <div class="device-status" id="right_arm_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('left_arm')">
+                                <div class="device-icon">🦾</div>
+                                <div class="device-info">
+                                    <div class="device-name">FR3 左臂</div>
+                                    <div class="device-details">IP: 192.168.58.3</div>
+                                    <div class="device-status" id="left_arm_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- End Effectors -->
+                    <div class="config-section">
+                        <h3 class="section-title">🔧 末端执行器</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card" onclick="testSingleDevice('left_tool')">
+                                <div class="device-icon">🔧</div>
+                                <div class="device-info">
+                                    <div class="device-name">左臂工具</div>
+                                    <div class="device-details">I/O端口连接</div>
+                                    <div class="device-status" id="left_tool_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('right_tool')">
+                                <div class="device-icon">🔧</div>
+                                <div class="device-info">
+                                    <div class="device-name">右臂工具</div>
+                                    <div class="device-details">I/O端口连接</div>
+                                    <div class="device-status" id="right_tool_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lift Axis -->
+                    <div class="config-section">
+                        <h3 class="section-title">↕️ 升降系统</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card" onclick="testSingleDevice('lift_axis')">
+                                <div class="device-icon">↕️</div>
+                                <div class="device-info">
+                                    <div class="device-name">升降轴</div>
+                                    <div class="device-details">RS485串口连接</div>
+                                    <div class="device-status" id="lift_axis_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chassis -->
+                    <div class="config-section">
+                        <h3 class="section-title">🚛 移动底盘</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card" onclick="testSingleDevice('chassis')">
+                                <div class="device-icon">🚛</div>
+                                <div class="device-info">
+                                    <div class="device-name">Hermes 底盘</div>
+                                    <div class="device-details">IP: 192.168.31.211:1448</div>
+                                    <div class="device-status" id="chassis_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Vision System -->
+                    <div class="config-section">
+                        <h3 class="section-title">👁️ 视觉系统</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card" onclick="testSingleDevice('tof_camera_1')">
+                                <div class="device-icon">📷</div>
+                                <div class="device-info">
+                                    <div class="device-name">ToF相机 1</div>
+                                    <div class="device-details">Gemini 335 USB3.0</div>
+                                    <div class="device-status" id="tof_camera_1_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('tof_camera_2')">
+                                <div class="device-icon">📷</div>
+                                <div class="device-info">
+                                    <div class="device-name">ToF相机 2</div>
+                                    <div class="device-details">Gemini 335 USB3.0</div>
+                                    <div class="device-status" id="tof_camera_2_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('tof_camera_3')">
+                                <div class="device-icon">📷</div>
+                                <div class="device-info">
+                                    <div class="device-name">ToF相机 3</div>
+                                    <div class="device-details">Gemini 335 USB3.0</div>
+                                    <div class="device-status" id="tof_camera_3_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('face_camera')">
+                                <div class="device-icon">👤</div>
+                                <div class="device-info">
+                                    <div class="device-name">人脸识别相机</div>
+                                    <div class="device-details">2D相机 USB</div>
+                                    <div class="device-status" id="face_camera_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('fisheye_camera_1')">
+                                <div class="device-icon">🐟</div>
+                                <div class="device-info">
+                                    <div class="device-name">鱼眼镜头 1</div>
+                                    <div class="device-details">广角相机 USB</div>
+                                    <div class="device-status" id="fisheye_camera_1_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('fisheye_camera_2')">
+                                <div class="device-icon">🐟</div>
+                                <div class="device-info">
+                                    <div class="device-name">鱼眼镜头 2</div>
+                                    <div class="device-details">广角相机 USB</div>
+                                    <div class="device-status" id="fisheye_camera_2_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive System -->
+                    <div class="config-section">
+                        <h3 class="section-title">🎤 交互系统</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card" onclick="testSingleDevice('display_screen')">
+                                <div class="device-icon">📱</div>
+                                <div class="device-info">
+                                    <div class="device-name">6.1寸触摸屏</div>
+                                    <div class="device-details">USB显示设备</div>
+                                    <div class="device-status" id="display_screen_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('voice_module')">
+                                <div class="device-icon">🎤</div>
+                                <div class="device-info">
+                                    <div class="device-name">语音模块</div>
+                                    <div class="device-details">USB音频设备</div>
+                                    <div class="device-status" id="voice_module_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Power System -->
+                    <div class="config-section">
+                        <h3 class="section-title">🔋 电源系统</h3>
+                        <div class="connection-grid">
+                            <div class="connection-card" onclick="testSingleDevice('chassis_power')">
+                                <div class="device-icon">🔋</div>
+                                <div class="device-info">
+                                    <div class="device-name">底盘电源</div>
+                                    <div class="device-details">Hermes API</div>
+                                    <div class="device-status" id="chassis_power_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="connection-card" onclick="testSingleDevice('backup_power')">
+                                <div class="device-icon">⚡</div>
+                                <div class="device-info">
+                                    <div class="device-name">备用电源</div>
+                                    <div class="device-details">锂电池模块</div>
+                                    <div class="device-status" id="backup_power_status">
+                                        <span class="status-indicator status-unknown"></span>
+                                        <span class="status-text">未测试</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Connection Test Functions
+        function testAllDevicesConnection() {
+            const allDevices = [
+                'right_arm', 'left_arm', 'left_tool', 'right_tool', 'lift_axis',
+                'chassis', 'tof_camera_1', 'tof_camera_2', 'tof_camera_3',
+                'face_camera', 'fisheye_camera_1', 'fisheye_camera_2',
+                'display_screen', 'voice_module', 'chassis_power', 'backup_power'
+            ];
+            
+            allDevices.forEach((device, index) => {
+                setTimeout(() => testSingleDevice(device), index * 200);
+            });
+        }
+        
+        function testSingleDevice(deviceName) {
+            console.log('Testing device:', deviceName);
+            updateConnectionStatus(deviceName, 'testing', '正在测试...');
+            
+            // Call Python backend for actual testing
+            if (window.bridge && window.bridge.test_device) {
+                window.bridge.test_device(deviceName, function(result) {
+                    try {
+                        const resultData = JSON.parse(result);
+                        updateConnectionStatus(deviceName, resultData.status, resultData.message || '');
+                    } catch (e) {
+                        updateConnectionStatus(deviceName, 'error', '测试失败');
+                    }
+                });
+            } else {
+                // Simulate testing for demo
+                setTimeout(() => {
+                    const success = Math.random() > 0.2;
+                    updateConnectionStatus(deviceName, success ? 'online' : 'offline', 
+                        success ? '连接成功' : '连接失败');
+                }, 1500);
+            }
+        }
+        
+        function updateConnectionStatus(deviceName, status, message) {
+            const statusElement = document.getElementById(deviceName + '_status');
+            if (!statusElement) return;
+            
+            const indicator = statusElement.querySelector('.status-indicator');
+            const textElement = statusElement.querySelector('.status-text');
+            
+            if (indicator) {
+                indicator.className = `status-indicator status-${status}`;
+            }
+            
+            if (textElement) {
+                const statusText = {
+                    'testing': '测试中...',
+                    'online': '在线',
+                    'offline': '离线',
+                    'error': '错误',
+                    'warning': '警告'
+                };
+                
+                textElement.textContent = statusText[status] || message || '未知状态';
+                if (message && status !== 'testing') {
+                    textElement.title = message;
+                }
             }
         }
         
