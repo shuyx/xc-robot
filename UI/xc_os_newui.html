@@ -95,6 +95,32 @@
             transform: translateY(0);
         }
 
+        .log-toggle-btn {
+            background: #3498db;
+            border: none;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        .log-toggle-btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .log-toggle-btn.active {
+            background: #27ae60;
+        }
+
         .btn-icon {
             font-size: 12px;
         }
@@ -450,6 +476,12 @@
             display: flex;
             flex-direction: column;
             background: white;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .main-container.log-hidden .content-area {
+            flex: 1;
+            max-width: none;
         }
 
         .breadcrumb {
@@ -1467,6 +1499,14 @@
             display: flex;
             flex-direction: column;
             border-left: 2px solid #2ECC71;
+            transition: transform 0.3s ease-in-out;
+            flex-shrink: 0;
+        }
+
+        .main-container.log-hidden .log-panel {
+            transform: translateX(100%);
+            width: 0;
+            overflow: hidden;
         }
 
         .log-header {
@@ -2378,6 +2418,7 @@
             </div>
         </div>
         <div class="header-right">
+            <button id="toggle-log-btn" class="log-toggle-btn active" title="切换日志面板">📝 日志</button>
             <button class="emergency-stop-btn" onclick="emergencyStop()">
                 <span class="btn-icon">⏹</span>
                 <span class="btn-text">紧急停止</span>
@@ -2768,6 +2809,17 @@
                     navigateToFunction(funcName);
                 });
             });
+
+            // 日志面板切换功能
+            const toggleLogBtn = document.getElementById('toggle-log-btn');
+            const mainContainer = document.querySelector('.main-container');
+            
+            if (toggleLogBtn && mainContainer) {
+                toggleLogBtn.addEventListener('click', function() {
+                    mainContainer.classList.toggle('log-hidden');
+                    this.classList.toggle('active');
+                });
+            }
 
             // 模拟日志更新
             setInterval(addRandomLog, 5000);
