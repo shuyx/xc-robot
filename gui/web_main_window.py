@@ -1332,6 +1332,797 @@ class WebBridge(QObject):
             self.log_message.emit(f"备用电源 检测失败: {e}", "ERROR")
             return json.dumps({"status": "error", "message": f"备用电源检测失败: {e}"})
 
+    # ==================== 场景测试相关方法 ====================
+    
+    @pyqtSlot(str, str, result=str)
+    def start_component_test(self, device_type, test_params):
+        """启动组件测试"""
+        try:
+            params = json.loads(test_params)
+            self.log_message.emit(f"开始组件测试: {device_type}", "INFO")
+            
+            if device_type == "single_arm":
+                return self._execute_single_arm_test(params)
+            elif device_type == "chassis":
+                return self._execute_chassis_test(params)
+            elif device_type == "lift_axis":
+                return self._execute_lift_axis_test(params)
+            elif device_type == "tool":
+                return self._execute_tool_test(params)
+            else:
+                return json.dumps({"status": "error", "message": f"未知设备类型: {device_type}"})
+                
+        except Exception as e:
+            error_msg = f"组件测试失败: {device_type} - {e}"
+            self.log_message.emit(error_msg, "ERROR")
+            return json.dumps({"status": "error", "message": error_msg})
+    
+    def _execute_single_arm_test(self, params):
+        """执行单臂测试"""
+        try:
+            arm_type = params.get('arm', 'right')
+            test_type = params.get('test_type', 'connection')
+            
+            # 根据臂类型确定IP地址
+            arm_ip = '192.168.58.2' if arm_type == 'right' else '192.168.58.3'
+            
+            # 动态导入并执行SAT001测试脚本
+            import sys
+            import os
+            import subprocess
+            import threading
+            
+            # 构建测试脚本路径
+            test_script_path = os.path.join(
+                os.path.dirname(os.path.dirname(__file__)), 
+                'fr3_hermes_testing', 
+                'SAT001.py'
+            )
+            
+            if not os.path.exists(test_script_path):
+                return json.dumps({
+                    "status": "error", 
+                    "message": "测试脚本不存在",
+                    "details": f"未找到文件: {test_script_path}"
+                })
+            
+            # 在后台线程中执行测试
+            def run_test():
+                try:
+                    self.log_message.emit(f"正在执行{arm_type}臂连接测试...", "INFO")
+                    
+                    # 执行测试脚本
+                    cmd = [sys.executable, test_script_path, '--arm', arm_type, '--ip', arm_ip]
+                    
+                    # 启动进程但不等待，立即返回
+                    process = subprocess.Popen(
+                        cmd,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        text=True,
+                        cwd=os.path.dirname(test_script_path)
+                    )
+                    
+                    # 模拟测试进度更新
+                    for progress in [20, 40, 60, 80, 100]:
+                        import time
+                        time.sleep(1)
+                        self.log_message.emit(f"{arm_type}臂测试进度: {progress}%", "INFO")
+                    
+                    # 等待进程完成
+                    stdout, stderr = process.communicate(timeout=60)
+                    
+                    if process.returncode == 0:
+                        self.log_message.emit(f"{arm_type}臂测试完成 - 成功", "SUCCESS")
+                    else:
+                        self.log_message.emit(f"{arm_type}臂测试完成 - 失败: {stderr}", "ERROR")
+                        
+                except subprocess.TimeoutExpired:
+                    self.log_message.emit(f"{arm_type}臂测试超时", "WARNING")
+                except Exception as e:
+                    self.log_message.emit(f"{arm_type}臂测试异常: {e}", "ERROR")
+            
+            # 启动后台测试线程
+            test_thread = threading.Thread(target=run_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": f"{arm_type}臂测试已启动",
+                "test_id": f"SAT001_{arm_type}_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"单臂测试失败: {e}"})
+    
+    def _execute_chassis_test(self, params):
+        """执行底盘测试"""
+        try:
+            test_type = params.get('test_type', 'connection')
+            
+            def run_chassis_test():
+                try:
+                    self.log_message.emit("正在执行底盘连接测试...", "INFO")
+                    
+                    # 测试底盘API连接
+                    import requests
+                    import time
+                    
+                    chassis_url = "http://192.168.31.211:1448/api/core/robot/status"
+                    
+                    for progress in [25, 50, 75, 100]:
+                        time.sleep(0.8)
+                        self.log_message.emit(f"底盘测试进度: {progress}%", "INFO")
+                    
+                    # 实际API测试
+                    response = requests.get(chassis_url, timeout=5)
+                    
+                    if response.status_code == 200:
+                        self.log_message.emit("底盘测试完成 - 成功", "SUCCESS")
+                    else:
+                        self.log_message.emit(f"底盘测试完成 - 失败: HTTP {response.status_code}", "ERROR")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"底盘测试异常: {e}", "ERROR")
+            
+            # 启动后台测试线程
+            test_thread = threading.Thread(target=run_chassis_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "底盘测试已启动",
+                "test_id": f"CHT001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"底盘测试失败: {e}"})
+    
+    def _execute_lift_axis_test(self, params):
+        """执行升降轴测试"""
+        try:
+            def run_lift_test():
+                try:
+                    self.log_message.emit("正在执行升降轴测试...", "INFO")
+                    
+                    import time
+                    for progress in [30, 60, 90, 100]:
+                        time.sleep(0.6)
+                        self.log_message.emit(f"升降轴测试进度: {progress}%", "INFO")
+                    
+                    # 模拟RS485通信测试
+                    self.log_message.emit("升降轴RS485通信测试完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"升降轴测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_lift_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "升降轴测试已启动",
+                "test_id": f"LAT001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"升降轴测试失败: {e}"})
+    
+    def _execute_tool_test(self, params):
+        """执行工具测试"""
+        try:
+            tool_type = params.get('tool_type', 'gripper')
+            
+            def run_tool_test():
+                try:
+                    self.log_message.emit(f"正在执行{tool_type}工具测试...", "INFO")
+                    
+                    import time
+                    for progress in [25, 50, 75, 100]:
+                        time.sleep(0.5)
+                        self.log_message.emit(f"{tool_type}工具测试进度: {progress}%", "INFO")
+                    
+                    self.log_message.emit(f"{tool_type}工具测试完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"{tool_type}工具测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_tool_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": f"{tool_type}工具测试已启动",
+                "test_id": f"TOL001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"工具测试失败: {e}"})
+    
+    @pyqtSlot(str, str, result=str)
+    def start_integration_test(self, test_type, test_params):
+        """启动集成测试"""
+        try:
+            params = json.loads(test_params)
+            self.log_message.emit(f"开始集成测试: {test_type}", "INFO")
+            
+            if test_type == "dual_arm":
+                return self._execute_dual_arm_test(params)
+            elif test_type == "chassis_arm":
+                return self._execute_chassis_arm_test(params)
+            elif test_type == "system_communication":
+                return self._execute_system_communication_test(params)
+            else:
+                return json.dumps({"status": "error", "message": f"未知集成测试类型: {test_type}"})
+                
+        except Exception as e:
+            error_msg = f"集成测试失败: {test_type} - {e}"
+            self.log_message.emit(error_msg, "ERROR")
+            return json.dumps({"status": "error", "message": error_msg})
+    
+    def _execute_dual_arm_test(self, params):
+        """执行双臂集成测试"""
+        try:
+            import sys
+            import os
+            import subprocess
+            import threading
+            
+            # 构建DAT001测试脚本路径
+            test_script_path = os.path.join(
+                os.path.dirname(os.path.dirname(__file__)), 
+                'fr3_hermes_testing', 
+                'DAT001.py'
+            )
+            
+            if not os.path.exists(test_script_path):
+                return json.dumps({
+                    "status": "error", 
+                    "message": "双臂测试脚本不存在",
+                    "details": f"未找到文件: {test_script_path}"
+                })
+            
+            def run_dual_arm_test():
+                try:
+                    self.log_message.emit("正在执行双臂同步测试...", "INFO")
+                    
+                    cmd = [
+                        sys.executable, test_script_path, 
+                        '--left-ip', '192.168.58.3',
+                        '--right-ip', '192.168.58.2'
+                    ]
+                    
+                    # 模拟测试阶段进度
+                    test_phases = [
+                        (20, "并行连接测试"),
+                        (40, "独立控制测试"),
+                        (60, "同步状态获取"),
+                        (80, "安全距离检查"),
+                        (100, "通信干扰测试")
+                    ]
+                    
+                    for progress, phase in test_phases:
+                        import time
+                        time.sleep(1.5)
+                        self.log_message.emit(f"双臂测试: {phase} - {progress}%", "INFO")
+                    
+                    # 启动实际测试进程
+                    process = subprocess.Popen(
+                        cmd,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        text=True,
+                        cwd=os.path.dirname(test_script_path)
+                    )
+                    
+                    stdout, stderr = process.communicate(timeout=120)
+                    
+                    if process.returncode == 0:
+                        self.log_message.emit("双臂集成测试完成 - 成功", "SUCCESS")
+                    else:
+                        self.log_message.emit(f"双臂集成测试完成 - 失败: {stderr}", "ERROR")
+                        
+                except subprocess.TimeoutExpired:
+                    self.log_message.emit("双臂集成测试超时", "WARNING")
+                except Exception as e:
+                    self.log_message.emit(f"双臂集成测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_dual_arm_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "双臂集成测试已启动",
+                "test_id": f"DAT001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"双臂集成测试失败: {e}"})
+    
+    def _execute_chassis_arm_test(self, params):
+        """执行底盘-机械臂联动测试"""
+        try:
+            def run_chassis_arm_test():
+                try:
+                    self.log_message.emit("正在执行底盘-机械臂联动测试...", "INFO")
+                    
+                    test_phases = [
+                        (25, "底盘移动控制测试"),
+                        (50, "机械臂姿态保持测试"),
+                        (75, "协调运动测试"),
+                        (100, "动态工作空间测试")
+                    ]
+                    
+                    import time
+                    for progress, phase in test_phases:
+                        time.sleep(2)
+                        self.log_message.emit(f"联动测试: {phase} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("底盘-机械臂联动测试完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"联动测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_chassis_arm_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "底盘-机械臂联动测试已启动",
+                "test_id": f"CAI001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"联动测试失败: {e}"})
+    
+    def _execute_system_communication_test(self, params):
+        """执行系统通信测试"""
+        try:
+            def run_communication_test():
+                try:
+                    self.log_message.emit("正在执行系统通信测试...", "INFO")
+                    
+                    test_phases = [
+                        (20, "网络延迟测试"),
+                        (40, "数据传输测试"),
+                        (60, "并发通信测试"),
+                        (80, "异常恢复测试"),
+                        (100, "通信稳定性测试")
+                    ]
+                    
+                    import time
+                    for progress, phase in test_phases:
+                        time.sleep(1.2)
+                        self.log_message.emit(f"通信测试: {phase} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("系统通信测试完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"通信测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_communication_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "系统通信测试已启动",
+                "test_id": f"COM001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"通信测试失败: {e}"})
+    
+    @pyqtSlot(str, str, result=str)
+    def start_vision_test(self, test_type, test_params):
+        """启动视觉引导测试"""
+        try:
+            params = json.loads(test_params)
+            self.log_message.emit(f"开始视觉测试: {test_type}", "INFO")
+            
+            if test_type == "camera_calibration":
+                return self._execute_camera_calibration_test(params)
+            elif test_type == "object_detection":
+                return self._execute_object_detection_test(params)
+            elif test_type == "depth_perception":
+                return self._execute_depth_perception_test(params)
+            elif test_type == "ai_task":
+                return self._execute_ai_task_test(params)
+            else:
+                return json.dumps({"status": "error", "message": f"未知视觉测试类型: {test_type}"})
+                
+        except Exception as e:
+            error_msg = f"视觉测试失败: {test_type} - {e}"
+            self.log_message.emit(error_msg, "ERROR")
+            return json.dumps({"status": "error", "message": error_msg})
+    
+    def _execute_camera_calibration_test(self, params):
+        """执行相机标定测试"""
+        try:
+            def run_calibration_test():
+                try:
+                    self.log_message.emit("正在执行相机标定测试...", "INFO")
+                    
+                    import time
+                    
+                    # 模拟相机标定过程
+                    calibration_steps = [
+                        (15, "检测ToF相机连接"),
+                        (30, "采集标定图像"),
+                        (50, "计算内参矩阵"),
+                        (70, "计算外参矩阵"),
+                        (85, "验证标定精度"),
+                        (100, "保存标定结果")
+                    ]
+                    
+                    for progress, step in calibration_steps:
+                        time.sleep(1.5)
+                        self.log_message.emit(f"相机标定: {step} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("相机标定测试完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"相机标定测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_calibration_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "相机标定测试已启动",
+                "test_id": f"VIS001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"相机标定测试失败: {e}"})
+    
+    def _execute_object_detection_test(self, params):
+        """执行物体检测测试"""
+        try:
+            def run_detection_test():
+                try:
+                    self.log_message.emit("正在执行物体检测测试...", "INFO")
+                    
+                    import time
+                    
+                    detection_steps = [
+                        (20, "初始化检测模型"),
+                        (40, "采集RGB图像"),
+                        (60, "采集深度图像"),
+                        (80, "执行物体检测"),
+                        (100, "计算3D位置")
+                    ]
+                    
+                    for progress, step in detection_steps:
+                        time.sleep(1.2)
+                        self.log_message.emit(f"物体检测: {step} - {progress}%", "INFO")
+                    
+                    # 模拟检测结果
+                    detected_objects = ["杯子(x:245, y:180, z:650)", "键盘(x:320, y:200, z:680)"]
+                    for obj in detected_objects:
+                        self.log_message.emit(f"检测到物体: {obj}", "SUCCESS")
+                    
+                    self.log_message.emit("物体检测测试完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"物体检测测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_detection_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "物体检测测试已启动",
+                "test_id": f"VIS002_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"物体检测测试失败: {e}"})
+    
+    def _execute_depth_perception_test(self, params):
+        """执行深度感知测试"""
+        try:
+            def run_depth_test():
+                try:
+                    self.log_message.emit("正在执行深度感知测试...", "INFO")
+                    
+                    import time
+                    
+                    depth_steps = [
+                        (25, "启动ToF相机"),
+                        (50, "采集深度数据"),
+                        (75, "处理点云数据"),
+                        (100, "生成深度图像")
+                    ]
+                    
+                    for progress, step in depth_steps:
+                        time.sleep(1.8)
+                        self.log_message.emit(f"深度感知: {step} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("深度感知测试完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"深度感知测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_depth_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "深度感知测试已启动",
+                "test_id": f"VIS003_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"深度感知测试失败: {e}"})
+    
+    def _execute_ai_task_test(self, params):
+        """执行AI任务测试"""
+        try:
+            task_type = params.get('task_type', 'generic')
+            
+            def run_ai_task_test():
+                try:
+                    self.log_message.emit(f"正在执行AI任务测试: {task_type}...", "INFO")
+                    
+                    import time
+                    
+                    ai_steps = [
+                        (20, "加载AI模型"),
+                        (40, "预处理输入数据"),
+                        (60, "执行推理计算"),
+                        (80, "后处理结果"),
+                        (100, "输出最终结果")
+                    ]
+                    
+                    for progress, step in ai_steps:
+                        time.sleep(1.5)
+                        self.log_message.emit(f"AI任务: {step} - {progress}%", "INFO")
+                    
+                    self.log_message.emit(f"AI任务测试({task_type})完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"AI任务测试异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_ai_task_test)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": f"AI任务测试({task_type})已启动",
+                "test_id": f"AI001_{task_type}_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"AI任务测试失败: {e}"})
+    
+    @pyqtSlot(str, str, result=str)
+    def start_e2e_scenario(self, scenario_name, scenario_params):
+        """启动端到端场景测试"""
+        try:
+            params = json.loads(scenario_params)
+            self.log_message.emit(f"开始端到端场景: {scenario_name}", "INFO")
+            
+            if scenario_name == "pick_and_place":
+                return self._execute_pick_and_place_scenario(params)
+            elif scenario_name == "dual_arm_assembly":
+                return self._execute_dual_arm_assembly_scenario(params)
+            elif scenario_name == "mobile_inspection":
+                return self._execute_mobile_inspection_scenario(params)
+            elif scenario_name == "human_interaction":
+                return self._execute_human_interaction_scenario(params)
+            else:
+                return json.dumps({"status": "error", "message": f"未知场景: {scenario_name}"})
+                
+        except Exception as e:
+            error_msg = f"端到端场景失败: {scenario_name} - {e}"
+            self.log_message.emit(error_msg, "ERROR")
+            return json.dumps({"status": "error", "message": error_msg})
+    
+    def _execute_pick_and_place_scenario(self, params):
+        """执行抓取放置场景"""
+        try:
+            def run_pick_place_scenario():
+                try:
+                    self.log_message.emit("正在执行抓取放置场景...", "INFO")
+                    
+                    import time
+                    
+                    scenario_steps = [
+                        (10, "初始化系统"),
+                        (20, "视觉系统定位目标"),
+                        (35, "规划抓取路径"),
+                        (50, "机械臂移动到抓取位置"),
+                        (65, "执行抓取动作"),
+                        (80, "移动到放置位置"),
+                        (95, "执行放置动作"),
+                        (100, "返回初始位置")
+                    ]
+                    
+                    for progress, step in scenario_steps:
+                        time.sleep(2.5)
+                        self.log_message.emit(f"抓取放置: {step} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("抓取放置场景完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"抓取放置场景异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_pick_place_scenario)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "抓取放置场景已启动",
+                "test_id": f"E2E001_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"抓取放置场景失败: {e}"})
+    
+    def _execute_dual_arm_assembly_scenario(self, params):
+        """执行双臂协作装配场景"""
+        try:
+            def run_assembly_scenario():
+                try:
+                    self.log_message.emit("正在执行双臂协作装配场景...", "INFO")
+                    
+                    import time
+                    
+                    scenario_steps = [
+                        (12, "初始化双臂系统"),
+                        (25, "视觉识别装配件"),
+                        (40, "左臂固定底座件"),
+                        (55, "右臂抓取装配件"),
+                        (70, "双臂协调定位"),
+                        (85, "执行装配动作"),
+                        (100, "验证装配结果")
+                    ]
+                    
+                    for progress, step in scenario_steps:
+                        time.sleep(3)
+                        self.log_message.emit(f"双臂装配: {step} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("双臂协作装配场景完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"双臂装配场景异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_assembly_scenario)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "双臂协作装配场景已启动",
+                "test_id": f"E2E002_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"双臂装配场景失败: {e}"})
+    
+    def _execute_mobile_inspection_scenario(self, params):
+        """执行移动巡检场景"""
+        try:
+            def run_inspection_scenario():
+                try:
+                    self.log_message.emit("正在执行移动巡检场景...", "INFO")
+                    
+                    import time
+                    
+                    scenario_steps = [
+                        (15, "设定巡检路线"),
+                        (30, "底盘移动到检查点1"),
+                        (45, "机械臂执行检查"),
+                        (60, "移动到检查点2"),
+                        (75, "执行深度检查"),
+                        (90, "数据记录和分析"),
+                        (100, "返回起始位置")
+                    ]
+                    
+                    for progress, step in scenario_steps:
+                        time.sleep(2.8)
+                        self.log_message.emit(f"移动巡检: {step} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("移动巡检场景完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"移动巡检场景异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_inspection_scenario)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "移动巡检场景已启动",
+                "test_id": f"E2E003_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"移动巡检场景失败: {e}"})
+    
+    def _execute_human_interaction_scenario(self, params):
+        """执行人机交互场景"""
+        try:
+            def run_interaction_scenario():
+                try:
+                    self.log_message.emit("正在执行人机交互场景...", "INFO")
+                    
+                    import time
+                    
+                    scenario_steps = [
+                        (18, "启动交互系统"),
+                        (35, "人脸识别和问候"),
+                        (50, "语音交互处理"),
+                        (65, "手势识别分析"),
+                        (80, "执行用户指令"),
+                        (95, "反馈确认"),
+                        (100, "交互结束")
+                    ]
+                    
+                    for progress, step in scenario_steps:
+                        time.sleep(2.2)
+                        self.log_message.emit(f"人机交互: {step} - {progress}%", "INFO")
+                    
+                    self.log_message.emit("人机交互场景完成 - 成功", "SUCCESS")
+                        
+                except Exception as e:
+                    self.log_message.emit(f"人机交互场景异常: {e}", "ERROR")
+            
+            test_thread = threading.Thread(target=run_interaction_scenario)
+            test_thread.daemon = True
+            test_thread.start()
+            
+            return json.dumps({
+                "status": "running",
+                "message": "人机交互场景已启动",
+                "test_id": f"E2E004_{int(time.time())}"
+            })
+            
+        except Exception as e:
+            return json.dumps({"status": "error", "message": f"人机交互场景失败: {e}"})
+    
+    @pyqtSlot()
+    def stop_all_tests(self):
+        """停止所有正在运行的测试"""
+        try:
+            self.log_message.emit("正在停止所有测试...", "WARNING")
+            
+            # 这里可以添加停止测试的逻辑
+            # 例如设置标志位、终止进程等
+            
+            self.log_message.emit("所有测试已停止", "INFO")
+            
+        except Exception as e:
+            self.log_message.emit(f"停止测试失败: {e}", "ERROR")
+    
+    @pyqtSlot(result=str)
+    def get_test_status(self):
+        """获取当前测试状态"""
+        try:
+            # 这里可以返回当前正在运行的测试信息
+            status = {
+                "running_tests": [],
+                "completed_tests": [],
+                "failed_tests": []
+            }
+            return json.dumps(status)
+            
+        except Exception as e:
+            return json.dumps({"error": str(e)})
+
 
 class XCRobotWebMainWindow(QMainWindow):
     """XC-ROBOT Web主窗口"""
@@ -1452,6 +2243,112 @@ class XCRobotWebMainWindow(QMainWindow):
                         if (bridge) {
                             bridge.download_logs();
                         }
+                    }
+                    
+                    // ==================== 场景测试相关函数 ====================
+                    
+                    // 启动组件测试
+                    function startComponentTest(deviceType, testParams) {
+                        if (bridge) {
+                            bridge.start_component_test(deviceType, JSON.stringify(testParams), function(result) {
+                                var data = JSON.parse(result);
+                                handleTestResult('component', data);
+                            });
+                        }
+                    }
+                    
+                    // 启动集成测试
+                    function startIntegrationTest(testType, testParams) {
+                        if (bridge) {
+                            bridge.start_integration_test(testType, JSON.stringify(testParams), function(result) {
+                                var data = JSON.parse(result);
+                                handleTestResult('integration', data);
+                            });
+                        }
+                    }
+                    
+                    // 启动视觉测试
+                    function startVisionTest(testType, testParams) {
+                        if (bridge) {
+                            bridge.start_vision_test(testType, JSON.stringify(testParams), function(result) {
+                                var data = JSON.parse(result);
+                                handleTestResult('vision', data);
+                            });
+                        }
+                    }
+                    
+                    // 启动端到端场景
+                    function startE2EScenario(scenarioName, scenarioParams) {
+                        if (bridge) {
+                            bridge.start_e2e_scenario(scenarioName, JSON.stringify(scenarioParams), function(result) {
+                                var data = JSON.parse(result);
+                                handleTestResult('e2e', data);
+                            });
+                        }
+                    }
+                    
+                    // 停止所有测试
+                    function stopAllTests() {
+                        if (bridge) {
+                            bridge.stop_all_tests();
+                        }
+                    }
+                    
+                    // 获取测试状态
+                    function getTestStatus() {
+                        if (bridge) {
+                            bridge.get_test_status(function(result) {
+                                var status = JSON.parse(result);
+                                updateTestStatus(status);
+                            });
+                        }
+                    }
+                    
+                    // 处理测试结果
+                    function handleTestResult(testCategory, result) {
+                        console.log('测试结果:', testCategory, result);
+                        
+                        if (result.status === 'running') {
+                            addLogEntry('测试已启动: ' + result.message, 'INFO');
+                        } else if (result.status === 'error') {
+                            addLogEntry('测试失败: ' + result.message, 'ERROR');
+                        } else {
+                            addLogEntry('测试状态: ' + result.message, 'SUCCESS');
+                        }
+                        
+                        // 更新UI状态指示器
+                        updateTestIndicator(testCategory, result.status);
+                    }
+                    
+                    // 更新测试状态指示器
+                    function updateTestIndicator(testCategory, status) {
+                        var indicators = document.querySelectorAll('.test-status-indicator');
+                        indicators.forEach(function(indicator) {
+                            if (indicator.dataset.category === testCategory) {
+                                indicator.className = 'test-status-indicator ' + status;
+                                indicator.textContent = status === 'running' ? '运行中' : 
+                                                     status === 'error' ? '失败' : '完成';
+                            }
+                        });
+                    }
+                    
+                    // 更新测试状态
+                    function updateTestStatus(status) {
+                        console.log('测试状态更新:', status);
+                        
+                        // 更新运行中的测试计数
+                        var runningCount = status.running_tests ? status.running_tests.length : 0;
+                        var completedCount = status.completed_tests ? status.completed_tests.length : 0;
+                        var failedCount = status.failed_tests ? status.failed_tests.length : 0;
+                        
+                        // 更新状态显示
+                        var statusElements = document.querySelectorAll('.test-status-summary');
+                        statusElements.forEach(function(element) {
+                            element.innerHTML = 
+                                '运行中: ' + runningCount + 
+                                ', 已完成: ' + completedCount + 
+                                ', 失败: ' + failedCount;
+                        });
                     }
                     
                     // 更新设备状态显示

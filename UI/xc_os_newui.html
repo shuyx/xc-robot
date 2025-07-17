@@ -2883,6 +2883,417 @@
             font-weight: 600;
         }
         
+        /* ==================== SCENARIO TESTING STYLES ==================== */
+        
+        /* 场景测试页面样式 */
+        .component-testing-container,
+        .integration-testing-container,
+        .vision-testing-container,
+        .e2e-scenarios-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .component-testing-header,
+        .integration-testing-header,
+        .vision-testing-header,
+        .e2e-scenarios-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .page-icon {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        /* 组件测试布局 */
+        .component-testing-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr 400px;
+            gap: 20px;
+            height: calc(100vh - 200px);
+        }
+
+        .component-testing-left,
+        .component-testing-center,
+        .component-testing-right {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .device-selection-panel h3,
+        .test-list-panel h3,
+        .test-config-panel h3,
+        .status-overview h3,
+        .realtime-log-panel h3 {
+            margin: 0 0 16px 0;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 600;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        #deviceSelect {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        #deviceSelect:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .test-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .test-item {
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .test-item:hover {
+            background: #f8f9fa;
+            border-color: #3498db;
+            transform: translateX(4px);
+        }
+
+        .test-item.selected {
+            background: linear-gradient(135deg, #3498db 0%, #5dade2 100%);
+            color: white;
+            border-color: #3498db;
+        }
+
+        .test-id {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .test-name {
+            font-size: 12px;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+
+        .test-placeholder,
+        .parameter-placeholder,
+        .log-placeholder {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px 20px;
+        }
+
+        .test-parameters {
+            min-height: 200px;
+            margin-bottom: 20px;
+        }
+
+        .parameter-group {
+            margin-bottom: 16px;
+        }
+
+        .parameter-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .parameter-group input,
+        .parameter-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .parameter-slider {
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        .slider-value {
+            display: inline-block;
+            margin-left: 8px;
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .test-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .start-test-btn,
+        .scenario-execute-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .start-test-btn:hover,
+        .scenario-execute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .start-test-btn:disabled,
+        .scenario-execute-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .emergency-stop-btn,
+        .scenario-stop-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #ec7063 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .emergency-stop-btn:hover,
+        .scenario-stop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .scenario-pause-btn {
+            background: linear-gradient(135deg, #f39c12 0%, #f7dc6f 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scenario-pause-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .status-indicators {
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .status-value {
+            font-weight: 600;
+        }
+
+        .status-standby {
+            color: #6c757d;
+        }
+
+        .status-running {
+            color: #f39c12;
+        }
+
+        .status-passed {
+            color: #27ae60;
+        }
+
+        .status-failed {
+            color: #e74c3c;
+        }
+
+        .test-log {
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .log-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .clear-log-btn,
+        .export-log-btn {
+            padding: 6px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            background: white;
+            color: #495057;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-log-btn:hover,
+        .export-log-btn:hover {
+            background: #f8f9fa;
+            border-color: #3498db;
+        }
+
+        /* 集成测试布局 */
+        .integration-testing-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            height: calc(100vh - 200px);
+        }
+
+        .integration-testing-left,
+        .integration-testing-right {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .integration-test-list {
+            margin-bottom: 30px;
+        }
+
+        .realtime-monitoring h3,
+        .integration-test-list h3 {
+            margin: 0 0 16px 0;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 600;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .monitoring-data {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .monitor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .monitor-item:last-child {
+            border-bottom: none;
+        }
+
+        .monitor-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .monitor-value {
+            font-weight: 600;
+        }
+
+        .distance-safe {
+            color: #27ae60;
+        }
+
+        .distance-warning {
+            color: #f39c12;
+        }
+
+        .distance-danger {
+            color: #e74c3c;
+        }
+
+        .safety-3d-view {
+            margin-bottom: 20px;
+        }
+
+        .safety-visualization {
+            height: 300px;
+            background: #f8f9fa;
+            border: 2px dashed #ced4da;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .visualization-placeholder {
+            font-size: 16px;
+        }
+
+        .integration-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .integration-log {
+            height: 200px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .arm-control-container,
@@ -3005,6 +3416,36 @@
                         <span class="nav-item-icon">🔄</span>
                         协调控制
                         <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'coord-control', '🔄 协调控制')" title="收藏此功能">☆</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="scenario-testing">
+                <div class="nav-group-title">
+                    <span class="nav-group-text"><span class="nav-group-icon">🧪</span>场景测试</span>
+                    <button class="favorite-btn group-favorite" onclick="toggleFavorite('group', 'scenario-testing', '🧪 场景测试')" title="收藏此分组">☆</button>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item" data-page="component-testing">
+                        <span class="nav-item-icon">🔧</span>
+                        组件测试
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'component-testing', '🔧 组件测试')" title="收藏此功能">☆</button>
+                    </div>
+                    <div class="nav-item" data-page="integration-testing">
+                        <span class="nav-item-icon">🔗</span>
+                        集成测试
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'integration-testing', '🔗 集成测试')" title="收藏此功能">☆</button>
+                    </div>
+                    <div class="nav-item" data-page="vision-guided-testing">
+                        <span class="nav-item-icon">👁️</span>
+                        视觉引导测试
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'vision-guided-testing', '👁️ 视觉引导测试')" title="收藏此功能">☆</button>
+                    </div>
+                    <div class="nav-item" data-page="e2e-scenarios">
+                        <span class="nav-item-icon">🎯</span>
+                        端到端场景
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'e2e-scenarios', '🎯 端到端场景')" title="收藏此功能">☆</button>
                     </div>
                 </div>
             </div>
@@ -3374,6 +3815,27 @@
                 return;
             }
             
+            // Special handling for scenario testing pages
+            if (pageId === 'component-testing') {
+                showComponentTestingPage();
+                return;
+            }
+            
+            if (pageId === 'integration-testing') {
+                showIntegrationTestingPage();
+                return;
+            }
+            
+            if (pageId === 'vision-guided-testing') {
+                showVisionGuidedTestingPage();
+                return;
+            }
+            
+            if (pageId === 'e2e-scenarios') {
+                showE2EScenariosPage();
+                return;
+            }
+            
             pageContent.innerHTML = `
                 <div class="page-header">
                     <div>
@@ -3499,6 +3961,50 @@
                         { icon: '⚙️', title: '任务配置', desc: '协调任务参数设置<br>运动约束和安全配置' },
                         { icon: '🔄', title: '双臂协调', desc: '双臂同步协调控制<br>复杂操作任务执行' },
                         { icon: '📊', title: '3D可视化', desc: '实时3D模型显示<br>关节角度和位置监控' }
+                    ]
+                },
+                'component-testing': {
+                    icon: '🔧',
+                    title: '组件测试',
+                    description: '对单个硬件（左臂、右臂、底盘）进行独立的标准化功能验证',
+                    features: [
+                        { icon: '🦾', title: '机械臂测试', desc: '连接测试、基础运动、笛卡尔空间运动、工作空间测试' },
+                        { icon: '🚛', title: '底盘测试', desc: 'HTTP API连接、基础移动、定位导航功能测试' },
+                        { icon: '⚙️', title: '参数配置', desc: '测试参数设置、安全阈值配置、运动范围限制' },
+                        { icon: '📊', title: '结果记录', desc: '实时日志显示、JSON格式报告、测试数据统计' }
+                    ]
+                },
+                'integration-testing': {
+                    icon: '🔗',
+                    title: '集成测试',
+                    description: '验证多个组件协同工作的能力，特别是双臂协调与安全避障',
+                    features: [
+                        { icon: '🤝', title: '双臂协调', desc: '双臂同步连接、协调动作、防碰撞测试' },
+                        { icon: '🛡️', title: '安全监控', desc: '实时安全距离监控、碰撞检测、紧急停止' },
+                        { icon: '🎯', title: '3D可视化', desc: '双臂姿态实时渲染、安全区域显示、连杆模型' },
+                        { icon: '📡', title: '通信测试', desc: '多设备并发控制、通信干扰测试、数据同步' }
+                    ]
+                },
+                'vision-guided-testing': {
+                    icon: '👁️',
+                    title: '视觉引导测试',
+                    description: '测试视觉系统的数据采集、处理及引导能力',
+                    features: [
+                        { icon: '📷', title: '相机管理', desc: 'ToF相机控制、RGB/深度视频流、参数配置' },
+                        { icon: '🤖', title: 'AI视觉任务', desc: '物体检测、二维码识别、抓取点计算' },
+                        { icon: '🎯', title: '引导操作', desc: '视觉结果转化为机器人动作、精确定位' },
+                        { icon: '📊', title: '数据分析', desc: '视觉结果输出、识别精度统计、性能评估' }
+                    ]
+                },
+                'e2e-scenarios': {
+                    icon: '🎯',
+                    title: '端到端场景',
+                    description: '执行完整的、接近真实应用的工作流程，验证系统综合能力',
+                    features: [
+                        { icon: '🏭', title: '场景库', desc: '桌面物品抓取分类、协作搬运、巡检读表' },
+                        { icon: '🔄', title: '任务编排', desc: '步骤序列管理、流程控制、异常处理' },
+                        { icon: '📹', title: '多视图监控', desc: '3D视图、相机视角、详细日志切换' },
+                        { icon: '📈', title: '综合评估', desc: '任务完成率、执行效率、系统稳定性' }
                     ]
                 },
                 'vision-system': {
@@ -3628,6 +4134,17 @@
                         { icon: '🎮', title: '机械人仿真系统', desc: '2D底盘仿真、3D机械臂仿真', pageId: 'robot-sim' },
                         { icon: '🏗️', title: 'RobotSim 3D', desc: '3D模型加载、物理仿真', pageId: 'robotsim-3d' },
                         { icon: '📋', title: '任务编排', desc: '可视化编程、行为树编辑', pageId: 'task-orchestration' }
+                    ]
+                },
+                'scenario-testing': {
+                    icon: '🧪',
+                    title: '场景测试',
+                    description: '系统化验证机器人各项能力，从单个硬件组件到复杂真实场景的全链路测试',
+                    features: [
+                        { icon: '🔧', title: '组件测试', desc: '单个硬件独立功能验证：左臂、右臂、底盘', pageId: 'component-testing' },
+                        { icon: '🔗', title: '集成测试', desc: '多组件协同工作：双臂协调、安全避障', pageId: 'integration-testing' },
+                        { icon: '👁️', title: '视觉引导测试', desc: '视觉系统数据采集、处理及引导能力', pageId: 'vision-guided-testing' },
+                        { icon: '🎯', title: '端到端场景', desc: '完整工作流程：抓取分类、协作搬运、巡检', pageId: 'e2e-scenarios' }
                     ]
                 },
                 'vision': {
@@ -6287,6 +6804,329 @@ window.show()</code></pre>
             stopAutoRefresh();
         });
         
+        // Scenario Testing Pages
+        function showComponentTestingPage() {
+            const pageContent = document.getElementById('pageContent');
+            pageContent.innerHTML = `
+                <div class="component-testing-container">
+                    <div class="component-testing-header">
+                        <h2><span class="page-icon">🔧</span> 组件测试</h2>
+                        <p class="page-description">对单个硬件（左臂、右臂、底盘）进行独立的标准化功能验证</p>
+                    </div>
+                    
+                    <div class="component-testing-layout">
+                        <!-- 左侧面板 - 测试选择区 -->
+                        <div class="component-testing-left">
+                            <div class="device-selection-panel">
+                                <h3>设备选择</h3>
+                                <select id="deviceSelect" onchange="onDeviceSelectionChange()">
+                                    <option value="">选择设备</option>
+                                    <option value="right-arm">右臂 (192.168.58.2)</option>
+                                    <option value="left-arm">左臂 (192.168.58.3)</option>
+                                    <option value="chassis">底盘 (192.168.31.211)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="test-list-panel">
+                                <h3>测试列表</h3>
+                                <div id="testList" class="test-list">
+                                    <div class="test-placeholder">请先选择设备</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 中间面板 - 参数与控制区 -->
+                        <div class="component-testing-center">
+                            <div class="test-config-panel">
+                                <h3 id="testTitle">测试配置</h3>
+                                <div id="testParameters" class="test-parameters">
+                                    <div class="parameter-placeholder">请选择测试项目</div>
+                                </div>
+                                
+                                <div class="test-controls">
+                                    <button id="startTestBtn" class="start-test-btn" onclick="startComponentTest()" disabled>
+                                        <span class="btn-icon">▶️</span> 开始测试
+                                    </button>
+                                    <button id="stopTestBtn" class="emergency-stop-btn" onclick="emergencyStopTest()">
+                                        <span class="btn-icon">⏹️</span> 紧急停止
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 右侧面板 - 结果显示区 -->
+                        <div class="component-testing-right">
+                            <div class="status-overview">
+                                <h3>状态概览</h3>
+                                <div class="status-indicators">
+                                    <div class="status-item">
+                                        <span class="status-label">测试状态:</span>
+                                        <span id="testStatus" class="status-value status-standby">待命</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">已用时:</span>
+                                        <span id="testDuration" class="status-value">0.0s</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">当前步骤:</span>
+                                        <span id="currentStep" class="status-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="realtime-log-panel">
+                                <h3>实时日志</h3>
+                                <div id="testLog" class="test-log">
+                                    <div class="log-placeholder">等待测试开始...</div>
+                                </div>
+                                <div class="log-controls">
+                                    <button onclick="clearTestLog()" class="clear-log-btn">清空日志</button>
+                                    <button onclick="exportTestLog()" class="export-log-btn">导出日志</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showIntegrationTestingPage() {
+            const pageContent = document.getElementById('pageContent');
+            pageContent.innerHTML = `
+                <div class="integration-testing-container">
+                    <div class="integration-testing-header">
+                        <h2><span class="page-icon">🔗</span> 集成测试</h2>
+                        <p class="page-description">验证多个组件协同工作的能力，特别是双臂协调与安全避障</p>
+                    </div>
+                    
+                    <div class="integration-testing-layout">
+                        <!-- 左侧面板 - 测试选择与监控 -->
+                        <div class="integration-testing-left">
+                            <div class="integration-test-list">
+                                <h3>集成测试列表</h3>
+                                <div class="test-item" onclick="selectIntegrationTest('DAT001')">
+                                    <div class="test-id">DAT001</div>
+                                    <div class="test-name">双臂同步连接测试</div>
+                                </div>
+                                <div class="test-item" onclick="selectIntegrationTest('DAT002')">
+                                    <div class="test-id">DAT002</div>
+                                    <div class="test-name">双臂安全距离测试</div>
+                                </div>
+                                <div class="test-item" onclick="selectIntegrationTest('CAI001')">
+                                    <div class="test-id">CAI001</div>
+                                    <div class="test-name">底盘-机械臂联动测试</div>
+                                </div>
+                            </div>
+                            
+                            <div class="realtime-monitoring">
+                                <h3>实时监控</h3>
+                                <div class="monitoring-data">
+                                    <div class="monitor-item">
+                                        <span class="monitor-label">左臂状态:</span>
+                                        <span id="leftArmStatus" class="monitor-value">未连接</span>
+                                    </div>
+                                    <div class="monitor-item">
+                                        <span class="monitor-label">右臂状态:</span>
+                                        <span id="rightArmStatus" class="monitor-value">未连接</span>
+                                    </div>
+                                    <div class="monitor-item">
+                                        <span class="monitor-label">双臂末端距离:</span>
+                                        <span id="armsDistance" class="monitor-value distance-safe">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 右侧主面板 - 3D可视化与日志 -->
+                        <div class="integration-testing-right">
+                            <div class="safety-3d-view">
+                                <h3>3D安全视图</h3>
+                                <div id="safetyVisualization" class="safety-visualization">
+                                    <div class="visualization-placeholder">
+                                        3D双臂安全可视化视图
+                                        <br><small>显示双臂姿态和相对位置</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="integration-controls-log">
+                                <div class="integration-controls">
+                                    <button id="startIntegrationBtn" class="start-test-btn" onclick="startIntegrationTest()">
+                                        <span class="btn-icon">▶️</span> 开始测试
+                                    </button>
+                                    <button class="emergency-stop-btn" onclick="emergencyStopTest()">
+                                        <span class="btn-icon">⏹️</span> 紧急停止
+                                    </button>
+                                </div>
+                                
+                                <div class="integration-log">
+                                    <div id="integrationTestLog" class="test-log">
+                                        <div class="log-placeholder">选择测试项目后点击开始测试...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showVisionGuidedTestingPage() {
+            const pageContent = document.getElementById('pageContent');
+            pageContent.innerHTML = `
+                <div class="vision-testing-container">
+                    <div class="vision-testing-header">
+                        <h2><span class="page-icon">👁️</span> 视觉引导测试</h2>
+                        <p class="page-description">测试视觉系统的数据采集、处理及引导能力</p>
+                    </div>
+                    
+                    <div class="vision-testing-layout">
+                        <!-- 左侧 - 相机画面 -->
+                        <div class="vision-testing-left">
+                            <div class="camera-view-panel">
+                                <h3>相机画面</h3>
+                                <div class="camera-selection">
+                                    <select id="cameraSelect" onchange="switchCamera()">
+                                        <option value="gemini-rgb">Gemini 335 (RGB)</option>
+                                        <option value="gemini-depth">Gemini 335 (Depth)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="video-stream-container">
+                                    <div id="videoStream" class="video-stream">
+                                        <div class="stream-placeholder">
+                                            📷 相机视频流
+                                            <br><small>点击播放开始显示</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="camera-controls">
+                                    <button onclick="toggleVideoStream()" class="stream-control-btn">
+                                        <span id="streamIcon">▶️</span> 播放
+                                    </button>
+                                    <button onclick="captureFrame()" class="capture-btn">📸 截图</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 右侧 - 数据与控制 -->
+                        <div class="vision-testing-right">
+                            <div class="vision-task-control">
+                                <h3>视觉任务控制</h3>
+                                <div class="vision-task-buttons">
+                                    <button onclick="detectObjects()" class="vision-task-btn">
+                                        🔍 侦测物体
+                                    </button>
+                                    <button onclick="recognizeQRCode()" class="vision-task-btn">
+                                        📱 识别二维码
+                                    </button>
+                                    <button onclick="calculateGraspPoint()" class="vision-task-btn">
+                                        🎯 计算抓取点
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="vision-result-panel">
+                                <h3>结果输出</h3>
+                                <div id="visionResults" class="vision-results">
+                                    <div class="result-placeholder">等待视觉任务执行...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="guided-operation">
+                                <h3>引导操作</h3>
+                                <button id="moveToGraspBtn" onclick="moveToGraspPoint()" class="guided-operation-btn" disabled>
+                                    🦾 移动机械臂到抓取点
+                                </button>
+                                <div id="guidedOperationStatus" class="operation-status">
+                                    等待计算抓取点...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showE2EScenariosPage() {
+            const pageContent = document.getElementById('pageContent');
+            pageContent.innerHTML = `
+                <div class="e2e-scenarios-container">
+                    <div class="e2e-scenarios-header">
+                        <h2><span class="page-icon">🎯</span> 端到端场景</h2>
+                        <p class="page-description">执行完整的、接近真实应用的工作流程，验证系统综合能力</p>
+                    </div>
+                    
+                    <!-- 顶部面板 - 场景选择与控制 -->
+                    <div class="scenario-control-panel">
+                        <div class="scenario-selection">
+                            <label for="scenarioSelect">选择场景:</label>
+                            <select id="scenarioSelect" onchange="onScenarioChange()">
+                                <option value="">请选择场景</option>
+                                <option value="desktop-pickup">桌面物品抓取与分类</option>
+                                <option value="collaborative-transport">协作搬运</option>
+                                <option value="inspection-reading">巡检与读表</option>
+                            </select>
+                        </div>
+                        
+                        <div class="scenario-controls">
+                            <button id="executeScenarioBtn" onclick="executeScenario()" class="scenario-execute-btn" disabled>
+                                <span class="btn-icon">▶️</span> 执行场景
+                            </button>
+                            <button onclick="pauseScenario()" class="scenario-pause-btn">
+                                <span class="btn-icon">⏸️</span> 暂停
+                            </button>
+                            <button onclick="stopScenario()" class="scenario-stop-btn">
+                                <span class="btn-icon">⏹️</span> 停止
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 主面板 - 任务状态与监控 -->
+                    <div class="e2e-main-panel">
+                        <div class="task-steps-panel">
+                            <h3>任务步骤</h3>
+                            <div id="taskStepsList" class="task-steps-list">
+                                <div class="steps-placeholder">请选择场景</div>
+                            </div>
+                        </div>
+                        
+                        <div class="monitoring-panel">
+                            <h3>监控视图</h3>
+                            <div class="monitoring-tabs">
+                                <button class="tab-button active" onclick="switchMonitoringView('3d')">3D视图</button>
+                                <button class="tab-button" onclick="switchMonitoringView('camera')">相机视图</button>
+                                <button class="tab-button" onclick="switchMonitoringView('log')">详细日志</button>
+                            </div>
+                            
+                            <div class="monitoring-content">
+                                <div id="monitoring3D" class="monitoring-view active">
+                                    <div class="view-placeholder">
+                                        🤖 3D机器人运动视图
+                                        <br><small>显示机器人整体运动状态</small>
+                                    </div>
+                                </div>
+                                
+                                <div id="monitoringCamera" class="monitoring-view">
+                                    <div class="view-placeholder">
+                                        📷 机器人第一视角
+                                        <br><small>显示机器人摄像头视角</small>
+                                    </div>
+                                </div>
+                                
+                                <div id="monitoringLog" class="monitoring-view">
+                                    <div id="detailedLog" class="detailed-log">
+                                        <div class="log-placeholder">详细执行日志将在这里显示...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
         // Network Configuration Page
         function showNetworkConfigPage() {
             const pageContent = document.getElementById('pageContent');
@@ -7158,6 +7998,687 @@ window.show()</code></pre>
                 updateCoordinationControlUI();
             }
         }, 3000);
+        
+        // ==================== SCENARIO TESTING FUNCTIONS ====================
+        
+        // Component Testing Functions
+        let componentTestingState = {
+            selectedDevice: '',
+            selectedTest: '',
+            testRunning: false,
+            testStartTime: null,
+            currentStep: '-'
+        };
+        
+        function onDeviceSelectionChange() {
+            const deviceSelect = document.getElementById('deviceSelect');
+            const selectedDevice = deviceSelect.value;
+            componentTestingState.selectedDevice = selectedDevice;
+            
+            const testList = document.getElementById('testList');
+            const testTitle = document.getElementById('testTitle');
+            const testParameters = document.getElementById('testParameters');
+            const startTestBtn = document.getElementById('startTestBtn');
+            
+            if (!selectedDevice) {
+                testList.innerHTML = '<div class="test-placeholder">请先选择设备</div>';
+                testTitle.textContent = '测试配置';
+                testParameters.innerHTML = '<div class="parameter-placeholder">请选择测试项目</div>';
+                startTestBtn.disabled = true;
+                return;
+            }
+            
+            // Generate test list based on device
+            let tests = [];
+            if (selectedDevice.includes('arm')) {
+                tests = [
+                    { id: 'SAT001', name: '连接与状态测试', description: '验证机械臂网络连接和SDK通信' },
+                    { id: 'SAT002', name: '基础运动测试', description: '验证单轴运动控制和关节限位' },
+                    { id: 'SAT003', name: '笛卡尔空间运动测试', description: '验证直线运动和圆弧运动控制' },
+                    { id: 'SAT004', name: '工作空间测试', description: '验证机械臂可达工作空间' }
+                ];
+            } else if (selectedDevice === 'chassis') {
+                tests = [
+                    { id: 'CHT001', name: '底盘连接测试', description: '验证Hermes底盘HTTP API连接' },
+                    { id: 'CHT002', name: '基础移动测试', description: '验证底盘基本移动功能' },
+                    { id: 'CHT003', name: '定位导航测试', description: '验证底盘定位和导航功能' }
+                ];
+            }
+            
+            testList.innerHTML = tests.map(test => `
+                <div class="test-item" onclick="selectComponentTest('${test.id}', '${test.name}', '${test.description}')">
+                    <div class="test-id">${test.id}</div>
+                    <div class="test-name">${test.name}</div>
+                </div>
+            `).join('');
+        }
+        
+        function selectComponentTest(testId, testName, testDescription) {
+            componentTestingState.selectedTest = testId;
+            
+            // Update selected test UI
+            document.querySelectorAll('.test-item').forEach(item => item.classList.remove('selected'));
+            event.target.closest('.test-item').classList.add('selected');
+            
+            const testTitle = document.getElementById('testTitle');
+            const testParameters = document.getElementById('testParameters');
+            const startTestBtn = document.getElementById('startTestBtn');
+            
+            testTitle.textContent = `${testId}: ${testName}`;
+            
+            // Generate parameters based on test type
+            let parametersHTML = `<p><strong>测试描述：</strong>${testDescription}</p>`;
+            
+            if (testId.startsWith('SAT')) {
+                parametersHTML += `
+                    <div class="parameter-group">
+                        <label>速度 (%):</label>
+                        <input type="range" id="testSpeed" class="parameter-slider" min="1" max="100" value="20" 
+                               oninput="document.getElementById('speedValue').textContent = this.value + '%'">
+                        <span id="speedValue" class="slider-value">20%</span>
+                    </div>
+                    <div class="parameter-group">
+                        <label>双臂安全距离 (mm):</label>
+                        <input type="number" id="safeDistance" value="200" min="50" max="500">
+                    </div>
+                `;
+            } else if (testId.startsWith('CHT')) {
+                parametersHTML += `
+                    <div class="parameter-group">
+                        <label>移动速度 (%):</label>
+                        <input type="range" id="chassisSpeed" class="parameter-slider" min="1" max="100" value="30"
+                               oninput="document.getElementById('chassisSpeedValue').textContent = this.value + '%'">
+                        <span id="chassisSpeedValue" class="slider-value">30%</span>
+                    </div>
+                    <div class="parameter-group">
+                        <label>测试距离 (m):</label>
+                        <input type="number" id="testDistance" value="1.0" min="0.1" max="5.0" step="0.1">
+                    </div>
+                `;
+            }
+            
+            testParameters.innerHTML = parametersHTML;
+            startTestBtn.disabled = false;
+        }
+        
+        function startComponentTest() {
+            if (!componentTestingState.selectedDevice || !componentTestingState.selectedTest) {
+                addTestLog('请先选择设备和测试项目', 'ERROR');
+                return;
+            }
+            
+            componentTestingState.testRunning = true;
+            componentTestingState.testStartTime = Date.now();
+            
+            // Update UI
+            document.getElementById('testStatus').textContent = '运行中';
+            document.getElementById('testStatus').className = 'status-value status-running';
+            document.getElementById('startTestBtn').disabled = true;
+            document.getElementById('currentStep').textContent = '初始化...';
+            
+            addTestLog(`开始执行 ${componentTestingState.selectedTest} 测试`, 'INFO');
+            addTestLog(`目标设备: ${componentTestingState.selectedDevice}`, 'INFO');
+            
+            // Simulate test execution
+            simulateComponentTest();
+        }
+        
+        function simulateComponentTest() {
+            const testSteps = [
+                '连接设备...',
+                '验证通信...',
+                '执行测试步骤...',
+                '记录结果...',
+                '测试完成'
+            ];
+            
+            let stepIndex = 0;
+            const interval = setInterval(() => {
+                if (!componentTestingState.testRunning || stepIndex >= testSteps.length) {
+                    clearInterval(interval);
+                    finishComponentTest();
+                    return;
+                }
+                
+                document.getElementById('currentStep').textContent = testSteps[stepIndex];
+                addTestLog(`执行步骤: ${testSteps[stepIndex]}`, 'INFO');
+                stepIndex++;
+                
+                // Update duration
+                updateTestDuration();
+            }, 2000);
+        }
+        
+        function finishComponentTest() {
+            componentTestingState.testRunning = false;
+            
+            const passed = Math.random() > 0.2; // 80% pass rate
+            
+            document.getElementById('testStatus').textContent = passed ? '通过' : '失败';
+            document.getElementById('testStatus').className = `status-value ${passed ? 'status-passed' : 'status-failed'}`;
+            document.getElementById('startTestBtn').disabled = false;
+            document.getElementById('currentStep').textContent = passed ? '测试通过' : '测试失败';
+            
+            addTestLog(`测试结果: ${passed ? '通过' : '失败'}`, passed ? 'SUCCESS' : 'ERROR');
+            addTestLog(`生成报告: ${componentTestingState.selectedTest}_report_${new Date().toISOString().replace(/[:.]/g, '-')}.json`, 'INFO');
+        }
+        
+        function updateTestDuration() {
+            if (componentTestingState.testStartTime) {
+                const duration = (Date.now() - componentTestingState.testStartTime) / 1000;
+                document.getElementById('testDuration').textContent = duration.toFixed(1) + 's';
+            }
+        }
+        
+        function emergencyStopTest() {
+            componentTestingState.testRunning = false;
+            
+            document.getElementById('testStatus').textContent = '已停止';
+            document.getElementById('testStatus').className = 'status-value status-failed';
+            document.getElementById('startTestBtn').disabled = false;
+            document.getElementById('currentStep').textContent = '紧急停止';
+            
+            addTestLog('测试已紧急停止', 'ERROR');
+        }
+        
+        function addTestLog(message, type = 'INFO') {
+            const testLog = document.getElementById('testLog');
+            if (!testLog) return;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.color = {
+                'INFO': '#6c757d',
+                'SUCCESS': '#27ae60',
+                'WARNING': '#f39c12',
+                'ERROR': '#e74c3c'
+            }[type] || '#6c757d';
+            
+            logEntry.textContent = `[${timestamp}] [${type}] ${message}`;
+            
+            // Remove placeholder if exists
+            const placeholder = testLog.querySelector('.log-placeholder');
+            if (placeholder) placeholder.remove();
+            
+            testLog.appendChild(logEntry);
+            testLog.scrollTop = testLog.scrollHeight;
+        }
+        
+        function clearTestLog() {
+            const testLog = document.getElementById('testLog');
+            if (testLog) {
+                testLog.innerHTML = '<div class="log-placeholder">等待测试开始...</div>';
+            }
+        }
+        
+        function exportTestLog() {
+            const testLog = document.getElementById('testLog');
+            if (!testLog) return;
+            
+            const logText = Array.from(testLog.children)
+                .filter(child => !child.classList.contains('log-placeholder'))
+                .map(child => child.textContent)
+                .join('\n');
+            
+            const blob = new Blob([logText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `test_log_${new Date().toISOString().replace(/[:.]/g, '-')}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // Integration Testing Functions
+        let integrationTestingState = {
+            selectedTest: '',
+            testRunning: false,
+            leftArmStatus: '未连接',
+            rightArmStatus: '未连接',
+            armsDistance: '--'
+        };
+        
+        function selectIntegrationTest(testId) {
+            integrationTestingState.selectedTest = testId;
+            
+            // Update selected test UI
+            document.querySelectorAll('.test-item').forEach(item => item.classList.remove('selected'));
+            event.target.closest('.test-item').classList.add('selected');
+            
+            addIntegrationLog(`选择测试: ${testId}`, 'INFO');
+            
+            // Enable start button
+            const startBtn = document.getElementById('startIntegrationBtn');
+            if (startBtn) startBtn.disabled = false;
+        }
+        
+        function startIntegrationTest() {
+            if (!integrationTestingState.selectedTest) {
+                addIntegrationLog('请先选择测试项目', 'ERROR');
+                return;
+            }
+            
+            integrationTestingState.testRunning = true;
+            
+            addIntegrationLog(`开始执行 ${integrationTestingState.selectedTest} 测试`, 'INFO');
+            
+            // Simulate integration test
+            simulateIntegrationTest();
+        }
+        
+        function simulateIntegrationTest() {
+            // Simulate connection status updates
+            setTimeout(() => {
+                integrationTestingState.leftArmStatus = '已连接';
+                integrationTestingState.rightArmStatus = '已连接';
+                updateIntegrationMonitoring();
+                addIntegrationLog('双臂连接成功', 'SUCCESS');
+            }, 1000);
+            
+            setTimeout(() => {
+                integrationTestingState.armsDistance = '450.5 mm';
+                updateIntegrationMonitoring();
+                addIntegrationLog('开始安全距离监控', 'INFO');
+            }, 2000);
+            
+            setTimeout(() => {
+                integrationTestingState.testRunning = false;
+                addIntegrationLog('集成测试完成', 'SUCCESS');
+            }, 5000);
+        }
+        
+        function updateIntegrationMonitoring() {
+            const leftStatus = document.getElementById('leftArmStatus');
+            const rightStatus = document.getElementById('rightArmStatus');
+            const distance = document.getElementById('armsDistance');
+            
+            if (leftStatus) leftStatus.textContent = integrationTestingState.leftArmStatus;
+            if (rightStatus) rightStatus.textContent = integrationTestingState.rightArmStatus;
+            if (distance) {
+                distance.textContent = integrationTestingState.armsDistance;
+                // Update distance color based on safety
+                if (integrationTestingState.armsDistance.includes('mm')) {
+                    const distanceValue = parseFloat(integrationTestingState.armsDistance);
+                    distance.className = distanceValue > 300 ? 'monitor-value distance-safe' :
+                                      distanceValue > 200 ? 'monitor-value distance-warning' :
+                                      'monitor-value distance-danger';
+                }
+            }
+        }
+        
+        function addIntegrationLog(message, type = 'INFO') {
+            const logElement = document.getElementById('integrationTestLog');
+            if (!logElement) return;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.color = {
+                'INFO': '#6c757d',
+                'SUCCESS': '#27ae60',
+                'WARNING': '#f39c12',
+                'ERROR': '#e74c3c'
+            }[type] || '#6c757d';
+            
+            logEntry.textContent = `[${timestamp}] [${type}] ${message}`;
+            
+            // Remove placeholder if exists
+            const placeholder = logElement.querySelector('.log-placeholder');
+            if (placeholder) placeholder.remove();
+            
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // Vision Guided Testing Functions
+        let visionTestingState = {
+            streamActive: false,
+            selectedCamera: 'gemini-rgb',
+            lastGraspPoint: null
+        };
+        
+        function switchCamera() {
+            const cameraSelect = document.getElementById('cameraSelect');
+            visionTestingState.selectedCamera = cameraSelect.value;
+            
+            const videoStream = document.getElementById('videoStream');
+            if (visionTestingState.streamActive) {
+                // Update stream display based on camera
+                const streamType = visionTestingState.selectedCamera.includes('depth') ? '深度' : 'RGB';
+                videoStream.innerHTML = `
+                    <div style="color: white; text-align: center;">
+                        📷 ${streamType} 视频流<br>
+                        <small>模拟 ${cameraSelect.options[cameraSelect.selectedIndex].text} 视频</small>
+                    </div>
+                `;
+            }
+        }
+        
+        function toggleVideoStream() {
+            const streamIcon = document.getElementById('streamIcon');
+            const videoStream = document.getElementById('videoStream');
+            
+            visionTestingState.streamActive = !visionTestingState.streamActive;
+            
+            if (visionTestingState.streamActive) {
+                streamIcon.textContent = '⏸️';
+                streamIcon.parentElement.childNodes[1].textContent = ' 暂停';
+                switchCamera(); // Update display
+            } else {
+                streamIcon.textContent = '▶️';
+                streamIcon.parentElement.childNodes[1].textContent = ' 播放';
+                videoStream.innerHTML = `
+                    <div class="stream-placeholder">
+                        📷 相机视频流
+                        <br><small>点击播放开始显示</small>
+                    </div>
+                `;
+            }
+        }
+        
+        function captureFrame() {
+            if (!visionTestingState.streamActive) {
+                addVisionResult('请先开启视频流', 'ERROR');
+                return;
+            }
+            
+            const timestamp = new Date().toISOString();
+            addVisionResult(`截图已保存: frame_${timestamp.replace(/[:.]/g, '-')}.png`, 'SUCCESS');
+        }
+        
+        function detectObjects() {
+            if (!visionTestingState.streamActive) {
+                addVisionResult('请先开启视频流', 'ERROR');
+                return;
+            }
+            
+            addVisionResult('开始物体检测...', 'INFO');
+            
+            setTimeout(() => {
+                const result = {
+                    "objects_detected": [
+                        {
+                            "class": "cup",
+                            "confidence": 0.89,
+                            "position_2d": [320, 240],
+                            "position_3d": [0.5, 0.2, 0.8]
+                        },
+                        {
+                            "class": "book",
+                            "confidence": 0.76,
+                            "position_2d": [180, 300],
+                            "position_3d": [-0.3, 0.1, 0.7]
+                        }
+                    ],
+                    "processing_time": "245ms"
+                };
+                
+                addVisionResult(JSON.stringify(result, null, 2), 'SUCCESS');
+            }, 1000);
+        }
+        
+        function recognizeQRCode() {
+            if (!visionTestingState.streamActive) {
+                addVisionResult('请先开启视频流', 'ERROR');
+                return;
+            }
+            
+            addVisionResult('开始二维码识别...', 'INFO');
+            
+            setTimeout(() => {
+                const result = {
+                    "qr_codes": [
+                        {
+                            "data": "TASK_STATION_A_001",
+                            "position": [280, 200],
+                            "rotation": 15.5
+                        }
+                    ],
+                    "processing_time": "156ms"
+                };
+                
+                addVisionResult(JSON.stringify(result, null, 2), 'SUCCESS');
+            }, 800);
+        }
+        
+        function calculateGraspPoint() {
+            if (!visionTestingState.streamActive) {
+                addVisionResult('请先开启视频流', 'ERROR');
+                return;
+            }
+            
+            addVisionResult('计算抓取点...', 'INFO');
+            
+            setTimeout(() => {
+                const graspPoint = {
+                    "target_object": "cup",
+                    "grasp_pose": {
+                        "position": [0.5, 0.2, 0.8],
+                        "orientation": [0, 0, 0, 1]
+                    },
+                    "approach_vector": [0, 0, -1],
+                    "grasp_width": 65.5,
+                    "confidence": 0.91
+                };
+                
+                visionTestingState.lastGraspPoint = graspPoint;
+                addVisionResult(JSON.stringify(graspPoint, null, 2), 'SUCCESS');
+                
+                // Enable move to grasp button
+                const moveBtn = document.getElementById('moveToGraspBtn');
+                const statusDiv = document.getElementById('guidedOperationStatus');
+                if (moveBtn && statusDiv) {
+                    moveBtn.disabled = false;
+                    statusDiv.textContent = '抓取点计算完成，可执行引导操作';
+                }
+            }, 1200);
+        }
+        
+        function moveToGraspPoint() {
+            if (!visionTestingState.lastGraspPoint) {
+                addVisionResult('请先计算抓取点', 'ERROR');
+                return;
+            }
+            
+            const statusDiv = document.getElementById('guidedOperationStatus');
+            statusDiv.textContent = '正在移动机械臂到抓取点...';
+            
+            addVisionResult('开始引导机械臂移动...', 'INFO');
+            
+            setTimeout(() => {
+                statusDiv.textContent = '机械臂已到达抓取点';
+                addVisionResult('机械臂移动完成', 'SUCCESS');
+            }, 3000);
+        }
+        
+        function addVisionResult(message, type = 'INFO') {
+            const resultsDiv = document.getElementById('visionResults');
+            if (!resultsDiv) return;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const resultEntry = document.createElement('div');
+            resultEntry.style.color = {
+                'INFO': '#6c757d',
+                'SUCCESS': '#27ae60',
+                'WARNING': '#f39c12',
+                'ERROR': '#e74c3c'
+            }[type] || '#6c757d';
+            
+            if (type === 'SUCCESS' && message.startsWith('{')) {
+                // Format JSON output
+                resultEntry.innerHTML = `<div style="color: #495057; font-weight: 600;">[${timestamp}] 结果:</div><pre style="margin: 5px 0; font-size: 11px;">${message}</pre>`;
+            } else {
+                resultEntry.textContent = `[${timestamp}] ${message}`;
+            }
+            
+            // Remove placeholder if exists
+            const placeholder = resultsDiv.querySelector('.result-placeholder');
+            if (placeholder) placeholder.remove();
+            
+            resultsDiv.appendChild(resultEntry);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+        
+        // E2E Scenarios Functions
+        let e2eState = {
+            selectedScenario: '',
+            scenarioRunning: false,
+            currentStep: 0,
+            steps: []
+        };
+        
+        function onScenarioChange() {
+            const scenarioSelect = document.getElementById('scenarioSelect');
+            e2eState.selectedScenario = scenarioSelect.value;
+            
+            const executeBtn = document.getElementById('executeScenarioBtn');
+            const stepsList = document.getElementById('taskStepsList');
+            
+            if (!e2eState.selectedScenario) {
+                executeBtn.disabled = true;
+                stepsList.innerHTML = '<div class="steps-placeholder">请选择场景</div>';
+                return;
+            }
+            
+            executeBtn.disabled = false;
+            
+            // Generate steps based on scenario
+            const scenarios = {
+                'desktop-pickup': [
+                    '初始化系统',
+                    '底盘移动到工作台A',
+                    '启动视觉识别',
+                    '左臂抓取杯子',
+                    '右臂抓取书本',
+                    '移动到分类区域',
+                    '放置物品到指定位置',
+                    '返回原点'
+                ],
+                'collaborative-transport': [
+                    '双臂协调初始化',
+                    '检测目标物体',
+                    '规划协作路径',
+                    '双臂同步抓取',
+                    '协调搬运物体',
+                    '避障导航',
+                    '精确放置',
+                    '任务完成确认'
+                ],
+                'inspection-reading': [
+                    '移动到检查点1',
+                    '相机对准仪表',
+                    '图像采集和处理',
+                    '数据读取和记录',
+                    '移动到检查点2',
+                    '重复检查流程',
+                    '生成巡检报告',
+                    '返回充电站'
+                ]
+            };
+            
+            e2eState.steps = scenarios[e2eState.selectedScenario] || [];
+            
+            stepsList.innerHTML = e2eState.steps.map((step, index) => `
+                <div class="task-step pending" id="step-${index}">
+                    ${index + 1}. ${step}
+                </div>
+            `).join('');
+        }
+        
+        function executeScenario() {
+            if (!e2eState.selectedScenario) return;
+            
+            e2eState.scenarioRunning = true;
+            e2eState.currentStep = 0;
+            
+            addDetailedLog(`开始执行场景: ${e2eState.selectedScenario}`, 'INFO');
+            
+            executeNextStep();
+        }
+        
+        function executeNextStep() {
+            if (!e2eState.scenarioRunning || e2eState.currentStep >= e2eState.steps.length) {
+                e2eState.scenarioRunning = false;
+                addDetailedLog('场景执行完成', 'SUCCESS');
+                return;
+            }
+            
+            // Update step status
+            const currentStepElement = document.getElementById(`step-${e2eState.currentStep}`);
+            if (currentStepElement) {
+                // Reset previous steps
+                document.querySelectorAll('.task-step').forEach((step, index) => {
+                    if (index < e2eState.currentStep) {
+                        step.className = 'task-step completed';
+                    } else if (index === e2eState.currentStep) {
+                        step.className = 'task-step current';
+                    } else {
+                        step.className = 'task-step pending';
+                    }
+                });
+            }
+            
+            const stepName = e2eState.steps[e2eState.currentStep];
+            addDetailedLog(`执行步骤 ${e2eState.currentStep + 1}: ${stepName}`, 'INFO');
+            
+            // Simulate step execution
+            setTimeout(() => {
+                if (e2eState.scenarioRunning) {
+                    addDetailedLog(`步骤 ${e2eState.currentStep + 1} 完成`, 'SUCCESS');
+                    e2eState.currentStep++;
+                    executeNextStep();
+                }
+            }, 2000);
+        }
+        
+        function pauseScenario() {
+            e2eState.scenarioRunning = false;
+            addDetailedLog('场景已暂停', 'WARNING');
+        }
+        
+        function stopScenario() {
+            e2eState.scenarioRunning = false;
+            e2eState.currentStep = 0;
+            
+            // Reset all steps
+            document.querySelectorAll('.task-step').forEach(step => {
+                step.className = 'task-step pending';
+            });
+            
+            addDetailedLog('场景已停止', 'ERROR');
+        }
+        
+        function switchMonitoringView(viewType) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update views
+            document.querySelectorAll('.monitoring-view').forEach(view => view.classList.remove('active'));
+            document.getElementById(`monitoring${viewType.charAt(0).toUpperCase() + viewType.slice(1)}`).classList.add('active');
+        }
+        
+        function addDetailedLog(message, type = 'INFO') {
+            const logElement = document.getElementById('detailedLog');
+            if (!logElement) return;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.color = {
+                'INFO': '#6c757d',
+                'SUCCESS': '#27ae60',
+                'WARNING': '#f39c12',
+                'ERROR': '#e74c3c'
+            }[type] || '#6c757d';
+            
+            logEntry.textContent = `[${timestamp}] [${type}] ${message}`;
+            
+            // Remove placeholder if exists
+            const placeholder = logElement.querySelector('.log-placeholder');
+            if (placeholder) placeholder.remove();
+            
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+        }
         
     </script>
 </body>
