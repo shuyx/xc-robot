@@ -1,0 +1,65 @@
+{
+  "darwin": {
+    "python_executable": "python3",
+    "gui_framework": "PyQt5",
+    "file_separator": "/",
+    "default_font": "SF Pro Display",
+    "window_scaling": 1.0,
+    "robot_libs": {
+      "fairino": "fr3_control/fairino/Robot.py",
+      "opencv": "cv2"
+    },
+    "network": {
+      "fr3_right_ip": "192.168.58.2",
+      "fr3_left_ip": "192.168.58.3",
+      "hermes_ip": "192.168.0.100"
+    },
+    "paths": {
+      "venv": "./venv/bin/activate",
+      "logs": "./logs",
+      "data": "./data"
+    }
+  },
+  "windows": {
+    "python_executable": "python",
+    "gui_framework": "PyQt5",
+    "file_separator": "\\",
+    "default_font": "Segoe UI",
+    "window_scaling": 1.25,
+    "robot_libs": {
+      "fairino": "fr3_control\\fairino\\Robot.py",
+      "opencv": "cv2"
+    },
+    "network": {
+      "fr3_right_ip": "192.168.58.2",
+      "fr3_left_ip": "192.168.58.3",
+      "hermes_ip": "192.168.0.100"
+    },
+    "paths": {
+      "venv": ".\\venv\\Scripts\\activate.bat",
+      "logs": ".\\logs",
+      "data": ".\\data"
+    }
+  },
+  "linux": {
+    "python_executable": "python3",
+    "gui_framework": "PyQt5",
+    "file_separator": "/",
+    "default_font": "Ubuntu",
+    "window_scaling": 1.0,
+    "robot_libs": {
+      "fairino": "fr3_control/fairino/Robot.py",
+      "opencv": "cv2"
+    },
+    "network": {
+      "fr3_right_ip": "192.168.58.2",
+      "fr3_left_ip": "192.168.58.3",
+      "hermes_ip": "192.168.0.100"
+    },
+    "paths": {
+      "venv": "./venv/bin/activate",
+      "logs": "./logs",
+      "data": "./data"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+# XC-ROBOT 跨平台依赖配置
+# 支持 Mac/Windows/Linux 自动适配
+
+# GUI框架
+PyQt5>=5.15.0
+PyQtWebEngine>=5.15.0
+
+# 网络通信
+requests>=2.25.0
+urllib3>=1.26.0
+
+# 数据处理
+numpy>=1.20.0
+opencv-python>=4.5.0
+
+# 配置文件
+PyYAML>=5.4.0
+configparser>=5.0.0
+
+# 系统工具
+psutil>=5.8.0
+pathlib2>=2.3.6; python_version<'3.4'
+
+# 平台特定依赖
+pywin32>=227; sys_platform=="win32"
+pyobjc-framework-Cocoa>=7.0; sys_platform=="darwin"
+
+# 开发工具（可选）
+pylint>=2.7.0
+black>=21.0.0
+pytest>=6.2.0
+
+# 机器人控制（如果可用）
+# fairino  # 通过本地路径导入
+# hermes-api  # 通过HTTP API调用
