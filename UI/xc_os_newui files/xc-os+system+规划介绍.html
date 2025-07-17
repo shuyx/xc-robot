@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>xc-os+system+规划介绍</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">xc-os+system+规划介绍</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#xc-os-系统技术文档" id="toc-xc-os-系统技术文档"><span class="toc-section-number">1</span> XC-OS 系统技术文档</a>
+<ul>
+<li><a href="#目录" id="toc-目录"><span class="toc-section-number">1.1</span> 目录</a></li>
+<li><a href="#系统整体架构" id="toc-系统整体架构"><span class="toc-section-number">1.2</span> 1. 系统整体架构</a>
+<ul>
+<li><a href="#架构概述" id="toc-架构概述"><span class="toc-section-number">1.2.1</span> 1.1 架构概述</a></li>
+<li><a href="#层次结构详解" id="toc-层次结构详解"><span class="toc-section-number">1.2.2</span> 1.2 层次结构详解</a></li>
+<li><a href="#架构设计原则" id="toc-架构设计原则"><span class="toc-section-number">1.2.3</span> 1.3 架构设计原则</a></li>
+<li><a href="#技术选型依据" id="toc-技术选型依据"><span class="toc-section-number">1.2.4</span> 1.4 技术选型依据</a></li>
+<li><a href="#部署架构" id="toc-部署架构"><span class="toc-section-number">1.2.5</span> 1.5 部署架构</a></li>
+</ul></li>
+<li><a href="#软件模块关系" id="toc-软件模块关系"><span class="toc-section-number">1.3</span> 2. 软件模块关系</a>
+<ul>
+<li><a href="#模块关系总览" id="toc-模块关系总览"><span class="toc-section-number">1.3.1</span> 2.1 模块关系总览</a></li>
+<li><a href="#模块分组说明" id="toc-模块分组说明"><span class="toc-section-number">1.3.2</span> 2.2 模块分组说明</a></li>
+<li><a href="#模块通信机制" id="toc-模块通信机制"><span class="toc-section-number">1.3.3</span> 2.3 模块通信机制</a></li>
+<li><a href="#模块依赖管理" id="toc-模块依赖管理"><span class="toc-section-number">1.3.4</span> 2.4 模块依赖管理</a></li>
+</ul></li>
+<li><a href="#系统数据流" id="toc-系统数据流"><span class="toc-section-number">1.4</span> 3. 系统数据流</a>
+<ul>
+<li><a href="#数据流架构设计" id="toc-数据流架构设计"><span class="toc-section-number">1.4.1</span> 3.1 数据流架构设计</a></li>
+<li><a href="#数据流层次说明" id="toc-数据流层次说明"><span class="toc-section-number">1.4.2</span> 3.2 数据流层次说明</a></li>
+<li><a href="#数据处理机制" id="toc-数据处理机制"><span class="toc-section-number">1.4.3</span> 3.3 数据处理机制</a></li>
+<li><a href="#数据流控制" id="toc-数据流控制"><span class="toc-section-number">1.4.4</span> 3.4 数据流控制</a></li>
+</ul></li>
+<li><a href="#应用层详细架构" id="toc-应用层详细架构"><span class="toc-section-number">1.5</span> 4. 应用层详细架构</a>
+<ul>
+<li><a href="#应用层组件构成" id="toc-应用层组件构成"><span class="toc-section-number">1.5.1</span> 4.1 应用层组件构成</a></li>
+<li><a href="#gui控制台详解" id="toc-gui控制台详解"><span class="toc-section-number">1.5.2</span> 4.2 GUI控制台详解</a></li>
+<li><a href="#web界面详解" id="toc-web界面详解"><span class="toc-section-number">1.5.3</span> 4.3 Web界面详解</a></li>
+<li><a href="#api接口详解" id="toc-api接口详解"><span class="toc-section-number">1.5.4</span> 4.4 API接口详解</a></li>
+<li><a href="#通信协议层" id="toc-通信协议层"><span class="toc-section-number">1.5.5</span> 4.5 通信协议层</a></li>
+<li><a href="#安全层设计" id="toc-安全层设计"><span class="toc-section-number">1.5.6</span> 4.6 安全层设计</a></li>
+</ul></li>
+<li><a href="#核心服务层详细架构" id="toc-核心服务层详细架构"><span class="toc-section-number">1.6</span> 5. 核心服务层详细架构</a>
+<ul>
+<li><a href="#核心服务层概述" id="toc-核心服务层概述"><span class="toc-section-number">1.6.1</span> 5.1 核心服务层概述</a></li>
+<li><a href="#任务管理器详解" id="toc-任务管理器详解"><span class="toc-section-number">1.6.2</span> 5.2 任务管理器详解</a></li>
+<li><a href="#行为树引擎详解" id="toc-行为树引擎详解"><span class="toc-section-number">1.6.3</span> 5.3 行为树引擎详解</a></li>
+<li><a href="#事件总线详解" id="toc-事件总线详解"><span class="toc-section-number">1.6.4</span> 5.4 事件总线详解</a></li>
+<li><a href="#数据管道详解" id="toc-数据管道详解"><span class="toc-section-number">1.6.5</span> 5.5 数据管道详解</a></li>
+<li><a href="#配置中心详解" id="toc-配置中心详解"><span class="toc-section-number">1.6.6</span> 5.6 配置中心详解</a></li>
+</ul></li>
+<li><a href="#智能计算层详细架构" id="toc-智能计算层详细架构"><span class="toc-section-number">1.7</span> 6. 智能计算层详细架构</a>
+<ul>
+<li><a href="#智能计算层概述" id="toc-智能计算层概述"><span class="toc-section-number">1.7.1</span> 6.1 智能计算层概述</a></li>
+<li><a href="#视觉算法模块" id="toc-视觉算法模块"><span class="toc-section-number">1.7.2</span> 6.2 视觉算法模块</a></li>
+<li><a href="#大模型接口" id="toc-大模型接口"><span class="toc-section-number">1.7.3</span> 6.3 大模型接口</a></li>
+<li><a href="#运动规划模块" id="toc-运动规划模块"><span class="toc-section-number">1.7.4</span> 6.4 运动规划模块</a></li>
+<li><a href="#定位导航模块" id="toc-定位导航模块"><span class="toc-section-number">1.7.5</span> 6.5 定位导航模块</a></li>
+<li><a href="#推理加速" id="toc-推理加速"><span class="toc-section-number">1.7.6</span> 6.6 推理加速</a></li>
+</ul></li>
+<li><a href="#硬件抽象层详细架构" id="toc-硬件抽象层详细架构"><span class="toc-section-number">1.8</span> 7. 硬件抽象层详细架构</a>
+<ul>
+<li><a href="#硬件抽象层设计理念" id="toc-硬件抽象层设计理念"><span class="toc-section-number">1.8.1</span> 7.1 硬件抽象层设计理念</a></li>
+<li><a href="#统一接口层" id="toc-统一接口层"><span class="toc-section-number">1.8.2</span> 7.2 统一接口层</a></li>
+<li><a href="#机械臂驱动" id="toc-机械臂驱动"><span class="toc-section-number">1.8.3</span> 7.3 机械臂驱动</a></li>
+<li><a href="#底盘驱动" id="toc-底盘驱动"><span class="toc-section-number">1.8.4</span> 7.4 底盘驱动</a></li>
+<li><a href="#视觉驱动" id="toc-视觉驱动"><span class="toc-section-number">1.8.5</span> 7.5 视觉驱动</a></li>
+<li><a href="#末端执行器驱动" id="toc-末端执行器驱动"><span class="toc-section-number">1.8.6</span> 7.6 末端执行器驱动</a></li>
+</ul></li>
+<li><a href="#任务执行流程" id="toc-任务执行流程"><span class="toc-section-number">1.9</span> 8. 任务执行流程</a>
+<ul>
+<li><a href="#任务执行概述" id="toc-任务执行概述"><span class="toc-section-number">1.9.1</span> 8.1 任务执行概述</a></li>
+<li><a href="#任务理解阶段" id="toc-任务理解阶段"><span class="toc-section-number">1.9.2</span> 8.2 任务理解阶段</a></li>
+<li><a href="#任务规划阶段" id="toc-任务规划阶段"><span class="toc-section-number">1.9.3</span> 8.3 任务规划阶段</a></li>
+<li><a href="#任务执行阶段" id="toc-任务执行阶段"><span class="toc-section-number">1.9.4</span> 8.4 任务执行阶段</a></li>
+<li><a href="#监控与反馈" id="toc-监控与反馈"><span class="toc-section-number">1.9.5</span> 8.5 监控与反馈</a></li>
+<li><a href="#任务完成处理" id="toc-任务完成处理"><span class="toc-section-number">1.9.6</span> 8.6 任务完成处理</a></li>
+</ul></li>
+<li><a href="#插件系统架构" id="toc-插件系统架构"><span class="toc-section-number">1.10</span> 9. 插件系统架构</a>
+<ul>
+<li><a href="#插件系统设计理念" id="toc-插件系统设计理念"><span class="toc-section-number">1.10.1</span> 9.1 插件系统设计理念</a></li>
+<li><a href="#插件管理器" id="toc-插件管理器"><span class="toc-section-number">1.10.2</span> 9.2 插件管理器</a></li>
+<li><a href="#插件接口规范" id="toc-插件接口规范"><span class="toc-section-number">1.10.3</span> 9.3 插件接口规范</a></li>
+<li><a href="#核心插件介绍" id="toc-核心插件介绍"><span class="toc-section-number">1.10.4</span> 9.4 核心插件介绍</a></li>
+<li><a href="#插件开发指南" id="toc-插件开发指南"><span class="toc-section-number">1.10.5</span> 9.5 插件开发指南</a></li>
+<li><a href="#插件安全机制" id="toc-插件安全机制"><span class="toc-section-number">1.10.6</span> 9.6 插件安全机制</a></li>
+</ul></li>
+<li><a href="#硬件设备层详细架构" id="toc-硬件设备层详细架构"><span class="toc-section-number">1.11</span> 10. 硬件设备层详细架构</a>
+<ul>
+<li><a href="#硬件系统总体设计" id="toc-硬件系统总体设计"><span class="toc-section-number">1.11.1</span> 10.1 硬件系统总体设计</a></li>
+<li><a href="#主控制器系统" id="toc-主控制器系统"><span class="toc-section-number">1.11.2</span> 10.2 主控制器系统</a></li>
+<li><a href="#双臂系统详解" id="toc-双臂系统详解"><span class="toc-section-number">1.11.3</span> 10.3 双臂系统详解</a></li>
+<li><a href="#视觉系统配置" id="toc-视觉系统配置"><span class="toc-section-number">1.11.4</span> 10.4 视觉系统配置</a></li>
+<li><a href="#移动底盘系统" id="toc-移动底盘系统"><span class="toc-section-number">1.11.5</span> 10.5 移动底盘系统</a></li>
+<li><a href="#末端执行器" id="toc-末端执行器"><span class="toc-section-number">1.11.6</span> 10.6 末端执行器</a></li>
+<li><a href="#系统集成要点" id="toc-系统集成要点"><span class="toc-section-number">1.11.7</span> 10.7 系统集成要点</a></li>
+</ul></li>
+<li><a href="#总结" id="toc-总结"><span class="toc-section-number">1.12</span> 总结</a></li>
+</ul></li>
+</ul>
+</nav>
+<p>xc-os system 规划介绍</p>
+<h1 data-number="1" id="xc-os-系统技术文档"><span class="header-section-number">1</span> XC-OS 系统技术文档</h1>
+<p><strong>版本</strong>: v1.0</p>
+<p><strong>日期</strong>: 2025-01-16</p>
+<p><strong>作者</strong>: kevin yuanxin</p>
+<h2 data-number="1.1" id="目录"><span class="header-section-number">1.1</span> 目录</h2>
+<ol type="1">
+<li><p><a href="#1-%E7%B3%BB%E7%BB%9F%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84">系统整体架构</a></p></li>
+<li><p><a href="#2-%E8%BD%AF%E4%BB%B6%E6%A8%A1%E5%9D%97%E5%85%B3%E7%B3%BB">软件模块关系</a></p></li>
+<li><p><a href="#3-%E7%B3%BB%E7%BB%9F%E6%95%B0%E6%8D%AE%E6%B5%81">系统数据流</a></p></li>
+<li><p><a href="#4-%E5%BA%94%E7%94%A8%E5%B1%82%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84">应用层详细架构</a></p></li>
+<li><p><a href="#5-%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E5%B1%82%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84">核心服务层详细架构</a></p></li>
+<li><p><a href="#6-%E6%99%BA%E8%83%BD%E8%AE%A1%E7%AE%97%E5%B1%82%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84">智能计算层详细架构</a></p></li>
+<li><p><a href="#7-%E7%A1%AC%E4%BB%B6%E6%8A%BD%E8%B1%A1%E5%B1%82%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84">硬件抽象层详细架构</a></p></li>
+<li><p><a href="#8-%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B">任务执行流程</a></p></li>
+<li><p><a href="#9-%E6%8F%92%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84">插件系统架构</a></p></li>
+<li><p><a href="#10-%E7%A1%AC%E4%BB%B6%E8%AE%BE%E5%A4%87%E5%B1%82%E8%AF%A6%E7%BB%86%E6%9E%B6%E6%9E%84">硬件设备层详细架构</a></p></li>
+</ol>
+<h2 data-number="1.2" id="系统整体架构"><span class="header-section-number">1.2</span> 1. 系统整体架构</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image1.png" style="width:5.68889in;height:3.35769in" alt="2TCBGVZBABQC2" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">XC-OS采用标准的五层架构设计，从上到下依次为：应用层（绿色）提供用户接口，核心服务层（蓝色）负责系统调度， 智能计算层（橙色）处理AI任务，硬件抽象层（紫色）统一硬件接口，硬件设备层（灰色）包含实际设备。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.2.1" id="架构概述"><span class="header-section-number">1.2.1</span> 1.1 架构概述</h3>
+<p>XC-OS采用经典的五层架构设计，这种分层架构是机器人操作系统的标准设计模式。每一层都有明确的职责边界，层与层之间通过标准化接口进行通信，确保系统的模块化和可扩展性。</p>
+<h3 data-number="1.2.2" id="层次结构详解"><span class="header-section-number">1.2.2</span> 1.2 层次结构详解</h3>
+<h4 data-number="1.2.2.1" id="应用层绿色标识"><span class="header-section-number">1.2.2.1</span> 1.2.1 应用层（绿色标识）</h4>
+<p><strong>功能定位</strong>：</p>
+<ul>
+<li><p>作为系统最上层，直接面向用户和开发者</p></li>
+<li><p>提供多种交互方式，满足不同使用场景需求</p></li>
+<li><p>支持本地和远程控制，便于调试和部署</p></li>
+</ul>
+<p><strong>核心组件说明</strong>：</p>
+<ul>
+<li><p><strong>GUI控制台</strong>：基于Qt框架开发的桌面应用程序，提供3D可视化、参数配置、实时监控等功能</p></li>
+<li><p><strong>Web界面</strong>：基于React的B/S架构应用，支持跨平台远程访问，适合运维监控</p></li>
+<li><p><strong>CLI工具</strong>：命令行接口，方便自动化脚本和批处理操作</p></li>
+<li><p><strong>ROS接口</strong>：提供ROS2兼容接口，便于与现有ROS生态系统集成</p></li>
+<li><p><strong>第三方应用API</strong>：RESTful API和gRPC接口，支持外部系统集成</p></li>
+</ul>
+<h4 data-number="1.2.2.2" id="核心服务层蓝色标识"><span class="header-section-number">1.2.2.2</span> 1.2.2 核心服务层（蓝色标识）</h4>
+<p><strong>功能定位</strong>：</p>
+<ul>
+<li><p>系统运行的中枢神经，负责任务调度和资源管理</p></li>
+<li><p>提供基础服务支撑，确保系统稳定运行</p></li>
+<li><p>实现模块间的协调和通信</p></li>
+</ul>
+<p><strong>核心组件说明</strong>：</p>
+<ul>
+<li><p><strong>任务管理器</strong>：负责任务的创建、调度、执行和监控，支持优先级管理和并发控制</p></li>
+<li><p><strong>行为树引擎</strong>：实现复杂行为逻辑的编排和执行，支持条件判断和循环控制</p></li>
+<li><p><strong>数据管道</strong>：处理传感器数据流，提供数据预处理、过滤和分发功能</p></li>
+<li><p><strong>事件总线</strong>：基于发布-订阅模式的消息中间件，实现模块间解耦通信</p></li>
+<li><p><strong>配置管理器</strong>：集中管理系统配置，支持热更新和版本控制</p></li>
+</ul>
+<h4 data-number="1.2.2.3" id="智能计算层橙色标识"><span class="header-section-number">1.2.2.3</span> 1.2.3 智能计算层（橙色标识）</h4>
+<p><strong>功能定位</strong>：</p>
+<ul>
+<li><p>提供AI能力支撑，实现机器人的智能化</p></li>
+<li><p>集成各类算法模块，支持感知、理解、决策和规划</p></li>
+<li><p>优化计算资源利用，平衡云端和边缘计算</p></li>
+</ul>
+<p><strong>核心组件说明</strong>：</p>
+<ul>
+<li><p><strong>大模型接口</strong>：集成GPT-4、Claude等大语言模型，提供自然语言理解和任务规划能力</p></li>
+<li><p><strong>视觉算法</strong>：包括目标检测（YOLO）、语义分割（SAM）、6D姿态估计等</p></li>
+<li><p><strong>SLAM定位</strong>：融合激光和视觉SLAM，实现精确定位和地图构建</p></li>
+<li><p><strong>运动规划</strong>：基于RRT*等算法的路径规划，支持双臂协调控制</p></li>
+<li><p><strong>决策引擎</strong>：基于规则和学习的混合决策系统，处理复杂场景</p></li>
+</ul>
+<h4 data-number="1.2.2.4" id="硬件抽象层紫色标识"><span class="header-section-number">1.2.2.4</span> 1.2.4 硬件抽象层（紫色标识）</h4>
+<p><strong>功能定位</strong>：</p>
+<ul>
+<li><p>屏蔽底层硬件差异，提供统一的编程接口</p></li>
+<li><p>管理硬件资源，确保访问安全和效率</p></li>
+<li><p>支持硬件热插拔和动态配置</p></li>
+</ul>
+<p><strong>核心组件说明</strong>：</p>
+<ul>
+<li><p><strong>机械臂驱动</strong>：封装FR3机械臂的控制协议，提供关节和笛卡尔空间控制</p></li>
+<li><p><strong>底盘驱动</strong>：封装Hermes底盘的REST API，支持导航和避障</p></li>
+<li><p><strong>视觉驱动</strong>：统一管理多个相机，处理数据同步和标定</p></li>
+<li><p><strong>末端执行器</strong>：控制夹爪等工具，支持力控和位置控制</p></li>
+<li><p><strong>传感器驱动</strong>：集成各类传感器，提供统一的数据访问接口</p></li>
+</ul>
+<h4 data-number="1.2.2.5" id="硬件设备层灰色标识"><span class="header-section-number">1.2.2.5</span> 1.2.5 硬件设备层（灰色标识）</h4>
+<p><strong>功能定位</strong>：</p>
+<ul>
+<li><p>物理硬件设备层，执行实际的动作和感知</p></li>
+<li><p>通过各种通信协议与上层连接</p></li>
+<li><p>提供状态反馈和故障诊断信息</p></li>
+</ul>
+<p><strong>核心组件说明</strong>：</p>
+<ul>
+<li><p><strong>FR3双臂</strong>：法奥机械臂，通过以太网TCP/IP通信</p></li>
+<li><p><strong>Hermes底盘</strong>：思岚移动底盘，通过HTTP REST API通信</p></li>
+<li><p><strong>相机阵列</strong>：3个Gemini335 ToF相机 + 3个2D相机</p></li>
+<li><p><strong>夹爪/工具</strong>：乐白电动夹爪，通过ModBus RTU控制</p></li>
+<li><p><strong>激光雷达</strong>：集成在底盘中的避障传感器</p></li>
+</ul>
+<h3 data-number="1.2.3" id="架构设计原则"><span class="header-section-number">1.2.3</span> 1.3 架构设计原则</h3>
+<h4 data-number="1.2.3.1" id="模块化设计"><span class="header-section-number">1.2.3.1</span> 1.3.1 模块化设计</h4>
+<ul>
+<li><p>每个模块独立开发、测试和部署</p></li>
+<li><p>模块间通过明确定义的接口通信</p></li>
+<li><p>支持模块的动态加载和卸载</p></li>
+</ul>
+<h4 data-number="1.2.3.2" id="分层隔离"><span class="header-section-number">1.2.3.2</span> 1.3.2 分层隔离</h4>
+<ul>
+<li><p>上层不直接访问下层的具体实现</p></li>
+<li><p>每层只依赖直接下层的接口</p></li>
+<li><p>跨层调用通过服务接口进行</p></li>
+</ul>
+<h4 data-number="1.2.3.3" id="异步通信"><span class="header-section-number">1.2.3.3</span> 1.3.3 异步通信</h4>
+<ul>
+<li><p>采用异步消息传递机制</p></li>
+<li><p>避免模块间的阻塞等待</p></li>
+<li><p>提高系统的响应速度和并发能力</p></li>
+</ul>
+<h3 data-number="1.2.4" id="技术选型依据"><span class="header-section-number">1.2.4</span> 1.4 技术选型依据</h3>
+<h4 data-number="1.2.4.1" id="编程语言选择"><span class="header-section-number">1.2.4.1</span> 1.4.1 编程语言选择</h4>
+<ul>
+<li><p><strong>Python</strong>：主要开发语言，生态丰富，开发效率高</p></li>
+<li><p><strong>C++</strong>：用于性能关键模块，如实时控制和图像处理</p></li>
+<li><p><strong>TypeScript</strong>：Web前端开发，类型安全</p></li>
+<li><p><strong>Rust</strong>：安全关键模块的可选语言</p></li>
+</ul>
+<h4 data-number="1.2.4.2" id="通信框架选择"><span class="header-section-number">1.2.4.2</span> 1.4.2 通信框架选择</h4>
+<ul>
+<li><p><strong>gRPC</strong>：高性能的RPC框架，支持多语言</p></li>
+<li><p><strong>WebSocket</strong>：实时双向通信，用于Web界面</p></li>
+<li><p><strong>DDS</strong>：分布式数据服务，用于ROS2集成</p></li>
+<li><p><strong>MQTT</strong>：轻量级消息协议，用于IoT设备</p></li>
+</ul>
+<h3 data-number="1.2.5" id="部署架构"><span class="header-section-number">1.2.5</span> 1.5 部署架构</h3>
+<h4 data-number="1.2.5.1" id="单机部署"><span class="header-section-number">1.2.5.1</span> 1.5.1 单机部署</h4>
+<ul>
+<li><p>所有模块运行在机器人主控计算机上</p></li>
+<li><p>适合开发测试和单机器人应用</p></li>
+<li><p>资源占用：16GB内存，4核CPU</p></li>
+</ul>
+<h4 data-number="1.2.5.2" id="分布式部署"><span class="header-section-number">1.2.5.2</span> 1.5.2 分布式部署</h4>
+<ul>
+<li><p>核心服务和智能计算分离部署</p></li>
+<li><p>支持多机器人协同工作</p></li>
+<li><p>可选的云端服务支持</p></li>
+</ul>
+<h2 data-number="1.3" id="软件模块关系"><span class="header-section-number">1.3</span> 2. 软件模块关系</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image2.png" style="width:5.68889in;height:4.45861in" alt="XXHBIVZBADAFU" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">软件模块采用松耦合设计，各模块通过标准接口通信。核心功能模块作为中枢，协调UI、AI、设备和数据服务模块的交互。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.3.1" id="模块关系总览"><span class="header-section-number">1.3.1</span> 2.1 模块关系总览</h3>
+<p>软件模块关系图展示了XC-OS内部各功能模块之间的依赖和交互关系。整个系统采用松耦合设计，模块间通过标准接口和消息传递进行通信。</p>
+<h3 data-number="1.3.2" id="模块分组说明"><span class="header-section-number">1.3.2</span> 2.2 模块分组说明</h3>
+<h4 data-number="1.3.2.1" id="用户界面模块组"><span class="header-section-number">1.3.2.1</span> 2.2.1 用户界面模块组</h4>
+<p><strong>功能职责</strong>：</p>
+<ul>
+<li><p>提供人机交互界面</p></li>
+<li><p>显示系统状态和数据</p></li>
+<li><p>接收用户指令和配置</p></li>
+</ul>
+<p><strong>模块组成</strong>：</p>
+<ul>
+<li><p><strong>Qt GUI</strong>：本地桌面应用，提供专业的控制界面，支持3D可视化和参数调整</p></li>
+<li><p><strong>Web Dashboard</strong>：基于浏览器的监控面板，支持远程访问和移动设备</p></li>
+<li><p><strong>命令行CLI</strong>：适合自动化脚本和批处理操作的文本界面</p></li>
+</ul>
+<p><strong>交互关系</strong>：</p>
+<ul>
+<li><p>所有UI模块都通过任务调度器提交任务</p></li>
+<li><p>不直接访问底层硬件，确保安全性</p></li>
+<li><p>通过WebSocket或gRPC获取实时状态更新</p></li>
+</ul>
+<h4 data-number="1.3.2.2" id="核心功能模块组"><span class="header-section-number">1.3.2.2</span> 2.2.2 核心功能模块组</h4>
+<p><strong>功能职责</strong>：</p>
+<ul>
+<li><p>系统核心逻辑处理</p></li>
+<li><p>协调各模块工作</p></li>
+<li><p>管理系统资源</p></li>
+</ul>
+<p><strong>模块组成</strong>：</p>
+<ul>
+<li><p><strong>任务调度器</strong>：管理任务队列，根据优先级分配执行资源</p></li>
+<li><p><strong>状态机管理</strong>：维护系统和子系统的状态，处理状态转换</p></li>
+<li><p><strong>消息路由器</strong>：负责消息的分发和路由，实现发布-订阅模式</p></li>
+<li><p><strong>插件管理器</strong>：管理第三方插件的加载、初始化和生命周期</p></li>
+</ul>
+<p><strong>交互关系</strong>：</p>
+<ul>
+<li><p>任务调度器与状态机紧密协作，确保任务执行的正确性</p></li>
+<li><p>消息路由器连接所有模块，提供统一的通信通道</p></li>
+<li><p>插件管理器为扩展功能提供标准接口</p></li>
+</ul>
+<h4 data-number="1.3.2.3" id="ai处理模块组"><span class="header-section-number">1.3.2.3</span> 2.2.3 AI处理模块组</h4>
+<p><strong>功能职责</strong>：</p>
+<ul>
+<li><p>提供智能化能力</p></li>
+<li><p>处理感知和决策任务</p></li>
+<li><p>生成控制策略</p></li>
+</ul>
+<p><strong>模块组成</strong>：</p>
+<ul>
+<li><p><strong>视觉处理</strong>：图像识别、目标检测、场景理解</p></li>
+<li><p><strong>语言理解</strong>：自然语言处理、意图识别、对话管理</p></li>
+<li><p><strong>路径规划</strong>：全局路径规划、局部避障、轨迹优化</p></li>
+<li><p><strong>行为决策</strong>：任务分解、策略选择、异常处理</p></li>
+</ul>
+<p><strong>交互关系</strong>：</p>
+<ul>
+<li><p>视觉处理直接连接传感器管理模块</p></li>
+<li><p>语言理解通过状态机触发相应动作</p></li>
+<li><p>路径规划结果传递给设备控制模块</p></li>
+<li><p>行为决策协调其他AI模块的工作</p></li>
+</ul>
+<h4 data-number="1.3.2.4" id="设备控制模块组"><span class="header-section-number">1.3.2.4</span> 2.2.4 设备控制模块组</h4>
+<p><strong>功能职责</strong>：</p>
+<ul>
+<li><p>直接控制硬件设备</p></li>
+<li><p>执行运动指令</p></li>
+<li><p>反馈设备状态</p></li>
+</ul>
+<p><strong>模块组成</strong>：</p>
+<ul>
+<li><p><strong>机械臂控制</strong>：关节控制、笛卡尔控制、力控制</p></li>
+<li><p><strong>底盘控制</strong>：速度控制、位置控制、导航控制</p></li>
+<li><p><strong>传感器管理</strong>：数据采集、时间同步、标定管理</p></li>
+<li><p><strong>执行器控制</strong>：夹爪控制、工具切换、力反馈</p></li>
+</ul>
+<p><strong>交互关系</strong>：</p>
+<ul>
+<li><p>接收AI模块的控制指令</p></li>
+<li><p>向数据服务模块报告状态</p></li>
+<li><p>通过传感器管理获取环境信息</p></li>
+</ul>
+<h4 data-number="1.3.2.5" id="数据服务模块组"><span class="header-section-number">1.3.2.5</span> 2.2.5 数据服务模块组</h4>
+<p><strong>功能职责</strong>：</p>
+<ul>
+<li><p>提供数据存储和管理</p></li>
+<li><p>记录系统运行日志</p></li>
+<li><p>支持数据分析和回放</p></li>
+</ul>
+<p><strong>模块组成</strong>：</p>
+<ul>
+<li><p><strong>配置管理</strong>：系统参数、设备配置、用户偏好</p></li>
+<li><p><strong>日志服务</strong>：运行日志、错误日志、审计日志</p></li>
+<li><p><strong>数据存储</strong>：时序数据、文件存储、缓存服务</p></li>
+<li><p><strong>通信服务</strong>：网络通信、协议转换、数据压缩</p></li>
+</ul>
+<p><strong>交互关系</strong>：</p>
+<ul>
+<li><p>为所有模块提供基础数据服务</p></li>
+<li><p>配置管理影响系统启动和运行</p></li>
+<li><p>日志服务收集所有模块的运行信息</p></li>
+</ul>
+<h3 data-number="1.3.3" id="模块通信机制"><span class="header-section-number">1.3.3</span> 2.3 模块通信机制</h3>
+<h4 data-number="1.3.3.1" id="同步通信"><span class="header-section-number">1.3.3.1</span> 2.3.1 同步通信</h4>
+<ul>
+<li><p>用于需要立即响应的场景</p></li>
+<li><p>采用RPC（远程过程调用）方式</p></li>
+<li><p>适合参数查询、状态获取等操作</p></li>
+</ul>
+<h4 data-number="1.3.3.2" id="异步通信-1"><span class="header-section-number">1.3.3.2</span> 2.3.2 异步通信</h4>
+<ul>
+<li><p>用于耗时操作和事件通知</p></li>
+<li><p>基于消息队列实现</p></li>
+<li><p>支持一对多的广播模式</p></li>
+</ul>
+<h4 data-number="1.3.3.3" id="数据流通信"><span class="header-section-number">1.3.3.3</span> 2.3.3 数据流通信</h4>
+<ul>
+<li><p>用于高频数据传输</p></li>
+<li><p>采用共享内存或DDS</p></li>
+<li><p>适合传感器数据和视频流</p></li>
+</ul>
+<h3 data-number="1.3.4" id="模块依赖管理"><span class="header-section-number">1.3.4</span> 2.4 模块依赖管理</h3>
+<h4 data-number="1.3.4.1" id="启动顺序"><span class="header-section-number">1.3.4.1</span> 2.4.1 启动顺序</h4>
+<ol type="1">
+<li><p>数据服务模块（基础服务）</p></li>
+<li><p>核心功能模块（系统框架）</p></li>
+<li><p>设备控制模块（硬件接入）</p></li>
+<li><p>AI处理模块（智能功能）</p></li>
+<li><p>用户界面模块（交互界面）</p></li>
+</ol>
+<h4 data-number="1.3.4.2" id="依赖注入"><span class="header-section-number">1.3.4.2</span> 2.4.2 依赖注入</h4>
+<ul>
+<li><p>使用依赖注入容器管理模块依赖</p></li>
+<li><p>支持模块的mock和测试</p></li>
+<li><p>便于模块的替换和升级</p></li>
+</ul>
+<h4 data-number="1.3.4.3" id="版本兼容"><span class="header-section-number">1.3.4.3</span> 2.4.3 版本兼容</h4>
+<ul>
+<li><p>模块接口使用语义化版本</p></li>
+<li><p>向后兼容的API设计</p></li>
+<li><p>支持多版本共存</p></li>
+</ul>
+<h2 data-number="1.4" id="系统数据流"><span class="header-section-number">1.4</span> 3. 系统数据流</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image3.png" style="width:5.68889in;height:4.34007in" alt="HBFRKVZBADAHC" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">数据流从输入层经过处理层，根据数据类型分别存储到不同的存储系统，最终输出控制指令和分析结果。 系统支持实时数据处理和历史数据分析。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.4.1" id="数据流架构设计"><span class="header-section-number">1.4.1</span> 3.1 数据流架构设计</h3>
+<p>系统数据流图展示了数据从输入到输出的完整处理过程。采用流式处理架构，确保数据的实时性和可靠性。</p>
+<h3 data-number="1.4.2" id="数据流层次说明"><span class="header-section-number">1.4.2</span> 3.2 数据流层次说明</h3>
+<h4 data-number="1.4.2.1" id="输入层"><span class="header-section-number">1.4.2.1</span> 3.2.1 输入层</h4>
+<p><strong>数据来源</strong>：</p>
+<ul>
+<li><p><strong>用户指令</strong>：来自GUI、Web界面或API的控制命令</p></li>
+<li><p><strong>传感器数据</strong>：包括相机图像、激光雷达、编码器等</p></li>
+<li><p><strong>视觉图像</strong>：RGB图像、深度图像、点云数据</p></li>
+<li><p><strong>状态反馈</strong>：机械臂关节角度、底盘位置、系统状态等</p></li>
+</ul>
+<p><strong>数据特性</strong>：</p>
+<ul>
+<li><p>数据频率：视觉30FPS，关节状态1kHz，激光雷达10Hz</p></li>
+<li><p>数据量：视觉数据量最大，需要专门的处理通道</p></li>
+<li><p>实时性要求：控制反馈要求低延迟（&lt;10ms）</p></li>
+</ul>
+<h4 data-number="1.4.2.2" id="处理层"><span class="header-section-number">1.4.2.2</span> 3.2.2 处理层</h4>
+<p><strong>处理流程</strong>：</p>
+<ul>
+<li><p><strong>数据预处理</strong>：格式转换、坐标变换、时间戳对齐</p></li>
+<li><p><strong>特征提取</strong>：图像特征、点云特征、运动特征</p></li>
+<li><p><strong>融合处理</strong>：多传感器数据融合、状态估计</p></li>
+<li><p><strong>决策分析</strong>：基于处理后的数据进行决策</p></li>
+</ul>
+<p><strong>处理策略</strong>：</p>
+<ul>
+<li><p>并行处理：利用多核CPU和GPU加速</p></li>
+<li><p>流水线设计：各处理阶段并行执行</p></li>
+<li><p>缓存机制：热点数据保存在内存中</p></li>
+</ul>
+<h4 data-number="1.4.2.3" id="存储层"><span class="header-section-number">1.4.2.3</span> 3.2.3 存储层</h4>
+<p><strong>存储架构</strong>：</p>
+<ul>
+<li><p><strong>实时缓存（Redis）</strong>：存储最新状态和热点数据，支持高速读写</p></li>
+<li><p><strong>时序数据库（InfluxDB）</strong>：存储传感器历史数据，支持时间序列查询</p></li>
+<li><p><strong>文件存储（MinIO）</strong>：存储图像、视频、日志文件等大容量数据</p></li>
+<li><p><strong>关系数据库（PostgreSQL）</strong>：存储配置信息、任务记录、系统元数据</p></li>
+</ul>
+<p><strong>存储策略</strong>：</p>
+<ul>
+<li><p>分级存储：根据数据访问频率选择存储介质</p></li>
+<li><p>数据压缩：对历史数据进行压缩存储</p></li>
+<li><p>定期归档：将过期数据移至冷存储</p></li>
+</ul>
+<h4 data-number="1.4.2.4" id="输出层"><span class="header-section-number">1.4.2.4</span> 3.2.4 输出层</h4>
+<p><strong>输出类型</strong>：</p>
+<ul>
+<li><p><strong>控制指令</strong>：发送给机械臂、底盘的运动指令</p></li>
+<li><p><strong>状态显示</strong>：更新UI界面的显示内容</p></li>
+<li><p><strong>日志记录</strong>：系统运行日志和调试信息</p></li>
+<li><p><strong>数据分析</strong>：生成报表和分析结果</p></li>
+</ul>
+<p><strong>输出保障</strong>：</p>
+<ul>
+<li><p>指令校验：确保输出指令的合法性</p></li>
+<li><p>状态同步：保持显示状态与实际状态一致</p></li>
+<li><p>日志完整：确保关键操作都有日志记录</p></li>
+</ul>
+<h3 data-number="1.4.3" id="数据处理机制"><span class="header-section-number">1.4.3</span> 3.3 数据处理机制</h3>
+<h4 data-number="1.4.3.1" id="实时数据处理"><span class="header-section-number">1.4.3.1</span> 3.3.1 实时数据处理</h4>
+<ul>
+<li><p>采用事件驱动模式</p></li>
+<li><p>数据到达即触发处理</p></li>
+<li><p>优先保证低延迟</p></li>
+</ul>
+<h4 data-number="1.4.3.2" id="批量数据处理"><span class="header-section-number">1.4.3.2</span> 3.3.2 批量数据处理</h4>
+<ul>
+<li><p>适用于非实时分析任务</p></li>
+<li><p>定期批量处理历史数据</p></li>
+<li><p>生成统计报表和趋势分析</p></li>
+</ul>
+<h4 data-number="1.4.3.3" id="流式数据处理"><span class="header-section-number">1.4.3.3</span> 3.3.3 流式数据处理</h4>
+<ul>
+<li><p>处理连续的数据流</p></li>
+<li><p>支持滑动窗口分析</p></li>
+<li><p>适合视频流和传感器流</p></li>
+</ul>
+<h3 data-number="1.4.4" id="数据流控制"><span class="header-section-number">1.4.4</span> 3.4 数据流控制</h3>
+<h4 data-number="1.4.4.1" id="流量控制"><span class="header-section-number">1.4.4.1</span> 3.4.1 流量控制</h4>
+<ul>
+<li><p>防止数据拥塞</p></li>
+<li><p>动态调整采样率</p></li>
+<li><p>优先级队列管理</p></li>
+</ul>
+<h4 data-number="1.4.4.2" id="错误处理"><span class="header-section-number">1.4.4.2</span> 3.4.2 错误处理</h4>
+<ul>
+<li><p>数据校验和纠错</p></li>
+<li><p>异常数据过滤</p></li>
+<li><p>故障恢复机制</p></li>
+</ul>
+<h4 data-number="1.4.4.3" id="数据同步"><span class="header-section-number">1.4.4.3</span> 3.4.3 数据同步</h4>
+<ul>
+<li><p>多源数据时间对齐</p></li>
+<li><p>分布式时钟同步</p></li>
+<li><p>数据一致性保证</p></li>
+</ul>
+<h2 data-number="1.5" id="应用层详细架构"><span class="header-section-number">1.5</span> 4. 应用层详细架构</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image4.png" style="width:5.68889in;height:2.34944in" alt="LTBRMVZBACQEW" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">应用层提供多种交互方式：本地GUI提供专业控制界面，Web界面支持远程访问，API接口方便第三方集成。 所有访问都经过安全层验证。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.5.1" id="应用层组件构成"><span class="header-section-number">1.5.1</span> 4.1 应用层组件构成</h3>
+<p>应用层作为用户与系统交互的界面层，提供了多种访问方式以满足不同场景的需求。</p>
+<h3 data-number="1.5.2" id="gui控制台详解"><span class="header-section-number">1.5.2</span> 4.2 GUI控制台详解</h3>
+<h4 data-number="1.5.2.1" id="功能模块"><span class="header-section-number">1.5.2.1</span> 4.2.1 功能模块</h4>
+<ul>
+<li><p><strong>3D可视化</strong>：实时显示机器人姿态、工作空间、障碍物</p></li>
+<li><p><strong>任务编辑器</strong>：图形化编程界面，支持拖拽式任务编排</p></li>
+<li><p><strong>参数配置</strong>：系统参数、硬件参数、算法参数的配置界面</p></li>
+<li><p><strong>状态监控</strong>：实时显示各子系统状态、传感器数据、性能指标</p></li>
+</ul>
+<h4 data-number="1.5.2.2" id="技术特点"><span class="header-section-number">1.5.2.2</span> 4.2.2 技术特点</h4>
+<ul>
+<li><p>基于Qt6框架开发，跨平台支持</p></li>
+<li><p>使用OpenGL进行3D渲染</p></li>
+<li><p>支持多窗口、多屏幕显示</p></li>
+<li><p>可定制的界面布局</p></li>
+</ul>
+<h4 data-number="1.5.2.3" id="交互设计"><span class="header-section-number">1.5.2.3</span> 4.2.3 交互设计</h4>
+<ul>
+<li><p>支持鼠标、键盘、触屏操作</p></li>
+<li><p>提供快捷键和手势控制</p></li>
+<li><p>实时响应，流畅的动画效果</p></li>
+<li><p>支持暗色和亮色主题</p></li>
+</ul>
+<h3 data-number="1.5.3" id="web界面详解"><span class="header-section-number">1.5.3</span> 4.3 Web界面详解</h3>
+<h4 data-number="1.5.3.1" id="功能模块-1"><span class="header-section-number">1.5.3.1</span> 4.3.1 功能模块</h4>
+<ul>
+<li><p><strong>仪表盘</strong>：关键指标的可视化展示</p></li>
+<li><p><strong>远程控制</strong>：通过Web界面控制机器人</p></li>
+<li><p><strong>数据分析</strong>：历史数据查询和分析</p></li>
+<li><p><strong>系统设置</strong>：远程配置系统参数</p></li>
+</ul>
+<h4 data-number="1.5.3.2" id="技术架构"><span class="header-section-number">1.5.3.2</span> 4.3.2 技术架构</h4>
+<ul>
+<li><p>前端：React + TypeScript + Ant Design</p></li>
+<li><p>通信：WebSocket实时通信 + REST API</p></li>
+<li><p>响应式设计，支持移动设备</p></li>
+<li><p>PWA支持，可离线使用</p></li>
+</ul>
+<h4 data-number="1.5.3.3" id="安全机制"><span class="header-section-number">1.5.3.3</span> 4.3.3 安全机制</h4>
+<ul>
+<li><p>HTTPS加密传输</p></li>
+<li><p>JWT身份认证</p></li>
+<li><p>基于角色的权限控制</p></li>
+<li><p>操作审计日志</p></li>
+</ul>
+<h3 data-number="1.5.4" id="api接口详解"><span class="header-section-number">1.5.4</span> 4.4 API接口详解</h3>
+<h4 data-number="1.5.4.1" id="接口类型"><span class="header-section-number">1.5.4.1</span> 4.4.1 接口类型</h4>
+<ul>
+<li><p><strong>REST API</strong>：标准的HTTP接口，用于资源操作</p></li>
+<li><p><strong>WebSocket</strong>：实时双向通信，用于状态推送</p></li>
+<li><p><strong>gRPC</strong>：高性能RPC，用于内部服务调用</p></li>
+<li><p><strong>ROS2 Bridge</strong>：与ROS生态系统的桥接接口</p></li>
+</ul>
+<h4 data-number="1.5.4.2" id="接口设计原则"><span class="header-section-number">1.5.4.2</span> 4.4.2 接口设计原则</h4>
+<ul>
+<li><p>RESTful风格，资源导向</p></li>
+<li><p>统一的错误处理机制</p></li>
+<li><p>版本化管理，向后兼容</p></li>
+<li><p>完善的接口文档</p></li>
+</ul>
+<h4 data-number="1.5.4.3" id="接口安全"><span class="header-section-number">1.5.4.3</span> 4.4.3 接口安全</h4>
+<ul>
+<li><p>API Key认证</p></li>
+<li><p>OAuth 2.0支持</p></li>
+<li><p>请求频率限制</p></li>
+<li><p>IP白名单控制</p></li>
+</ul>
+<h3 data-number="1.5.5" id="通信协议层"><span class="header-section-number">1.5.5</span> 4.5 通信协议层</h3>
+<h4 data-number="1.5.5.1" id="协议选择"><span class="header-section-number">1.5.5.1</span> 4.5.1 协议选择</h4>
+<ul>
+<li><p><strong>HTTP/HTTPS</strong>：用于Web API和普通请求</p></li>
+<li><p><strong>WebSocket</strong>：用于实时数据推送</p></li>
+<li><p><strong>DDS</strong>：用于分布式实时通信</p></li>
+<li><p><strong>MQTT</strong>：用于轻量级消息传递</p></li>
+</ul>
+<h4 data-number="1.5.5.2" id="数据格式"><span class="header-section-number">1.5.5.2</span> 4.5.2 数据格式</h4>
+<ul>
+<li><p>JSON：主要的数据交换格式</p></li>
+<li><p>Protocol Buffers：用于gRPC通信</p></li>
+<li><p>MessagePack：用于高效序列化</p></li>
+<li><p>ROS消息格式：兼容ROS生态</p></li>
+</ul>
+<h3 data-number="1.5.6" id="安全层设计"><span class="header-section-number">1.5.6</span> 4.6 安全层设计</h3>
+<h4 data-number="1.5.6.1" id="身份认证"><span class="header-section-number">1.5.6.1</span> 4.6.1 身份认证</h4>
+<ul>
+<li><p>多因素认证支持</p></li>
+<li><p>单点登录（SSO）</p></li>
+<li><p>LDAP/AD集成</p></li>
+<li><p>生物识别支持</p></li>
+</ul>
+<h4 data-number="1.5.6.2" id="权限控制"><span class="header-section-number">1.5.6.2</span> 4.6.2 权限控制</h4>
+<ul>
+<li><p>基于角色的访问控制（RBAC）</p></li>
+<li><p>细粒度的资源权限</p></li>
+<li><p>动态权限分配</p></li>
+<li><p>权限继承和委托</p></li>
+</ul>
+<h4 data-number="1.5.6.3" id="数据加密"><span class="header-section-number">1.5.6.3</span> 4.6.3 数据加密</h4>
+<ul>
+<li><p>传输加密（TLS 1.3）</p></li>
+<li><p>存储加密（AES-256）</p></li>
+<li><p>密钥管理系统</p></li>
+<li><p>端到端加密选项</p></li>
+</ul>
+<h4 data-number="1.5.6.4" id="审计日志"><span class="header-section-number">1.5.6.4</span> 4.6.4 审计日志</h4>
+<ul>
+<li><p>全量操作记录</p></li>
+<li><p>日志防篡改</p></li>
+<li><p>实时告警机制</p></li>
+<li><p>合规性报告</p></li>
+</ul>
+<h2 data-number="1.6" id="核心服务层详细架构"><span class="header-section-number">1.6</span> 5. 核心服务层详细架构</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image5.png" style="width:5.68889in;height:2.02198in" alt="OBDROVZBABQD4" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">核心服务层是系统的中枢，任务管理器负责调度，行为树引擎执行复杂逻辑，事件总线实现解耦通信， 数据管道处理数据流，配置中心管理系统配置。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.6.1" id="核心服务层概述"><span class="header-section-number">1.6.1</span> 5.1 核心服务层概述</h3>
+<p>核心服务层是整个系统的"大脑"，负责协调各个模块的工作，提供基础服务支撑。</p>
+<h3 data-number="1.6.2" id="任务管理器详解"><span class="header-section-number">1.6.2</span> 5.2 任务管理器详解</h3>
+<h4 data-number="1.6.2.1" id="核心功能"><span class="header-section-number">1.6.2.1</span> 5.2.1 核心功能</h4>
+<ul>
+<li><p><strong>任务队列</strong>：维护待执行任务的优先级队列</p></li>
+<li><p><strong>优先级调度</strong>：基于优先级和紧急程度的调度算法</p></li>
+<li><p><strong>并发控制</strong>：管理任务的并发执行，避免资源冲突</p></li>
+<li><p><strong>失败重试</strong>：自动重试失败任务，支持退避策略</p></li>
+</ul>
+<h4 data-number="1.6.2.2" id="任务生命周期"><span class="header-section-number">1.6.2.2</span> 5.2.2 任务生命周期</h4>
+<ol type="1">
+<li><p><strong>创建阶段</strong>：任务定义和参数验证</p></li>
+<li><p><strong>排队阶段</strong>：加入优先级队列等待执行</p></li>
+<li><p><strong>执行阶段</strong>：分配资源并开始执行</p></li>
+<li><p><strong>监控阶段</strong>：实时监控执行进度</p></li>
+<li><p><strong>完成阶段</strong>：结果处理和资源释放</p></li>
+</ol>
+<h4 data-number="1.6.2.3" id="调度策略"><span class="header-section-number">1.6.2.3</span> 5.2.3 调度策略</h4>
+<ul>
+<li><p>抢占式调度：高优先级任务可抢占资源</p></li>
+<li><p>时间片轮转：相同优先级任务公平调度</p></li>
+<li><p>资源感知调度：根据资源使用情况动态调度</p></li>
+<li><p>亲和性调度：相关任务尽量在同一节点执行</p></li>
+</ul>
+<h3 data-number="1.6.3" id="行为树引擎详解"><span class="header-section-number">1.6.3</span> 5.3 行为树引擎详解</h3>
+<h4 data-number="1.6.3.1" id="节点类型"><span class="header-section-number">1.6.3.1</span> 5.3.1 节点类型</h4>
+<ul>
+<li><p><strong>动作节点</strong>：执行具体的动作，如移动、抓取</p></li>
+<li><p><strong>条件节点</strong>：检查条件是否满足</p></li>
+<li><p><strong>控制节点</strong>：控制执行流程，如顺序、选择、并行</p></li>
+<li><p><strong>装饰节点</strong>：修改子节点行为，如重试、超时</p></li>
+</ul>
+<h4 data-number="1.6.3.2" id="执行机制"><span class="header-section-number">1.6.3.2</span> 5.3.2 执行机制</h4>
+<ul>
+<li><p><strong>Tick机制</strong>：定期触发树的执行</p></li>
+<li><p><strong>状态传播</strong>：节点状态向上传播</p></li>
+<li><p><strong>黑板系统</strong>：节点间共享数据</p></li>
+<li><p><strong>中断处理</strong>：支持执行中断和恢复</p></li>
+</ul>
+<h4 data-number="1.6.3.3" id="扩展机制"><span class="header-section-number">1.6.3.3</span> 5.3.3 扩展机制</h4>
+<ul>
+<li><p>自定义节点类型</p></li>
+<li><p>脚本节点支持</p></li>
+<li><p>可视化编辑器</p></li>
+<li><p>行为树模板库</p></li>
+</ul>
+<h3 data-number="1.6.4" id="事件总线详解"><span class="header-section-number">1.6.4</span> 5.4 事件总线详解</h3>
+<h4 data-number="1.6.4.1" id="事件模型"><span class="header-section-number">1.6.4.1</span> 5.4.1 事件模型</h4>
+<ul>
+<li><p><strong>事件定义</strong>：类型、来源、数据、时间戳</p></li>
+<li><p><strong>事件分类</strong>：系统事件、用户事件、硬件事件</p></li>
+<li><p><strong>事件优先级</strong>：紧急、高、普通、低</p></li>
+<li><p><strong>事件持久化</strong>：关键事件的存储和回放</p></li>
+</ul>
+<h4 data-number="1.6.4.2" id="发布订阅机制"><span class="header-section-number">1.6.4.2</span> 5.4.2 发布订阅机制</h4>
+<ul>
+<li><p>主题式订阅：按事件类型订阅</p></li>
+<li><p>内容式订阅：按事件内容过滤</p></li>
+<li><p>通配符支持：灵活的订阅规则</p></li>
+<li><p>订阅管理：动态订阅和取消</p></li>
+</ul>
+<h4 data-number="1.6.4.3" id="性能优化"><span class="header-section-number">1.6.4.3</span> 5.4.3 性能优化</h4>
+<ul>
+<li><p>异步处理：事件处理不阻塞发布</p></li>
+<li><p>批量发送：相似事件的批量处理</p></li>
+<li><p>本地缓存：减少网络传输</p></li>
+<li><p>负载均衡：多订阅者的负载分配</p></li>
+</ul>
+<h3 data-number="1.6.5" id="数据管道详解"><span class="header-section-number">1.6.5</span> 5.5 数据管道详解</h3>
+<h4 data-number="1.6.5.1" id="数据处理流程"><span class="header-section-number">1.6.5.1</span> 5.5.1 数据处理流程</h4>
+<ul>
+<li><p><strong>数据采集</strong>：从各种数据源收集数据</p></li>
+<li><p><strong>数据转换</strong>：格式转换、单位转换、坐标转换</p></li>
+<li><p><strong>数据路由</strong>：根据规则将数据发送到目标</p></li>
+<li><p><strong>数据缓冲</strong>：处理速度不匹配的缓冲机制</p></li>
+</ul>
+<h4 data-number="1.6.5.2" id="处理模式"><span class="header-section-number">1.6.5.2</span> 5.5.2 处理模式</h4>
+<ul>
+<li><p>流式处理：实时处理数据流</p></li>
+<li><p>批处理：定期处理批量数据</p></li>
+<li><p>微批处理：小批量快速处理</p></li>
+<li><p>复合处理：混合多种处理模式</p></li>
+</ul>
+<h4 data-number="1.6.5.3" id="数据质量保证"><span class="header-section-number">1.6.5.3</span> 5.5.3 数据质量保证</h4>
+<ul>
+<li><p>数据验证：格式和范围检查</p></li>
+<li><p>数据清洗：异常值处理</p></li>
+<li><p>数据补全：缺失值填充</p></li>
+<li><p>数据监控：质量指标跟踪</p></li>
+</ul>
+<h3 data-number="1.6.6" id="配置中心详解"><span class="header-section-number">1.6.6</span> 5.6 配置中心详解</h3>
+<h4 data-number="1.6.6.1" id="配置管理"><span class="header-section-number">1.6.6.1</span> 5.6.1 配置管理</h4>
+<ul>
+<li><p><strong>配置存储</strong>：集中存储所有配置</p></li>
+<li><p><strong>热更新</strong>：无需重启的配置更新</p></li>
+<li><p><strong>版本管理</strong>：配置的版本控制和回滚</p></li>
+<li><p><strong>配置校验</strong>：自动验证配置合法性</p></li>
+</ul>
+<h4 data-number="1.6.6.2" id="配置分类"><span class="header-section-number">1.6.6.2</span> 5.6.2 配置分类</h4>
+<ul>
+<li><p>系统配置：核心参数、资源限制</p></li>
+<li><p>硬件配置：设备参数、通信设置</p></li>
+<li><p>算法配置：算法参数、模型路径</p></li>
+<li><p>用户配置：界面偏好、快捷键</p></li>
+</ul>
+<h4 data-number="1.6.6.3" id="配置分发"><span class="header-section-number">1.6.6.3</span> 5.6.3 配置分发</h4>
+<ul>
+<li><p>推送模式：配置更新主动推送</p></li>
+<li><p>拉取模式：客户端定期拉取</p></li>
+<li><p>订阅模式：订阅特定配置变更</p></li>
+<li><p>缓存策略：本地缓存和更新</p></li>
+</ul>
+<h2 data-number="1.7" id="智能计算层详细架构"><span class="header-section-number">1.7</span> 6. 智能计算层详细架构</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image6.png" style="width:5.68889in;height:0.95612in" alt="SHLBOVZBADAGW" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">智能计算层集成了视觉、语言、规划和定位算法，通过NVIDIA Orin加速推理，实现实时AI处理能力。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.7.1" id="智能计算层概述"><span class="header-section-number">1.7.1</span> 6.1 智能计算层概述</h3>
+<p>智能计算层集成了各种AI算法，是机器人实现智能化的核心。通过NVIDIA Orin进行加速，实现实时的AI推理。</p>
+<h3 data-number="1.7.2" id="视觉算法模块"><span class="header-section-number">1.7.2</span> 6.2 视觉算法模块</h3>
+<h4 data-number="1.7.2.1" id="算法组成"><span class="header-section-number">1.7.2.1</span> 6.2.1 算法组成</h4>
+<ul>
+<li><p><strong>目标检测（YOLO v8）</strong>：实时检测环境中的物体</p></li>
+<li><p><strong>语义分割（SAM）</strong>：像素级的场景理解</p></li>
+<li><p><strong>6D姿态估计</strong>：估计物体的位置和朝向</p></li>
+<li><p><strong>深度估计</strong>：从RGB图像估计深度信息</p></li>
+</ul>
+<h4 data-number="1.7.2.2" id="处理流程"><span class="header-section-number">1.7.2.2</span> 6.2.2 处理流程</h4>
+<ol type="1">
+<li><p><strong>图像采集</strong>：从多个相机获取图像</p></li>
+<li><p><strong>预处理</strong>：去噪、增强、归一化</p></li>
+<li><p><strong>特征提取</strong>：提取图像特征</p></li>
+<li><p><strong>模型推理</strong>：运行AI模型</p></li>
+<li><p><strong>后处理</strong>：NMS、坐标转换</p></li>
+<li><p><strong>结果输出</strong>：检测框、掩码、关键点</p></li>
+</ol>
+<h4 data-number="1.7.2.3" id="性能优化-1"><span class="header-section-number">1.7.2.3</span> 6.2.3 性能优化</h4>
+<ul>
+<li><p>模型量化：INT8/FP16精度优化</p></li>
+<li><p>批处理：多张图像并行处理</p></li>
+<li><p>模型剪枝：去除冗余参数</p></li>
+<li><p>知识蒸馏：大模型指导小模型</p></li>
+</ul>
+<h3 data-number="1.7.3" id="大模型接口"><span class="header-section-number">1.7.3</span> 6.3 大模型接口</h3>
+<h4 data-number="1.7.3.1" id="功能能力"><span class="header-section-number">1.7.3.1</span> 6.3.1 功能能力</h4>
+<ul>
+<li><p><strong>任务理解</strong>：理解自然语言指令</p></li>
+<li><p><strong>场景描述</strong>：生成场景的文字描述</p></li>
+<li><p><strong>行为规划</strong>：分解复杂任务为执行步骤</p></li>
+<li><p><strong>异常处理</strong>：处理意外情况的决策</p></li>
+</ul>
+<h4 data-number="1.7.3.2" id="接入方式"><span class="header-section-number">1.7.3.2</span> 6.3.2 接入方式</h4>
+<ul>
+<li><p>云端API：调用OpenAI、Claude等服务</p></li>
+<li><p>本地部署：部署开源模型如LLaMA</p></li>
+<li><p>混合模式：本地+云端的智能路由</p></li>
+<li><p>缓存机制：常见问题的本地缓存</p></li>
+</ul>
+<h4 data-number="1.7.3.3" id="提示工程"><span class="header-section-number">1.7.3.3</span> 6.3.3 提示工程</h4>
+<ul>
+<li><p>任务模板：预定义的任务提示模板</p></li>
+<li><p>上下文注入：注入环境和状态信息</p></li>
+<li><p>链式思考：引导模型逐步推理</p></li>
+<li><p>结果解析：结构化输出的解析</p></li>
+</ul>
+<h3 data-number="1.7.4" id="运动规划模块"><span class="header-section-number">1.7.4</span> 6.4 运动规划模块</h3>
+<h4 data-number="1.7.4.1" id="规划算法"><span class="header-section-number">1.7.4.1</span> 6.4.1 规划算法</h4>
+<ul>
+<li><p><em>路径规划（RRT）</em>*：全局路径规划</p></li>
+<li><p><strong>轨迹优化</strong>：平滑和优化轨迹</p></li>
+<li><p><strong>碰撞检测</strong>：实时碰撞检测</p></li>
+<li><p><strong>双臂协调</strong>：双臂协同运动规划</p></li>
+</ul>
+<h4 data-number="1.7.4.2" id="规划流程"><span class="header-section-number">1.7.4.2</span> 6.4.2 规划流程</h4>
+<ol type="1">
+<li><p><strong>环境建模</strong>：构建工作空间模型</p></li>
+<li><p><strong>目标设定</strong>：设定目标位置和约束</p></li>
+<li><p><strong>路径搜索</strong>：搜索可行路径</p></li>
+<li><p><strong>轨迹生成</strong>：生成时间最优轨迹</p></li>
+<li><p><strong>安全检查</strong>：碰撞和奇异点检查</p></li>
+<li><p><strong>执行监控</strong>：实时调整轨迹</p></li>
+</ol>
+<h4 data-number="1.7.4.3" id="约束处理"><span class="header-section-number">1.7.4.3</span> 6.4.3 约束处理</h4>
+<ul>
+<li><p>关节限位：考虑关节角度限制</p></li>
+<li><p>速度限制：遵守最大速度约束</p></li>
+<li><p>加速度限制：平滑的加减速</p></li>
+<li><p>工作空间：避免超出工作范围</p></li>
+</ul>
+<h3 data-number="1.7.5" id="定位导航模块"><span class="header-section-number">1.7.5</span> 6.5 定位导航模块</h3>
+<h4 data-number="1.7.5.1" id="slam技术"><span class="header-section-number">1.7.5.1</span> 6.5.1 SLAM技术</h4>
+<ul>
+<li><p><strong>激光SLAM</strong>：基于激光雷达的建图定位</p></li>
+<li><p><strong>视觉SLAM</strong>：基于相机的建图定位</p></li>
+<li><p><strong>地图构建</strong>：实时构建环境地图</p></li>
+<li><p><strong>定位融合</strong>：多传感器融合定位</p></li>
+</ul>
+<h4 data-number="1.7.5.2" id="导航功能"><span class="header-section-number">1.7.5.2</span> 6.5.2 导航功能</h4>
+<ul>
+<li><p>全局路径规划：A*、Dijkstra算法</p></li>
+<li><p>局部避障：DWA动态窗口法</p></li>
+<li><p>路径跟踪：纯追踪、MPC控制</p></li>
+<li><p>多目标导航：任务优先级调度</p></li>
+</ul>
+<h4 data-number="1.7.5.3" id="地图管理"><span class="header-section-number">1.7.5.3</span> 6.5.3 地图管理</h4>
+<ul>
+<li><p>地图存储：栅格地图、拓扑地图</p></li>
+<li><p>地图更新：动态障碍物更新</p></li>
+<li><p>地图匹配：重定位和回环检测</p></li>
+<li><p>多楼层支持：电梯和楼层切换</p></li>
+</ul>
+<h3 data-number="1.7.6" id="推理加速"><span class="header-section-number">1.7.6</span> 6.6 推理加速</h3>
+<h4 data-number="1.7.6.1" id="加速技术"><span class="header-section-number">1.7.6.1</span> 6.6.1 加速技术</h4>
+<ul>
+<li><p><strong>TensorRT</strong>：NVIDIA推理优化引擎</p></li>
+<li><p><strong>ONNX Runtime</strong>：跨平台推理框架</p></li>
+<li><p><strong>模型量化</strong>：降低精度提升速度</p></li>
+<li><p><strong>批处理优化</strong>：提高GPU利用率</p></li>
+</ul>
+<h4 data-number="1.7.6.2" id="资源管理"><span class="header-section-number">1.7.6.2</span> 6.6.2 资源管理</h4>
+<ul>
+<li><p>GPU调度：多模型共享GPU</p></li>
+<li><p>显存管理：动态分配显存</p></li>
+<li><p>优先级控制：关键任务优先</p></li>
+<li><p>负载均衡：多GPU负载分配</p></li>
+</ul>
+<h4 data-number="1.7.6.3" id="性能监控"><span class="header-section-number">1.7.6.3</span> 6.6.3 性能监控</h4>
+<ul>
+<li><p>推理延迟：毫秒级延迟监控</p></li>
+<li><p>吞吐量：每秒处理帧数</p></li>
+<li><p>资源占用：GPU/CPU使用率</p></li>
+<li><p>模型精度：准确率跟踪</p></li>
+</ul>
+<h2 data-number="1.8" id="硬件抽象层详细架构"><span class="header-section-number">1.8</span> 7. 硬件抽象层详细架构</h2>
+<table>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 43%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image7.png" style="width:3.15927in;height:3.33542in" alt="6GPRUVZBAAAEI" /></td>
+<td><img src="images/xc_os_system_____/media/image8.png" style="width:2.45462in;height:3.33542in" alt="PTPBUVZBACAA4" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">硬件抽象层通过统一接口屏蔽底层硬件差异，每种设备都有对应的驱动实现，支持不同的通信协议。</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.8.1" id="硬件抽象层设计理念"><span class="header-section-number">1.8.1</span> 7.1 硬件抽象层设计理念</h3>
+<p>硬件抽象层（HAL）通过统一的接口屏蔽不同硬件的差异，使上层应用无需关心具体硬件细节。</p>
+<h3 data-number="1.8.2" id="统一接口层"><span class="header-section-number">1.8.2</span> 7.2 统一接口层</h3>
+<h4 data-number="1.8.2.1" id="接口设计原则-1"><span class="header-section-number">1.8.2.1</span> 7.2.1 接口设计原则</h4>
+<ul>
+<li><p><strong>设备接口</strong>：定义设备的基本操作</p></li>
+<li><p><strong>驱动接口</strong>：定义驱动的标准方法</p></li>
+<li><p><strong>通信接口</strong>：定义通信协议抽象</p></li>
+<li><p><strong>状态接口</strong>：定义状态查询和监控</p></li>
+</ul>
+<h4 data-number="1.8.2.2" id="接口标准化"><span class="header-section-number">1.8.2.2</span> 7.2.2 接口标准化</h4>
+<ul>
+<li><p>统一的初始化流程</p></li>
+<li><p>标准的错误处理机制</p></li>
+<li><p>一致的数据格式定义</p></li>
+<li><p>通用的配置方法</p></li>
+</ul>
+<h4 data-number="1.8.2.3" id="接口版本管理"><span class="header-section-number">1.8.2.3</span> 7.2.3 接口版本管理</h4>
+<ul>
+<li><p>语义化版本控制</p></li>
+<li><p>向后兼容性保证</p></li>
+<li><p>废弃接口的过渡期</p></li>
+<li><p>版本协商机制</p></li>
+</ul>
+<h3 data-number="1.8.3" id="机械臂驱动"><span class="header-section-number">1.8.3</span> 7.3 机械臂驱动</h3>
+<h4 data-number="1.8.3.1" id="fr3驱动实现"><span class="header-section-number">1.8.3.1</span> 7.3.1 FR3驱动实现</h4>
+<ul>
+<li><p><strong>通信协议</strong>：基于TCP/IP的私有协议</p></li>
+<li><p><strong>控制模式</strong>：位置控制、速度控制、力矩控制</p></li>
+<li><p><strong>状态反馈</strong>：关节角度、速度、力矩、温度</p></li>
+<li><p><strong>安全机制</strong>：限位保护、碰撞检测、急停</p></li>
+</ul>
+<h4 data-number="1.8.3.2" id="运动控制"><span class="header-section-number">1.8.3.2</span> 7.3.2 运动控制</h4>
+<ul>
+<li><p>关节空间控制：直接控制各关节角度</p></li>
+<li><p>笛卡尔空间控制：控制末端位姿</p></li>
+<li><p>轨迹插补：线性、圆弧、样条插补</p></li>
+<li><p>在线轨迹修正：实时调整运动轨迹</p></li>
+</ul>
+<h4 data-number="1.8.3.3" id="双臂协调"><span class="header-section-number">1.8.3.3</span> 7.3.3 双臂协调</h4>
+<ul>
+<li><p>主从模式：一臂跟随另一臂</p></li>
+<li><p>协同模式：双臂配合完成任务</p></li>
+<li><p>碰撞避免：双臂间的碰撞检测</p></li>
+<li><p>负载分配：根据负载能力分配任务</p></li>
+</ul>
+<h3 data-number="1.8.4" id="底盘驱动"><span class="header-section-number">1.8.4</span> 7.4 底盘驱动</h3>
+<h4 data-number="1.8.4.1" id="hermes驱动实现"><span class="header-section-number">1.8.4.1</span> 7.4.1 Hermes驱动实现</h4>
+<ul>
+<li><p><strong>通信方式</strong>：REST API over HTTP</p></li>
+<li><p><strong>控制接口</strong>：速度控制、位置控制</p></li>
+<li><p><strong>反馈信息</strong>：里程计、电池、传感器</p></li>
+<li><p><strong>导航模式</strong>：手动、自动、SLAM</p></li>
+</ul>
+<h4 data-number="1.8.4.2" id="移动控制"><span class="header-section-number">1.8.4.2</span> 7.4.2 移动控制</h4>
+<ul>
+<li><p>速度控制：设定线速度和角速度</p></li>
+<li><p>路径跟踪：跟踪预定义路径</p></li>
+<li><p>自主导航：基于地图的自主移动</p></li>
+<li><p>避障策略：激光雷达实时避障</p></li>
+</ul>
+<h4 data-number="1.8.4.3" id="底盘管理"><span class="header-section-number">1.8.4.3</span> 7.4.3 底盘管理</h4>
+<ul>
+<li><p>电源管理：电池监控和充电控制</p></li>
+<li><p>故障诊断：电机、传感器故障检测</p></li>
+<li><p>性能监控：速度、加速度、里程统计</p></li>
+<li><p>维护提醒：定期维护和保养提醒</p></li>
+</ul>
+<h3 data-number="1.8.5" id="视觉驱动"><span class="header-section-number">1.8.5</span> 7.5 视觉驱动</h3>
+<h4 data-number="1.8.5.1" id="相机驱动统一"><span class="header-section-number">1.8.5.1</span> 7.5.1 相机驱动统一</h4>
+<ul>
+<li><p><strong>Gemini驱动</strong>：3个ToF相机的统一管理</p></li>
+<li><p><strong>2D相机驱动</strong>：USB相机的标准接口</p></li>
+<li><p><strong>数据格式</strong>：RGB、深度、点云、IR</p></li>
+<li><p><strong>同步机制</strong>：多相机时间同步</p></li>
+</ul>
+<h4 data-number="1.8.5.2" id="相机标定"><span class="header-section-number">1.8.5.2</span> 7.5.2 相机标定</h4>
+<ul>
+<li><p>内参标定：相机内部参数</p></li>
+<li><p>外参标定：相机相对位置</p></li>
+<li><p>手眼标定：相机与机械臂关系</p></li>
+<li><p>在线标定：运行时动态标定</p></li>
+</ul>
+<h4 data-number="1.8.5.3" id="数据处理"><span class="header-section-number">1.8.5.3</span> 7.5.3 数据处理</h4>
+<ul>
+<li><p>图像预处理：去畸变、滤波</p></li>
+<li><p>深度对齐：RGB与深度对齐</p></li>
+<li><p>点云生成：深度图转点云</p></li>
+<li><p>多视角融合：多相机数据融合</p></li>
+</ul>
+<h3 data-number="1.8.6" id="末端执行器驱动"><span class="header-section-number">1.8.6</span> 7.6 末端执行器驱动</h3>
+<h4 data-number="1.8.6.1" id="夹爪控制"><span class="header-section-number">1.8.6.1</span> 7.6.1 夹爪控制</h4>
+<ul>
+<li><p><strong>通信协议</strong>：ModBus RTU over RS485</p></li>
+<li><p><strong>控制模式</strong>：位置模式、力控模式</p></li>
+<li><p><strong>反馈信息</strong>：开合度、夹持力、状态</p></li>
+<li><p><strong>保护机制</strong>：过载保护、堵转检测</p></li>
+</ul>
+<h4 data-number="1.8.6.2" id="工具管理"><span class="header-section-number">1.8.6.2</span> 7.6.2 工具管理</h4>
+<ul>
+<li><p>工具识别：自动识别安装的工具</p></li>
+<li><p>参数配置：工具的TCP、质量、惯量</p></li>
+<li><p>快换支持：工具快速更换接口</p></li>
+<li><p>工具库：预定义工具参数库</p></li>
+</ul>
+<h4 data-number="1.8.6.3" id="力控功能"><span class="header-section-number">1.8.6.3</span> 7.6.3 力控功能</h4>
+<ul>
+<li><p>力传感器接入：6维力/力矩传感器</p></li>
+<li><p>柔顺控制：阻抗控制、导纳控制</p></li>
+<li><p>力引导：通过力反馈引导运动</p></li>
+<li><p>装配应用：精密装配的力控制</p></li>
+</ul>
+<h2 data-number="1.9" id="任务执行流程"><span class="header-section-number">1.9</span> 8. 任务执行流程</h2>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 34%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image9.png" style="width:1.47439in;height:2.59443in" alt="XC3BSVZBADQAQ" /></td>
+<td><img src="images/xc_os_system_____/media/image10.png" style="width:1.88569in;height:2.59443in" alt="47XRSVZBAAAEW" /></td>
+<td><img src="images/xc_os_system_____/media/image11.png" style="width:2.17882in;height:2.59443in" alt="WQ4RUVZBAAACY" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">任务执行流程包含理解、规划、执行和监控四个主要阶段，支持异常处理和失败恢复机制。</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.9.1" id="任务执行概述"><span class="header-section-number">1.9.1</span> 8.1 任务执行概述</h3>
+<p>任务执行流程图展示了从用户输入到任务完成的完整处理过程，包含了理解、规划、执行和监控四个主要阶段。</p>
+<h3 data-number="1.9.2" id="任务理解阶段"><span class="header-section-number">1.9.2</span> 8.2 任务理解阶段</h3>
+<h4 data-number="1.9.2.1" id="指令解析"><span class="header-section-number">1.9.2.1</span> 8.2.1 指令解析</h4>
+<ul>
+<li><p><strong>自然语言处理</strong>：将用户的自然语言转换为结构化指令</p></li>
+<li><p><strong>意图识别</strong>：识别用户的真实意图和目标</p></li>
+<li><p><strong>参数提取</strong>：提取任务相关的参数信息</p></li>
+<li><p><strong>歧义消除</strong>：处理指令中的歧义和不确定性</p></li>
+</ul>
+<h4 data-number="1.9.2.2" id="上下文理解"><span class="header-section-number">1.9.2.2</span> 8.2.2 上下文理解</h4>
+<ul>
+<li><p>环境上下文：当前的环境状态和物体位置</p></li>
+<li><p>历史上下文：之前的任务和交互历史</p></li>
+<li><p>用户上下文：用户的偏好和习惯</p></li>
+<li><p>任务上下文：相关任务的执行状态</p></li>
+</ul>
+<h4 data-number="1.9.2.3" id="可行性分析"><span class="header-section-number">1.9.2.3</span> 8.2.3 可行性分析</h4>
+<ul>
+<li><p>能力匹配：检查机器人是否具备执行能力</p></li>
+<li><p>资源检查：确认所需资源是否可用</p></li>
+<li><p>约束验证：检查是否违反安全或操作约束</p></li>
+<li><p>冲突检测：与其他任务的冲突检查</p></li>
+</ul>
+<h3 data-number="1.9.3" id="任务规划阶段"><span class="header-section-number">1.9.3</span> 8.3 任务规划阶段</h3>
+<h4 data-number="1.9.3.1" id="任务分解"><span class="header-section-number">1.9.3.1</span> 8.3.1 任务分解</h4>
+<ul>
+<li><p><strong>层次分解</strong>：将复杂任务分解为子任务</p></li>
+<li><p><strong>时序安排</strong>：确定子任务的执行顺序</p></li>
+<li><p><strong>依赖分析</strong>：分析任务间的依赖关系</p></li>
+<li><p><strong>并行识别</strong>：识别可并行执行的任务</p></li>
+</ul>
+<h4 data-number="1.9.3.2" id="行为树生成"><span class="header-section-number">1.9.3.2</span> 8.3.2 行为树生成</h4>
+<ul>
+<li><p>节点选择：选择合适的行为树节点</p></li>
+<li><p>结构构建：构建行为树的层次结构</p></li>
+<li><p>参数配置：设置各节点的执行参数</p></li>
+<li><p>条件设置：配置分支条件和循环条件</p></li>
+</ul>
+<h4 data-number="1.9.3.3" id="资源分配"><span class="header-section-number">1.9.3.3</span> 8.3.3 资源分配</h4>
+<ul>
+<li><p>硬件资源：分配机械臂、夹爪等硬件</p></li>
+<li><p>计算资源：分配CPU、GPU计算资源</p></li>
+<li><p>时间资源：估算和分配执行时间</p></li>
+<li><p>优先级设置：根据重要性设置优先级</p></li>
+</ul>
+<h3 data-number="1.9.4" id="任务执行阶段"><span class="header-section-number">1.9.4</span> 8.4 任务执行阶段</h3>
+<h4 data-number="1.9.4.1" id="执行控制"><span class="header-section-number">1.9.4.1</span> 8.4.1 执行控制</h4>
+<ul>
+<li><p><strong>启动执行</strong>：初始化执行环境</p></li>
+<li><p><strong>状态转换</strong>：管理任务状态变化</p></li>
+<li><p><strong>并发控制</strong>：协调多个并行任务</p></li>
+<li><p><strong>同步机制</strong>：确保任务间的同步</p></li>
+</ul>
+<h4 data-number="1.9.4.2" id="动作执行"><span class="header-section-number">1.9.4.2</span> 8.4.2 动作执行</h4>
+<ul>
+<li><p>运动执行：控制机械臂和底盘运动</p></li>
+<li><p>感知执行：执行视觉和传感器任务</p></li>
+<li><p>决策执行：运行决策算法</p></li>
+<li><p>交互执行：与用户或环境交互</p></li>
+</ul>
+<h4 data-number="1.9.4.3" id="实时调整"><span class="header-section-number">1.9.4.3</span> 8.4.3 实时调整</h4>
+<ul>
+<li><p>轨迹修正：根据反馈调整运动轨迹</p></li>
+<li><p>参数优化：动态优化执行参数</p></li>
+<li><p>策略切换：根据情况切换执行策略</p></li>
+<li><p>速度调节：根据负载调整执行速度</p></li>
+</ul>
+<h3 data-number="1.9.5" id="监控与反馈"><span class="header-section-number">1.9.5</span> 8.5 监控与反馈</h3>
+<h4 data-number="1.9.5.1" id="状态监控"><span class="header-section-number">1.9.5.1</span> 8.5.1 状态监控</h4>
+<ul>
+<li><p><strong>执行进度</strong>：实时跟踪任务完成度</p></li>
+<li><p><strong>性能指标</strong>：监控执行效率和质量</p></li>
+<li><p><strong>资源使用</strong>：跟踪资源占用情况</p></li>
+<li><p><strong>异常检测</strong>：及时发现异常情况</p></li>
+</ul>
+<h4 data-number="1.9.5.2" id="异常处理"><span class="header-section-number">1.9.5.2</span> 8.5.2 异常处理</h4>
+<ul>
+<li><p>异常分类：识别异常类型和严重程度</p></li>
+<li><p>恢复策略：选择合适的恢复方法</p></li>
+<li><p>回滚机制：必要时回滚到安全状态</p></li>
+<li><p>人工介入：严重异常请求人工处理</p></li>
+</ul>
+<h4 data-number="1.9.5.3" id="结果评估"><span class="header-section-number">1.9.5.3</span> 8.5.3 结果评估</h4>
+<ul>
+<li><p>完成度评估：评估任务完成的程度</p></li>
+<li><p>质量评估：评估执行结果的质量</p></li>
+<li><p>效率分析：分析执行时间和资源消耗</p></li>
+<li><p>经验总结：提取可复用的经验知识</p></li>
+</ul>
+<h3 data-number="1.9.6" id="任务完成处理"><span class="header-section-number">1.9.6</span> 8.6 任务完成处理</h3>
+<h4 data-number="1.9.6.1" id="结果生成"><span class="header-section-number">1.9.6.1</span> 8.6.1 结果生成</h4>
+<ul>
+<li><p><strong>执行报告</strong>：生成详细的执行报告</p></li>
+<li><p><strong>数据归档</strong>：保存执行过程数据</p></li>
+<li><p><strong>日志记录</strong>：记录关键执行信息</p></li>
+<li><p><strong>统计分析</strong>：更新统计数据</p></li>
+</ul>
+<h4 data-number="1.9.6.2" id="资源释放"><span class="header-section-number">1.9.6.2</span> 8.6.2 资源释放</h4>
+<ul>
+<li><p>硬件释放：释放占用的硬件资源</p></li>
+<li><p>内存清理：清理临时数据和缓存</p></li>
+<li><p>连接关闭：关闭不需要的连接</p></li>
+<li><p>状态重置：重置相关状态机</p></li>
+</ul>
+<h4 data-number="1.9.6.3" id="后续处理"><span class="header-section-number">1.9.6.3</span> 8.6.3 后续处理</h4>
+<ul>
+<li><p>结果通知：通知用户任务完成</p></li>
+<li><p>触发后续：触发相关的后续任务</p></li>
+<li><p>数据同步：同步执行结果到其他系统</p></li>
+<li><p>维护更新：更新系统维护信息</p></li>
+</ul>
+<h2 data-number="1.10" id="插件系统架构"><span class="header-section-number">1.10</span> 9. 插件系统架构</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image12.png" style="width:5.68889in;height:1.06964in" alt="WIKBYVZBAAAH6" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">插件系统提供标准化的扩展机制，通过插件管理器控制插件生命周期，插件通过API访问系统功能， 沙箱隔离确保系统安全性。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.10.1" id="插件系统设计理念"><span class="header-section-number">1.10.1</span> 9.1 插件系统设计理念</h3>
+<p>插件系统提供了灵活的功能扩展机制，允许第三方开发者为系统添加新功能而无需修改核心代码。</p>
+<h3 data-number="1.10.2" id="插件管理器"><span class="header-section-number">1.10.2</span> 9.2 插件管理器</h3>
+<h4 data-number="1.10.2.1" id="核心功能-1"><span class="header-section-number">1.10.2.1</span> 9.2.1 核心功能</h4>
+<ul>
+<li><p><strong>插件注册表</strong>：维护所有已注册插件的信息</p></li>
+<li><p><strong>生命周期管理</strong>：控制插件的加载、初始化、运行、卸载</p></li>
+<li><p><strong>依赖解析</strong>：自动解析和加载插件依赖</p></li>
+<li><p><strong>沙箱隔离</strong>：确保插件运行的安全性</p></li>
+</ul>
+<h4 data-number="1.10.2.2" id="插件发现机制"><span class="header-section-number">1.10.2.2</span> 9.2.2 插件发现机制</h4>
+<ul>
+<li><p>目录扫描：扫描指定目录发现插件</p></li>
+<li><p>注册中心：从插件注册中心获取</p></li>
+<li><p>手动注册：通过配置文件注册</p></li>
+<li><p>热插拔：支持运行时加载和卸载</p></li>
+</ul>
+<h4 data-number="1.10.2.3" id="版本管理"><span class="header-section-number">1.10.2.3</span> 9.2.3 版本管理</h4>
+<ul>
+<li><p>版本兼容性检查</p></li>
+<li><p>多版本共存支持</p></li>
+<li><p>自动更新机制</p></li>
+<li><p>版本回滚功能</p></li>
+</ul>
+<h3 data-number="1.10.3" id="插件接口规范"><span class="header-section-number">1.10.3</span> 9.3 插件接口规范</h3>
+<h4 data-number="1.10.3.1" id="标准接口"><span class="header-section-number">1.10.3.1</span> 9.3.1 标准接口</h4>
+<ul>
+<li><p><strong>初始化接口</strong>：插件加载时调用</p></li>
+<li><p><strong>执行接口</strong>：插件功能的主要入口</p></li>
+<li><p><strong>配置接口</strong>：插件参数配置</p></li>
+<li><p><strong>销毁接口</strong>：插件卸载时调用</p></li>
+</ul>
+<h4 data-number="1.10.3.2" id="事件接口"><span class="header-section-number">1.10.3.2</span> 9.3.2 事件接口</h4>
+<ul>
+<li><p>事件监听：监听系统事件</p></li>
+<li><p>事件发布：发布自定义事件</p></li>
+<li><p>事件过滤：设置事件过滤条件</p></li>
+<li><p>事件优先级：设置处理优先级</p></li>
+</ul>
+<h4 data-number="1.10.3.3" id="扩展点"><span class="header-section-number">1.10.3.3</span> 9.3.3 扩展点</h4>
+<ul>
+<li><p>UI扩展：添加新的界面元素</p></li>
+<li><p>命令扩展：添加新的命令</p></li>
+<li><p>服务扩展：提供新的服务</p></li>
+<li><p>算法扩展：集成新的算法</p></li>
+</ul>
+<h3 data-number="1.10.4" id="核心插件介绍"><span class="header-section-number">1.10.4</span> 9.4 核心插件介绍</h3>
+<h4 data-number="1.10.4.1" id="语音控制插件"><span class="header-section-number">1.10.4.1</span> 9.4.1 语音控制插件</h4>
+<ul>
+<li><p><strong>功能描述</strong>：提供语音识别和控制能力</p></li>
+<li><p><strong>技术实现</strong>：集成语音识别引擎</p></li>
+<li><p><strong>使用场景</strong>：免手操作、远程控制</p></li>
+<li><p><strong>配置选项</strong>：语言选择、唤醒词设置</p></li>
+</ul>
+<h4 data-number="1.10.4.2" id="手势识别插件"><span class="header-section-number">1.10.4.2</span> 9.4.2 手势识别插件</h4>
+<ul>
+<li><p><strong>功能描述</strong>：识别手势进行控制</p></li>
+<li><p><strong>技术实现</strong>：基于视觉的手势识别</p></li>
+<li><p><strong>使用场景</strong>：直观的人机交互</p></li>
+<li><p><strong>配置选项</strong>：手势库定义、灵敏度</p></li>
+</ul>
+<h4 data-number="1.10.4.3" id="安全监控插件"><span class="header-section-number">1.10.4.3</span> 9.4.3 安全监控插件</h4>
+<ul>
+<li><p><strong>功能描述</strong>：实时监控系统安全状态</p></li>
+<li><p><strong>技术实现</strong>：多传感器融合监控</p></li>
+<li><p><strong>使用场景</strong>：确保操作安全</p></li>
+<li><p><strong>配置选项</strong>：安全区域、报警阈值</p></li>
+</ul>
+<h4 data-number="1.10.4.4" id="数据记录插件"><span class="header-section-number">1.10.4.4</span> 9.4.4 数据记录插件</h4>
+<ul>
+<li><p><strong>功能描述</strong>：记录系统运行数据</p></li>
+<li><p><strong>技术实现</strong>：高效的数据存储</p></li>
+<li><p><strong>使用场景</strong>：调试、分析、回放</p></li>
+<li><p><strong>配置选项</strong>：记录级别、存储策略</p></li>
+</ul>
+<h3 data-number="1.10.5" id="插件开发指南"><span class="header-section-number">1.10.5</span> 9.5 插件开发指南</h3>
+<h4 data-number="1.10.5.1" id="开发环境"><span class="header-section-number">1.10.5.1</span> 9.5.1 开发环境</h4>
+<ul>
+<li><p>SDK提供：插件开发工具包</p></li>
+<li><p>模板项目：快速开始的项目模板</p></li>
+<li><p>调试工具：插件调试和测试工具</p></li>
+<li><p>文档支持：详细的API文档</p></li>
+</ul>
+<h4 data-number="1.10.5.2" id="开发流程"><span class="header-section-number">1.10.5.2</span> 9.5.2 开发流程</h4>
+<ol type="1">
+<li><p>创建插件项目</p></li>
+<li><p>实现标准接口</p></li>
+<li><p>编写功能逻辑</p></li>
+<li><p>添加配置支持</p></li>
+<li><p>编写测试用例</p></li>
+<li><p>打包和发布</p></li>
+</ol>
+<h4 data-number="1.10.5.3" id="最佳实践"><span class="header-section-number">1.10.5.3</span> 9.5.3 最佳实践</h4>
+<ul>
+<li><p>遵循命名规范</p></li>
+<li><p>处理异常情况</p></li>
+<li><p>优化性能表现</p></li>
+<li><p>提供详细日志</p></li>
+<li><p>编写用户文档</p></li>
+</ul>
+<h3 data-number="1.10.6" id="插件安全机制"><span class="header-section-number">1.10.6</span> 9.6 插件安全机制</h3>
+<h4 data-number="1.10.6.1" id="权限控制-1"><span class="header-section-number">1.10.6.1</span> 9.6.1 权限控制</h4>
+<ul>
+<li><p>资源访问权限：限制插件访问的资源</p></li>
+<li><p>API调用权限：限制可调用的API</p></li>
+<li><p>网络访问权限：控制网络访问</p></li>
+<li><p>文件系统权限：限制文件操作</p></li>
+</ul>
+<h4 data-number="1.10.6.2" id="沙箱隔离"><span class="header-section-number">1.10.6.2</span> 9.6.2 沙箱隔离</h4>
+<ul>
+<li><p>进程隔离：插件运行在独立进程</p></li>
+<li><p>内存隔离：限制内存使用</p></li>
+<li><p>CPU隔离：限制CPU使用率</p></li>
+<li><p>异常隔离：插件异常不影响主系统</p></li>
+</ul>
+<h4 data-number="1.10.6.3" id="安全审计"><span class="header-section-number">1.10.6.3</span> 9.6.3 安全审计</h4>
+<ul>
+<li><p>代码审查：插件代码安全审查</p></li>
+<li><p>行为监控：运行时行为监控</p></li>
+<li><p>日志审计：详细的操作日志</p></li>
+<li><p>异常报告：安全事件报告</p></li>
+</ul>
+<h2 data-number="1.11" id="硬件设备层详细架构"><span class="header-section-number">1.11</span> 10. 硬件设备层详细架构</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system_____/media/image13.png" style="width:5.68889in;height:2.19823in" alt="V53RYVZBADQGQ" /></td>
+</tr>
+<tr>
+<td style="text-align: center;">硬件设备通过不同的接口和协议连接到主控制器，包括以太网（机械臂、底盘）、USB（相机）、 ModBus（夹爪）和CAN总线（升降轴）。NVIDIA Orin作为AI协处理器通过PCIe连接。</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.11.1" id="硬件系统总体设计"><span class="header-section-number">1.11.1</span> 10.1 硬件系统总体设计</h3>
+<p>硬件设备层包含了机器人的所有物理组件，通过不同的通信协议与主控制器连接，形成完整的机器人系统。</p>
+<h3 data-number="1.11.2" id="主控制器系统"><span class="header-section-number">1.11.2</span> 10.2 主控制器系统</h3>
+<h4 data-number="1.11.2.1" id="x86主机配置"><span class="header-section-number">1.11.2.1</span> 10.2.1 x86主机配置</h4>
+<ul>
+<li><p><strong>处理器</strong>：Intel Core i7-13264H，14核20线程</p></li>
+<li><p><strong>内存</strong>：16GB DDR5，可扩展至32GB</p></li>
+<li><p><strong>存储</strong>：512GB NVMe SSD，预留扩展位</p></li>
+<li><p><strong>接口</strong>：千兆以太网×2，USB 3.0×4，USB 2.0×2</p></li>
+</ul>
+<h4 data-number="1.11.2.2" id="系统架构选择"><span class="header-section-number">1.11.2.2</span> 10.2.2 系统架构选择</h4>
+<ul>
+<li><p><strong>Windows 11方案</strong>：适合快速原型开发，工具链完善</p></li>
+<li><p><strong>Ubuntu 22.04方案</strong>：适合产品化部署，实时性更好</p></li>
+<li><p><strong>双系统方案</strong>：开发和部署分离，灵活切换</p></li>
+</ul>
+<h4 data-number="1.11.2.3" id="协处理器配置"><span class="header-section-number">1.11.2.3</span> 10.2.3 协处理器配置</h4>
+<ul>
+<li><p><strong>NVIDIA Orin Nano 8G</strong>：AI推理加速</p></li>
+<li><p><strong>连接方式</strong>：PCIe 3.0 x4</p></li>
+<li><p><strong>功能分配</strong>：视觉处理、深度学习推理</p></li>
+<li><p><strong>功耗管理</strong>：10W/15W/25W可调</p></li>
+</ul>
+<h3 data-number="1.11.3" id="双臂系统详解"><span class="header-section-number">1.11.3</span> 10.3 双臂系统详解</h3>
+<h4 data-number="1.11.3.1" id="fr3机械臂规格"><span class="header-section-number">1.11.3.1</span> 10.3.1 FR3机械臂规格</h4>
+<ul>
+<li><p><strong>自由度</strong>：6轴</p></li>
+<li><p><strong>负载能力</strong>：3kg</p></li>
+<li><p><strong>工作半径</strong>：620mm</p></li>
+<li><p><strong>重复定位精度</strong>：±0.02mm</p></li>
+<li><p><strong>通信接口</strong>：千兆以太网</p></li>
+</ul>
+<h4 data-number="1.11.3.2" id="双臂安装配置"><span class="header-section-number">1.11.3.2</span> 10.3.2 双臂安装配置</h4>
+<ul>
+<li><p><strong>左臂IP</strong>：192.168.58.3</p></li>
+<li><p><strong>右臂IP</strong>：192.168.58.2</p></li>
+<li><p><strong>基座偏移</strong>：左臂(-190, 0, 550)，右臂(190, 0, 550)</p></li>
+<li><p><strong>工作空间</strong>：优化布局避免干涉</p></li>
+</ul>
+<h4 data-number="1.11.3.3" id="升降轴系统"><span class="header-section-number">1.11.3.3</span> 10.3.3 升降轴系统</h4>
+<ul>
+<li><p><strong>行程范围</strong>：300mm</p></li>
+<li><p><strong>驱动方式</strong>：伺服电机+滚珠丝杠</p></li>
+<li><p><strong>控制接口</strong>：CAN总线</p></li>
+<li><p><strong>定位精度</strong>：±0.1mm</p></li>
+<li><p><strong>承载能力</strong>：50kg</p></li>
+</ul>
+<h3 data-number="1.11.4" id="视觉系统配置"><span class="header-section-number">1.11.4</span> 10.4 视觉系统配置</h3>
+<h4 data-number="1.11.4.1" id="tof相机布局"><span class="header-section-number">1.11.4.1</span> 10.4.1 ToF相机布局</h4>
+<ul>
+<li><p><strong>胸部相机</strong>：环境感知，广角视野</p></li>
+<li><p><strong>左臂末端</strong>：精确定位，手眼协调</p></li>
+<li><p><strong>右臂末端</strong>：精确定位，手眼协调</p></li>
+<li><p><strong>型号规格</strong>：Gemini335，分辨率640×480，帧率30FPS</p></li>
+</ul>
+<h4 data-number="1.11.4.2" id="d相机配置"><span class="header-section-number">1.11.4.2</span> 10.4.2 2D相机配置</h4>
+<ul>
+<li><p><strong>头部主相机</strong>：1080P，用于人脸识别</p></li>
+<li><p><strong>左鱼眼相机</strong>：180°视角，侧方补盲</p></li>
+<li><p><strong>右鱼眼相机</strong>：180°视角，侧方补盲</p></li>
+<li><p><strong>数据接口</strong>：USB 2.0，带宽优化</p></li>
+</ul>
+<h4 data-number="1.11.4.3" id="相机标定方案"><span class="header-section-number">1.11.4.3</span> 10.4.3 相机标定方案</h4>
+<ul>
+<li><p>内参标定：张正友标定法</p></li>
+<li><p>外参标定：手眼标定算法</p></li>
+<li><p>多相机标定：全局优化方法</p></li>
+<li><p>在线校准：基于特征点的动态校准</p></li>
+</ul>
+<h3 data-number="1.11.5" id="移动底盘系统"><span class="header-section-number">1.11.5</span> 10.5 移动底盘系统</h3>
+<h4 data-number="1.11.5.1" id="hermes底盘规格"><span class="header-section-number">1.11.5.1</span> 10.5.1 Hermes底盘规格</h4>
+<ul>
+<li><p><strong>驱动方式</strong>：差速驱动/全向轮</p></li>
+<li><p><strong>最大速度</strong>：1.5m/s</p></li>
+<li><p><strong>负载能力</strong>：100kg</p></li>
+<li><p><strong>续航时间</strong>：8小时</p></li>
+<li><p><strong>通信接口</strong>：REST API (192.168.31.211:1448)</p></li>
+</ul>
+<h4 data-number="1.11.5.2" id="避障系统"><span class="header-section-number">1.11.5.2</span> 10.5.2 避障系统</h4>
+<ul>
+<li><p><strong>前激光雷达</strong>：270°扫描，10Hz</p></li>
+<li><p><strong>后激光雷达</strong>：270°扫描，10Hz</p></li>
+<li><p><strong>检测距离</strong>：0.1-10m</p></li>
+<li><p><strong>角度分辨率</strong>：0.25°</p></li>
+</ul>
+<h4 data-number="1.11.5.3" id="电源管理"><span class="header-section-number">1.11.5.3</span> 10.5.3 电源管理</h4>
+<ul>
+<li><p><strong>电池类型</strong>：磷酸铁锂电池</p></li>
+<li><p><strong>电压规格</strong>：48V系统</p></li>
+<li><p><strong>容量</strong>：20Ah</p></li>
+<li><p><strong>充电方式</strong>：自动充电桩对接</p></li>
+<li><p><strong>电源分配</strong>：独立的控制和动力电源</p></li>
+</ul>
+<h3 data-number="1.11.6" id="末端执行器"><span class="header-section-number">1.11.6</span> 10.6 末端执行器</h3>
+<h4 data-number="1.11.6.1" id="电动夹爪规格"><span class="header-section-number">1.11.6.1</span> 10.6.1 电动夹爪规格</h4>
+<ul>
+<li><p><strong>品牌型号</strong>：乐白大行程夹爪</p></li>
+<li><p><strong>开合范围</strong>：0-150mm</p></li>
+<li><p><strong>夹持力</strong>：10-100N可调</p></li>
+<li><p><strong>控制方式</strong>：ModBus RTU over RS485</p></li>
+<li><p><strong>反馈信息</strong>：位置、力、状态</p></li>
+</ul>
+<h4 data-number="1.11.6.2" id="工具快换系统"><span class="header-section-number">1.11.6.2</span> 10.6.2 工具快换系统</h4>
+<ul>
+<li><p>机械接口：ISO标准接口</p></li>
+<li><p>电气接口：24V电源，RS485通信</p></li>
+<li><p>气动接口：预留气动工具接口</p></li>
+<li><p>自动识别：RFID工具识别</p></li>
+</ul>
+<h4 data-number="1.11.6.3" id="力觉感知"><span class="header-section-number">1.11.6.3</span> 10.6.3 力觉感知</h4>
+<ul>
+<li><p>集成力传感器：6维力/力矩</p></li>
+<li><p>测量范围：±100N，±10Nm</p></li>
+<li><p>采样频率：1kHz</p></li>
+<li><p>应用场景：柔顺控制、精密装配</p></li>
+</ul>
+<h3 data-number="1.11.7" id="系统集成要点"><span class="header-section-number">1.11.7</span> 10.7 系统集成要点</h3>
+<h4 data-number="1.11.7.1" id="通信架构"><span class="header-section-number">1.11.7.1</span> 10.7.1 通信架构</h4>
+<ul>
+<li><p><strong>主干网络</strong>：千兆以太网交换机</p></li>
+<li><p><strong>实时通信</strong>：EtherCAT预留</p></li>
+<li><p><strong>无线备份</strong>：5G/WiFi6冗余</p></li>
+<li><p><strong>时间同步</strong>：PTP/NTP时钟同步</p></li>
+</ul>
+<h4 data-number="1.11.7.2" id="供电设计"><span class="header-section-number">1.11.7.2</span> 10.7.2 供电设计</h4>
+<ul>
+<li><p>主电源：48V转12V/24V/5V</p></li>
+<li><p>隔离设计：控制与动力隔离</p></li>
+<li><p>应急电源：UPS备用电源</p></li>
+<li><p>功耗监控：实时功耗统计</p></li>
+</ul>
+<h4 data-number="1.11.7.3" id="散热方案"><span class="header-section-number">1.11.7.3</span> 10.7.3 散热方案</h4>
+<ul>
+<li><p>主控散热：主动风冷+散热片</p></li>
+<li><p>驱动器散热：分布式散热设计</p></li>
+<li><p>环境适应：-10°C到45°C工作温度</p></li>
+<li><p>热管理：温度监控和保护</p></li>
+</ul>
+<h4 data-number="1.11.7.4" id="结构设计"><span class="header-section-number">1.11.7.4</span> 10.7.4 结构设计</h4>
+<ul>
+<li><p>模块化结构：便于维护和升级</p></li>
+<li><p>线缆管理：拖链和线槽设计</p></li>
+<li><p>防护等级：IP54防尘防水</p></li>
+<li><p>减震设计：隔振垫和柔性连接</p></li>
+</ul>
+<h2 data-number="1.12" id="总结"><span class="header-section-number">1.12</span> 总结</h2>
+<p>XC-OS系统架构设计充分考虑了轮式双臂机器人的特点，通过分层架构、模块化设计、标准化接口等技术手段，构建了一个灵活、可扩展、易维护的机器人操作系统。系统的每个层次和模块都有明确的职责和接口定义，支持快速开发和部署。通过完善的硬件抽象层，系统能够适配不同的硬件配置，为机器人应用的开发提供了坚实的基础。</p>
+</body>
+</html>

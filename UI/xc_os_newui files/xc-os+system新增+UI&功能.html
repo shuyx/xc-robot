@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>xc-os+system新增+UI&amp;功能</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">xc-os+system新增+UI&amp;功能</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#选项卡6-系统监控-system-monitor" id="toc-选项卡6-系统监控-system-monitor"><span class="toc-section-number">0.1</span> 选项卡6: 📊 系统监控 (System Monitor)</a></li>
+<li><a href="#选项卡6-系统监控界面设计" id="toc-选项卡6-系统监控界面设计"><span class="toc-section-number">0.2</span> 选项卡6: 📊 系统监控界面设计</a></li>
+<li><a href="#选项卡7-参数配置-parameter-config" id="toc-选项卡7-参数配置-parameter-config"><span class="toc-section-number">0.3</span> 选项卡7: 🔧 参数配置 (Parameter Config)</a></li>
+<li><a href="#选项卡7-参数配置界面设计" id="toc-选项卡7-参数配置界面设计"><span class="toc-section-number">0.4</span> 选项卡7: 🔧 参数配置界面设计</a></li>
+<li><a href="#选项卡8-数据分析-data-analytics" id="toc-选项卡8-数据分析-data-analytics"><span class="toc-section-number">0.5</span> 选项卡8: 📈 数据分析 (Data Analytics)</a></li>
+<li><a href="#选项卡8-数据分析界面设计" id="toc-选项卡8-数据分析界面设计"><span class="toc-section-number">0.6</span> 选项卡8: 📈 数据分析界面设计</a></li>
+<li><a href="#选项卡9-维护管理-maintenance" id="toc-选项卡9-维护管理-maintenance"><span class="toc-section-number">0.7</span> 选项卡9: 🛠️ 维护管理 (Maintenance)</a></li>
+<li><a href="#选项卡9-维护管理界面设计" id="toc-选项卡9-维护管理界面设计"><span class="toc-section-number">0.8</span> 选项卡9: 🛠️ 维护管理界面设计</a></li>
+<li><a href="#选项卡10-任务编排-task-orchestration" id="toc-选项卡10-任务编排-task-orchestration"><span class="toc-section-number">0.9</span> 选项卡10: 🎯 任务编排 (Task Orchestration)</a></li>
+<li><a href="#选项卡10-任务编排界面设计" id="toc-选项卡10-任务编排界面设计"><span class="toc-section-number">0.10</span> 选项卡10: 🎯 任务编排界面设计</a></li>
+<li><a href="#选项卡11-视觉系统-vision-system" id="toc-选项卡11-视觉系统-vision-system"><span class="toc-section-number">0.11</span> 选项卡11: 👁️ 视觉系统 (Vision System)</a></li>
+<li><a href="#选项卡11-视觉系统界面设计" id="toc-选项卡11-视觉系统界面设计"><span class="toc-section-number">0.12</span> 选项卡11: 👁️ 视觉系统界面设计</a></li>
+<li><a href="#选项卡12-智能交互-intelligent-interaction" id="toc-选项卡12-智能交互-intelligent-interaction"><span class="toc-section-number">0.13</span> 选项卡12: 🤝 智能交互 (Intelligent Interaction)</a></li>
+<li><a href="#选项卡12-智能交互界面设计" id="toc-选项卡12-智能交互界面设计"><span class="toc-section-number">0.14</span> 选项卡12: 🤝 智能交互界面设计</a></li>
+<li><a href="#侧边栏树形导航" id="toc-侧边栏树形导航"><span class="toc-section-number">1</span> 侧边栏树形导航</a></li>
+</ul>
+</nav>
+<p>xc-os system新增 UI&amp;功能</p>
+<h3 data-number="0.1" id="选项卡6-系统监控-system-monitor"><span class="header-section-number">0.1</span> 选项卡6: 📊 系统监控 (System Monitor)</h3>
+<p><strong>功能概述</strong>：</p>
+<p>提供系统运行状态的实时监控，包括硬件资源、网络状态、温度监控等关键指标。</p>
+<p><strong>核心功能模块</strong>：</p>
+<ol type="1">
+<li><p><strong>硬件资源监控</strong></p>
+<ul>
+<li><p>CPU使用率：实时显示i7-13264H的CPU占用率和温度</p></li>
+<li><p>内存使用情况：16GB内存的使用率和可用空间</p></li>
+<li><p>存储空间：512GB SSD的使用情况</p></li>
+<li><p>GPU状态：NVIDIA Orin协处理器的使用率和温度</p></li>
+</ul></li>
+<li><p><strong>网络状态监控</strong></p>
+<ul>
+<li><p>连接状态总览：FR3双臂、Hermes底盘的连接状态</p></li>
+<li><p>网络流量：数据传输速率统计</p></li>
+<li><p>延迟监控：各设备通信延迟统计</p></li>
+<li><p>丢包率：网络质量指标</p></li>
+</ul></li>
+<li><p><strong>机器人系统状态</strong></p>
+<ul>
+<li><p>电池电量：Hermes底盘电池状态</p></li>
+<li><p>关节温度：FR3机械臂各关节温度监控</p></li>
+<li><p>传感器状态：相机、激光雷达状态检查</p></li>
+<li><p>错误告警：系统异常和故障提示</p></li>
+</ul></li>
+<li><p><strong>性能统计</strong></p>
+<ul>
+<li><p>任务执行统计：成功率、平均执行时间</p></li>
+<li><p>AI算法性能：推理速度、准确率统计</p></li>
+<li><p>历史数据图表：趋势分析和性能曲线</p></li>
+</ul></li>
+</ol>
+<h3 data-number="0.2" id="选项卡6-系统监控界面设计"><span class="header-section-number">0.2</span> 选项卡6: 📊 系统监控界面设计</h3>
+<p><strong>整体布局</strong>：</p>
+<p><img src="images/xc_os_system___UI___/media/image1.png" style="width:5.76389in;height:8.35365in" alt="LMSI4WBBAAQAK" /></p>
+<p><strong>设计规范</strong>：</p>
+<ul>
+<li><p>卡片背景: 白色 (#FFFFFF)</p></li>
+<li><p>卡片圆角: 12px</p></li>
+<li><p>阴影: 0 4px 8px rgba(0,0,0,0.1)</p></li>
+<li><p>主色调: 蓝色 (#3498DB)</p></li>
+<li><p>成功状态: 绿色 (#2ECC71)</p></li>
+<li><p>警告状态: 黄色 (#F39C12)</p></li>
+<li><p>错误状态: 红色 (#E74C3C)</p></li>
+</ul>
+<h3 data-number="0.3" id="选项卡7-参数配置-parameter-config"><span class="header-section-number">0.3</span> 选项卡7: 🔧 参数配置 (Parameter Config)</h3>
+<p><strong>功能概述</strong>：</p>
+<p>集中管理系统各模块的参数配置，支持实时调整和配置文件管理。</p>
+<p><strong>核心功能模块</strong>：</p>
+<ol type="1">
+<li><p><strong>机械臂参数配置</strong></p>
+<ul>
+<li><p>运动参数：速度、加速度、减速度设置</p></li>
+<li><p>安全参数：碰撞检测阈值、关节限位</p></li>
+<li><p>标定参数：DH参数、工具中心点(TCP)配置</p></li>
+<li><p>力控参数：力传感器标定、柔顺控制参数</p></li>
+</ul></li>
+<li><p><strong>底盘参数配置</strong></p>
+<ul>
+<li><p>运动参数：最大速度、角速度、加减速度</p></li>
+<li><p>导航参数：路径规划算法参数、避障距离</p></li>
+<li><p>SLAM参数：建图精度、定位参数</p></li>
+<li><p>安全参数：激光雷达安全区域设置</p></li>
+</ul></li>
+<li><p><strong>视觉系统配置</strong></p>
+<ul>
+<li><p>相机参数：曝光时间、增益、分辨率</p></li>
+<li><p>标定参数：内参、外参、手眼标定矩阵</p></li>
+<li><p>算法参数：检测阈值、跟踪参数</p></li>
+<li><p>数据处理：滤波参数、图像处理设置</p></li>
+</ul></li>
+<li><p><strong>AI算法配置</strong></p>
+<ul>
+<li><p>模型参数：推理精度、批处理大小</p></li>
+<li><p>检测参数：置信度阈值、NMS参数</p></li>
+<li><p>规划参数：路径平滑、避障策略</p></li>
+<li><p>学习参数：在线学习开关、数据收集设置</p></li>
+</ul></li>
+</ol>
+<h3 data-number="0.4" id="选项卡7-参数配置界面设计"><span class="header-section-number">0.4</span> 选项卡7: 🔧 参数配置界面设计</h3>
+<p><strong>整体布局</strong>：</p>
+<p><img src="images/xc_os_system___UI___/media/image2.png" style="width:2.125in;height:4.76755in" alt="FLKI2WBBACAEA" /></p>
+<p><strong>控件规范</strong>：</p>
+<ul>
+<li><p>滑块: 蓝色滑块 + 数值显示</p></li>
+<li><p>输入框: 边框圆角4px, 聚焦时蓝色边框</p></li>
+<li><p>下拉框: 箭头图标, 悬停效果</p></li>
+<li><p>按钮: 圆角6px, 悬停渐变效果</p></li>
+</ul>
+<h3 data-number="0.5" id="选项卡8-数据分析-data-analytics"><span class="header-section-number">0.5</span> 选项卡8: 📈 数据分析 (Data Analytics)</h3>
+<p><strong>功能概述</strong>：</p>
+<p>提供机器人运行数据的可视化分析，支持历史数据回放和趋势分析。</p>
+<p><strong>核心功能模块</strong>：</p>
+<ol type="1">
+<li><p><strong>运行数据分析</strong></p>
+<ul>
+<li><p>轨迹分析：机械臂和底盘的运动轨迹可视化</p></li>
+<li><p>任务统计：执行时间、成功率、失败原因分析</p></li>
+<li><p>效率分析：工作负载、闲置时间统计</p></li>
+<li><p>趋势分析：长期性能趋势和预测</p></li>
+</ul></li>
+<li><p><strong>传感器数据分析</strong></p>
+<ul>
+<li><p>视觉数据：检测结果统计、识别精度分析</p></li>
+<li><p>位置数据：定位精度、漂移分析</p></li>
+<li><p>力觉数据：接触力分析、碰撞统计</p></li>
+<li><p>环境数据：温度、湿度等环境因素影响</p></li>
+</ul></li>
+<li><p><strong>故障诊断分析</strong></p>
+<ul>
+<li><p>故障统计：故障类型、频率分析</p></li>
+<li><p>预警系统：基于历史数据的故障预测</p></li>
+<li><p>维护建议：基于使用情况的维护提醒</p></li>
+<li><p>性能退化：设备老化和性能下降分析</p></li>
+</ul></li>
+<li><p><strong>数据导出与报告</strong></p>
+<ul>
+<li><p>报告生成：自动生成运行报告</p></li>
+<li><p>数据导出：CSV、Excel格式数据导出</p></li>
+<li><p>图表导出：高质量图表输出</p></li>
+<li><p>自定义分析：用户自定义数据分析规则</p></li>
+</ul></li>
+</ol>
+<h3 data-number="0.6" id="选项卡8-数据分析界面设计"><span class="header-section-number">0.6</span> 选项卡8: 📈 数据分析界面设计</h3>
+<p><strong>整体布局</strong>：</p>
+<p><img src="images/xc_os_system___UI___/media/image3.png" style="width:2.125in;height:3.9042in" alt="EWGY2WBBADAEE" /></p>
+<p><strong>图表规范</strong>：</p>
+<ul>
+<li><p>图表库: 使用现代化图表组件</p></li>
+<li><p>颜色方案: 蓝色系渐变</p></li>
+<li><p>交互效果: 悬停提示, 缩放, 选择</p></li>
+<li><p>空状态: 友好的无数据提示</p></li>
+</ul>
+<h3 data-number="0.7" id="选项卡9-维护管理-maintenance"><span class="header-section-number">0.7</span> 选项卡9: 🛠️ 维护管理 (Maintenance)</h3>
+<p><strong>功能概述</strong>：</p>
+<p>提供系统维护、诊断和升级管理功能，确保机器人系统的可靠运行。</p>
+<p><strong>核心功能模块</strong>：</p>
+<ol type="1">
+<li><p><strong>诊断工具</strong></p>
+<ul>
+<li><p>硬件自检：自动检测各硬件模块状态</p></li>
+<li><p>网络诊断：连接测试、带宽测试、延迟测试</p></li>
+<li><p>功能测试：各子系统功能完整性测试</p></li>
+<li><p>性能基准：系统性能基准测试</p></li>
+</ul></li>
+<li><p><strong>维护计划</strong></p>
+<ul>
+<li><p>预防性维护：基于时间和使用量的维护提醒</p></li>
+<li><p>保养记录：维护历史记录和档案管理</p></li>
+<li><p>备件管理：易损件库存和更换提醒</p></li>
+<li><p>维护指导：图文并茂的维护操作指南</p></li>
+</ul></li>
+<li><p><strong>系统升级</strong></p>
+<ul>
+<li><p>固件升级：机械臂、底盘固件版本管理</p></li>
+<li><p>软件更新：XC-OS系统和模块更新</p></li>
+<li><p>配置备份：系统配置的备份和恢复</p></li>
+<li><p>版本管理：软硬件版本记录和回滚</p></li>
+</ul></li>
+<li><p><strong>远程支持</strong></p>
+<ul>
+<li><p>远程诊断：支持技术人员远程诊断</p></li>
+<li><p>日志上传：自动上传关键日志到服务端</p></li>
+<li><p>在线支持：集成在线技术支持系统</p></li>
+<li><p>知识库：常见问题和解决方案库</p></li>
+</ul></li>
+</ol>
+<h3 data-number="0.8" id="选项卡9-维护管理界面设计"><span class="header-section-number">0.8</span> 选项卡9: 🛠️ 维护管理界面设计</h3>
+<p><strong>整体布局</strong>：</p>
+<p><img src="images/xc_os_system___UI___/media/image4.png" style="width:2.125in;height:5.49744in" alt="XFDY2WBBABQES" /></p>
+<p><strong>状态指示规范</strong>：</p>
+<ul>
+<li><p>健康状态: 绿色圆形进度环</p></li>
+<li><p>警告状态: 黄色三角图标</p></li>
+<li><p>错误状态: 红色圆形图标</p></li>
+<li><p>进行中状态: 蓝色旋转图标</p></li>
+</ul>
+<h3 data-number="0.9" id="选项卡10-任务编排-task-orchestration"><span class="header-section-number">0.9</span> 选项卡10: 🎯 任务编排 (Task Orchestration)</h3>
+<p><strong>功能概述</strong>：</p>
+<p>提供可视化的任务编排和工作流设计，支持复杂任务的图形化编程。</p>
+<p><strong>核心功能模块</strong>：</p>
+<ol type="1">
+<li><p><strong>可视化编程</strong></p>
+<ul>
+<li><p>拖拽式编程：图形化的任务编排界面</p></li>
+<li><p>行为树编辑：可视化行为树设计和编辑</p></li>
+<li><p>流程图设计：任务流程的图形化表示</p></li>
+<li><p>模板库：预定义的任务模板和组件</p></li>
+</ul></li>
+<li><p><strong>任务管理</strong></p>
+<ul>
+<li><p>任务创建：新建自定义任务和工作流</p></li>
+<li><p>任务调度：任务优先级和执行顺序管理</p></li>
+<li><p>并发控制：多任务并行执行管理</p></li>
+<li><p>条件逻辑：基于传感器数据的条件判断</p></li>
+</ul></li>
+<li><p><strong>动作库管理</strong></p>
+<ul>
+<li><p>基础动作：移动、抓取、放置等基本动作</p></li>
+<li><p>复合动作：多个基础动作的组合</p></li>
+<li><p>自定义动作：用户自定义的特殊动作</p></li>
+<li><p>动作参数：动作执行参数的配置界面</p></li>
+</ul></li>
+<li><p><strong>执行控制</strong></p>
+<ul>
+<li><p>实时执行：任务的实时执行和监控</p></li>
+<li><p>调试模式：单步执行和断点调试</p></li>
+<li><p>错误处理：异常情况的处理策略</p></li>
+<li><p>任务重试：失败任务的自动重试机制</p></li>
+</ul></li>
+</ol>
+<h3 data-number="0.10" id="选项卡10-任务编排界面设计"><span class="header-section-number">0.10</span> 选项卡10: 🎯 任务编排界面设计</h3>
+<p><strong>整体布局</strong>：</p>
+<p><img src="images/xc_os_system___UI___/media/image5.png" style="width:2.125in;height:7.5498in" alt="BNVYYWBBABQGE" /></p>
+<p><img src="images/xc_os_system___UI___/media/image6.png" style="width:2.23958in;height:2.78582in" alt="SW2IYWBBADQEW" /></p>
+<p><strong>节点设计规范</strong>：</p>
+<ul>
+<li><p>节点大小: 120px x 60px (矩形节点)</p></li>
+<li><p>圆形节点: 直径 60px</p></li>
+<li><p>连接点: 节点边缘的小圆点</p></li>
+<li><p>选中状态: 蓝色边框 + 阴影</p></li>
+<li><p>拖拽状态: 半透明效果</p></li>
+</ul>
+<h3 data-number="0.11" id="选项卡11-视觉系统-vision-system"><span class="header-section-number">0.11</span> 选项卡11: 👁️ 视觉系统 (Vision System)</h3>
+<p><strong>功能概述</strong>：</p>
+<p>提供完整的机器人视觉解决方案，集成多ToF相机配置、点云处理、位姿估计、外部视觉数据接入和联合标定功能。</p>
+<p><strong>核心功能模块</strong>：</p>
+<h4 data-number="0.11.1" id="多相机管理系统"><span class="header-section-number">0.11.1</span> 1. <strong>多相机管理系统</strong></h4>
+<ul>
+<li><p><strong>ToF相机配置</strong>：</p>
+<ul>
+<li><p>胸部相机：环境感知，广角视野（640×480@30FPS）</p></li>
+<li><p>左臂末端相机：精确定位，手眼协调</p></li>
+<li><p>右臂末端相机：精确定位，手眼协调</p></li>
+<li><p>相机参数设置：曝光时间、增益、深度范围、帧率控制</p></li>
+<li><p>同步模式：硬件触发、软件触发、自由运行模式</p></li>
+</ul></li>
+<li><p><strong>2D相机集成</strong>：</p>
+<ul>
+<li><p>头部主相机：1080P人脸识别和环境监控</p></li>
+<li><p>双鱼眼相机：180°视角侧方补盲</p></li>
+<li><p>USB接口管理和带宽优化</p></li>
+<li><p>图像格式转换：RGB、BGR、YUV、GRAY</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.11.2" id="点云处理引擎"><span class="header-section-number">0.11.2</span> 2. <strong>点云处理引擎</strong></h4>
+<ul>
+<li><p><strong>实时点云生成</strong>：</p>
+<ul>
+<li><p>深度图转换：RGB-D配准，点云投影</p></li>
+<li><p>多相机融合：点云合并、去重、配准</p></li>
+<li><p>坐标系变换：相机系到机器人基座系</p></li>
+<li><p>实时可视化：3D点云显示，颜色映射</p></li>
+</ul></li>
+<li><p><strong>点云滤波与处理</strong>：</p>
+<ul>
+<li><p>统计离群值去除：邻域分析，异常点剔除</p></li>
+<li><p>体素网格降采样：数据压缩，保持特征</p></li>
+<li><p>通过滤波器：距离范围、ROI区域限制</p></li>
+<li><p>平面分割：RANSAC平面检测，地面移除</p></li>
+</ul></li>
+<li><p><strong>高级点云算法</strong>：</p>
+<ul>
+<li><p>物体分割：区域生长、聚类分析</p></li>
+<li><p>特征提取：FPFH、SHOT、PFH描述符</p></li>
+<li><p>配准算法：ICP、NDT、特征匹配</p></li>
+<li><p>表面重建：泊松重建、Marching Cubes</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.11.3" id="位姿估计系统"><span class="header-section-number">0.11.3</span> 3. <strong>位姿估计系统</strong></h4>
+<ul>
+<li><p><strong>6D位姿检测</strong>：</p>
+<ul>
+<li><p>模板匹配：3D模型库管理</p></li>
+<li><p>深度学习检测：YOLO 6D、PVNet集成</p></li>
+<li><p>点云配准：特征匹配、几何验证</p></li>
+<li><p>多视角融合：置信度加权，结果优化</p></li>
+</ul></li>
+<li><p><strong>位姿跟踪</strong>：</p>
+<ul>
+<li><p>卡尔曼滤波：位姿平滑，预测估计</p></li>
+<li><p>粒子滤波：非线性跟踪，遮挡处理</p></li>
+<li><p>光流跟踪：2D特征点跟踪辅助</p></li>
+<li><p>失跟恢复：重新检测，自动初始化</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.11.4" id="外部视觉数据接入"><span class="header-section-number">0.11.4</span> 4. <strong>外部视觉数据接入</strong></h4>
+<ul>
+<li><p><strong>标准协议支持</strong>：</p>
+<ul>
+<li><p>TCP/IP接口：JSON、XML数据格式</p></li>
+<li><p>UDP广播：实时位姿数据流</p></li>
+<li><p>ROS话题：geometry_msgs/PoseStamped</p></li>
+<li><p>HTTP REST API：RESTful数据服务</p></li>
+</ul></li>
+<li><p><strong>数据格式转换</strong>：</p>
+<ul>
+<li><p>坐标系转换：工具TCP、参考系变换</p></li>
+<li><p>时间戳同步：多源数据时间对齐</p></li>
+<li><p>精度校验：数据质量评估，异常检测</p></li>
+<li><p>数据缓存：历史数据存储，回放分析</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.11.5" id="联合标定系统"><span class="header-section-number">0.11.5</span> 5. <strong>联合标定系统</strong></h4>
+<ul>
+<li><p><strong>手眼标定</strong>：</p>
+<ul>
+<li><p>经典AX=XB算法：Tsai-Lenz方法</p></li>
+<li><p>眼在手（Eye-in-Hand）：末端相机标定</p></li>
+<li><p>眼到手（Eye-to-Hand）：固定相机标定</p></li>
+<li><p>自动标定：机器人运动规划，数据采集</p></li>
+</ul></li>
+<li><p><strong>多相机标定</strong>：</p>
+<ul>
+<li><p>相机内参标定：张正友标定法，鱼眼模型</p></li>
+<li><p>立体视觉标定：双目系统，视差计算</p></li>
+<li><p>多相机外参：全局优化，束调整</p></li>
+<li><p>ToF-RGB配准：深度相机与彩色相机对齐</p></li>
+</ul></li>
+<li><p><strong>标定质量评估</strong>：</p>
+<ul>
+<li><p>重投影误差：像素级精度评估</p></li>
+<li><p>3D点云误差：毫米级空间精度</p></li>
+<li><p>标定板覆盖率：采样质量分析</p></li>
+<li><p>实时标定助手：姿态引导，质量反馈</p></li>
+</ul></li>
+</ul>
+<h3 data-number="0.12" id="选项卡11-视觉系统界面设计"><span class="header-section-number">0.12</span> 选项卡11: 👁️ 视觉系统界面设计</h3>
+<p><strong>整体布局</strong>：</p>
+<p><img src="images/xc_os_system___UI___/media/image7.png" style="width:5.76389in;height:6.13766in" alt="3IMZ4WBBABAAM" /></p>
+<p><img src="images/xc_os_system___UI___/media/image8.png" style="width:2.125in;height:4.25658in" alt="KFIZ4WBBADAF2" /></p>
+<p><img src="images/xc_os_system___UI___/media/image9.png" style="width:5.76389in;height:10.01978in" alt="4Z5J4WBBAAAFS" /></p>
+<p><img src="images/xc_os_system___UI___/media/image10.png" style="width:5.76389in;height:5.36011in" alt="5COJ4WBBACAGY" /></p>
+<p><img src="images/xc_os_system___UI___/media/image11.png" style="width:5.76389in;height:8.58179in" alt="XLDZ4WBBAAAGU" /></p>
+<p><img src="images/xc_os_system___UI___/media/image12.png" style="width:2.125in;height:4.48006in" alt="OL7Z4WBBAAQCW" /></p>
+<p><strong>设计规范</strong>：</p>
+<ul>
+<li><p>主色调: 深蓝色 (#2C3E50) + 科技蓝 (#3498DB)</p></li>
+<li><p>状态颜色: 成功绿色 (#27AE60), 警告橙色 (#F39C12), 错误红色 (#E74C3C)</p></li>
+<li><p>卡片阴影: 0 2px 8px rgba(0,0,0,0.1)</p></li>
+<li><p>圆角设计: 8px</p></li>
+<li><p>字体: 标题16px加粗, 正文14px, 说明文字12px</p></li>
+</ul>
+<h3 data-number="0.13" id="选项卡12-智能交互-intelligent-interaction"><span class="header-section-number">0.13</span> 选项卡12: 🤝 智能交互 (Intelligent Interaction)</h3>
+<p><strong>功能概述</strong>：</p>
+<p>提供多模态人机交互功能，集成人脸识别、语音控制、梯控系统、任务分解和自然语言理解。</p>
+<p><strong>核心功能模块</strong>：</p>
+<h4 data-number="0.13.1" id="人脸识别系统"><span class="header-section-number">0.13.1</span> 1. <strong>人脸识别系统</strong></h4>
+<ul>
+<li><p><strong>实时人脸检测</strong>：</p>
+<ul>
+<li><p>MTCNN人脸检测：多任务级联网络</p></li>
+<li><p>活体检测：防欺骗，真人验证</p></li>
+<li><p>多人脸跟踪：ID分配，轨迹预测</p></li>
+<li><p>年龄性别识别：属性分析，用户画像</p></li>
+</ul></li>
+<li><p><strong>人脸识别数据库</strong>：</p>
+<ul>
+<li><p>用户注册：多角度采集，特征提取</p></li>
+<li><p>人脸库管理：增删改查，批量导入</p></li>
+<li><p>权限管理：访问控制，角色分配</p></li>
+<li><p>识别日志：访问记录，行为分析</p></li>
+</ul></li>
+<li><p><strong>表情与情绪识别</strong>：</p>
+<ul>
+<li><p>微表情检测：7种基本情绪识别</p></li>
+<li><p>情绪状态分析：疲劳、专注度评估</p></li>
+<li><p>交互适应：基于情绪调整响应策略</p></li>
+<li><p>情绪数据统计：用户情绪历史分析</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.13.2" id="语音交互系统"><span class="header-section-number">0.13.2</span> 2. <strong>语音交互系统</strong></h4>
+<ul>
+<li><p><strong>语音识别引擎</strong>：</p>
+<ul>
+<li><p>多语言支持：中文、英文、方言识别</p></li>
+<li><p>实时语音转文字：流式识别，低延迟</p></li>
+<li><p>环境降噪：麦克风阵列，回声消除</p></li>
+<li><p>唤醒词检测：自定义唤醒词，离线处理</p></li>
+</ul></li>
+<li><p><strong>自然语言理解</strong>：</p>
+<ul>
+<li><p>意图识别：任务分类，参数提取</p></li>
+<li><p>实体识别：地点、物体、动作识别</p></li>
+<li><p>对话管理：多轮对话，上下文保持</p></li>
+<li><p>语义解析：语法分析，语义表示</p></li>
+</ul></li>
+<li><p><strong>语音合成系统</strong>：</p>
+<ul>
+<li><p>TTS引擎：自然语音合成，多音色选择</p></li>
+<li><p>情感语音：语调控制，情绪表达</p></li>
+<li><p>语速音调：个性化语音设置</p></li>
+<li><p>多语言输出：语言切换，本地化支持</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.13.3" id="任务分解与执行"><span class="header-section-number">0.13.3</span> 3. <strong>任务分解与执行</strong></h4>
+<ul>
+<li><p><strong>自然语言任务规划</strong>：</p>
+<ul>
+<li><p>任务理解：复杂指令分解，子任务识别</p></li>
+<li><p>行为树生成：自动构建执行逻辑</p></li>
+<li><p>参数映射：语言描述到机器人动作</p></li>
+<li><p>执行计划：时序安排，资源分配</p></li>
+</ul></li>
+<li><p><strong>可视化任务编辑</strong>：</p>
+<ul>
+<li><p>任务流程图：图形化任务表示</p></li>
+<li><p>参数调节：实时参数修改，效果预览</p></li>
+<li><p>模板库：常用任务模板，快速部署</p></li>
+<li><p>测试模式：安全测试，模拟执行</p></li>
+</ul></li>
+<li><p><strong>智能任务优化</strong>：</p>
+<ul>
+<li><p>路径优化：最短路径，避障规划</p></li>
+<li><p>动作优化：能耗最低，时间最短</p></li>
+<li><p>学习改进：执行经验，性能提升</p></li>
+<li><p>异常处理：错误恢复，重试机制</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.13.4" id="梯控集成系统"><span class="header-section-number">0.13.4</span> 4. <strong>梯控集成系统</strong></h4>
+<ul>
+<li><p><strong>电梯识别与控制</strong>：</p>
+<ul>
+<li><p>电梯检测：视觉识别电梯门，按钮面板</p></li>
+<li><p>按钮识别：OCR数字识别，按钮定位</p></li>
+<li><p>状态监控：电梯状态，楼层显示</p></li>
+<li><p>自动呼梯：API接口，智能调度</p></li>
+</ul></li>
+<li><p><strong>多楼层导航</strong>：</p>
+<ul>
+<li><p>楼层地图：多层地图管理，路径规划</p></li>
+<li><p>位置定位：跨楼层定位，楼层识别</p></li>
+<li><p>任务调度：多楼层任务优先级管理</p></li>
+<li><p>电梯队列：排队管理，效率优化</p></li>
+</ul></li>
+<li><p><strong>安全保障系统</strong>：</p>
+<ul>
+<li><p>碰撞检测：电梯内避障，人员检测</p></li>
+<li><p>紧急停止：异常情况快速响应</p></li>
+<li><p>超时保护：电梯超时自动退出</p></li>
+<li><p>故障诊断：电梯故障检测，替代路径</p></li>
+</ul></li>
+</ul>
+<h4 data-number="0.13.5" id="多模态交互融合"><span class="header-section-number">0.13.5</span> 5. <strong>多模态交互融合</strong></h4>
+<ul>
+<li><p><strong>手势识别系统</strong>：</p>
+<ul>
+<li><p>静态手势：OK、停止、方向指示</p></li>
+<li><p>动态手势：挥手、指点、圈选</p></li>
+<li><p>手势训练：自定义手势，用户培训</p></li>
+<li><p>置信度评估：手势准确性，误识别过滤</p></li>
+</ul></li>
+<li><p><strong>情境感知交互</strong>：</p>
+<ul>
+<li><p>环境感知：人员位置，环境状态</p></li>
+<li><p>交互距离：社交距离，安全距离</p></li>
+<li><p>注意力检测：用户关注度，视线跟踪</p></li>
+<li><p>主动交互：场景触发，智能问候</p></li>
+</ul></li>
+<li><p><strong>个性化适应</strong>：</p>
+<ul>
+<li><p>用户偏好：交互习惯，个人设置</p></li>
+<li><p>学习能力：行为模式，偏好学习</p></li>
+<li><p>适应性调整：界面定制，响应优化</p></li>
+<li><p>用户档案：历史记录，偏好分析</p></li>
+</ul></li>
+</ul>
+<h3 data-number="0.14" id="选项卡12-智能交互界面设计"><span class="header-section-number">0.14</span> 选项卡12: 🤝 智能交互界面设计</h3>
+<p><strong>整体布局</strong>：</p>
+<p><img src="images/xc_os_system___UI___/media/image13.png" style="width:5.76389in;height:7.16416in" alt="TPCKAWBBAAABI" /></p>
+<p><img src="images/xc_os_system___UI___/media/image14.png" style="width:5.76389in;height:8.31834in" alt="KTWKAWBBAAADK" /></p>
+<p><img src="images/xc_os_system___UI___/media/image15.png" style="width:5.76389in;height:8.90344in" alt="KAFKCWBBABAEE" /></p>
+<p><img src="images/xc_os_system___UI___/media/image16.png" style="width:5.76389in;height:7.13005in" alt="IEZ2CWBBADQGQ" /></p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/xc_os_system___UI___/media/image17.png" style="width:1.90785in;height:3.95645in" alt="VNMKCWBBAAQBK" /></td>
+<td><img src="images/xc_os_system___UI___/media/image18.png" style="width:3.70604in;height:3.95645in" alt="QF2KCWBBABQBA" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>交互设计规范</strong>：</p>
+<ul>
+<li><p>卡片设计: 圆角12px, 阴影 0 4px 12px rgba(0,0,0,0.15)</p></li>
+<li><p>状态指示: 圆形指示灯(直径8px), 绿色运行/黄色警告/红色故障</p></li>
+<li><p>按钮设计: 圆角6px, 悬停效果, 渐变色彩</p></li>
+<li><p>语音可视化: 实时波形动画, 频谱分析显示</p></li>
+<li><p>对话气泡: 圆角18px, 不同角色不同颜色和对齐方式</p></li>
+<li><p>进度指示: 环形进度条, 百分比数字居中显示</p></li>
+<li><p>楼层按钮: 正方形按钮(40x40px), 当前楼层高亮显示</p></li>
+<li><p>响应式布局: 支持窗口缩放, 卡片自适应排列</p></li>
+</ul>
+<p><strong>可访问性设计</strong>：</p>
+<ul>
+<li><p>高对比度模式支持</p></li>
+<li><p>语音提示功能</p></li>
+<li><p>大字体模式选项</p></li>
+<li><p>键盘导航支持</p></li>
+<li><p>颜色盲友好的图标设计</p></li>
+</ul>
+<h2 data-number="1" id="侧边栏树形导航"><span class="header-section-number">1</span> 侧边栏树形导航</h2>
+<p><img src="images/xc_os_system___UI___/media/image19.png" style="width:2.125in;height:6.48578in" alt="RUR2GWBBADABW" /></p>
+<p><strong>界面特点</strong>：</p>
+<ul>
+<li><p>类似VS Code的Explorer面板</p></li>
+<li><p>可折叠分组，节省空间</p></li>
+<li><p>支持搜索功能</p></li>
+<li><p>常用功能置顶</p></li>
+</ul>
+</body>
+</html>
