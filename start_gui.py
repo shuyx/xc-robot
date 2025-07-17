@@ -104,14 +104,17 @@ def main():
     try:
         # 使用延迟导入
         sys.path.insert(0, gui_dir)
-        from gui import get_main_window
+        from gui import get_web_main_window
         
         # 创建并显示主窗口
-        XCRobotMainWindow = get_main_window()
-        window = XCRobotMainWindow()
+        XCRobotWebMainWindow = get_web_main_window()
+        window = XCRobotWebMainWindow()
         window.show()
         
-        print("XC-ROBOT GUI 启动成功")
+        print("祥承 XC-ROBOT MVP1.0 Control SYSTEM 启动成功")
+        print("界面风格: 现代化HTML5界面")
+        print("后端: Python + PyQt5")
+        print("前端: HTML5 + CSS3 + JavaScript")
         return app.exec_()
         
     except ImportError as e:
