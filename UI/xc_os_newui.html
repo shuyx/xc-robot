@@ -2304,18 +2304,12 @@
                     <div class="nav-item active" data-page="connection-test">
                         <span class="nav-item-icon">🔗</span>
                         连接测试
-                        <span class="status-indicator status-online"></span>
                         <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'connection-test', '🔗 连接测试')" title="收藏此功能">☆</button>
                     </div>
                     <div class="nav-item" data-page="network-config">
                         <span class="nav-item-icon">🌐</span>
                         网络配置
                         <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'network-config', '🌐 网络配置')" title="收藏此功能">☆</button>
-                    </div>
-                    <div class="nav-item" data-page="connection-status">
-                        <span class="nav-item-icon">📊</span>
-                        连接状态
-                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'connection-status', '📊 连接状态')" title="收藏此功能">☆</button>
                     </div>
                 </div>
             </div>
@@ -2330,13 +2324,11 @@
                     <div class="nav-item" data-page="arm-control">
                         <span class="nav-item-icon">🦾</span>
                         机械臂控制
-                        <span class="status-indicator status-online"></span>
                         <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'arm-control', '🦾 机械臂控制')" title="收藏此功能">☆</button>
                     </div>
                     <div class="nav-item" data-page="chassis-control">
                         <span class="nav-item-icon">🚛</span>
                         底盘控制
-                        <span class="status-indicator status-online"></span>
                         <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'chassis-control', '🚛 底盘控制')" title="收藏此功能">☆</button>
                     </div>
                     <div class="nav-item" data-page="coord-control">
@@ -2378,7 +2370,6 @@
                     <div class="nav-item" data-page="vision-system">
                         <span class="nav-item-icon">📷</span>
                         视觉系统
-                        <span class="status-indicator status-warning"></span>
                     </div>
                     <div class="nav-item" data-page="camera-calibration">
                         <span class="nav-item-icon">🎯</span>
@@ -5226,13 +5217,6 @@ window.show()</code></pre>
                 </div>
                 
                 <div class="network-config-container">
-                    <!-- One-click test button -->
-                    <div class="test-all-section">
-                        <button class="test-all-btn" onclick="testAllDevices()">
-                            <span class="btn-icon">🔍</span>
-                            一键测试所有设备
-                        </button>
-                    </div>
                     
                     <!-- Robot Arms Configuration -->
                     <div class="config-section">
@@ -5446,14 +5430,6 @@ window.show()</code></pre>
             }
         }
         
-        function testAllDevices() {
-            const devices = ['right_arm', 'left_arm', 'chassis', 'tof_camera_1', 'tof_camera_2', 'tof_camera_3', 
-                           '2d_camera_1', '2d_camera_2', '2d_camera_3', 'left_tool', 'right_tool'];
-            
-            devices.forEach((device, index) => {
-                setTimeout(() => testDevice(device), index * 500);
-            });
-        }
         
         function testAllCameras() {
             ['tof_camera_1', 'tof_camera_2', 'tof_camera_3'].forEach((device, index) => {

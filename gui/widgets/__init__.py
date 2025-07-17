@@ -8,13 +8,15 @@ XC-ROBOT GUI 控件包
 from .connection_widget import ConnectionWidget
 from .arm_control_widget import ArmControlWidget  
 from .chassis_widget import ChassisWidget
-from .config_widget import ConfigWidget
 from .log_widget import LogWidget
+from .simulation_widget import SimulationWidget
+from .robot_sim_widget import RobotSimWidget
 
 __all__ = [
     'ConnectionWidget',
     'ArmControlWidget', 
     'ChassisWidget',
-    'ConfigWidget',
-    'LogWidget'
+    'LogWidget',
+    'SimulationWidget',
+    'RobotSimWidget'
 ]

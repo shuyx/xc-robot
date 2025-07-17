@@ -1,13 +1,67 @@
 # 机器人系统主配置
 system:
   name: "XC-ROBOT"
-  version: "1.0.0"
+  version: "v2.3.2"
   
 network:
   hermes_url: "http://192.168.31.211:1448"  # 根据你的实际配置调整
   right_arm_ip: "192.168.58.2"
   left_arm_ip: "192.168.58.3"
+  chassis_ip: "192.168.31.211"
+  chassis_port: 1448
   
+# 新增设备配置部分
+devices:
+  # 机械臂设备
+  right_arm:
+    type: "fr3"
+    ip: "192.168.58.2"
+    enabled: true
+    description: "右臂FR3机械臂"
+    
+  left_arm:
+    type: "fr3"
+    ip: "192.168.58.3"
+    enabled: true
+    description: "左臂FR3机械臂"
+    
+  # 底盘设备
+  chassis:
+    type: "hermes"
+    ip: "192.168.31.211"
+    port: 1448
+    enabled: true
+    description: "思岚Hermes轮式底盘"
+    api_endpoints:
+      power_status: "/api/core/system/v1/power/status"
+      motion_control: "/api/core/motion/v1/actions"
+      manual_control: "/api/core/motion/v1/manual"
+      stop: "/api/core/motion/v1/stop"
+      
+  # 视觉系统
+  vision:
+    type: "camera"
+    ip: "192.168.1.100"
+    port: 8080
+    enabled: true
+    description: "Gemini 335系列相机"
+    api_endpoints:
+      status: "/api/camera/status"
+      capture: "/api/camera/capture"
+      stream: "/api/camera/stream"
+      
+  # 末端执行器
+  gripper:
+    type: "gripper"
+    ip: "192.168.1.101"
+    port: 9000
+    enabled: true
+    description: "末端执行器和传感器"
+    api_endpoints:
+      status: "/api/gripper/status"
+      control: "/api/gripper/control"
+      position: "/api/gripper/position"
+      
 motion:
   default_velocity: 20
   timeout: 30
