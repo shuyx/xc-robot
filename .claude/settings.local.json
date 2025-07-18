@@ -6,7 +6,8 @@
       "Bash(claude mcp:*)",
       "mcp__zen__thinkdeep",
       "Bash(git restore:*)",
-      "mcp__zen__chat"
+      "mcp__zen__chat",
+      "Bash(grep:*)"
     ],
     "deny": []
   }
