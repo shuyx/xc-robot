@@ -4900,6 +4900,436 @@
             }
         }
         
+        /* Elevator Control Interface Styles */
+        .elevator-control-container {
+            display: flex;
+            height: calc(100vh - 120px);
+            overflow: hidden;
+        }
+        
+        /* Sidebar Styles */
+        .elevator-sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-header h2 {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .sidebar-menu {
+            flex: 1;
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 12px;
+        }
+        
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .menu-item.active {
+            background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
+            color: white;
+            border-right: 3px solid #2ECC71;
+        }
+        
+        .menu-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Main Content Styles */
+        .elevator-main {
+            flex: 1;
+            padding: 24px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 24px;
+            grid-template-areas: 
+                "status status"
+                "control control"
+                "log log";
+        }
+        
+        /* Status Panel */
+        .elevator-status-panel {
+            grid-area: status;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .status-header h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .status-time {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+        
+        .status-item {
+            text-align: center;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .status-label {
+            color: #6c757d;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-value {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .status-value.status-running {
+            color: #2ECC71;
+        }
+        
+        /* Control Panel */
+        .elevator-control-panel {
+            grid-area: control;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .control-header h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .control-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+        
+        .control-section h4 {
+            color: #34495e;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Call Buttons */
+        .call-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .call-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .call-btn.up {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+        
+        .call-btn.down {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+        }
+        
+        .call-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Floor Grid */
+        .floor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        
+        .floor-btn {
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .floor-btn:hover {
+            border-color: #2ECC71;
+            color: #2ECC71;
+        }
+        
+        .floor-btn.active {
+            background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
+            border-color: #2ECC71;
+            color: white;
+        }
+        
+        .floor-btn.basement {
+            background: #34495e;
+            color: white;
+            border-color: #34495e;
+        }
+        
+        .floor-btn.basement:hover {
+            background: #2c3e50;
+            border-color: #2c3e50;
+        }
+        
+        /* Door Controls */
+        .door-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .door-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .door-btn.open {
+            background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
+            color: white;
+        }
+        
+        .door-btn.close {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+        }
+        
+        .door-btn.emergency {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+        
+        .door-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Log Panel */
+        .elevator-log-panel {
+            grid-area: log;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .log-header h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .clear-log-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .clear-log-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        }
+        
+        .log-content {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            display: grid;
+            grid-template-columns: 80px 100px 1fr;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f8f9fa;
+            align-items: center;
+        }
+        
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .log-time {
+            color: #6c757d;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .log-action {
+            color: #2c3e50;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .log-detail {
+            color: #495057;
+            font-size: 13px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .elevator-main {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "status"
+                    "control"
+                    "log";
+            }
+            
+            .control-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .elevator-control-container {
+                flex-direction: column;
+            }
+            
+            .elevator-sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 12px;
+            }
+            
+            .menu-item {
+                white-space: nowrap;
+                min-width: 120px;
+                justify-content: center;
+            }
+            
+            .elevator-main {
+                padding: 16px;
+                gap: 16px;
+            }
+            
+            .status-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .floor-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -5394,7 +5824,7 @@
             
             // Special handling for Smart Interface page
             if (pageData.isSmartInterface) {
-                showSmartInterfacePage();
+                showSmartInterfacePage(pageId);
                 return;
             }
             
@@ -5637,6 +6067,12 @@
                     icon: '🎤',
                     title: '智能交互',
                     description: '对话式任务管理，实现人机智能交互',
+                    isSmartInterface: true
+                },
+                'elevator-control': {
+                    icon: '🏢',
+                    title: '梯控系统',
+                    description: '电梯控制管理，楼宇智能化系统',
                     isSmartInterface: true
                 },
                 'vision-system': {
@@ -8711,10 +9147,18 @@ window.show()</code></pre>
         }
         
         // Smart Interface Page Functions
-        function showSmartInterfacePage() {
-            console.log('=== showSmartInterfacePage 被调用 ===');
+        function showSmartInterfacePage(pageId = 'voice-control') {
+            console.log('=== showSmartInterfacePage 被调用 ===', pageId);
             const pageContent = document.getElementById('pageContent');
             console.log('pageContent元素:', pageContent);
+            
+            // Route to different smart interface implementations
+            if (pageId === 'elevator-control') {
+                showElevatorControlInterface();
+                return;
+            }
+            
+            // Default to voice control interface
             
             pageContent.innerHTML = `
                 <div class="smart-interface-container">
@@ -8921,6 +9365,345 @@ window.show()</code></pre>
             
             // 通知用户
             alert('任务已紧急停止');
+        }
+        
+        // Elevator Control Interface Functions
+        function showElevatorControlInterface() {
+            console.log('=== showElevatorControlInterface 被调用 ===');
+            const pageContent = document.getElementById('pageContent');
+            
+            pageContent.innerHTML = `
+                <div class="elevator-control-container">
+                    <!-- Left Sidebar -->
+                    <div class="elevator-sidebar">
+                        <div class="sidebar-header">
+                            <h2>🏢 楼宇管理系统</h2>
+                        </div>
+                        <div class="sidebar-menu">
+                            <div class="menu-item active" data-section="elevator">
+                                <span class="menu-icon">🛗</span>
+                                <span class="menu-text">电梯控制</span>
+                            </div>
+                            <div class="menu-item" data-section="building">
+                                <span class="menu-icon">🏢</span>
+                                <span class="menu-text">楼层管理</span>
+                            </div>
+                            <div class="menu-item" data-section="security">
+                                <span class="menu-icon">🔒</span>
+                                <span class="menu-text">安全监控</span>
+                            </div>
+                            <div class="menu-item" data-section="maintenance">
+                                <span class="menu-icon">🔧</span>
+                                <span class="menu-text">维护保养</span>
+                            </div>
+                            <div class="menu-item" data-section="energy">
+                                <span class="menu-icon">⚡</span>
+                                <span class="menu-text">能耗管理</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="elevator-main">
+                        <!-- Status Panel -->
+                        <div class="elevator-status-panel">
+                            <div class="status-header">
+                                <h3>电梯状态监控</h3>
+                                <div class="status-time">最后更新: <span id="lastUpdateTime">--:--:--</span></div>
+                            </div>
+                            <div class="status-grid">
+                                <div class="status-item">
+                                    <div class="status-label">当前楼层</div>
+                                    <div class="status-value" id="currentFloor">5F</div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-label">运行状态</div>
+                                    <div class="status-value status-running" id="elevatorStatus">运行中</div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-label">门状态</div>
+                                    <div class="status-value" id="doorStatus">关闭</div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-label">载重</div>
+                                    <div class="status-value" id="loadWeight">320kg</div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-label">方向</div>
+                                    <div class="status-value" id="direction">上行</div>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-label">速度</div>
+                                    <div class="status-value" id="speed">1.2m/s</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Control Panel -->
+                        <div class="elevator-control-panel">
+                            <div class="control-header">
+                                <h3>电梯控制面板</h3>
+                            </div>
+                            <div class="control-sections">
+                                <!-- Call Panel -->
+                                <div class="control-section">
+                                    <h4>呼叫控制</h4>
+                                    <div class="call-buttons">
+                                        <button class="call-btn up" onclick="callElevator('up')">
+                                            <span class="btn-icon">⬆️</span>
+                                            <span class="btn-text">上行呼叫</span>
+                                        </button>
+                                        <button class="call-btn down" onclick="callElevator('down')">
+                                            <span class="btn-icon">⬇️</span>
+                                            <span class="btn-text">下行呼叫</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Floor Selection -->
+                                <div class="control-section">
+                                    <h4>楼层选择</h4>
+                                    <div class="floor-grid">
+                                        <button class="floor-btn" onclick="selectFloor(10)">10F</button>
+                                        <button class="floor-btn" onclick="selectFloor(9)">9F</button>
+                                        <button class="floor-btn" onclick="selectFloor(8)">8F</button>
+                                        <button class="floor-btn" onclick="selectFloor(7)">7F</button>
+                                        <button class="floor-btn" onclick="selectFloor(6)">6F</button>
+                                        <button class="floor-btn active" onclick="selectFloor(5)">5F</button>
+                                        <button class="floor-btn" onclick="selectFloor(4)">4F</button>
+                                        <button class="floor-btn" onclick="selectFloor(3)">3F</button>
+                                        <button class="floor-btn" onclick="selectFloor(2)">2F</button>
+                                        <button class="floor-btn" onclick="selectFloor(1)">1F</button>
+                                        <button class="floor-btn basement" onclick="selectFloor(-1)">B1</button>
+                                        <button class="floor-btn basement" onclick="selectFloor(-2)">B2</button>
+                                    </div>
+                                </div>
+
+                                <!-- Door Control -->
+                                <div class="control-section">
+                                    <h4>门控制</h4>
+                                    <div class="door-controls">
+                                        <button class="door-btn open" onclick="controlDoor('open')">
+                                            <span class="btn-icon">🔓</span>
+                                            <span class="btn-text">开门</span>
+                                        </button>
+                                        <button class="door-btn close" onclick="controlDoor('close')">
+                                            <span class="btn-icon">🔒</span>
+                                            <span class="btn-text">关门</span>
+                                        </button>
+                                        <button class="door-btn emergency" onclick="emergencyStopElevator()">
+                                            <span class="btn-icon">🛑</span>
+                                            <span class="btn-text">紧急停止</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operation Log -->
+                        <div class="elevator-log-panel">
+                            <div class="log-header">
+                                <h3>操作记录</h3>
+                                <button class="clear-log-btn" onclick="clearLog()">清除记录</button>
+                            </div>
+                            <div class="log-content" id="elevatorLog">
+                                <div class="log-entry">
+                                    <span class="log-time">15:23:45</span>
+                                    <span class="log-action">楼层选择</span>
+                                    <span class="log-detail">用户选择 3F</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">15:23:50</span>
+                                    <span class="log-action">电梯移动</span>
+                                    <span class="log-detail">从 5F 到 3F</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">15:24:12</span>
+                                    <span class="log-action">到达楼层</span>
+                                    <span class="log-detail">电梯到达 3F</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">15:24:15</span>
+                                    <span class="log-action">门控制</span>
+                                    <span class="log-detail">自动开门</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Initialize elevator control interface
+            initElevatorControlInterface();
+        }
+        
+        // Elevator Control Interface Functions
+        function initElevatorControlInterface() {
+            console.log('=== initElevatorControlInterface 被调用 ===');
+            
+            // Update time display
+            updateElevatorTime();
+            setInterval(updateElevatorTime, 1000);
+            
+            // Start status simulation
+            startElevatorStatusSimulation();
+        }
+        
+        function updateElevatorTime() {
+            const timeElement = document.getElementById('lastUpdateTime');
+            if (timeElement) {
+                timeElement.textContent = new Date().toLocaleTimeString();
+            }
+        }
+        
+        function startElevatorStatusSimulation() {
+            // Simulate elevator status updates
+            setTimeout(() => {
+                const statusElement = document.getElementById('elevatorStatus');
+                const directionElement = document.getElementById('direction');
+                const speedElement = document.getElementById('speed');
+                
+                if (statusElement && directionElement && speedElement) {
+                    statusElement.textContent = '待机';
+                    statusElement.className = 'status-value';
+                    directionElement.textContent = '无';
+                    speedElement.textContent = '0m/s';
+                }
+            }, 5000);
+        }
+        
+        function callElevator(direction) {
+            console.log(`呼叫电梯: ${direction}`);
+            
+            // Update status
+            const statusElement = document.getElementById('elevatorStatus');
+            if (statusElement) {
+                statusElement.textContent = '响应呼叫';
+                statusElement.className = 'status-value status-running';
+            }
+            
+            // Add log entry
+            addElevatorLog('呼叫控制', `${direction === 'up' ? '上行' : '下行'}呼叫`);
+            
+            // Simulate elevator response
+            setTimeout(() => {
+                if (statusElement) {
+                    statusElement.textContent = '到达';
+                    statusElement.className = 'status-value';
+                }
+                addElevatorLog('电梯到达', '电梯已到达呼叫楼层');
+            }, 3000);
+        }
+        
+        function selectFloor(floor) {
+            console.log(`选择楼层: ${floor}`);
+            
+            // Update active floor button
+            document.querySelectorAll('.floor-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update current floor display
+            const currentFloorElement = document.getElementById('currentFloor');
+            const statusElement = document.getElementById('elevatorStatus');
+            const directionElement = document.getElementById('direction');
+            const speedElement = document.getElementById('speed');
+            
+            if (currentFloorElement && statusElement && directionElement && speedElement) {
+                const currentFloor = parseInt(currentFloorElement.textContent.replace('F', '').replace('B', '-'));
+                const targetFloor = floor;
+                const isUp = targetFloor > currentFloor;
+                
+                statusElement.textContent = '运行中';
+                statusElement.className = 'status-value status-running';
+                directionElement.textContent = isUp ? '上行' : '下行';
+                speedElement.textContent = '1.2m/s';
+                
+                // Add log entry
+                addElevatorLog('楼层选择', `用户选择 ${floor > 0 ? floor + 'F' : 'B' + Math.abs(floor)}`);
+                
+                // Simulate elevator movement
+                setTimeout(() => {
+                    currentFloorElement.textContent = floor > 0 ? floor + 'F' : 'B' + Math.abs(floor);
+                    statusElement.textContent = '到达';
+                    statusElement.className = 'status-value';
+                    directionElement.textContent = '无';
+                    speedElement.textContent = '0m/s';
+                    
+                    addElevatorLog('到达楼层', `电梯到达 ${floor > 0 ? floor + 'F' : 'B' + Math.abs(floor)}`);
+                }, 2000);
+            }
+        }
+        
+        function controlDoor(action) {
+            console.log(`门控制: ${action}`);
+            
+            const doorStatusElement = document.getElementById('doorStatus');
+            if (doorStatusElement) {
+                if (action === 'open') {
+                    doorStatusElement.textContent = '开启';
+                    addElevatorLog('门控制', '手动开门');
+                    
+                    // Auto close after 5 seconds
+                    setTimeout(() => {
+                        doorStatusElement.textContent = '关闭';
+                        addElevatorLog('门控制', '自动关门');
+                    }, 5000);
+                } else if (action === 'close') {
+                    doorStatusElement.textContent = '关闭';
+                    addElevatorLog('门控制', '手动关门');
+                }
+            }
+        }
+        
+        function emergencyStopElevator() {
+            console.log('电梯紧急停止');
+            
+            // Update all status
+            const statusElement = document.getElementById('elevatorStatus');
+            const directionElement = document.getElementById('direction');
+            const speedElement = document.getElementById('speed');
+            
+            if (statusElement && directionElement && speedElement) {
+                statusElement.textContent = '紧急停止';
+                statusElement.style.color = '#e74c3c';
+                directionElement.textContent = '无';
+                speedElement.textContent = '0m/s';
+            }
+            
+            // Add emergency log
+            addElevatorLog('紧急停止', '用户触发紧急停止');
+            
+            // Show alert
+            alert('电梯已紧急停止！');
+        }
+        
+        function addElevatorLog(action, detail) {
+            const logContent = document.getElementById('elevatorLog');
+            if (logContent) {
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.innerHTML = `
+                    <span class="log-time">${new Date().toLocaleTimeString()}</span>
+                    <span class="log-action">${action}</span>
+                    <span class="log-detail">${detail}</span>
+                `;
+                
+                // Insert at the top
+                logContent.insertBefore(logEntry, logContent.firstChild);
+                
+                // Limit log entries to 10
+                while (logContent.children.length > 10) {
+                    logContent.removeChild(logContent.lastChild);
+                }
+            }
+        }
+        
+        function clearLog() {
+            const logContent = document.getElementById('elevatorLog');
+            if (logContent) {
+                logContent.innerHTML = '';
+                console.log('电梯操作记录已清除');
+            }
         }
         
         // Connection Status Dashboard Functions
