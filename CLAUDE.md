@@ -3,6 +3,7 @@
 - You MUST 遵守如下要求：
   - 请记住,你在代码开发时,力求代码简洁高效
   - 代码开发要求:请阅读 xc_os_context.md 文档，并关注### v2.9.2 - 仿真页面路由问题修复 (2025-07-18)描述的你经常会出现的错误，在开发过程中注意规避。代码简洁高效，不涉及的功能不需要考虑和开发
+  - 请先理解任务要求，然后进行规划和子任务分解，然后再发给我进行确认，最后再开始执行
 
 ## 工作流程
 
@@ -38,3 +39,12 @@ YOU MUST 记住这些内容
 ## 提示词
 
 请阅读项目根目录 CLAUDE_CODE_INSTRUCTIONS.md文档。请阅读 design_reference 文件夹内的 component_specs.md 和 style_guide.md 的内容。然后，请严格按照design_reference文件夹下 ui_mockups文件夹中的 smart_interface_chat.html设计实现界面布局，但配色必须使用项目现有配色系统。参考color_mapping.md中的配色映射关系，保持HTML设计的所有布局、尺寸、间距、圆角等视觉规格，只替换配色方案。
+
+
+##  常用的深度思考提示词
+
+  - think harder - 要求更深入思考
+  - think step by step - 要求逐步分析
+  - think carefully - 要求仔细思考
+  - analyze deeply - 要求深度分析
+  - 考虑所有可能性 - 全面思考

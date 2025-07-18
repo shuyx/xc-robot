@@ -4,13 +4,26 @@
 
 ```
 design_reference/ui_mockups/
-├── user_recognition_interface.html      # 用户识别界面
-├── robot_control_panel.html            # 机器人控制面板  
-├── task_management_dashboard.html       # 任务管理仪表板
-├── system_settings_panel.html          # 系统设置面板
-├── data_visualization_screen.html       # 数据可视化界面
-└── emergency_control_interface.html     # 紧急控制界面
+├── smart_interface_chat.html           # ✅ 智能对话界面（对话式任务）
+├── smart_interface_elivate.html        # ✅ 智能提升界面
+├── smart_interface_face.html           # ✅ 人脸识别界面  
+└── user_recognition_interface.html     # 用户识别界面（旧模板）
 ```
+
+## 当前界面功能说明
+
+### 已有界面分析：
+1. **smart_interface_chat.html** - 对话式任务界面
+   - 侧边栏导航（首页、对话、位置、设置）
+   - 配置与连接区（移动端接入、系统状态）
+   - 实时对话记录（用户与机器人对话）
+   - 解析任务详情（任务监控、进度追踪）
+
+2. **smart_interface_elivate.html** - 智能提升界面
+   - 需要分析具体内容来更新文档
+
+3. **smart_interface_face.html** - 人脸识别界面
+   - 需要分析具体内容来更新文档
 
 ## 文件命名规范
 
@@ -62,9 +75,16 @@ claude code
 ### 当前界面文件映射：
 | 文件名 | 界面功能 | 开发状态 | 备注 |
 |--------|---------|---------|------|
-| `user_recognition_interface.html` | 用户识别界面 | ✅ 已完成 | 基础模板 |
-| `robot_control_panel.html` | 机器人控制面板 | 🚧 开发中 | - |
-| `task_management_dashboard.html` | 任务管理仪表板 | ⏳ 待开发 | - |
+| `smart_interface_chat.html` | 对话式任务界面 | ✅ 设计完成 | 侧边栏导航、实时对话、任务监控 |
+| `smart_interface_elivate.html` | 智能提升界面 | ✅ 设计完成 | 待开发 |
+| `smart_interface_face.html` | 人脸识别界面 | ✅ 设计完成 | 待开发 |
+| `user_recognition_interface.html` | 用户识别界面 | ✅ 设计完成 | 旧版模板参考 |
+| `...` | 其他界面 | - | 根据需要添加 |
+
+### 管理建议
+- **无需预定义所有界面**：只需要在实际开发时添加对应的HTML文件即可
+- **保持命名一致性**：建议使用`[功能模块]_[界面类型].html`的命名格式
+- **灵活扩展**：新界面直接加入ui_mockups目录，使用通用Claude Code指令开发
 
 ### 配置文件更新
 每次添加新界面时，可选择性更新以下文件：
@@ -88,11 +108,19 @@ claude code
 ## Claude Code指令模板
 
 ```bash
-# 开发新界面的标准指令：
-"请严格按照design_reference/ui_mockups/[具体文件名].html的设计实现界面布局和结构，
-配色方案必须使用项目现有配色系统，不要使用HTML中的具体颜色值，
-保持HTML设计的所有布局、尺寸、间距、圆角等视觉规格。
-参考design_reference/color_mapping.md中的配色映射关系。"
+# 通用开发指令（适用于所有界面）：
+"请严格按照design_reference/ui_mockups/[具体文件名].html的设计实现PyQt5界面：
 
-# 替换[具体文件名]为实际的HTML文件名即可
+核心要求：
+- 完全复制HTML的布局结构和组件层次  
+- 精确复制所有尺寸比例、间距、圆角、字体大小
+- 保持HTML中的信息层次和组织结构
+- 实现HTML中展示的所有交互功能
+
+配色要求：
+- 使用项目现有配色系统，不使用HTML中的具体颜色值
+- 参考design_reference/color_mapping.md中的配色映射关系
+- 保持配色的语义层次关系"
+
+# 使用时只需替换[具体文件名]为实际的HTML文件名即可
 ```

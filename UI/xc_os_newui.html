@@ -9160,125 +9160,302 @@ window.show()</code></pre>
             // Default to voice control interface
             
             pageContent.innerHTML = `
-                <div class="smart-interface-container">
-                    <!-- Header -->
-                    <div class="smart-interface-header">
-                        <div class="header-info">
-                            <h2>🤖 机器人控制中心</h2>
-                            <span class="header-subtitle">对话式任务管理</span>
+                <div class="min-h-screen flex" style="background-color: #f3f4f6;">
+                    <!-- Sidebar -->
+                    <div class="fixed left-0 top-0 bottom-0 w-16 bg-white border-r border-gray-200 flex flex-col items-center py-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white mb-6">
+                            <i class="fa-solid fa-robot"></i>
                         </div>
-                        <div class="header-status">
-                            <span class="status-text">当前状态:</span>
-                            <span class="status-badge">任务执行中</span>
-                        </div>
-                    </div>
-
-                    <!-- Configuration Panel -->
-                    <div class="smart-config-panel">
-                        <div class="config-section">
-                            <h3>移动端接入</h3>
-                            <div class="config-row">
-                                <label>聊天页面地址</label>
-                                <div class="input-group">
-                                    <input type="text" value="https://your-robot-ip:8888/chat" readonly>
-                                    <button class="qr-btn">📱 生成二维码</button>
-                                </div>
+                        <div class="flex flex-col items-center gap-4 flex-grow">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                                <i class="fa-solid fa-house"></i>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 border-2 border-blue-500">
+                                <i class="fa-solid fa-comments"></i>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                                <i class="fa-solid fa-gear"></i>
                             </div>
                         </div>
-                        <div class="config-section">
-                            <h3>系统状态</h3>
-                            <div class="system-status">
-                                <div class="status-indicator-dot animate-pulse"></div>
-                                <span>系统正常运行</span>
+                        <div class="mt-auto">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                                <i class="fa-solid fa-question"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Main Content -->
-                    <div class="smart-main-content">
-                        <!-- Chat Panel -->
-                        <div class="chat-panel">
-                            <div class="chat-header">
-                                <h3>💬 实时对话记录</h3>
+                    <!-- Main Content Area -->
+                    <div class="ml-16 flex-1 flex flex-col">
+                        <!-- Header -->
+                        <div class="bg-white border-b border-gray-200 h-14 flex items-center px-6">
+                            <div class="flex items-center">
+                                <h1 class="text-lg font-semibold text-gray-800">对话式任务</h1>
+                                <span class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">监控与配置</span>
                             </div>
-                            <div class="chat-messages" id="chatMessages">
-                                <!-- User Message -->
-                                <div class="message-wrapper user-message">
-                                    <div class="message-content">
-                                        <div class="message-text">帮我从实验室拿一个万用表过来</div>
-                                        <div class="message-time">15:23</div>
-                                    </div>
+                            <div class="ml-auto flex items-center space-x-4">
+                                <button class="text-gray-500 hover:text-gray-700">
+                                    <i class="fa-solid fa-bell"></i>
+                                </button>
+                                <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User avatar" class="w-full h-full object-cover">
                                 </div>
-                                
-                                <!-- Robot Response -->
-                                <div class="message-wrapper robot-message">
-                                    <div class="message-content">
-                                        <div class="message-text">
-                                            好的，我将执行以下任务：<br>
-                                            - 动作: 抓取并递送<br>
-                                            - 目标: 万用表<br>
-                                            - 起点: 实验室<br>
-                                            - 终点: 您的当前位置<br><br>
-                                            请回复"确认"以开始。
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div class="flex-1 p-6">
+                            <!-- Top Panel (Configuration & Connection) -->
+                            <div class="bg-white rounded-lg shadow-sm p-5 mb-6">
+                                <h2 class="text-lg font-medium text-gray-800 mb-4">配置与连接区</h2>
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <!-- Mobile Access -->
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h3 class="text-sm font-medium text-gray-700 mb-3">移动端接入</h3>
+                                        <div class="flex items-center mb-3">
+                                            <span class="text-sm text-gray-600 mr-2">聊天页面地址:</span>
+                                            <input type="text" value="https://<your-robot-ip>:8888/chat" readonly class="flex-1 text-sm bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-700">
+                                            <button class="ml-2 text-gray-500" title="复制链接">
+                                                <i class="fa-regular fa-copy"></i>
+                                            </button>
                                         </div>
-                                        <div class="message-time">15:23</div>
+                                        <button id="generate-qr" class="flex items-center justify-center w-full bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded border border-blue-200 transition duration-150">
+                                            <i class="fa-solid fa-qrcode mr-2"></i>
+                                            生成二维码
+                                        </button>
+                                    </div>
+
+                                    <!-- System Status -->
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <h3 class="text-sm font-medium text-gray-700 mb-3">系统状态</h3>
+                                        <div class="flex items-center">
+                                            <span class="text-sm text-gray-600 mr-2">当前状态:</span>
+                                            <div class="flex items-center bg-green-50 text-green-700 px-3 py-2 rounded-full">
+                                                <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                                                <span class="font-medium">任务执行中</span>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 flex">
+                                            <div class="flex items-center mr-4">
+                                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                                                <span class="text-xs text-gray-500">监听中</span>
+                                            </div>
+                                            <div class="flex items-center mr-4">
+                                                <div class="w-2 h-2 bg-blue-300 rounded-full mr-1"></div>
+                                                <span class="text-xs text-gray-500">正在解析指令</span>
+                                            </div>
+                                            <div class="flex items-center mr-4">
+                                                <div class="w-2 h-2 bg-yellow-300 rounded-full mr-1"></div>
+                                                <span class="text-xs text-gray-500">等待用户确认</span>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                                <span class="text-xs text-gray-500">任务执行中</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <!-- User Confirmation -->
-                                <div class="message-wrapper user-message">
-                                    <div class="message-content">
-                                        <div class="message-text">确认</div>
-                                        <div class="message-time">15:24</div>
+                            </div>
+
+                            <!-- Main Panel (Task Monitoring) -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-[500px]">
+                                <!-- Left Side: Real-time Chat History -->
+                                <div class="bg-white rounded-lg shadow-sm flex flex-col overflow-hidden">
+                                    <div class="border-b border-gray-200 px-4 py-3 flex items-center">
+                                        <h3 class="font-medium text-gray-800">实时对话记录</h3>
+                                        <div class="ml-auto flex items-center">
+                                            <span class="text-xs text-gray-500 mr-2">自动滚动</span>
+                                            <label class="relative inline-block w-10 h-5">
+                                                <input type="checkbox" class="opacity-0 w-0 h-0" checked>
+                                                <span class="absolute top-0 left-0 right-0 bottom-0 bg-blue-500 rounded-full cursor-pointer"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 overflow-y-auto p-4 bg-gray-50">
+                                        <div class="space-y-4">
+                                            <!-- User Message -->
+                                            <div class="flex items-start">
+                                                <div class="w-8 h-8 rounded-full bg-gray-300 flex-shrink-0 mr-2 overflow-hidden">
+                                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="User" class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="bg-white rounded-lg p-3 shadow-sm max-w-[85%]">
+                                                    <div class="text-xs text-gray-500 mb-1">你</div>
+                                                    <p class="text-gray-800">帮我从实验室拿一个万用表过来</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Robot Message -->
+                                            <div class="flex items-start">
+                                                <div class="w-8 h-8 rounded-full bg-blue-100 flex-shrink-0 mr-2 flex items-center justify-center">
+                                                    <i class="fa-solid fa-robot text-blue-600 text-sm"></i>
+                                                </div>
+                                                <div class="bg-blue-50 rounded-lg p-3 shadow-sm max-w-[85%]">
+                                                    <div class="text-xs text-gray-500 mb-1">机器人</div>
+                                                    <p class="text-gray-800">好的，我将执行以下任务：</p>
+                                                    <ul class="mt-2 pl-4 text-gray-700 space-y-1 text-sm">
+                                                        <li class="flex">
+                                                            <span class="mr-2">-</span>
+                                                            <span>动作: 抓取并递送</span>
+                                                        </li>
+                                                        <li class="flex">
+                                                            <span class="mr-2">-</span>
+                                                            <span>目标: 万用表</span>
+                                                        </li>
+                                                        <li class="flex">
+                                                            <span class="mr-2">-</span>
+                                                            <span>起点: 实验室</span>
+                                                        </li>
+                                                        <li class="flex">
+                                                            <span class="mr-2">-</span>
+                                                            <span>终点: 您的当前位置</span>
+                                                        </li>
+                                                    </ul>
+                                                    <p class="mt-2 text-gray-800">请回复"确认"以开始。</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- User Message -->
+                                            <div class="flex items-start">
+                                                <div class="w-8 h-8 rounded-full bg-gray-300 flex-shrink-0 mr-2 overflow-hidden">
+                                                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="User" class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="bg-white rounded-lg p-3 shadow-sm max-w-[85%]">
+                                                    <div class="text-xs text-gray-500 mb-1">你</div>
+                                                    <p class="text-gray-800">确认</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Robot Message -->
+                                            <div class="flex items-start">
+                                                <div class="w-8 h-8 rounded-full bg-blue-100 flex-shrink-0 mr-2 flex items-center justify-center">
+                                                    <i class="fa-solid fa-robot text-blue-600 text-sm"></i>
+                                                </div>
+                                                <div class="bg-blue-50 rounded-lg p-3 shadow-sm max-w-[85%]">
+                                                    <div class="text-xs text-gray-500 mb-1">机器人</div>
+                                                    <p class="text-gray-800">任务已确认，我现在前往实验室获取万用表。</p>
+                                                    <div class="mt-2 flex items-center">
+                                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+                                                        <span class="text-xs text-green-600">正在执行中...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <!-- Robot Status -->
-                                <div class="message-wrapper robot-message">
-                                    <div class="message-content">
-                                        <div class="message-text">任务已确认，正在前往实验室...</div>
-                                        <div class="message-time">15:24</div>
+
+                                <!-- Right Side: Parsed Task Details -->
+                                <div class="bg-white rounded-lg shadow-sm flex flex-col overflow-hidden">
+                                    <div class="border-b border-gray-200 px-4 py-3">
+                                        <h3 class="font-medium text-gray-800">解析任务详情</h3>
+                                    </div>
+                                    <div class="flex-1 overflow-y-auto p-4">
+                                        <div class="mb-4 flex items-center">
+                                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
+                                                <i class="fa-solid fa-list-check"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium text-gray-800">当前任务</h4>
+                                                <div class="flex items-center mt-1">
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                        <div class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5 animate-pulse"></div>
+                                                        活跃
+                                                    </span>
+                                                    <span class="text-xs text-gray-500 ml-2">开始于 16:18:45</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="space-y-4">
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div class="bg-gray-50 rounded-lg p-3">
+                                                    <div class="text-xs text-gray-500 mb-1">任务ID</div>
+                                                    <div class="font-medium text-gray-800">T-20250718-005</div>
+                                                </div>
+                                                <div class="bg-gray-50 rounded-lg p-3">
+                                                    <div class="text-xs text-gray-500 mb-1">状态</div>
+                                                    <div class="font-medium text-green-600">已确认，正在执行</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+                                                <div>
+                                                    <div class="text-xs text-gray-500 mb-1">动作 (Action)</div>
+                                                    <div class="flex items-center">
+                                                        <i class="fa-solid fa-hand-holding text-blue-500 mr-2"></i>
+                                                        <span class="font-medium text-gray-800">Grasp & Deliver</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-xs text-gray-500 mb-1">目标 (Object)</div>
+                                                    <div class="flex items-center">
+                                                        <i class="fa-solid fa-bolt-lightning text-blue-500 mr-2"></i>
+                                                        <span class="font-medium text-gray-800">万用表</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-xs text-gray-500 mb-1">起点 (Source)</div>
+                                                    <div class="flex items-center">
+                                                        <i class="fa-solid fa-flask text-blue-500 mr-2"></i>
+                                                        <span class="font-medium text-gray-800">实验室</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-xs text-gray-500 mb-1">终点 (Destination)</div>
+                                                    <div class="flex items-center">
+                                                        <i class="fa-solid fa-location-dot text-blue-500 mr-2"></i>
+                                                        <span class="font-medium text-gray-800">用户当前位置</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-4">
+                                                <div class="bg-gray-50 rounded-lg p-4">
+                                                    <h4 class="font-medium text-gray-700 mb-2">任务进度</h4>
+                                                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                                                        <div class="bg-blue-500 h-2.5 rounded-full" style="width: 45%"></div>
+                                                    </div>
+                                                    <div class="flex justify-between text-xs text-gray-500">
+                                                        <span>前往实验室</span>
+                                                        <span>抓取物品</span>
+                                                        <span>返回用户位置</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button id="stop-task" class="w-full bg-red-50 hover:bg-red-100 text-red-700 font-medium py-3 px-4 rounded-lg border border-red-200 flex items-center justify-center transition duration-150 mt-4">
+                                                <i class="fa-solid fa-circle-stop mr-2"></i>
+                                                强制终止任务
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Task Details Panel -->
-                        <div class="task-panel">
-                            <div class="task-header">
-                                <h3>📋 解析任务详情</h3>
+                    <!-- QR Code Modal -->
+                    <div id="qr-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                        <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-medium text-gray-800">扫描二维码访问聊天页面</h3>
+                                <button id="close-modal" class="text-gray-400 hover:text-gray-500">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
                             </div>
-                            <div class="task-details" id="taskDetails">
-                                <div class="detail-item">
-                                    <span class="detail-label">任务ID</span>
-                                    <span class="detail-value">T-20250718-005</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">动作 (Action)</span>
-                                    <span class="detail-value">Grasp & Deliver</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">目标 (Object)</span>
-                                    <span class="detail-value">万用表</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">起点 (Source)</span>
-                                    <span class="detail-value">实验室</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">终点 (Destination)</span>
-                                    <span class="detail-value">用户当前位置</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">状态</span>
-                                    <span class="detail-value status-executing">已确认，正在执行</span>
-                                </div>
-                                
-                                <div class="task-actions">
-                                    <button class="emergency-btn" onclick="emergencyStop()">
-                                        🛑 强制终止任务
-                                    </button>
-                                </div>
+                            <div class="flex flex-col items-center justify-center p-4">
+                                <img class="w-48 h-48 mb-4" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/qr-code-sample.png" alt="QR code with robot logo in the center, showing URL for robot chat interface">
+                                <p class="text-sm text-gray-600 text-center">使用手机相机扫描此二维码，即可快速访问机器人聊天界面</p>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button id="download-qr" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded mr-2">
+                                    <i class="fa-solid fa-download mr-1"></i>
+                                    下载
+                                </button>
+                                <button id="close-qr" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded">
+                                    关闭
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -9293,11 +9470,58 @@ window.show()</code></pre>
         function initSmartInterfacePage() {
             console.log('=== initSmartInterfacePage 被调用 ===');
             
+            // 初始化QR码模态框功能
+            initQRModal();
+            
             // 模拟实时对话更新
             startChatSimulation();
             
             // 模拟任务状态更新
             startTaskStatusSimulation();
+        }
+        
+        function initQRModal() {
+            const generateQrBtn = document.getElementById('generate-qr');
+            const qrModal = document.getElementById('qr-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const closeQrBtn = document.getElementById('close-qr');
+            const downloadQrBtn = document.getElementById('download-qr');
+            
+            if (!generateQrBtn || !qrModal || !closeModalBtn || !closeQrBtn) {
+                console.log('QR modal elements not found');
+                return;
+            }
+            
+            // 生成二维码按钮点击事件
+            generateQrBtn.addEventListener('click', function() {
+                qrModal.classList.remove('hidden');
+            });
+            
+            // 关闭模态框按钮点击事件
+            closeModalBtn.addEventListener('click', function() {
+                qrModal.classList.add('hidden');
+            });
+            
+            // 关闭按钮点击事件
+            closeQrBtn.addEventListener('click', function() {
+                qrModal.classList.add('hidden');
+            });
+            
+            // 下载按钮点击事件
+            if (downloadQrBtn) {
+                downloadQrBtn.addEventListener('click', function() {
+                    // 模拟下载功能
+                    console.log('下载二维码...');
+                    alert('二维码下载功能已触发');
+                });
+            }
+            
+            // 点击模态框外部关闭
+            qrModal.addEventListener('click', function(e) {
+                if (e.target === qrModal) {
+                    qrModal.classList.add('hidden');
+                }
+            });
         }
         
         function startChatSimulation() {

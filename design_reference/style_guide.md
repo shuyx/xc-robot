@@ -1,71 +1,80 @@
-# 机器人用户识别界面 - 设计规格
+# 智能机器人界面 - 设计规格
 
-## 整体布局
-- **总尺寸**: 800px 高度，自适应宽度
-- **布局方式**: 左右分栏设计（1:2比例）
-- **背景色**: 白色 (#ffffff)
+## 整体布局（基于smart_interface_chat.html）
+- **总体结构**: 侧边栏 + 主内容区域
+- **侧边栏宽度**: 64px (w-16)  
+- **主内容区**: 自适应宽度，左边距64px (ml-16)
+- **最小高度**: 100vh (min-h-screen)
+- **整体背景**: gray-100 (#f3f4f6)
 
-## 左侧面板 (1/3宽度)
+## 侧边栏设计 (Sidebar)
 ### 尺寸与布局
-- 宽度: 33.33% (w-1/3)
-- 背景: neutral-50 (#f9fafb)
-- 右边框: neutral-200 (#e5e7eb)
-- 内边距: 24px (p-6)
+- 宽度: 64px (w-16)
+- 位置: 固定定位 (fixed left-0 top-0 bottom-0)
+- 背景: 白色 (#ffffff)
+- 右边框: gray-200 (#e5e7eb)
+- 内边距: 垂直16px (py-4)
 
-### 相机区域
-- 标题: "实时相机画面" (text-xl, text-neutral-900)
-- 视频窗口: 
-  - 背景: neutral-600 (#4b5563)
-  - 高度: 256px (h-64)
-  - 圆角: rounded-lg
-  - 图标: fa-video (4xl大小)
-  - 文字: "Gemini 335 RGB流"
+### 导航图标
+- 机器人LOGO: 40px圆形 (w-10 h-10)，primary-600背景
+- 导航按钮: 40px圆形，激活状态为primary-100背景 + primary-600边框
+- 图标: FontAwesome 6.4.0
+  - 首页: fa-house
+  - 对话: fa-comments  
+  - 位置: fa-map-location-dot
+  - 设置: fa-gear
+  - 帮助: fa-question
 
-### 控制按钮
-- 背景: neutral-900 (#111827)
-- 文字: 白色
-- 内边距: py-3 px-4
-- 圆角: rounded-lg
-- 悬停效果: hover:bg-neutral-800
-- 图标: fa-scan-face
-- 文字: "扫描并识别用户"
+## 头部区域 (Header)
+### 尺寸与布局
+- 高度: 56px (h-14)
+- 背景: 白色 (#ffffff)
+- 下边框: gray-200 (#e5e7eb)
+- 水平内边距: 24px (px-6)
 
-### 状态指示器
-- 标题: "系统状态" (text-sm, text-neutral-700)
-- 状态点: 12px圆形，neutral-500背景
-- 状态文字: "待命中" (text-sm, text-neutral-600)
+### 头部内容
+- 标题: text-lg font-semibold text-gray-800
+- 状态标签: primary-100背景，primary-700文字，rounded-full
+- 右侧: 通知图标 + 用户头像 (32px圆形)
 
-## 右侧面板 (2/3宽度)
-### 用户信息卡片
-- 背景: 白色
-- 边框: neutral-200 (#e5e7eb)
-- 圆角: rounded-lg
-- 内边距: 24px (p-6)
+## 主内容区域 (Main Content)
+### 配置与连接区 (Top Panel)
+- 背景: 白色，圆角 (rounded-lg)，阴影 (shadow-sm)
+- 内边距: 20px (p-5)，底部间距: 24px (mb-6)
+- 网格布局: 响应式 (grid-cols-1 lg:grid-cols-2)
 
-#### 用户头像区域
-- 头像: 64px圆形 (w-16 h-16 rounded-full)
-- 用户名: Kevin Yuan (text-xl, text-neutral-900)
-- 状态: "识别成功" (text-sm, text-neutral-500)
+#### 移动端接入卡片
+- 边框: gray-200，圆角 (rounded-lg)
+- 内边距: 16px (p-4)
+- 输入框: gray-50背景，只读状态
+- 按钮: primary-50背景，primary-700文字
 
-#### 信息网格 (2列)
-- 授权工位: A-12
-- 最后记录位置: 实验室
-- 调度权限: 管理员徽章 (neutral-100背景，rounded-full)
+#### 系统状态卡片  
+- 状态指示器: 
+  - 活跃状态: green-50背景，green-700文字，绿色脉动点
+  - 状态点颜色: gray-300(监听), blue-300(解析), yellow-300(等待), green-500(执行)
 
-### 历史任务卡片
-- 标题: "最近5次呼叫任务" (text-lg, text-neutral-900)
-- 最大高度: 256px，可滚动 (max-h-64 overflow-y-auto)
+### 主面板区域 (Main Panel)
+- 网格布局: md:grid-cols-2 (响应式两列)
+- 固定高度: 500px (h-[500px])
+- 列间距: 24px (gap-6)
 
-#### 任务项样式
-- 左边框: 4px宽，neutral-500色
-- 左内边距: 16px (pl-4)
-- 上下内边距: 8px (py-2)
-- 时间戳: text-sm, text-neutral-600
-- 状态徽章: 
-  - 已完成: neutral-100背景
-  - 已取消: neutral-100背景
-  - 圆角: rounded-full
-  - 字体: text-xs
+#### 实时对话记录 (Left Side)
+- 背景: 白色，圆角，阴影
+- 头部: 边框分割，内边距 (px-4 py-3)
+- 开关控件: primary-500背景的自定义toggle
+- 聊天区域: gray-50背景，可滚动 (overflow-y-auto)
+- 消息气泡: 
+  - 用户消息: 白色背景，max-width 85%
+  - 机器人消息: primary-50背景，带品牌色头像
+
+#### 解析任务详情 (Right Side)  
+- 任务卡片: primary-100背景的圆形图标
+- 状态徽章: green-100背景，green-800文字，脉动动画
+- 信息网格: 2列布局 (grid-cols-2)
+- 任务详情: gray-50背景，4个信息项，带图标
+- 进度条: primary-500背景，45%宽度
+- 终止按钮: red-50背景，red-700文字，red-200边框
 
 ## 颜色方案
 ⚠️ **注意**: 颜色方案需要使用项目现有配色，以下仅为HTML参考中的配色结构，实际开发时使用软件自身的配色系统。
