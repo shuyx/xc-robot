@@ -2954,6 +2954,293 @@
             text-align: center;
         }
         
+        /* ==================== ROBOTSIM 3D STYLES ==================== */
+        
+        .robotsim-container {
+            display: flex;
+            gap: 16px;
+            height: calc(100vh - 120px);
+            overflow: hidden;
+        }
+        
+        .robotsim-control-panel {
+            width: 350px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        
+        .control-section {
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #f8f9fa;
+            padding: 10px 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .section-header h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .control-content {
+            padding: 12px;
+        }
+        
+        .restore-btn {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+        
+        .restore-btn:hover {
+            background: #0056b3;
+        }
+        
+        .joint-control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .joint-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .joint-item label {
+            width: 50px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .joint-item .joint-slider {
+            flex: 1;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .joint-item .joint-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .joint-item .joint-value {
+            width: 40px;
+            font-size: 11px;
+            text-align: right;
+            color: #333;
+        }
+        
+        .preset-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 12px;
+        }
+        
+        .preset-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .preset-btn:hover {
+            background: #1e7e34;
+        }
+        
+        .position-control {
+            padding: 12px;
+        }
+        
+        .current-position h4,
+        .target-position h4 {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            color: #495057;
+        }
+        
+        .position-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        
+        .pos-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            padding: 4px 6px;
+            background: #f8f9fa;
+            border-radius: 3px;
+        }
+        
+        .target-inputs,
+        .orientation-inputs {
+            margin-bottom: 12px;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .input-group label {
+            width: 40px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .input-group select {
+            flex: 1;
+            padding: 4px 6px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+        
+        .stop-btn {
+            width: 100%;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .stop-btn:hover {
+            background: #c82333;
+        }
+        
+        .offline-programming {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 12px;
+        }
+        
+        .program-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .program-btn:hover {
+            background: #5a6268;
+        }
+        
+        .robotsim-3d-viewer {
+            flex: 1;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .viewer-header h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .viewer-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .view-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .view-btn:hover {
+            background: #5a6268;
+        }
+        
+        .viewer-container {
+            flex: 1;
+            position: relative;
+            background: #f5f5f5;
+        }
+        
+        #robotsim3d-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        .viewer-info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+        }
+        
+        .info-panel {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            text-align: center;
+        }
+        
         /* ==================== SCENARIO TESTING STYLES ==================== */
         
         /* 场景测试页面样式 */
@@ -4046,15 +4333,11 @@
                     </div>
                     <div class="nav-item" data-page="voice-control">
                         <span class="nav-item-icon">🎤</span>
-                        语音控制
+                        智能交互
                     </div>
                     <div class="nav-item" data-page="elevator-control">
                         <span class="nav-item-icon">🏢</span>
                         梯控系统
-                    </div>
-                    <div class="nav-item" data-page="gesture-recognition">
-                        <span class="nav-item-icon">✋</span>
-                        手势识别
                     </div>
                 </div>
             </div>
@@ -4341,6 +4624,12 @@
                 return;
             }
             
+            // Special handling for RobotSim 3D page
+            if (pageData.isRobotSim3D) {
+                showRobotSim3DPage();
+                return;
+            }
+            
             // Special handling for arm control page
             if (pageId === 'arm-control') {
                 showArmControlPage();
@@ -4519,6 +4808,12 @@
                     title: '仿真模拟',
                     description: '2D底盘仿真、3D机械臂仿真，支持程序解析和轨迹预览',
                     isSimulation: true
+                },
+                'robotsim-3d': {
+                    icon: '🏗️',
+                    title: '路径规划',
+                    description: '3D机械臂仿真、离线编程、轨迹生成和路径优化',
+                    isRobotSim3D: true
                 },
                 'component-testing': {
                     icon: '🔧',
@@ -4721,9 +5016,8 @@
                     description: '实现人机交互功能，提升用户体验',
                     features: [
                         { icon: '👤', title: '人脸识别', desc: '实时检测、数据库管理、权限控制', pageId: 'face-recognition' },
-                        { icon: '🎤', title: '语音控制', desc: '语音识别、自然语言理解', pageId: 'voice-control' },
-                        { icon: '🏢', title: '梯控系统', desc: '电梯识别、楼层导航', pageId: 'elevator-control' },
-                        { icon: '✋', title: '手势识别', desc: '静态手势、动态手势跟踪', pageId: 'gesture-recognition' }
+                        { icon: '🎤', title: '智能交互', desc: '语音识别、自然语言理解', pageId: 'voice-control' },
+                        { icon: '🏢', title: '梯控系统', desc: '电梯识别、楼层导航', pageId: 'elevator-control' }
                     ]
                 },
                 'monitoring': {
@@ -7423,6 +7717,211 @@ window.show()</code></pre>
                     ctx.fill();
                 });
             }
+        }
+        
+        // ==================== ROBOTSIM 3D PAGE ====================
+        
+        function showRobotSim3DPage() {
+            console.log('=== showRobotSim3DPage 被调用 ===');
+            const pageContent = document.getElementById('pageContent');
+            console.log('pageContent元素:', pageContent);
+            
+            pageContent.innerHTML = `
+                <div class="robotsim-container">
+                    <!-- 左侧控制面板 -->
+                    <div class="robotsim-control-panel">
+                        <!-- 机器人仿真控制 -->
+                        <div class="control-section">
+                            <div class="section-header">
+                                <h3>🤖 机器人仿真控制</h3>
+                            </div>
+                            <div class="control-content">
+                                <button class="restore-btn" onclick="restoreDefaultPose()">恢复默认</button>
+                                
+                                <div class="joint-control-group">
+                                    <div class="joint-item">
+                                        <label>关节 1:</label>
+                                        <input type="range" class="joint-slider" id="robotsim-joint1" min="-170" max="170" value="0" onchange="updateRobotSimJoint(1, this.value)">
+                                        <span class="joint-value" id="robotsim-joint1-value">0.0°</span>
+                                    </div>
+                                    <div class="joint-item">
+                                        <label>关节 2:</label>
+                                        <input type="range" class="joint-slider" id="robotsim-joint2" min="-120" max="120" value="0" onchange="updateRobotSimJoint(2, this.value)">
+                                        <span class="joint-value" id="robotsim-joint2-value">0.0°</span>
+                                    </div>
+                                    <div class="joint-item">
+                                        <label>关节 3:</label>
+                                        <input type="range" class="joint-slider" id="robotsim-joint3" min="-170" max="170" value="0" onchange="updateRobotSimJoint(3, this.value)">
+                                        <span class="joint-value" id="robotsim-joint3-value">0.0°</span>
+                                    </div>
+                                    <div class="joint-item">
+                                        <label>关节 4:</label>
+                                        <input type="range" class="joint-slider" id="robotsim-joint4" min="-170" max="170" value="0" onchange="updateRobotSimJoint(4, this.value)">
+                                        <span class="joint-value" id="robotsim-joint4-value">0.0°</span>
+                                    </div>
+                                    <div class="joint-item">
+                                        <label>关节 5:</label>
+                                        <input type="range" class="joint-slider" id="robotsim-joint5" min="-120" max="120" value="0" onchange="updateRobotSimJoint(5, this.value)">
+                                        <span class="joint-value" id="robotsim-joint5-value">0.0°</span>
+                                    </div>
+                                    <div class="joint-item">
+                                        <label>关节 6:</label>
+                                        <input type="range" class="joint-slider" id="robotsim-joint6" min="-175" max="175" value="0" onchange="updateRobotSimJoint(6, this.value)">
+                                        <span class="joint-value" id="robotsim-joint6-value">0.0°</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 预设动作 -->
+                        <div class="control-section">
+                            <div class="section-header">
+                                <h3>🎯 预设动作</h3>
+                            </div>
+                            <div class="preset-actions">
+                                <button class="preset-btn" onclick="executePresetAction('home')">回到原点</button>
+                                <button class="preset-btn" onclick="executePresetAction('ready')">背手动作</button>
+                                <button class="preset-btn" onclick="executePresetAction('pick')">抓取姿态</button>
+                                <button class="preset-btn" onclick="executePresetAction('place')">放置姿态</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 实时位置控制 -->
+                        <div class="control-section">
+                            <div class="section-header">
+                                <h3>📍 实时位置控制</h3>
+                            </div>
+                            <div class="position-control">
+                                <div class="current-position">
+                                    <h4>当前位置</h4>
+                                    <div class="position-display">
+                                        <div class="pos-item">
+                                            <span>X:</span><span id="current-x">0.0 mm</span>
+                                        </div>
+                                        <div class="pos-item">
+                                            <span>Y:</span><span id="current-y">-60.0 mm</span>
+                                        </div>
+                                        <div class="pos-item">
+                                            <span>Z:</span><span id="current-z">333.0 mm</span>
+                                        </div>
+                                        <div class="pos-item">
+                                            <span>Roll:</span><span id="current-roll">0.0°</span>
+                                        </div>
+                                        <div class="pos-item">
+                                            <span>Pitch:</span><span id="current-pitch">0.0°</span>
+                                        </div>
+                                        <div class="pos-item">
+                                            <span>Yaw:</span><span id="current-yaw">0.0°</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="target-position">
+                                    <h4>目标位置 (mm):</h4>
+                                    <div class="target-inputs">
+                                        <div class="input-group">
+                                            <label>X:</label>
+                                            <select id="target-x" onchange="updateTargetPosition()">
+                                                <option value="0.00">0.00 mm</option>
+                                                <option value="100.00">100.00 mm</option>
+                                                <option value="200.00">200.00 mm</option>
+                                                <option value="-100.00">-100.00 mm</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Y:</label>
+                                            <select id="target-y" onchange="updateTargetPosition()">
+                                                <option value="0.00">0.00 mm</option>
+                                                <option value="100.00">100.00 mm</option>
+                                                <option value="-100.00">-100.00 mm</option>
+                                                <option value="-200.00">-200.00 mm</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Z:</label>
+                                            <select id="target-z" onchange="updateTargetPosition()">
+                                                <option value="400.00">400.00 mm</option>
+                                                <option value="300.00">300.00 mm</option>
+                                                <option value="500.00">500.00 mm</option>
+                                                <option value="600.00">600.00 mm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="orientation-inputs">
+                                        <h4>目标姿态 (度):</h4>
+                                        <div class="input-group">
+                                            <label>Roll:</label>
+                                            <select id="target-roll" onchange="updateTargetPosition()">
+                                                <option value="0.00">0.00°</option>
+                                                <option value="90.00">90.00°</option>
+                                                <option value="-90.00">-90.00°</option>
+                                                <option value="180.00">180.00°</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Pitch:</label>
+                                            <select id="target-pitch" onchange="updateTargetPosition()">
+                                                <option value="0.00">0.00°</option>
+                                                <option value="45.00">45.00°</option>
+                                                <option value="-45.00">-45.00°</option>
+                                                <option value="90.00">90.00°</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label>Yaw:</label>
+                                            <select id="target-yaw" onchange="updateTargetPosition()">
+                                                <option value="0.00">0.00°</option>
+                                                <option value="45.00">45.00°</option>
+                                                <option value="90.00">90.00°</option>
+                                                <option value="180.00">180.00°</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="stop-btn" onclick="stopCurrentMotion()">中止当前目标位置</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 离线编程工具 -->
+                        <div class="control-section">
+                            <div class="section-header">
+                                <h3>📝 离线编程</h3>
+                            </div>
+                            <div class="offline-programming">
+                                <button class="program-btn" onclick="startProgramming()">开始编程</button>
+                                <button class="program-btn" onclick="saveProgramPoints()">保存路径点</button>
+                                <button class="program-btn" onclick="loadProgramFile()">加载程序</button>
+                                <button class="program-btn" onclick="executeProgram()">执行程序</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 右侧3D显示区域 -->
+                    <div class="robotsim-3d-viewer">
+                        <div class="viewer-header">
+                            <h3>🎮 3D机械臂仿真</h3>
+                            <div class="viewer-controls">
+                                <button class="view-btn" onclick="resetView()">重置视角</button>
+                                <button class="view-btn" onclick="toggleGrid()">切换网格</button>
+                                <button class="view-btn" onclick="toggleAxes()">坐标轴</button>
+                            </div>
+                        </div>
+                        <div class="viewer-container">
+                            <!-- Web版3D显示区域 -->
+                            <canvas id="robotsim3d-canvas" width="800" height="600"></canvas>
+                            <div class="viewer-info">
+                                <div class="info-panel">
+                                    <span>视角控制: 鼠标拖拽旋转，滚轮缩放</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            
+            // 初始化RobotSim 3D页面
+            initRobotSim3DPage();
         }
         
         // Connection Status Dashboard Functions
@@ -10340,6 +10839,362 @@ window.show()</code></pre>
             // 更新动画位置
             if (!simulationState.isPlaying) {
                 updateSimulationAnimation(simulationState.currentProgress);
+            }
+        }
+        
+        // ==================== ROBOTSIM 3D FUNCTIONS ====================
+        
+        // RobotSim 3D state
+        let robotSim3DState = {
+            joints: [0, 0, 0, 0, 0, 0],
+            currentPosition: { x: 0.0, y: -60.0, z: 333.0, roll: 0.0, pitch: 0.0, yaw: 0.0 },
+            targetPosition: { x: 0.0, y: 0.0, z: 400.0, roll: 0.0, pitch: 0.0, yaw: 0.0 },
+            showGrid: true,
+            showAxes: true,
+            pathPoints: []
+        };
+        
+        function initRobotSim3DPage() {
+            console.log('=== initRobotSim3DPage 被调用 ===');
+            
+            // 初始化3D Canvas
+            const canvas = document.getElementById('robotsim3d-canvas');
+            if (canvas) {
+                init3DViewer(canvas);
+            }
+            
+            // 更新关节值显示
+            updateAllJointValues();
+            
+            // 更新位置显示
+            updateCurrentPositionDisplay();
+            
+            // 初始3D渲染
+            render3DScene();
+        }
+        
+        function init3DViewer(canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            // 设置画布基本属性
+            canvas.style.border = '1px solid #ddd';
+            canvas.style.backgroundColor = '#f8f9fa';
+            
+            // 绘制初始场景
+            draw3DScene(ctx);
+        }
+        
+        function draw3DScene(ctx) {
+            const canvas = ctx.canvas;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制背景网格
+            if (robotSim3DState.showGrid) {
+                drawGrid(ctx);
+            }
+            
+            // 绘制坐标轴
+            if (robotSim3DState.showAxes) {
+                drawCoordinateAxes(ctx);
+            }
+            
+            // 绘制机械臂模型
+            drawRobotArm(ctx);
+        }
+        
+        function drawGrid(ctx) {
+            const canvas = ctx.canvas;
+            const gridSize = 40;
+            
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            
+            // 绘制垂直线
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            
+            // 绘制水平线
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        }
+        
+        function drawCoordinateAxes(ctx) {
+            const centerX = 150;
+            const centerY = ctx.canvas.height - 100;
+            const axisLength = 80;
+            
+            // X轴 - 红色
+            ctx.strokeStyle = '#ff0000';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + axisLength, centerY);
+            ctx.stroke();
+            
+            // Y轴 - 绿色
+            ctx.strokeStyle = '#00ff00';
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX, centerY - axisLength);
+            ctx.stroke();
+            
+            // Z轴 - 蓝色 (3D效果)
+            ctx.strokeStyle = '#0000ff';
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX - axisLength * 0.7, centerY - axisLength * 0.7);
+            ctx.stroke();
+            
+            // 轴标签
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.fillText('X', centerX + axisLength + 5, centerY + 5);
+            ctx.fillText('Y', centerX - 5, centerY - axisLength - 5);
+            ctx.fillText('Z', centerX - axisLength * 0.7 - 15, centerY - axisLength * 0.7 - 5);
+        }
+        
+        function drawRobotArm(ctx) {
+            const canvas = ctx.canvas;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height - 80;
+            
+            // 计算关节位置 (简化版 DH 变换)
+            const joints = robotSim3DState.joints;
+            let linkPositions = calculateLinkPositions(joints, centerX, centerY);
+            
+            // 绘制基座
+            ctx.fillStyle = '#2c3e50';
+            ctx.fillRect(centerX - 40, centerY - 20, 80, 20);
+            
+            // 绘制连杆和关节
+            ctx.strokeStyle = '#34495e';
+            ctx.lineWidth = 8;
+            
+            for (let i = 0; i < linkPositions.length - 1; i++) {
+                ctx.beginPath();
+                ctx.moveTo(linkPositions[i].x, linkPositions[i].y);
+                ctx.lineTo(linkPositions[i + 1].x, linkPositions[i + 1].y);
+                ctx.stroke();
+                
+                // 绘制关节
+                ctx.fillStyle = '#e74c3c';
+                ctx.beginPath();
+                ctx.arc(linkPositions[i].x, linkPositions[i].y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            // 绘制末端执行器
+            const endPos = linkPositions[linkPositions.length - 1];
+            ctx.fillStyle = '#27ae60';
+            ctx.beginPath();
+            ctx.arc(endPos.x, endPos.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 显示当前TCP位置
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.fillText(`TCP: (${robotSim3DState.currentPosition.x.toFixed(1)}, ${robotSim3DState.currentPosition.y.toFixed(1)}, ${robotSim3DState.currentPosition.z.toFixed(1)})`, 
+                        10, 30);
+        }
+        
+        function calculateLinkPositions(joints, baseX, baseY) {
+            // 简化的FR3运动学 - 2D投影
+            const linkLengths = [0, 100, 80, 70, 50, 30]; // 简化连杆长度
+            let positions = [{ x: baseX, y: baseY }];
+            
+            let currentX = baseX;
+            let currentY = baseY;
+            let currentAngle = 0;
+            
+            for (let i = 0; i < 6; i++) {
+                currentAngle += joints[i] * Math.PI / 180;
+                currentX += linkLengths[i] * Math.cos(currentAngle);
+                currentY -= linkLengths[i] * Math.sin(currentAngle); // Y轴向上为负
+                
+                positions.push({ x: currentX, y: currentY });
+            }
+            
+            return positions;
+        }
+        
+        function updateRobotSimJoint(jointIndex, value) {
+            robotSim3DState.joints[jointIndex - 1] = parseFloat(value);
+            
+            // 更新关节值显示
+            document.getElementById(`robotsim-joint${jointIndex}-value`).textContent = value + '°';
+            
+            // 计算新的TCP位置
+            updateCurrentPosition();
+            
+            // 重新渲染3D场景
+            render3DScene();
+        }
+        
+        function updateCurrentPosition() {
+            // 简化的正向运动学计算
+            const joints = robotSim3DState.joints;
+            
+            // 基于简化的DH参数计算TCP位置
+            robotSim3DState.currentPosition = {
+                x: Math.cos(joints[0] * Math.PI / 180) * (300 + joints[1] * 2),
+                y: Math.sin(joints[0] * Math.PI / 180) * (300 + joints[1] * 2) - 60,
+                z: 333 + joints[2] * 3 + joints[3] * 2,
+                roll: joints[3],
+                pitch: joints[4],
+                yaw: joints[5]
+            };
+            
+            updateCurrentPositionDisplay();
+        }
+        
+        function updateCurrentPositionDisplay() {
+            const pos = robotSim3DState.currentPosition;
+            
+            document.getElementById('current-x').textContent = pos.x.toFixed(1) + ' mm';
+            document.getElementById('current-y').textContent = pos.y.toFixed(1) + ' mm';
+            document.getElementById('current-z').textContent = pos.z.toFixed(1) + ' mm';
+            document.getElementById('current-roll').textContent = pos.roll.toFixed(1) + '°';
+            document.getElementById('current-pitch').textContent = pos.pitch.toFixed(1) + '°';
+            document.getElementById('current-yaw').textContent = pos.yaw.toFixed(1) + '°';
+        }
+        
+        function updateAllJointValues() {
+            for (let i = 1; i <= 6; i++) {
+                const slider = document.getElementById(`robotsim-joint${i}`);
+                const valueDisplay = document.getElementById(`robotsim-joint${i}-value`);
+                if (slider && valueDisplay) {
+                    slider.value = robotSim3DState.joints[i - 1];
+                    valueDisplay.textContent = robotSim3DState.joints[i - 1].toFixed(1) + '°';
+                }
+            }
+        }
+        
+        function restoreDefaultPose() {
+            // 恢复到默认姿态 [0, -90, 90, 0, 0, 0]
+            robotSim3DState.joints = [0, -90, 90, 0, 0, 0];
+            
+            // 更新UI
+            updateAllJointValues();
+            updateCurrentPosition();
+            render3DScene();
+            
+            console.log('机械臂恢复到默认姿态');
+        }
+        
+        function executePresetAction(action) {
+            console.log('执行预设动作:', action);
+            
+            switch (action) {
+                case 'home':
+                    robotSim3DState.joints = [0, 0, 0, 0, 0, 0];
+                    break;
+                case 'ready':
+                    robotSim3DState.joints = [0, -45, 45, 0, -90, 0];
+                    break;
+                case 'pick':
+                    robotSim3DState.joints = [90, -60, 120, 0, -30, 0];
+                    break;
+                case 'place':
+                    robotSim3DState.joints = [-90, -30, 60, 0, -30, 180];
+                    break;
+            }
+            
+            // 更新UI和渲染
+            updateAllJointValues();
+            updateCurrentPosition();
+            render3DScene();
+        }
+        
+        function updateTargetPosition() {
+            // 获取目标位置值
+            robotSim3DState.targetPosition = {
+                x: parseFloat(document.getElementById('target-x').value),
+                y: parseFloat(document.getElementById('target-y').value),
+                z: parseFloat(document.getElementById('target-z').value),
+                roll: parseFloat(document.getElementById('target-roll').value),
+                pitch: parseFloat(document.getElementById('target-pitch').value),
+                yaw: parseFloat(document.getElementById('target-yaw').value)
+            };
+            
+            console.log('目标位置更新:', robotSim3DState.targetPosition);
+        }
+        
+        function stopCurrentMotion() {
+            console.log('中止当前运动');
+            // 这里可以添加实际的停止逻辑
+        }
+        
+        function startProgramming() {
+            console.log('开始离线编程');
+            robotSim3DState.pathPoints = [];
+            render3DScene();
+        }
+        
+        function saveProgramPoints() {
+            // 保存当前位置为路径点
+            const currentPos = Object.assign({}, robotSim3DState.currentPosition);
+            robotSim3DState.pathPoints.push(currentPos);
+            
+            console.log('保存路径点:', currentPos);
+            console.log('当前路径点数量:', robotSim3DState.pathPoints.length);
+        }
+        
+        function loadProgramFile() {
+            console.log('加载程序文件');
+            // 模拟加载程序文件
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.txt,.py,.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    console.log('选择文件:', file.name);
+                    // 这里可以添加文件解析逻辑
+                }
+            };
+            input.click();
+        }
+        
+        function executeProgram() {
+            console.log('执行程序');
+            if (robotSim3DState.pathPoints.length > 0) {
+                console.log('执行路径点序列，共', robotSim3DState.pathPoints.length, '个点');
+                // 这里可以添加路径执行动画
+            } else {
+                console.log('没有可执行的路径点');
+            }
+        }
+        
+        function resetView() {
+            console.log('重置视角');
+            render3DScene();
+        }
+        
+        function toggleGrid() {
+            robotSim3DState.showGrid = !robotSim3DState.showGrid;
+            console.log('网格显示:', robotSim3DState.showGrid);
+            render3DScene();
+        }
+        
+        function toggleAxes() {
+            robotSim3DState.showAxes = !robotSim3DState.showAxes;
+            console.log('坐标轴显示:', robotSim3DState.showAxes);
+            render3DScene();
+        }
+        
+        function render3DScene() {
+            const canvas = document.getElementById('robotsim3d-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                draw3DScene(ctx);
             }
         }
         
