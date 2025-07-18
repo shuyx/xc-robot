@@ -2147,6 +2147,12 @@ class XCRobotWebMainWindow(QMainWindow):
         
         # 创建Web视图
         self.web_view = QWebEngineView()
+        
+        # 禁用缓存，确保加载最新文件
+        from PyQt5.QtWebEngineWidgets import QWebEngineProfile
+        profile = self.web_view.page().profile()
+        profile.setHttpCacheType(QWebEngineProfile.NoCache)
+        
         layout.addWidget(self.web_view)
         
         # 加载HTML页面
@@ -2162,6 +2168,11 @@ class XCRobotWebMainWindow(QMainWindow):
                 # 读取HTML文件并注入JS桥接代码
                 with open(html_path, 'r', encoding='utf-8') as f:
                     html_content = f.read()
+                
+                # 添加时间戳注释强制刷新
+                import time
+                timestamp = str(int(time.time()))
+                html_content = html_content.replace('<head>', f'<head><!-- Cache Buster: {timestamp} -->')
                 
                 # 注入与Python通信的JS代码
                 js_bridge_code = """

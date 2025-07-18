@@ -2883,6 +2883,77 @@
             font-weight: 600;
         }
         
+        /* 关节控制面板 */
+        .joint-control-panel {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        
+        .joint-controls {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .joint-slider-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .slider-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .slider-item label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .joint-slider {
+            width: 120px;
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .joint-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .joint-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .joint-value {
+            font-size: 11px;
+            color: #333;
+            font-weight: 500;
+            min-width: 35px;
+            text-align: center;
+        }
+        
         /* ==================== SCENARIO TESTING STYLES ==================== */
         
         /* 场景测试页面样式 */
@@ -3323,6 +3394,472 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* ==================== ROBOT SIMULATION STYLES ==================== */
+        
+        /* 仿真模拟页面主容器 */
+        .simulation-container {
+            display: flex;
+            gap: 12px;
+            height: 500px;
+            margin-bottom: 12px;
+        }
+        
+        /* 左侧参数面板 */
+        .simulation-params-panel {
+            width: 200px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow-y: auto;
+        }
+        
+        .simulation-params-panel .panel-header {
+            background: #f1f3f4;
+            padding: 8px 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .params-content {
+            padding: 12px;
+        }
+        
+        .param-section h4 {
+            font-size: 12px;
+            margin: 0 0 8px 0;
+            color: #666;
+        }
+        
+        .param-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .param-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            padding: 4px 0;
+        }
+        
+        .param-item span:first-child {
+            color: #666;
+        }
+        
+        .param-item span:last-child {
+            font-weight: 500;
+        }
+        
+        /* 仿真主体区域 */
+        .simulation-main {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            min-height: 0;
+        }
+        
+        /* 底盘和机械臂仿真面板 */
+        .chassis-simulation-panel {
+            flex: 1;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .arm-simulation-panel {
+            width: 400px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        
+        /* 面板头部 */
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e9ecef;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .panel-header h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        /* 仿真状态指示器 */
+        .simulation-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .simulation-status .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #27ae60;
+            box-shadow: 0 0 4px rgba(39, 174, 96, 0.3);
+        }
+        
+        /* 机械臂选择器 */
+        .arm-selector {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .arm-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            color: #666;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .arm-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .arm-btn:hover:not(.active) {
+            background: #e9ecef;
+        }
+        
+        /* Canvas容器 */
+        .simulation-canvas-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            min-height: 0;
+        }
+        
+        /* Canvas样式 */
+        #chassisSimCanvas,
+        #armSimCanvas {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            cursor: crosshair;
+            flex-shrink: 0;
+        }
+        
+        #chassisSimCanvas:hover,
+        #armSimCanvas:hover {
+            border-color: #3498db;
+        }
+        
+        /* Canvas信息显示 */
+        .canvas-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .info-item {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .info-item span:first-child {
+            font-weight: 600;
+        }
+        
+        /* 控制面板 */
+        .simulation-controls {
+            width: 280px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        
+        /* 控制区段 */
+        .control-section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .control-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .control-section h4 {
+            margin: 0 0 12px 0;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* 文件上传区域 */
+        .file-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .file-upload-area:hover {
+            border-color: #3498db;
+            background: #f8f9fa;
+        }
+        
+        .upload-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0 auto;
+            transition: background 0.2s;
+        }
+        
+        .upload-btn:hover {
+            background: #2980b9;
+        }
+        
+        /* 文件信息 */
+        .file-info {
+            margin-top: 12px;
+            padding: 8px;
+            background: #e8f5e8;
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: #27ae60;
+        }
+        
+        .file-size {
+            color: #666;
+            margin-left: 8px;
+        }
+        
+        /* 播放控制 */
+        .playback-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .control-btn {
+            flex: 1;
+            padding: 8px 4px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .control-btn:hover:not(:disabled) {
+            background: #e9ecef;
+            border-color: #3498db;
+        }
+        
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .control-btn.play {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+        
+        .control-btn.play:hover:not(:disabled) {
+            background: #229954;
+        }
+        
+        /* 滑块控制 */
+        .speed-control,
+        .progress-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .speed-control label,
+        .progress-control label {
+            font-size: 12px;
+            color: #666;
+            min-width: 36px;
+        }
+        
+        .speed-control input[type="range"],
+        .progress-control input[type="range"] {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .speed-control input[type="range"]::-webkit-slider-thumb,
+        .progress-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .speed-control span,
+        .progress-control span {
+            font-size: 11px;
+            color: #666;
+            min-width: 32px;
+            text-align: right;
+        }
+        
+        /* 路径控制 */
+        .path-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .path-controls .control-btn {
+            padding: 6px 8px;
+            font-size: 11px;
+        }
+        
+        /* 路径信息 */
+        .path-info {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        
+        /* 坐标系控制 */
+        .coord-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .coord-controls label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .coord-controls input[type="checkbox"] {
+            margin: 0;
+        }
+        
+        /* 设备状态 */
+        .device-status {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .device-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+        
+        .device-item .status {
+            color: #666;
+            font-size: 11px;
+        }
+        
+        .connect-btn {
+            padding: 4px 8px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .connect-btn:hover {
+            background: #2980b9;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1400px) {
+            .simulation-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .simulation-main {
+                flex-direction: column;
+                height: 600px;
+            }
+            
+            .chassis-simulation-panel,
+            .arm-simulation-panel {
+                height: 300px;
+            }
+            
+            .simulation-controls {
+                width: 100%;
+                max-height: 400px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3739,6 +4276,7 @@
                     
                     // 更新页面内容
                     const pageId = this.dataset.page;
+                    console.log('=== 导航点击事件，pageId:', pageId, ' ===');
                     updatePageContent(pageId);
                     updateBreadcrumbForPage(pageId);
                 });
@@ -3797,6 +4335,12 @@
                 return;
             }
             
+            // Special handling for simulation page
+            if (pageData.isSimulation) {
+                showRobotSimulationPage();
+                return;
+            }
+            
             // Special handling for arm control page
             if (pageId === 'arm-control') {
                 showArmControlPage();
@@ -3812,6 +4356,13 @@
             // Special handling for coordination control page
             if (pageId === 'coord-control') {
                 showCoordinationControlPage();
+                return;
+            }
+            
+            // Special handling for robot simulation page
+            if (pageId === 'robot-sim') {
+                console.log('=== 检测到robot-sim页面请求，调用showRobotSimulationPage ===');
+                showRobotSimulationPage();
                 return;
             }
             
@@ -3962,6 +4513,12 @@
                         { icon: '🔄', title: '双臂协调', desc: '双臂同步协调控制<br>复杂操作任务执行' },
                         { icon: '📊', title: '3D可视化', desc: '实时3D模型显示<br>关节角度和位置监控' }
                     ]
+                },
+                'robot-sim': {
+                    icon: '🎮',
+                    title: '仿真模拟',
+                    description: '2D底盘仿真、3D机械臂仿真，支持程序解析和轨迹预览',
+                    isSimulation: true
                 },
                 'component-testing': {
                     icon: '🔧',
@@ -6543,6 +7100,331 @@ window.show()</code></pre>
             initCoordinationControlPage();
         }
         
+        // ==================== ROBOT SIMULATION PAGE ====================
+        
+        function showRobotSimulationPage() {
+            console.log('=== showRobotSimulationPage 被调用 ===');
+            const pageContent = document.getElementById('pageContent');
+            console.log('pageContent元素:', pageContent);
+            
+            pageContent.innerHTML = `
+                <div class="simulation-container">
+                    <!-- 左侧参数面板 -->
+                    <div class="simulation-params-panel">
+                        <div class="panel-header">
+                            <h3>系统信息表状态</h3>
+                        </div>
+                        <div class="params-content">
+                            <div class="param-section">
+                                <h4>机械臂状态</h4>
+                                <div class="param-group">
+                                    <div class="param-item">
+                                        <span>机械臂:</span>
+                                        <span>690mm</span>
+                                    </div>
+                                    <div class="param-item">
+                                        <span>末端:</span>
+                                        <span>550mm</span>
+                                    </div>
+                                    <div class="param-item">
+                                        <span>总臂:</span>
+                                        <span>1240mm</span>
+                                    </div>
+                                    <div class="param-item">
+                                        <span>基座高度:</span>
+                                        <span>107.5mm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 中间2D底盘仿真 -->
+                    <div class="chassis-simulation-panel">
+                        <div class="panel-header">
+                            <h3>系统仿真展示</h3>
+                        </div>
+                        <div class="simulation-canvas-container">
+                            <canvas id="chassisSimCanvas" width="500" height="400"></canvas>
+                            <div class="canvas-overlay">
+                                <div class="simulation-controls">
+                                    <button class="control-btn" onclick="resetSimulation()">复位</button>
+                                    <button class="control-btn" onclick="clearPath()">清除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 右侧3D机械臂仿真 -->
+                    <div class="arm-simulation-panel">
+                        <div class="panel-header">
+                            <h3>机械臂仿真展示</h3>
+                        </div>
+                        <div class="simulation-canvas-container">
+                            <canvas id="armSimCanvas" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 底部关节控制区 -->
+                <div class="joint-control-panel">
+                    <div class="joint-controls">
+                        <div class="joint-slider-group">
+                            <div class="slider-item">
+                                <label>关节1</label>
+                                <input type="range" class="joint-slider" id="joint1" min="-170" max="170" value="0" onchange="updateJointValue(1, this.value)">
+                                <span class="joint-value" id="joint1-value">0°</span>
+                            </div>
+                            <div class="slider-item">
+                                <label>关节2</label>
+                                <input type="range" class="joint-slider" id="joint2" min="-120" max="120" value="0" onchange="updateJointValue(2, this.value)">
+                                <span class="joint-value" id="joint2-value">0°</span>
+                            </div>
+                            <div class="slider-item">
+                                <label>关节3</label>
+                                <input type="range" class="joint-slider" id="joint3" min="-170" max="170" value="0" onchange="updateJointValue(3, this.value)">
+                                <span class="joint-value" id="joint3-value">0°</span>
+                            </div>
+                            <div class="slider-item">
+                                <label>关节4</label>
+                                <input type="range" class="joint-slider" id="joint4" min="-170" max="170" value="0" onchange="updateJointValue(4, this.value)">
+                                <span class="joint-value" id="joint4-value">0°</span>
+                            </div>
+                            <div class="slider-item">
+                                <label>关节5</label>
+                                <input type="range" class="joint-slider" id="joint5" min="-120" max="120" value="0" onchange="updateJointValue(5, this.value)">
+                                <span class="joint-value" id="joint5-value">0°</span>
+                            </div>
+                            <div class="slider-item">
+                                <label>关节6</label>
+                                <input type="range" class="joint-slider" id="joint6" min="-175" max="175" value="0" onchange="updateJointValue(6, this.value)">
+                                <span class="joint-value" id="joint6-value">0°</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            
+            // Initialize simulation page
+            initRobotSimulationPage();
+        }
+        
+        // 关节控制函数
+        function updateJointValue(jointIndex, value) {
+            // 更新关节值显示
+            const valueElement = document.getElementById(`joint${jointIndex}-value`);
+            if (valueElement) {
+                valueElement.textContent = `${value}°`;
+            }
+            
+            // 更新机械臂仿真显示
+            updateArmSimulation();
+            
+            // 如果有真实设备连接，发送控制命令
+            if (window.bridge && window.bridge.control_joint) {
+                try {
+                    window.bridge.control_joint(jointIndex, parseFloat(value));
+                } catch (e) {
+                    console.warn('Joint control not available:', e);
+                }
+            }
+        }
+        
+        // 重置仿真
+        function resetSimulation() {
+            // 重置所有关节到0度
+            for (let i = 1; i <= 6; i++) {
+                const slider = document.getElementById(`joint${i}`);
+                if (slider) {
+                    slider.value = 0;
+                    updateJointValue(i, 0);
+                }
+            }
+            
+            // 清除路径
+            clearPath();
+        }
+        
+        // 清除路径
+        function clearPath() {
+            pathPoints = [];
+            const canvas = document.getElementById('chassisSimCanvas');
+            if (canvas) {
+                drawChassisSimulation(canvas.getContext('2d'));
+            }
+        }
+        
+        // 简化的仿真函数以匹配4.png
+        function initRobotSimulationPage() {
+            console.log('=== initRobotSimulationPage 开始初始化 ===');
+            try {
+                // 初始化Canvas
+                console.log('初始化底盘仿真...');
+                initChassisSimulation();
+                console.log('初始化机械臂仿真...');
+                initArmSimulation();
+                console.log('=== Robot simulation page initialized successfully ===');
+            } catch (error) {
+                console.error('=== Failed to initialize robot simulation:', error, ' ===');
+            }
+        }
+        
+        // 初始化底盘仿真Canvas
+        function initChassisSimulation() {
+            const canvas = document.getElementById('chassisSimCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // 设置Canvas点击事件用于路径绘制
+            canvas.addEventListener('click', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                addPathPoint(x, y);
+            });
+            
+            // 绘制初始状态
+            drawChassisSimulation(ctx);
+        }
+        
+        // 绘制底盘仿真
+        function drawChassisSimulation(ctx) {
+            const canvas = ctx.canvas;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制网格
+            drawGrid(ctx, canvas.width, canvas.height);
+            
+            // 绘制底盘
+            drawChassis(ctx, 250, 200, 0); // 中心位置
+        }
+        
+        // 绘制网格 - 匹配4.png的网格样式
+        function drawGrid(ctx, width, height) {
+            const gridSize = 25; // 网格大小
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            
+            // 垂直线
+            for (let x = 0; x <= width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            
+            // 水平线
+            for (let y = 0; y <= height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+        }
+        
+        // 绘制底盘 - 简化的矩形底盘
+        function drawChassis(ctx, x, y, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle * Math.PI / 180);
+            
+            // 绘制底盘主体
+            ctx.fillStyle = '#ff6b35';
+            ctx.fillRect(-15, -10, 30, 20);
+            
+            // 绘制方向指示器
+            ctx.fillStyle = '#333';
+            ctx.fillRect(10, -2, 8, 4);
+            
+            ctx.restore();
+        }
+        
+        // 初始化机械臂仿真
+        function initArmSimulation() {
+            const canvas = document.getElementById('armSimCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            drawArmSimulation(ctx);
+        }
+        
+        // 绘制3D机械臂仿真 - 简化显示
+        function drawArmSimulation(ctx) {
+            const canvas = ctx.canvas;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制简化的3D立方体表示机械臂基座
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height - 50;
+            
+            // 基座
+            ctx.fillStyle = '#666';
+            ctx.fillRect(centerX - 30, centerY - 10, 60, 20);
+            
+            // 立方体 - 简化的3D效果
+            ctx.fillStyle = '#888';
+            ctx.fillRect(centerX - 25, centerY - 60, 50, 50);
+            
+            // 立方体顶面
+            ctx.fillStyle = '#aaa';
+            ctx.beginPath();
+            ctx.moveTo(centerX - 25, centerY - 60);
+            ctx.lineTo(centerX - 15, centerY - 70);
+            ctx.lineTo(centerX + 35, centerY - 70);
+            ctx.lineTo(centerX + 25, centerY - 60);
+            ctx.closePath();
+            ctx.fill();
+            
+            // 立方体右侧面
+            ctx.fillStyle = '#777';
+            ctx.beginPath();
+            ctx.moveTo(centerX + 25, centerY - 60);
+            ctx.lineTo(centerX + 35, centerY - 70);
+            ctx.lineTo(centerX + 35, centerY - 20);
+            ctx.lineTo(centerX + 25, centerY - 10);
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        // 更新机械臂仿真
+        function updateArmSimulation() {
+            const canvas = document.getElementById('armSimCanvas');
+            if (canvas) {
+                drawArmSimulation(canvas.getContext('2d'));
+            }
+        }
+        
+        // 添加路径点
+        let pathPoints = [];
+        function addPathPoint(x, y) {
+            pathPoints.push({x, y});
+            const canvas = document.getElementById('chassisSimCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                drawChassisSimulation(ctx);
+                
+                // 绘制路径
+                if (pathPoints.length > 1) {
+                    ctx.strokeStyle = '#3498db';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(pathPoints[0].x, pathPoints[0].y);
+                    for (let i = 1; i < pathPoints.length; i++) {
+                        ctx.lineTo(pathPoints[i].x, pathPoints[i].y);
+                    }
+                    ctx.stroke();
+                }
+                
+                // 绘制路径点
+                pathPoints.forEach((point, index) => {
+                    ctx.fillStyle = index === 0 ? '#27ae60' : '#3498db';
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+                    ctx.fill();
+                });
+            }
+        }
+        
         // Connection Status Dashboard Functions
         let autoRefreshInterval = null;
         
@@ -8678,6 +9560,787 @@ window.show()</code></pre>
             
             logElement.appendChild(logEntry);
             logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // ==================== ROBOT SIMULATION FUNCTIONS ====================
+        
+        // Simulation state
+        let simulationState = {
+            isInitialized: false,
+            isPlaying: false,
+            currentProgress: 0,
+            speed: 100,
+            pathPoints: [],
+            chassisPosition: { x: 400, y: 300, angle: 0 },
+            selectedArm: 'right',
+            armJoints: [0, -90, 90, 0, 0, 0], // 默认零位姿态
+            programData: null,
+            animationFrame: null,
+            deviceConnections: {
+                chassis: false,
+                rightArm: false,
+                leftArm: false
+            }
+        };
+        
+        // 初始化机器人仿真页面
+        function initRobotSimulationPage() {
+            try {
+                // 初始化Canvas
+                initChassisSimulation();
+                initArmSimulation();
+                
+                // 设置事件监听器
+                setupSimulationEventListeners();
+                
+                // 更新设备状态
+                updateDeviceConnectionStatus();
+                
+                simulationState.isInitialized = true;
+                console.log('Robot simulation page initialized successfully');
+                
+                addLogEntry('仿真模拟页面初始化完成', 'SUCCESS');
+                
+            } catch (error) {
+                console.error('Failed to initialize robot simulation:', error);
+                addLogEntry('仿真模拟页面初始化失败: ' + error.message, 'ERROR');
+            }
+        }
+        
+        // 初始化底盘仿真Canvas
+        function initChassisSimulation() {
+            const canvas = document.getElementById('chassisSimCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // 设置Canvas点击事件
+            canvas.addEventListener('click', handleChassisCanvasClick);
+            canvas.addEventListener('mousemove', handleChassisCanvasMouseMove);
+            
+            // 绘制初始状态
+            drawChassisSimulation(ctx);
+        }
+        
+        // 绘制底盘仿真
+        function drawChassisSimulation(ctx) {
+            const canvas = ctx.canvas;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制网格
+            if (document.getElementById('show-grid')?.checked) {
+                drawGrid(ctx, canvas.width, canvas.height);
+            }
+            
+            // 绘制坐标轴
+            drawCoordinateAxes(ctx, canvas.width, canvas.height);
+            
+            // 绘制路径
+            if (simulationState.pathPoints.length > 0) {
+                drawPath(ctx, simulationState.pathPoints);
+            }
+            
+            // 绘制底盘
+            drawChassis(ctx, simulationState.chassisPosition);
+            
+            // 更新坐标显示
+            updateChassisCoordinates();
+        }
+        
+        // 绘制网格
+        function drawGrid(ctx, width, height) {
+            const gridSize = 20; // 20像素 = 250mm
+            ctx.strokeStyle = '#e9ecef';
+            ctx.lineWidth = 1;
+            
+            // 垂直线
+            for (let x = 0; x <= width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            
+            // 水平线
+            for (let y = 0; y <= height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+        }
+        
+        // 绘制坐标轴
+        function drawCoordinateAxes(ctx, width, height) {
+            const centerX = width / 2;
+            const centerY = height / 2;
+            
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = 2;
+            
+            // X轴
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(width, centerY);
+            ctx.stroke();
+            
+            // Y轴
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, height);
+            ctx.stroke();
+            
+            // 原点标记
+            ctx.fillStyle = '#3498db';
+            ctx.fillRect(centerX - 2, centerY - 2, 4, 4);
+            
+            // 轴标签
+            ctx.fillStyle = '#666';
+            ctx.font = '12px Arial';
+            ctx.fillText('X', width - 20, centerY - 10);
+            ctx.fillText('Y', centerX + 10, 20);
+            ctx.fillText('O', centerX + 10, centerY - 10);
+        }
+        
+        // 绘制路径
+        function drawPath(ctx, points) {
+            if (points.length < 2) return;
+            
+            ctx.strokeStyle = '#e74c3c';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+            ctx.stroke();
+            
+            // 绘制路径点
+            ctx.fillStyle = '#e74c3c';
+            points.forEach((point, index) => {
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // 标记起点和终点
+                if (index === 0 || index === points.length - 1) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '10px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(index === 0 ? 'S' : 'E', point.x, point.y + 3);
+                    ctx.fillStyle = '#e74c3c';
+                }
+            });
+            
+            // 更新路径信息
+            updatePathInfo();
+        }
+        
+        // 绘制底盘
+        function drawChassis(ctx, position) {
+            const { x, y, angle } = position;
+            
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle * Math.PI / 180);
+            
+            // 底盘主体 (465x545mm scaled)
+            const chassisWidth = 465 * 0.08; // 约37像素
+            const chassisHeight = 545 * 0.08; // 约44像素
+            
+            // 底盘矩形
+            ctx.fillStyle = '#34495e';
+            ctx.fillRect(-chassisWidth/2, -chassisHeight/2, chassisWidth, chassisHeight);
+            
+            // 底盘边框
+            ctx.strokeStyle = '#2c3e50';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-chassisWidth/2, -chassisHeight/2, chassisWidth, chassisHeight);
+            
+            // 方向指示器
+            ctx.fillStyle = '#e74c3c';
+            ctx.beginPath();
+            ctx.moveTo(chassisWidth/2 - 5, 0);
+            ctx.lineTo(chassisWidth/2 + 5, -5);
+            ctx.lineTo(chassisWidth/2 + 5, 5);
+            ctx.closePath();
+            ctx.fill();
+            
+            // 升降轴指示
+            ctx.fillStyle = '#f39c12';
+            ctx.fillRect(-3, -chassisHeight/2 + 10, 6, 15);
+            
+            ctx.restore();
+        }
+        
+        // 初始化机械臂仿真Canvas
+        function initArmSimulation() {
+            const canvas = document.getElementById('armSimCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // 绘制初始状态
+            drawArmSimulation(ctx);
+        }
+        
+        // 绘制机械臂仿真
+        function drawArmSimulation(ctx) {
+            const canvas = ctx.canvas;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制机械臂（火柴人风格）
+            drawRobotArm(ctx, simulationState.armJoints, simulationState.selectedArm);
+            
+            // 更新TCP位置显示
+            updateArmTCP();
+        }
+        
+        // 绘制机械臂（火柴人风格3D投影）
+        function drawRobotArm(ctx, joints, armType) {
+            const canvas = ctx.canvas;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height - 50;
+            
+            // DH参数和连杆长度 (mm)
+            const linkLengths = [140, 280, 102]; // J1-J2, J2-J3, J4-J6
+            const scale = 0.3; // 缩放因子
+            
+            // 基座
+            ctx.fillStyle = '#34495e';
+            ctx.fillRect(centerX - 15, centerY - 10, 30, 20);
+            
+            // 计算关节位置
+            const positions = calculateArmPositions(joints, linkLengths, scale, centerX, centerY);
+            
+            // 绘制连杆
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            
+            for (let i = 0; i < positions.length - 1; i++) {
+                ctx.beginPath();
+                ctx.moveTo(positions[i].x, positions[i].y);
+                ctx.lineTo(positions[i + 1].x, positions[i + 1].y);
+                ctx.stroke();
+            }
+            
+            // 绘制关节
+            ctx.fillStyle = '#e74c3c';
+            positions.forEach((pos, index) => {
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // 关节编号
+                ctx.fillStyle = '#fff';
+                ctx.font = '10px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(`J${index}`, pos.x, pos.y + 3);
+                ctx.fillStyle = '#e74c3c';
+            });
+            
+            // TCP (工具中心点)
+            const tcp = positions[positions.length - 1];
+            ctx.fillStyle = '#f39c12';
+            ctx.beginPath();
+            ctx.arc(tcp.x, tcp.y, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // TCP标签
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = '12px Arial';
+            ctx.fillText('TCP', tcp.x, tcp.y - 15);
+        }
+        
+        // 计算机械臂关节位置
+        function calculateArmPositions(joints, linkLengths, scale, baseX, baseY) {
+            const positions = [{ x: baseX, y: baseY }];
+            
+            let currentX = baseX;
+            let currentY = baseY;
+            let cumulativeAngle = 0;
+            
+            // 简化的2D投影计算
+            for (let i = 0; i < Math.min(joints.length, linkLengths.length); i++) {
+                cumulativeAngle += joints[i];
+                const linkLength = linkLengths[i] * scale;
+                
+                currentX += linkLength * Math.cos(cumulativeAngle * Math.PI / 180);
+                currentY -= linkLength * Math.sin(cumulativeAngle * Math.PI / 180); // Y轴向上为负
+                
+                positions.push({ x: currentX, y: currentY });
+            }
+            
+            return positions;
+        }
+        
+        // 设置仿真事件监听器
+        function setupSimulationEventListeners() {
+            // 程序文件上传事件在loadProgramFile函数中处理
+            
+            // 播放控制事件在相应函数中处理
+            
+            // 速度和进度控制
+            const speedSlider = document.getElementById('sim-speed');
+            const progressSlider = document.getElementById('sim-progress');
+            
+            if (speedSlider) {
+                speedSlider.addEventListener('input', function() {
+                    simulationState.speed = parseInt(this.value);
+                    document.getElementById('speed-display').textContent = this.value + '%';
+                });
+            }
+            
+            if (progressSlider) {
+                progressSlider.addEventListener('input', function() {
+                    simulationState.currentProgress = parseInt(this.value);
+                    document.getElementById('progress-display').textContent = this.value + '%';
+                });
+            }
+        }
+        
+        // 处理底盘Canvas点击事件
+        function handleChassisCanvasClick(event) {
+            const canvas = event.target;
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            // 添加路径点
+            simulationState.pathPoints.push({ x, y });
+            
+            // 重新绘制
+            const ctx = canvas.getContext('2d');
+            drawChassisSimulation(ctx);
+            
+            addLogEntry(`添加路径点: (${x.toFixed(1)}, ${y.toFixed(1)})`, 'INFO');
+        }
+        
+        // 处理底盘Canvas鼠标移动事件
+        function handleChassisCanvasMouseMove(event) {
+            const canvas = event.target;
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            // 更新坐标显示
+            const coordElement = document.getElementById('chassis-coords');
+            if (coordElement) {
+                coordElement.textContent = `(${x.toFixed(0)}, ${y.toFixed(0)})`;
+            }
+        }
+        
+        // 机械臂选择
+        function selectArm(armType) {
+            simulationState.selectedArm = armType;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.arm-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 重新绘制机械臂
+            const canvas = document.getElementById('armSimCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                drawArmSimulation(ctx);
+            }
+            
+            addLogEntry(`切换到${armType === 'right' ? '右' : '左'}臂仿真`, 'INFO');
+        }
+        
+        // 加载程序文件
+        function loadProgramFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                simulationState.programData = content;
+                
+                // 显示文件信息
+                const fileInfo = document.getElementById('file-info');
+                const fileName = document.getElementById('file-name');
+                const fileSize = document.getElementById('file-size');
+                
+                if (fileInfo && fileName && fileSize) {
+                    fileInfo.style.display = 'block';
+                    fileName.textContent = file.name;
+                    fileSize.textContent = `(${(file.size / 1024).toFixed(1)} KB)`;
+                }
+                
+                // 启用播放按钮
+                const playBtn = document.getElementById('play-btn');
+                if (playBtn) {
+                    playBtn.disabled = false;
+                }
+                
+                // 简单的程序解析
+                parseProgram(content);
+                
+                addLogEntry(`程序文件已加载: ${file.name}`, 'SUCCESS');
+            };
+            
+            reader.onerror = function() {
+                addLogEntry('程序文件加载失败', 'ERROR');
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        // 简单的程序解析
+        function parseProgram(content) {
+            // 基础的机械臂和底盘指令识别
+            const lines = content.split('\n');
+            const commands = [];
+            
+            lines.forEach((line, index) => {
+                line = line.trim();
+                
+                // 识别机械臂运动指令
+                if (line.includes('MoveJ') || line.includes('MoveL')) {
+                    commands.push({
+                        type: 'arm_move',
+                        line: index + 1,
+                        content: line
+                    });
+                }
+                
+                // 识别底盘运动指令
+                if (line.includes('move_to') || line.includes('navigate')) {
+                    commands.push({
+                        type: 'chassis_move',
+                        line: index + 1,
+                        content: line
+                    });
+                }
+            });
+            
+            console.log('Parsed commands:', commands);
+            addLogEntry(`解析到 ${commands.length} 条运动指令`, 'INFO');
+        }
+        
+        // 播放控制
+        function togglePlayback() {
+            if (!simulationState.programData) {
+                addLogEntry('请先加载程序文件', 'WARNING');
+                return;
+            }
+            
+            simulationState.isPlaying = !simulationState.isPlaying;
+            
+            const playBtn = document.getElementById('play-btn');
+            if (playBtn) {
+                playBtn.innerHTML = simulationState.isPlaying ? 
+                    '<span>⏸️</span>' : '<span>▶️</span>';
+            }
+            
+            if (simulationState.isPlaying) {
+                startSimulationAnimation();
+                addLogEntry('仿真播放开始', 'SUCCESS');
+            } else {
+                stopSimulationAnimation();
+                addLogEntry('仿真播放暂停', 'WARNING');
+            }
+        }
+        
+        function pauseSimulation() {
+            simulationState.isPlaying = false;
+            stopSimulationAnimation();
+            addLogEntry('仿真已暂停', 'WARNING');
+        }
+        
+        function stopSimulation() {
+            simulationState.isPlaying = false;
+            simulationState.currentProgress = 0;
+            stopSimulationAnimation();
+            
+            // 重置进度条
+            const progressSlider = document.getElementById('sim-progress');
+            if (progressSlider) {
+                progressSlider.value = 0;
+                document.getElementById('progress-display').textContent = '0%';
+            }
+            
+            addLogEntry('仿真已停止', 'ERROR');
+        }
+        
+        function resetSimulation() {
+            stopSimulation();
+            
+            // 重置底盘位置
+            simulationState.chassisPosition = { x: 400, y: 300, angle: 0 };
+            
+            // 重置机械臂关节
+            simulationState.armJoints = [0, -90, 90, 0, 0, 0];
+            
+            // 重新绘制
+            const chassisCanvas = document.getElementById('chassisSimCanvas');
+            const armCanvas = document.getElementById('armSimCanvas');
+            
+            if (chassisCanvas) {
+                const ctx = chassisCanvas.getContext('2d');
+                drawChassisSimulation(ctx);
+            }
+            
+            if (armCanvas) {
+                const ctx = armCanvas.getContext('2d');
+                drawArmSimulation(ctx);
+            }
+            
+            addLogEntry('仿真已重置', 'INFO');
+        }
+        
+        // 动画控制
+        function startSimulationAnimation() {
+            function animate() {
+                if (!simulationState.isPlaying) return;
+                
+                // 更新进度
+                simulationState.currentProgress += simulationState.speed / 100;
+                if (simulationState.currentProgress >= 100) {
+                    simulationState.currentProgress = 100;
+                    simulationState.isPlaying = false;
+                }
+                
+                // 更新进度条
+                const progressSlider = document.getElementById('sim-progress');
+                if (progressSlider) {
+                    progressSlider.value = simulationState.currentProgress;
+                    document.getElementById('progress-display').textContent = 
+                        simulationState.currentProgress.toFixed(1) + '%';
+                }
+                
+                // 更新仿真状态
+                updateSimulationAnimation(simulationState.currentProgress);
+                
+                // 继续动画
+                if (simulationState.isPlaying) {
+                    simulationState.animationFrame = requestAnimationFrame(animate);
+                }
+            }
+            
+            animate();
+        }
+        
+        function stopSimulationAnimation() {
+            if (simulationState.animationFrame) {
+                cancelAnimationFrame(simulationState.animationFrame);
+                simulationState.animationFrame = null;
+            }
+        }
+        
+        function updateSimulationAnimation(progress) {
+            // 这里可以根据进度更新底盘和机械臂的位置
+            // 暂时使用简单的动画效果
+            
+            if (simulationState.pathPoints.length > 1) {
+                // 沿路径移动底盘
+                const pathIndex = Math.floor((progress / 100) * (simulationState.pathPoints.length - 1));
+                const nextIndex = Math.min(pathIndex + 1, simulationState.pathPoints.length - 1);
+                const t = ((progress / 100) * (simulationState.pathPoints.length - 1)) - pathIndex;
+                
+                const currentPoint = simulationState.pathPoints[pathIndex];
+                const nextPoint = simulationState.pathPoints[nextIndex];
+                
+                simulationState.chassisPosition.x = currentPoint.x + (nextPoint.x - currentPoint.x) * t;
+                simulationState.chassisPosition.y = currentPoint.y + (nextPoint.y - currentPoint.y) * t;
+                
+                // 重新绘制底盘
+                const canvas = document.getElementById('chassisSimCanvas');
+                if (canvas) {
+                    const ctx = canvas.getContext('2d');
+                    drawChassisSimulation(ctx);
+                }
+            }
+        }
+        
+        // 路径绘制控制
+        function startPathDrawing() {
+            addLogEntry('点击Canvas添加路径点', 'INFO');
+        }
+        
+        function clearPath() {
+            simulationState.pathPoints = [];
+            
+            const canvas = document.getElementById('chassisSimCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                drawChassisSimulation(ctx);
+            }
+            
+            updatePathInfo();
+            addLogEntry('路径已清除', 'INFO');
+        }
+        
+        function savePath() {
+            if (simulationState.pathPoints.length === 0) {
+                addLogEntry('没有路径可保存', 'WARNING');
+                return;
+            }
+            
+            const pathData = JSON.stringify(simulationState.pathPoints, null, 2);
+            const blob = new Blob([pathData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `path_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addLogEntry('路径已保存', 'SUCCESS');
+        }
+        
+        // 坐标系控制
+        function updateCoordSystem() {
+            const canvas = document.getElementById('chassisSimCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                drawChassisSimulation(ctx);
+            }
+        }
+        
+        function updateDisplay() {
+            const canvas = document.getElementById('chassisSimCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                drawChassisSimulation(ctx);
+            }
+        }
+        
+        // 设备连接
+        function connectChassis() {
+            // 模拟连接过程
+            addLogEntry('正在连接底盘...', 'INFO');
+            
+            setTimeout(() => {
+                simulationState.deviceConnections.chassis = !simulationState.deviceConnections.chassis;
+                updateDeviceConnectionStatus();
+                
+                if (simulationState.deviceConnections.chassis) {
+                    addLogEntry('底盘连接成功', 'SUCCESS');
+                } else {
+                    addLogEntry('底盘连接断开', 'WARNING');
+                }
+            }, 1000);
+        }
+        
+        function connectArm(armType) {
+            addLogEntry(`正在连接${armType === 'right' ? '右' : '左'}臂...`, 'INFO');
+            
+            setTimeout(() => {
+                simulationState.deviceConnections[armType + 'Arm'] = 
+                    !simulationState.deviceConnections[armType + 'Arm'];
+                updateDeviceConnectionStatus();
+                
+                if (simulationState.deviceConnections[armType + 'Arm']) {
+                    addLogEntry(`${armType === 'right' ? '右' : '左'}臂连接成功`, 'SUCCESS');
+                } else {
+                    addLogEntry(`${armType === 'right' ? '右' : '左'}臂连接断开`, 'WARNING');
+                }
+            }, 1000);
+        }
+        
+        // 更新设备连接状态
+        function updateDeviceConnectionStatus() {
+            const statusMap = {
+                'chassis-device-status': simulationState.deviceConnections.chassis,
+                'right-arm-device-status': simulationState.deviceConnections.rightArm,
+                'left-arm-device-status': simulationState.deviceConnections.leftArm
+            };
+            
+            Object.entries(statusMap).forEach(([elementId, connected]) => {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.textContent = connected ? '在线' : '离线';
+                    element.style.color = connected ? '#27ae60' : '#e74c3c';
+                }
+            });
+        }
+        
+        // 更新仿真信息显示
+        function updateChassisCoordinates() {
+            const coordElement = document.getElementById('chassis-coords');
+            const angleElement = document.getElementById('chassis-angle');
+            
+            if (coordElement) {
+                coordElement.textContent = 
+                    `(${simulationState.chassisPosition.x.toFixed(1)}, ${simulationState.chassisPosition.y.toFixed(1)})`;
+            }
+            
+            if (angleElement) {
+                angleElement.textContent = `${simulationState.chassisPosition.angle.toFixed(1)}°`;
+            }
+        }
+        
+        function updateArmTCP() {
+            const tcpElement = document.getElementById('arm-tcp');
+            const statusElement = document.getElementById('arm-status');
+            
+            if (tcpElement) {
+                // 简单的TCP位置计算
+                const tcp = calculateTCPPosition(simulationState.armJoints);
+                tcpElement.textContent = `(${tcp.x.toFixed(1)}, ${tcp.y.toFixed(1)}, ${tcp.z.toFixed(1)})`;
+            }
+            
+            if (statusElement) {
+                statusElement.textContent = simulationState.isPlaying ? '运行中' : '空闲';
+            }
+        }
+        
+        function calculateTCPPosition(joints) {
+            // 简化的TCP位置计算
+            return {
+                x: Math.cos(joints[0] * Math.PI / 180) * 300,
+                y: Math.sin(joints[0] * Math.PI / 180) * 300,
+                z: 400 + joints[1] * 2
+            };
+        }
+        
+        function updatePathInfo() {
+            const pointsElement = document.getElementById('path-points');
+            const distanceElement = document.getElementById('path-distance');
+            
+            if (pointsElement) {
+                pointsElement.textContent = simulationState.pathPoints.length;
+            }
+            
+            if (distanceElement) {
+                let totalDistance = 0;
+                for (let i = 1; i < simulationState.pathPoints.length; i++) {
+                    const dx = simulationState.pathPoints[i].x - simulationState.pathPoints[i-1].x;
+                    const dy = simulationState.pathPoints[i].y - simulationState.pathPoints[i-1].y;
+                    totalDistance += Math.sqrt(dx * dx + dy * dy);
+                }
+                // 转换为米 (20像素 = 250mm)
+                const distanceInMeters = (totalDistance * 250 / 20) / 1000;
+                distanceElement.textContent = distanceInMeters.toFixed(2) + 'm';
+            }
+        }
+        
+        function updateSimSpeed(value) {
+            simulationState.speed = parseInt(value);
+            document.getElementById('speed-display').textContent = value + '%';
+        }
+        
+        function setSimProgress(value) {
+            simulationState.currentProgress = parseInt(value);
+            document.getElementById('progress-display').textContent = value + '%';
+            
+            // 更新动画位置
+            if (!simulationState.isPlaying) {
+                updateSimulationAnimation(simulationState.currentProgress);
+            }
         }
         
     </script>
