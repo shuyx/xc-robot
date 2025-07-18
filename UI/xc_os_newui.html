@@ -3452,18 +3452,18 @@
 
             <div class="nav-group" data-group="simulation">
                 <div class="nav-group-title">
-                    <span class="nav-group-text"><span class="nav-group-icon">🎯</span>仿真测试</span>
-                    <button class="favorite-btn group-favorite" onclick="toggleFavorite('group', 'simulation', '🎯 仿真测试')" title="收藏此分组">☆</button>
+                    <span class="nav-group-text"><span class="nav-group-icon">🎯</span>仿真规划</span>
+                    <button class="favorite-btn group-favorite" onclick="toggleFavorite('group', 'simulation', '🎯 仿真规划')" title="收藏此分组">☆</button>
                     <span class="collapse-icon">▼</span>
                 </div>
                 <div class="nav-items">
                     <div class="nav-item" data-page="robot-sim">
                         <span class="nav-item-icon">🎮</span>
-                        机械人仿真系统
+                        仿真模拟
                     </div>
                     <div class="nav-item" data-page="robotsim-3d">
                         <span class="nav-item-icon">🏗️</span>
-                        RobotSim 3D
+                        路径规划
                     </div>
                     <div class="nav-item" data-page="task-orchestration">
                         <span class="nav-item-icon">📋</span>
@@ -4128,11 +4128,11 @@
                 },
                 'simulation': {
                     icon: '🎯',
-                    title: '仿真测试',
-                    description: '在虚拟环境中测试机器人功能和算法',
+                    title: '仿真规划',
+                    description: '虚拟环境仿真、路径规划和任务编排管理',
                     features: [
-                        { icon: '🎮', title: '机械人仿真系统', desc: '2D底盘仿真、3D机械臂仿真', pageId: 'robot-sim' },
-                        { icon: '🏗️', title: 'RobotSim 3D', desc: '3D模型加载、物理仿真', pageId: 'robotsim-3d' },
+                        { icon: '🎮', title: '仿真模拟', desc: '2D底盘仿真、3D机械臂仿真', pageId: 'robot-sim' },
+                        { icon: '🏗️', title: '路径规划', desc: '轨迹生成、避障算法、路径优化', pageId: 'robotsim-3d' },
                         { icon: '📋', title: '任务编排', desc: '可视化编程、行为树编辑', pageId: 'task-orchestration' }
                     ]
                 },
@@ -5329,10 +5329,10 @@ pip install vtk==9.3.0</code></pre>
                         <li>路径规划</li>
                     </ul>
                     
-                    <h3>仿真系统</h3>
+                    <h3>仿真规划</h3>
                     <ul>
-                        <li>机器人仿真</li>
-                        <li>3D 仿真环境</li>
+                        <li>仿真模拟</li>
+                        <li>路径规划</li>
                         <li>任务编排</li>
                     </ul>
                     
