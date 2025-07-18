@@ -19,6 +19,9 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 widgets_dir = os.path.join(current_dir, 'widgets')
 sys.path.insert(0, widgets_dir)
 
+# 导入桥接模块
+from web_bridge import HelpBridge, FaceRecognitionBridge
+
 class WebBridge(QObject):
     """Python与HTML界面的通信桥接"""
     
@@ -2135,6 +2138,10 @@ class XCRobotWebMainWindow(QMainWindow):
         # 创建通信桥接
         self.bridge = WebBridge()
         
+        # 创建专门的桥接实例
+        self.help_bridge = HelpBridge(self)
+        self.face_recognition_bridge = FaceRecognitionBridge(self)
+        
         self.setup_ui()
         self.setup_web_channel()
         self.setup_menu()
@@ -2465,6 +2472,8 @@ class XCRobotWebMainWindow(QMainWindow):
             
             # 注册桥接对象
             self.channel.registerObject("bridge", self.bridge)
+            self.channel.registerObject("helpBridge", self.help_bridge)
+            self.channel.registerObject("faceRecognitionBridge", self.face_recognition_bridge)
             
             # 设置Web Channel到页面
             self.web_view.page().setWebChannel(self.channel)
@@ -2473,6 +2482,23 @@ class XCRobotWebMainWindow(QMainWindow):
             
         except Exception as e:
             print(f"Web Channel 设置失败: {e}")
+    
+    def show_help_document(self, file_path):
+        """显示帮助文档"""
+        try:
+            if not hasattr(self, 'help_window') or self.help_window is None:
+                from help_viewer import HelpViewerWindow
+                self.help_window = HelpViewerWindow()
+            
+            self.help_window.load_html_file(file_path)
+            self.help_window.show()
+            self.help_window.raise_()
+            self.help_window.activateWindow()
+            
+            print(f"显示帮助文档: {file_path}")
+            
+        except Exception as e:
+            print(f"显示帮助文档失败: {e}")
     
     def setup_menu(self):
         """设置菜单栏"""

@@ -4147,6 +4147,759 @@
                 max-height: 400px;
             }
         }
+        
+        /* ==================== FACE RECOGNITION STYLES ==================== */
+        
+        .face-recognition-container {
+            display: flex;
+            height: 800px;
+            background: white;
+        }
+        
+        /* 左侧面板 - 相机和控制 */
+        .face-left-panel {
+            width: 33.33%;
+            background: #f9fafb;
+            border-right: 1px solid #e5e7eb;
+            padding: 24px;
+        }
+        
+        .face-panel-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        /* 相机画面区域 */
+        .face-camera-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .face-camera-title {
+            font-size: 20px;
+            color: #111827;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .face-camera-view {
+            background: #4b5563;
+            border-radius: 8px;
+            height: 256px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .face-camera-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .face-camera-icon {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+        
+        .face-camera-text {
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        /* 控制按钮 */
+        .face-control-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .face-scan-button {
+            width: 100%;
+            background: #111827;
+            color: white;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .face-scan-button:hover {
+            background: #1f2937;
+        }
+        
+        .face-scan-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .face-scan-icon {
+            font-size: 16px;
+        }
+        
+        /* 状态指示器 */
+        .face-status-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .face-status-title {
+            font-size: 14px;
+            color: #374151;
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .face-status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .face-status-dot {
+            width: 12px;
+            height: 12px;
+            background: #6b7280;
+            border-radius: 50%;
+        }
+        
+        .face-status-text {
+            font-size: 14px;
+            color: #4b5563;
+        }
+        
+        /* 右侧面板 - 用户信息 */
+        .face-right-panel {
+            flex: 1;
+            padding: 24px;
+        }
+        
+        .face-user-content {
+            height: 100%;
+        }
+        
+        /* 默认状态 */
+        .face-default-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .face-default-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #6b7280;
+        }
+        
+        .face-default-icon {
+            font-size: 72px;
+            margin-bottom: 16px;
+        }
+        
+        .face-default-text {
+            font-size: 18px;
+            margin: 0;
+        }
+        
+        /* 用户信息显示 */
+        .face-user-info-display {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .face-user-title {
+            font-size: 24px;
+            color: #111827;
+            margin: 0;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        /* 用户信息卡片 */
+        .face-user-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+        }
+        
+        .face-user-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .face-user-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .face-user-basic {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .face-user-name {
+            font-size: 20px;
+            color: #111827;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .face-user-status {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+        
+        .face-user-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .face-user-grid-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .face-user-label {
+            font-size: 14px;
+            color: #4b5563;
+            margin: 0;
+        }
+        
+        .face-user-value {
+            font-size: 16px;
+            color: #111827;
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .face-user-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        /* 历史任务卡片 */
+        .face-history-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+        }
+        
+        .face-history-title {
+            font-size: 18px;
+            color: #111827;
+            margin: 0 0 16px 0;
+            font-weight: 600;
+        }
+        
+        .face-history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 256px;
+            overflow-y: auto;
+        }
+        
+        .face-history-item {
+            border-left: 4px solid #6b7280;
+            padding: 8px 16px;
+        }
+        
+        .face-history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+        
+        .face-history-time {
+            font-size: 14px;
+            color: #4b5563;
+            margin: 0;
+        }
+        
+        .face-history-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        .face-history-desc {
+            font-size: 14px;
+            color: #111827;
+            margin: 0;
+        }
+        
+        .user-card h3 {
+            margin: 0 0 16px 0;
+            color: #2c3e50;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .user-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .info-value {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .permission-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .permission-admin {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .permission-user {
+            background: #3498db;
+            color: white;
+        }
+        
+        .task-history-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .task-history-card h3 {
+            margin: 0 0 16px 0;
+            color: #2c3e50;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .task-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .task-item {
+            padding: 12px;
+            border-bottom: 1px solid #f1f3f4;
+            transition: background 0.2s ease;
+        }
+        
+        .task-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-time {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+        
+        .task-description {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        
+        .task-status {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .task-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .task-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* ==================== SMART INTERFACE STYLES ==================== */
+        
+        .smart-interface-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 120px);
+            overflow: hidden;
+        }
+        
+        .smart-interface-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
+            color: white;
+            padding: 15px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .smart-interface-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-left: 16px;
+        }
+        
+        .status-text {
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        
+        .status-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .smart-config-panel {
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 20px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+        
+        .config-section h3 {
+            margin: 0 0 12px 0;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .config-row {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .config-row label {
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .input-group input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #f8f9fa;
+        }
+        
+        .qr-btn {
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .qr-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+        
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .status-indicator-dot {
+            width: 12px;
+            height: 12px;
+            background: #2ECC71;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .status-indicator-dot.animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .smart-main-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 24px;
+            overflow: hidden;
+        }
+        
+        .chat-panel, .task-panel {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header, .task-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 16px 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .chat-header h3, .task-header h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .message-wrapper {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .message-wrapper.user-message {
+            justify-content: flex-end;
+        }
+        
+        .message-wrapper.robot-message {
+            justify-content: flex-start;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message-text {
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .user-message .message-text {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+        
+        .robot-message .message-text {
+            background: #f8f9fa;
+            color: #2c3e50;
+            border: 1px solid #e9ecef;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+        
+        .user-message .message-time {
+            text-align: right;
+        }
+        
+        .robot-message .message-time {
+            text-align: left;
+        }
+        
+        .task-details {
+            flex: 1;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .detail-label {
+            font-size: 14px;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .detail-value.status-executing {
+            color: #2ECC71;
+        }
+        
+        .task-actions {
+            padding-top: 16px;
+            border-top: 1px solid #e9ecef;
+            margin-top: auto;
+        }
+        
+        .emergency-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .emergency-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+        
+        .emergency-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .smart-main-content {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .smart-config-panel {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .smart-interface-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .header-subtitle {
+                margin-left: 0;
+            }
+            
+            .smart-config-panel {
+                padding: 16px;
+            }
+            
+            .smart-main-content {
+                padding: 16px;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -4600,6 +5353,9 @@
             const pageContent = document.getElementById('pageContent');
             const pageData = getPageData(pageId);
             
+            // 清理之前页面的资源
+            cleanupPreviousPage();
+            
             // Special handling for network configuration page
             if (pageData.isNetworkConfig) {
                 showNetworkConfigPage();
@@ -4618,6 +5374,12 @@
                 return;
             }
             
+            // Special handling for face recognition page
+            if (pageData.isFaceRecognition) {
+                showFaceRecognitionPage();
+                return;
+            }
+            
             // Special handling for simulation page
             if (pageData.isSimulation) {
                 showRobotSimulationPage();
@@ -4627,6 +5389,12 @@
             // Special handling for RobotSim 3D page
             if (pageData.isRobotSim3D) {
                 showRobotSim3DPage();
+                return;
+            }
+            
+            // Special handling for Smart Interface page
+            if (pageData.isSmartInterface) {
+                showSmartInterfacePage();
                 return;
             }
             
@@ -4645,6 +5413,12 @@
             // Special handling for coordination control page
             if (pageId === 'coord-control') {
                 showCoordinationControlPage();
+                return;
+            }
+            
+            // Special handling for face recognition page
+            if (pageId === 'face-recognition') {
+                showFaceRecognitionPage();
                 return;
             }
             
@@ -4859,6 +5633,12 @@
                         { icon: '📈', title: '综合评估', desc: '任务完成率、执行效率、系统稳定性' }
                     ]
                 },
+                'voice-control': {
+                    icon: '🎤',
+                    title: '智能交互',
+                    description: '对话式任务管理，实现人机智能交互',
+                    isSmartInterface: true
+                },
                 'vision-system': {
                     icon: '👁️',
                     title: '视觉系统',
@@ -4881,6 +5661,12 @@
                     title: '连接状态',
                     description: '实时监控各设备连接状态、任务执行进度和系统数据',
                     isConnectionStatus: true
+                },
+                'face-recognition': {
+                    icon: '👤',
+                    title: '人脸识别',
+                    description: '快速识别操作员，个性化加载其工作信息和权限，并提供历史任务追溯',
+                    isFaceRecognition: true
                 }
             };
             
@@ -7922,6 +8708,219 @@ window.show()</code></pre>
             
             // 初始化RobotSim 3D页面
             initRobotSim3DPage();
+        }
+        
+        // Smart Interface Page Functions
+        function showSmartInterfacePage() {
+            console.log('=== showSmartInterfacePage 被调用 ===');
+            const pageContent = document.getElementById('pageContent');
+            console.log('pageContent元素:', pageContent);
+            
+            pageContent.innerHTML = `
+                <div class="smart-interface-container">
+                    <!-- Header -->
+                    <div class="smart-interface-header">
+                        <div class="header-info">
+                            <h2>🤖 机器人控制中心</h2>
+                            <span class="header-subtitle">对话式任务管理</span>
+                        </div>
+                        <div class="header-status">
+                            <span class="status-text">当前状态:</span>
+                            <span class="status-badge">任务执行中</span>
+                        </div>
+                    </div>
+
+                    <!-- Configuration Panel -->
+                    <div class="smart-config-panel">
+                        <div class="config-section">
+                            <h3>移动端接入</h3>
+                            <div class="config-row">
+                                <label>聊天页面地址</label>
+                                <div class="input-group">
+                                    <input type="text" value="https://your-robot-ip:8888/chat" readonly>
+                                    <button class="qr-btn">📱 生成二维码</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="config-section">
+                            <h3>系统状态</h3>
+                            <div class="system-status">
+                                <div class="status-indicator-dot animate-pulse"></div>
+                                <span>系统正常运行</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="smart-main-content">
+                        <!-- Chat Panel -->
+                        <div class="chat-panel">
+                            <div class="chat-header">
+                                <h3>💬 实时对话记录</h3>
+                            </div>
+                            <div class="chat-messages" id="chatMessages">
+                                <!-- User Message -->
+                                <div class="message-wrapper user-message">
+                                    <div class="message-content">
+                                        <div class="message-text">帮我从实验室拿一个万用表过来</div>
+                                        <div class="message-time">15:23</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Robot Response -->
+                                <div class="message-wrapper robot-message">
+                                    <div class="message-content">
+                                        <div class="message-text">
+                                            好的，我将执行以下任务：<br>
+                                            - 动作: 抓取并递送<br>
+                                            - 目标: 万用表<br>
+                                            - 起点: 实验室<br>
+                                            - 终点: 您的当前位置<br><br>
+                                            请回复"确认"以开始。
+                                        </div>
+                                        <div class="message-time">15:23</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- User Confirmation -->
+                                <div class="message-wrapper user-message">
+                                    <div class="message-content">
+                                        <div class="message-text">确认</div>
+                                        <div class="message-time">15:24</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Robot Status -->
+                                <div class="message-wrapper robot-message">
+                                    <div class="message-content">
+                                        <div class="message-text">任务已确认，正在前往实验室...</div>
+                                        <div class="message-time">15:24</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Details Panel -->
+                        <div class="task-panel">
+                            <div class="task-header">
+                                <h3>📋 解析任务详情</h3>
+                            </div>
+                            <div class="task-details" id="taskDetails">
+                                <div class="detail-item">
+                                    <span class="detail-label">任务ID</span>
+                                    <span class="detail-value">T-20250718-005</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">动作 (Action)</span>
+                                    <span class="detail-value">Grasp & Deliver</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">目标 (Object)</span>
+                                    <span class="detail-value">万用表</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">起点 (Source)</span>
+                                    <span class="detail-value">实验室</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">终点 (Destination)</span>
+                                    <span class="detail-value">用户当前位置</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">状态</span>
+                                    <span class="detail-value status-executing">已确认，正在执行</span>
+                                </div>
+                                
+                                <div class="task-actions">
+                                    <button class="emergency-btn" onclick="emergencyStop()">
+                                        🛑 强制终止任务
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // 初始化Smart Interface页面
+            initSmartInterfacePage();
+        }
+        
+        // Smart Interface Page Functions
+        function initSmartInterfacePage() {
+            console.log('=== initSmartInterfacePage 被调用 ===');
+            
+            // 模拟实时对话更新
+            startChatSimulation();
+            
+            // 模拟任务状态更新
+            startTaskStatusSimulation();
+        }
+        
+        function startChatSimulation() {
+            // 添加新消息的示例
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+            
+            // 模拟添加新消息
+            setTimeout(() => {
+                const newMessage = document.createElement('div');
+                newMessage.className = 'message-wrapper robot-message';
+                newMessage.innerHTML = `
+                    <div class="message-content">
+                        <div class="message-text">
+                            正在移动到实验室位置...
+                        </div>
+                        <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                    </div>
+                `;
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 3000);
+        }
+        
+        function startTaskStatusSimulation() {
+            // 模拟任务状态更新
+            setTimeout(() => {
+                const statusElement = document.querySelector('.detail-value.status-executing');
+                if (statusElement) {
+                    statusElement.textContent = '移动中';
+                    statusElement.style.color = '#f39c12';
+                }
+            }, 5000);
+        }
+        
+        function emergencyStop() {
+            // 紧急停止功能
+            console.log('执行紧急停止...');
+            
+            // 更新任务状态
+            const statusElement = document.querySelector('.detail-value.status-executing');
+            if (statusElement) {
+                statusElement.textContent = '已停止';
+                statusElement.style.color = '#e74c3c';
+                statusElement.classList.remove('status-executing');
+            }
+            
+            // 添加停止消息
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages) {
+                const stopMessage = document.createElement('div');
+                stopMessage.className = 'message-wrapper robot-message';
+                stopMessage.innerHTML = `
+                    <div class="message-content">
+                        <div class="message-text">
+                            🛑 任务已紧急停止
+                        </div>
+                        <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                    </div>
+                `;
+                chatMessages.appendChild(stopMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // 通知用户
+            alert('任务已紧急停止');
         }
         
         // Connection Status Dashboard Functions
@@ -11089,6 +12088,351 @@ window.show()</code></pre>
             console.log('机械臂恢复到默认姿态');
         }
         
+        // Enhanced 3D scene initialization
+        function init3DScene() {
+            const viewer = document.getElementById('robot-3d-viewer');
+            if (!viewer) return;
+            
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            canvas.id = 'robot-3d-canvas';
+            canvas.width = viewer.clientWidth;
+            canvas.height = viewer.clientHeight;
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            
+            // Clear and add canvas
+            viewer.innerHTML = '';
+            viewer.appendChild(canvas);
+            
+            // Initialize WebGL context
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) {
+                console.error('WebGL not supported');
+                viewer.innerHTML = `
+                    <div class="webgl-error">
+                        <div class="error-icon">⚠️</div>
+                        <div class="error-message">
+                            <h3>WebGL 不支持</h3>
+                            <p>请使用支持 WebGL 的现代浏览器</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Store WebGL context
+            window.robotGL = gl;
+            
+            // Basic WebGL setup
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            gl.clearColor(0.95, 0.95, 0.95, 1.0);
+            gl.enable(gl.DEPTH_TEST);
+            gl.enable(gl.CULL_FACE);
+            
+            // Initialize robot model
+            initRobotModel();
+            
+            // Start render loop
+            startRenderLoop();
+            
+            console.log('3D场景初始化完成');
+        }
+        
+        function initRobotModel() {
+            // Initialize robot model with FR3 specifications
+            window.robotModel = {
+                joints: [0, -90, 90, 0, 0, 0],
+                linkLengths: [333, 316, 384, 88, 107, 45], // FR3 link lengths in mm
+                basePosition: [0, 0, 0],
+                
+                // Update joint angle
+                setJointAngle: function(index, angle) {
+                    if (index >= 0 && index < this.joints.length) {
+                        this.joints[index] = angle;
+                        this.updateEndEffector();
+                    }
+                },
+                
+                // Calculate end effector position using forward kinematics
+                updateEndEffector: function() {
+                    const rad = this.joints.map(deg => deg * Math.PI / 180);
+                    const l = this.linkLengths;
+                    
+                    // Simplified forward kinematics for FR3
+                    const x = (l[1] * Math.cos(rad[1]) + l[2] * Math.cos(rad[1] + rad[2])) * Math.cos(rad[0]);
+                    const y = (l[1] * Math.cos(rad[1]) + l[2] * Math.cos(rad[1] + rad[2])) * Math.sin(rad[0]);
+                    const z = l[0] + l[1] * Math.sin(rad[1]) + l[2] * Math.sin(rad[1] + rad[2]);
+                    
+                    this.endEffector = { x, y, z };
+                    return this.endEffector;
+                },
+                
+                // Get transformation matrices
+                getTransformMatrix: function() {
+                    const matrices = [];
+                    const rad = this.joints.map(deg => deg * Math.PI / 180);
+                    
+                    // Calculate transformation matrix for each joint
+                    for (let i = 0; i < this.joints.length; i++) {
+                        const cos = Math.cos(rad[i]);
+                        const sin = Math.sin(rad[i]);
+                        
+                        // Simplified transformation matrix
+                        matrices.push([
+                            cos, -sin, 0, 0,
+                            sin, cos, 0, 0,
+                            0, 0, 1, this.linkLengths[i],
+                            0, 0, 0, 1
+                        ]);
+                    }
+                    
+                    return matrices;
+                }
+            };
+        }
+        
+        function startRenderLoop() {
+            function render() {
+                if (window.robotGL) {
+                    render3DScene();
+                }
+                requestAnimationFrame(render);
+            }
+            render();
+        }
+        
+        function render3DScene() {
+            if (!window.robotGL || !window.robotModel) return;
+            
+            const gl = window.robotGL;
+            
+            // Clear the canvas
+            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+            
+            // Update model with current joint values
+            for (let i = 0; i < 6; i++) {
+                window.robotModel.setJointAngle(i, robotSim3DState.joints[i]);
+            }
+            
+            // Render robot model (simplified representation)
+            renderRobotLinks();
+            renderCoordinateSystem();
+            renderEndEffector();
+        }
+        
+        function renderRobotLinks() {
+            // Simplified robot link rendering
+            const gl = window.robotGL;
+            const model = window.robotModel;
+            
+            // Draw base
+            drawCylinder(gl, 0, 0, 0, 50, 20, [0.3, 0.3, 0.3, 1.0]);
+            
+            // Draw links based on joint angles
+            const transforms = model.getTransformMatrix();
+            let x = 0, y = 0, z = 0;
+            
+            for (let i = 0; i < transforms.length; i++) {
+                const transform = transforms[i];
+                const linkLength = model.linkLengths[i];
+                
+                // Draw link
+                drawCylinder(gl, x, y, z, linkLength, 10, [0.2, 0.6, 0.8, 1.0]);
+                
+                // Update position for next link
+                x += linkLength * Math.cos(model.joints[i] * Math.PI / 180);
+                y += linkLength * Math.sin(model.joints[i] * Math.PI / 180);
+                z += 30; // Simplified Z offset
+            }
+        }
+        
+        function renderCoordinateSystem() {
+            // Draw coordinate axes
+            const gl = window.robotGL;
+            
+            // X-axis (red)
+            drawLine(gl, 0, 0, 0, 100, 0, 0, [1.0, 0.0, 0.0, 1.0]);
+            
+            // Y-axis (green)
+            drawLine(gl, 0, 0, 0, 0, 100, 0, [0.0, 1.0, 0.0, 1.0]);
+            
+            // Z-axis (blue)
+            drawLine(gl, 0, 0, 0, 0, 0, 100, [0.0, 0.0, 1.0, 1.0]);
+        }
+        
+        function renderEndEffector() {
+            // Draw end effector position
+            const gl = window.robotGL;
+            const model = window.robotModel;
+            
+            if (model.endEffector) {
+                const pos = model.endEffector;
+                drawSphere(gl, pos.x, pos.y, pos.z, 8, [1.0, 0.5, 0.0, 1.0]);
+            }
+        }
+        
+        // Simplified drawing functions
+        function drawCylinder(gl, x, y, z, height, radius, color) {
+            // Simplified cylinder drawing
+            // In real implementation, use proper vertex buffers and shaders
+            console.log(`Drawing cylinder at (${x}, ${y}, ${z}) with height ${height}`);
+        }
+        
+        function drawLine(gl, x1, y1, z1, x2, y2, z2, color) {
+            // Simplified line drawing
+            console.log(`Drawing line from (${x1}, ${y1}, ${z1}) to (${x2}, ${y2}, ${z2})`);
+        }
+        
+        function drawSphere(gl, x, y, z, radius, color) {
+            // Simplified sphere drawing
+            console.log(`Drawing sphere at (${x}, ${y}, ${z}) with radius ${radius}`);
+        }
+        
+        // Path planning functions
+        function planPath() {
+            console.log('开始路径规划...');
+            
+            // Get current and target positions
+            const currentPos = [...robotSim3DState.joints];
+            const targetPos = [];
+            
+            // Get target position from UI
+            for (let i = 0; i < 6; i++) {
+                const targetInput = document.getElementById(`target-joint-${i + 1}`);
+                if (targetInput) {
+                    targetPos.push(parseFloat(targetInput.value) || 0);
+                } else {
+                    targetPos.push(0);
+                }
+            }
+            
+            // Simple linear interpolation path planning
+            const pathPoints = generateLinearPath(currentPos, targetPos, 20);
+            
+            // Store path
+            robotSim3DState.plannedPath = pathPoints;
+            
+            // Update UI
+            updatePathDisplay(pathPoints);
+            
+            console.log(`路径规划完成，共${pathPoints.length}个点`);
+        }
+        
+        function generateLinearPath(start, end, steps) {
+            const path = [];
+            
+            for (let i = 0; i <= steps; i++) {
+                const t = i / steps;
+                const point = [];
+                
+                for (let j = 0; j < 6; j++) {
+                    point.push(start[j] + (end[j] - start[j]) * t);
+                }
+                
+                path.push(point);
+            }
+            
+            return path;
+        }
+        
+        function updatePathDisplay(pathPoints) {
+            const pathInfo = document.getElementById('path-info');
+            if (pathInfo) {
+                pathInfo.innerHTML = `
+                    <div class="path-details">
+                        <p><strong>路径点数:</strong> ${pathPoints.length}</p>
+                        <p><strong>预计时间:</strong> ${(pathPoints.length * 0.1).toFixed(1)}s</p>
+                        <p><strong>路径类型:</strong> 线性插值</p>
+                    </div>
+                `;
+            }
+            
+            // Enable execute button
+            const executeBtn = document.getElementById('execute-path-btn');
+            if (executeBtn) {
+                executeBtn.disabled = false;
+                executeBtn.textContent = '执行路径';
+            }
+        }
+        
+        function executePath() {
+            if (!robotSim3DState.plannedPath || robotSim3DState.plannedPath.length === 0) {
+                console.log('没有可执行的路径');
+                return;
+            }
+            
+            console.log('开始执行路径...');
+            
+            const path = robotSim3DState.plannedPath;
+            let currentIndex = 0;
+            
+            function executeNextPoint() {
+                if (currentIndex >= path.length) {
+                    console.log('路径执行完成');
+                    updateSystemStatus('路径执行完成');
+                    return;
+                }
+                
+                const point = path[currentIndex];
+                
+                // Update joint positions
+                for (let i = 0; i < 6; i++) {
+                    robotSim3DState.joints[i] = point[i];
+                }
+                
+                // Update UI
+                updateAllJointValues();
+                updateCurrentPosition();
+                render3DScene();
+                
+                currentIndex++;
+                
+                // Update progress
+                const progress = (currentIndex / path.length * 100).toFixed(1);
+                updateSystemStatus(`执行路径中... ${progress}%`);
+                
+                // Continue to next point
+                setTimeout(executeNextPoint, 100);
+            }
+            
+            executeNextPoint();
+        }
+        
+        // System status update
+        function updateSystemStatus(message) {
+            const statusElement = document.getElementById('system-status');
+            if (statusElement) {
+                statusElement.textContent = message;
+            }
+            
+            // Auto-clear after 3 seconds
+            setTimeout(() => {
+                if (statusElement && statusElement.textContent === message) {
+                    statusElement.textContent = '就绪';
+                }
+            }, 3000);
+        }
+        
+        // Initialize 3D scene when page loads
+        function initRobotSim3DPage() {
+            console.log('初始化RobotSim 3D页面...');
+            
+            // Initialize 3D scene
+            init3DScene();
+            
+            // Update displays
+            updateAllJointValues();
+            updateCurrentPosition();
+            
+            // Set up real-time updates
+            setInterval(() => {
+                updateCurrentPosition();
+            }, 100);
+            
+            console.log('RobotSim 3D页面初始化完成');
+        }
+        
         function executePresetAction(action) {
             console.log('执行预设动作:', action);
             
@@ -11111,6 +12455,287 @@ window.show()</code></pre>
             updateAllJointValues();
             updateCurrentPosition();
             render3DScene();
+        }
+        
+        // Offline Programming Functions
+        function startProgramming() {
+            console.log('开始离线编程...');
+            
+            // Initialize programming state
+            if (!robotSim3DState.program) {
+                robotSim3DState.program = {
+                    points: [],
+                    isRecording: false,
+                    currentIndex: 0
+                };
+            }
+            
+            // Toggle recording state
+            robotSim3DState.program.isRecording = !robotSim3DState.program.isRecording;
+            
+            const btn = document.querySelector('.program-btn[onclick="startProgramming()"]');
+            if (btn) {
+                btn.textContent = robotSim3DState.program.isRecording ? '停止编程' : '开始编程';
+                btn.style.backgroundColor = robotSim3DState.program.isRecording ? '#e74c3c' : '#3498db';
+            }
+            
+            updateSystemStatus(robotSim3DState.program.isRecording ? '编程模式已启动' : '编程模式已停止');
+        }
+        
+        function saveProgramPoints() {
+            console.log('保存当前路径点...');
+            
+            if (!robotSim3DState.program) {
+                robotSim3DState.program = { points: [] };
+            }
+            
+            // Save current joint positions
+            const currentPoint = {
+                joints: [...robotSim3DState.joints],
+                timestamp: Date.now(),
+                name: `Point_${robotSim3DState.program.points.length + 1}`
+            };
+            
+            robotSim3DState.program.points.push(currentPoint);
+            
+            // Update UI
+            updateProgramPointsList();
+            updateSystemStatus(`已保存路径点 ${currentPoint.name}`);
+            
+            console.log('路径点保存完成:', currentPoint);
+        }
+        
+        function updateProgramPointsList() {
+            const listContainer = document.getElementById('program-points-list');
+            if (!listContainer) return;
+            
+            if (!robotSim3DState.program || robotSim3DState.program.points.length === 0) {
+                listContainer.innerHTML = '<p style="color: #666;">暂无保存的路径点</p>';
+                return;
+            }
+            
+            let html = '<h4>已保存的路径点:</h4>';
+            robotSim3DState.program.points.forEach((point, index) => {
+                html += `
+                    <div class="program-point-item">
+                        <span>${point.name}</span>
+                        <div class="point-actions">
+                            <button onclick="gotoPoint(${index})">跳转</button>
+                            <button onclick="deletePoint(${index})">删除</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            listContainer.innerHTML = html;
+        }
+        
+        function gotoPoint(index) {
+            if (!robotSim3DState.program || !robotSim3DState.program.points[index]) {
+                console.log('无效的路径点索引:', index);
+                return;
+            }
+            
+            const point = robotSim3DState.program.points[index];
+            robotSim3DState.joints = [...point.joints];
+            
+            // Update UI
+            updateAllJointValues();
+            updateCurrentPosition();
+            render3DScene();
+            
+            updateSystemStatus(`跳转到路径点 ${point.name}`);
+        }
+        
+        function deletePoint(index) {
+            if (!robotSim3DState.program || !robotSim3DState.program.points[index]) {
+                console.log('无效的路径点索引:', index);
+                return;
+            }
+            
+            const point = robotSim3DState.program.points[index];
+            robotSim3DState.program.points.splice(index, 1);
+            
+            // Update UI
+            updateProgramPointsList();
+            updateSystemStatus(`已删除路径点 ${point.name}`);
+        }
+        
+        function loadProgramFile() {
+            console.log('加载程序文件...');
+            
+            // Create file input element
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.json,.txt,.robot';
+            fileInput.style.display = 'none';
+            
+            fileInput.onchange = function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const programData = JSON.parse(e.target.result);
+                        
+                        // Validate program data
+                        if (programData.points && Array.isArray(programData.points)) {
+                            robotSim3DState.program = programData;
+                            updateProgramPointsList();
+                            updateSystemStatus(`已加载程序文件: ${file.name}`);
+                            console.log('程序文件加载成功:', file.name);
+                        } else {
+                            throw new Error('无效的程序文件格式');
+                        }
+                    } catch (error) {
+                        console.error('程序文件加载失败:', error);
+                        updateSystemStatus('程序文件加载失败: ' + error.message);
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            // Trigger file selection
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+        }
+        
+        function executeProgram() {
+            console.log('执行程序...');
+            
+            if (!robotSim3DState.program || !robotSim3DState.program.points.length) {
+                updateSystemStatus('没有可执行的程序');
+                return;
+            }
+            
+            const points = robotSim3DState.program.points;
+            let currentIndex = 0;
+            
+            function executeNextPoint() {
+                if (currentIndex >= points.length) {
+                    updateSystemStatus('程序执行完成');
+                    return;
+                }
+                
+                const point = points[currentIndex];
+                
+                // Update joint positions
+                robotSim3DState.joints = [...point.joints];
+                
+                // Update UI
+                updateAllJointValues();
+                updateCurrentPosition();
+                render3DScene();
+                
+                currentIndex++;
+                
+                // Update progress
+                const progress = (currentIndex / points.length * 100).toFixed(1);
+                updateSystemStatus(`执行程序中... ${progress}% (${point.name})`);
+                
+                // Continue to next point
+                setTimeout(executeNextPoint, 1000); // 1 second between points
+            }
+            
+            executeNextPoint();
+        }
+        
+        // Target position control functions
+        function moveToTargetPosition() {
+            console.log('移动到目标位置...');
+            
+            if (!robotSim3DState.targetPosition) {
+                updateSystemStatus('请先设置目标位置');
+                return;
+            }
+            
+            // Calculate inverse kinematics (simplified)
+            const targetJoints = calculateInverseKinematics(robotSim3DState.targetPosition);
+            
+            if (targetJoints) {
+                // Animate to target position
+                animateToJointPosition(targetJoints, 2000);
+                updateSystemStatus('移动到目标位置中...');
+            } else {
+                updateSystemStatus('目标位置不可达');
+            }
+        }
+        
+        function calculateInverseKinematics(targetPos) {
+            // Simplified inverse kinematics calculation
+            const { x, y, z, roll, pitch, yaw } = targetPos;
+            
+            // Basic geometric approach (simplified)
+            const r = Math.sqrt(x * x + y * y);
+            const theta1 = Math.atan2(y, x) * 180 / Math.PI;
+            
+            // Simplified joint calculations
+            const joints = [
+                theta1,
+                Math.atan2(z - 333, r) * 180 / Math.PI,
+                45, // Simplified
+                roll,
+                pitch,
+                yaw
+            ];
+            
+            // Validate joint limits
+            const limits = [[-170, 170], [-120, 120], [-170, 170], [-170, 170], [-120, 120], [-170, 170]];
+            
+            for (let i = 0; i < 6; i++) {
+                if (joints[i] < limits[i][0] || joints[i] > limits[i][1]) {
+                    return null;
+                }
+            }
+            
+            return joints;
+        }
+        
+        function animateToJointPosition(targetJoints, duration = 2000) {
+            const startTime = Date.now();
+            const startJoints = [...robotSim3DState.joints];
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Smooth easing
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                
+                // Interpolate joint values
+                for (let i = 0; i < 6; i++) {
+                    robotSim3DState.joints[i] = startJoints[i] + 
+                        (targetJoints[i] - startJoints[i]) * easeProgress;
+                }
+                
+                // Update UI
+                updateAllJointValues();
+                updateCurrentPosition();
+                render3DScene();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    updateSystemStatus('到达目标位置');
+                }
+            }
+            
+            animate();
+        }
+        
+        function stopCurrentMotion() {
+            console.log('中止当前运动...');
+            
+            // Stop any ongoing animations
+            if (window.currentAnimation) {
+                cancelAnimationFrame(window.currentAnimation);
+                window.currentAnimation = null;
+            }
+            
+            updateSystemStatus('运动已中止');
         }
         
         function updateTargetPosition() {
@@ -11196,6 +12821,509 @@ window.show()</code></pre>
                 const ctx = canvas.getContext('2d');
                 draw3DScene(ctx);
             }
+        }
+        
+        // ==================== FACE RECOGNITION PAGE ====================
+        
+        // Face recognition state
+        let faceRecognitionState = {
+            isScanning: false,
+            currentUser: null,
+            scanStatus: 'waiting', // waiting, scanning, success, failed
+            taskHistory: []
+        };
+        
+        function showFaceRecognitionPage() {
+            console.log('=== showFaceRecognitionPage 被调用 ===');
+            const pageContent = document.getElementById('pageContent');
+            
+            pageContent.innerHTML = `
+                <div class="face-recognition-container">
+                    <!-- 左侧面板 - 相机和控制 -->
+                    <div class="face-left-panel">
+                        <div class="face-panel-content">
+                            <!-- 相机画面区域 -->
+                            <div class="face-camera-section">
+                                <h2 class="face-camera-title">实时相机画面</h2>
+                                <div class="face-camera-view">
+                                    <div class="face-camera-placeholder">
+                                        <i class="fa-solid fa-video face-camera-icon"></i>
+                                        <p class="face-camera-text">Gemini 335 RGB流</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 控制按钮区域 -->
+                            <div class="face-control-section">
+                                <button class="face-scan-button" onclick="startFaceScan()">
+                                    <i class="fa-solid fa-scan-face face-scan-icon"></i>
+                                    扫描并识别用户
+                                </button>
+                            </div>
+                            
+                            <!-- 状态指示器 -->
+                            <div class="face-status-section">
+                                <h3 class="face-status-title">系统状态</h3>
+                                <div class="face-status-indicator">
+                                    <div class="face-status-dot" id="face-status-dot"></div>
+                                    <span class="face-status-text" id="face-status-text">待命中</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 右侧面板 - 用户信息 -->
+                    <div class="face-right-panel">
+                        <div class="face-user-content" id="face-user-content">
+                            <!-- 默认状态 -->
+                            <div class="face-default-state" id="face-default-state">
+                                <div class="face-default-content">
+                                    <i class="fa-solid fa-user-circle face-default-icon"></i>
+                                    <p class="face-default-text">请点击左侧按钮开始扫描</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 用户信息显示区域 -->
+                            <div class="face-user-info-display" id="face-user-info-display" style="display: none;">
+                                <h2 class="face-user-title">用户信息</h2>
+                                
+                                <!-- 用户信息卡片 -->
+                                <div class="face-user-card">
+                                    <div class="face-user-header">
+                                        <img class="face-user-avatar" id="face-user-avatar" src="" alt="用户头像">
+                                        <div class="face-user-basic">
+                                            <h3 class="face-user-name" id="face-user-name">Kevin Yuan</h3>
+                                            <p class="face-user-status" id="face-user-status">识别成功</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="face-user-grid">
+                                        <div class="face-user-grid-item">
+                                            <p class="face-user-label">授权工位</p>
+                                            <p class="face-user-value" id="face-user-workstation">A-12</p>
+                                        </div>
+                                        <div class="face-user-grid-item">
+                                            <p class="face-user-label">最后记录位置</p>
+                                            <p class="face-user-value" id="face-user-location">实验室</p>
+                                        </div>
+                                        <div class="face-user-grid-item">
+                                            <p class="face-user-label">调度权限</p>
+                                            <span class="face-user-badge" id="face-user-permission">管理员</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 历史任务卡片 -->
+                                <div class="face-history-card">
+                                    <h3 class="face-history-title">最近5次呼叫任务</h3>
+                                    <div class="face-history-list" id="face-history-list">
+                                        <!-- 任务列表将通过JavaScript动态生成 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            
+            // 初始化人脸识别页面
+            initFaceRecognitionPage();
+        }
+        
+        function initFaceRecognitionPage() {
+            console.log('=== initFaceRecognitionPage 被调用 ===');
+            
+            // 重置状态
+            faceRecognitionState = {
+                isScanning: false,
+                currentUser: null,
+                scanStatus: 'waiting',
+                taskHistory: []
+            };
+            
+            // 模拟获取摄像头权限
+            initCamera();
+        }
+        
+        function initCamera() {
+            console.log('初始化摄像头...');
+            
+            // 使用WebBridge初始化摄像头
+            if (window.faceRecognitionBridge) {
+                window.faceRecognitionBridge.init_camera().then(result => {
+                    try {
+                        const data = JSON.parse(result);
+                        if (data.success) {
+                            console.log('摄像头初始化成功:', data.message);
+                            startCameraStream();
+                        } else {
+                            console.error('摄像头初始化失败:', data.error);
+                            updateScanStatus('failed', data.error);
+                        }
+                    } catch (e) {
+                        console.error('解析摄像头初始化结果失败:', e);
+                    }
+                }).catch(err => {
+                    console.error('摄像头初始化调用失败:', err);
+                });
+            } else {
+                console.warn('WebBridge未加载，使用模拟模式');
+                updateScanStatus('waiting', '模拟模式 - 待命中');
+            }
+        }
+        
+        function startCameraStream() {
+            if (window.faceRecognitionBridge) {
+                window.faceRecognitionBridge.start_camera_stream().then(result => {
+                    try {
+                        const data = JSON.parse(result);
+                        if (data.success) {
+                            console.log('摄像头流已启动:', data.message);
+                            updateScanStatus('waiting', '摄像头就绪');
+                            // 开始定期更新相机画面
+                            startCameraFrameUpdate();
+                        } else {
+                            console.error('启动摄像头流失败:', data.error);
+                            updateScanStatus('failed', data.error);
+                        }
+                    } catch (e) {
+                        console.error('解析摄像头流启动结果失败:', e);
+                        updateScanStatus('failed', '摄像头流启动失败');
+                    }
+                }).catch(err => {
+                    console.error('启动摄像头流调用失败:', err);
+                    updateScanStatus('failed', '摄像头流启动失败');
+                });
+            } else {
+                console.warn('WebBridge未加载，无法启动摄像头流');
+                updateScanStatus('waiting', '模拟模式 - 待命中');
+            }
+        }
+        
+        function startCameraFrameUpdate() {
+            // 使用统一的定时器系统更新相机画面
+            startCameraUpdateTimer();
+        }
+        
+        function updateCameraDisplay(imageData) {
+            const cameraView = document.querySelector('.face-camera-view');
+            if (cameraView) {
+                cameraView.innerHTML = `<img src="${imageData}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
+            }
+        }
+        
+        function startFaceScan() {
+            if (faceRecognitionState.isScanning) {
+                console.log('已经在扫描中，忽略重复请求');
+                return;
+            }
+            
+            console.log('开始人脸扫描...');
+            faceRecognitionState.isScanning = true;
+            faceRecognitionState.scanStatus = 'scanning';
+            
+            // 更新UI状态
+            updateScanStatus('scanning', '正在扫描...');
+            
+            // 禁用按钮
+            const scanButton = document.querySelector('.face-scan-button');
+            scanButton.disabled = true;
+            scanButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin face-scan-icon"></i>扫描中...';
+            
+            // 使用WebBridge进行真实人脸扫描
+            if (window.faceRecognitionBridge) {
+                window.faceRecognitionBridge.start_face_scan().then(result => {
+                    try {
+                        const data = JSON.parse(result);
+                        if (data.success) {
+                            if (data.face_detected) {
+                                // 识别成功
+                                handleScanSuccess(data.user_data);
+                            } else {
+                                // 未检测到人脸
+                                handleScanFailure();
+                            }
+                        } else {
+                            console.error('人脸扫描失败:', data.error);
+                            handleScanFailure();
+                        }
+                    } catch (e) {
+                        console.error('解析人脸扫描结果失败:', e);
+                        handleScanFailure();
+                    }
+                }).catch(err => {
+                    console.error('人脸扫描调用失败:', err);
+                    handleScanFailure();
+                });
+            } else {
+                // 模拟扫描过程（WebBridge未加载时的备用方案）
+                setTimeout(() => {
+                    const isSuccess = Math.random() > 0.3; // 70% 成功率
+                    
+                    if (isSuccess) {
+                        const userData = generateMockUserData();
+                        handleScanSuccess(userData);
+                    } else {
+                        handleScanFailure();
+                    }
+                }, 2000);
+            }
+        }
+        
+        function generateMockUserData() {
+            // 模拟用户数据
+            const users = [
+                {
+                    name: 'Kevin Yuan',
+                    workstation: 'A-12',
+                    lastLocation: '实验室',
+                    permission: '管理员',
+                    avatar: '👨‍💻'
+                },
+                {
+                    name: 'Alice Chen',
+                    workstation: 'B-05',
+                    lastLocation: '办公室',
+                    permission: '普通用户',
+                    avatar: '👩‍🔬'
+                },
+                {
+                    name: 'Bob Wang',
+                    workstation: 'C-08',
+                    lastLocation: '测试室',
+                    permission: '普通用户',
+                    avatar: '👨‍🔧'
+                }
+            ];
+            
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+            
+            // 生成历史任务
+            const taskHistory = [
+                {
+                    time: '2025-07-18 10:30',
+                    description: '从"物料架B"抓取"扳手"到"工位A-12"',
+                    status: 'completed'
+                },
+                {
+                    time: '2025-07-18 09:15',
+                    description: '从"仓库C"运送"零件箱"到"工位A-12"',
+                    status: 'completed'
+                },
+                {
+                    time: '2025-07-18 08:45',
+                    description: '从"物料架A"抓取"螺丝刀"到"工位B-05"',
+                    status: 'cancelled'
+                },
+                {
+                    time: '2025-07-17 16:20',
+                    description: '从"实验室"运送"测试设备"到"工位C-08"',
+                    status: 'completed'
+                },
+                {
+                    time: '2025-07-17 14:30',
+                    description: '从"办公室"运送"文件夹"到"会议室"',
+                    status: 'completed'
+                }
+            ];
+            
+            return {
+                ...randomUser,
+                taskHistory: taskHistory
+            };
+        }
+        
+        function handleScanSuccess(userData) {
+            console.log('识别成功:', userData);
+            
+            faceRecognitionState.isScanning = false;
+            faceRecognitionState.scanStatus = 'success';
+            faceRecognitionState.currentUser = userData;
+            
+            // 更新UI状态
+            updateScanStatus('success', '识别成功');
+            
+            // 显示用户信息
+            displayUserInfo(userData);
+            
+            // 重新启用按钮
+            const scanButton = document.querySelector('.face-scan-button');
+            scanButton.disabled = false;
+            scanButton.innerHTML = '<i class="fa-solid fa-scan-face face-scan-icon"></i>重新扫描';
+        }
+        
+        function handleScanFailure() {
+            console.log('识别失败');
+            
+            faceRecognitionState.isScanning = false;
+            faceRecognitionState.scanStatus = 'failed';
+            faceRecognitionState.currentUser = null;
+            
+            // 更新UI状态
+            updateScanStatus('failed', '未识别到用户');
+            
+            // 重新启用按钮
+            const scanButton = document.querySelector('.face-scan-button');
+            scanButton.disabled = false;
+            scanButton.innerHTML = '<i class="fa-solid fa-scan-face face-scan-icon"></i>重新扫描';
+            
+            // 3秒后重置状态
+            setTimeout(() => {
+                if (faceRecognitionState.scanStatus === 'failed') {
+                    updateScanStatus('waiting', '待命中');
+                    scanButton.textContent = '🔍 扫描并识别用户';
+                }
+            }, 3000);
+        }
+        
+        function updateScanStatus(status, message) {
+            const statusText = document.getElementById('face-status-text');
+            if (statusText) {
+                statusText.textContent = message;
+                
+                // 更新状态点颜色
+                const statusDot = document.getElementById('face-status-dot');
+                if (statusDot) {
+                    statusDot.style.background = status === 'success' ? '#10b981' : 
+                                                status === 'failed' ? '#ef4444' : 
+                                                status === 'scanning' ? '#f59e0b' : '#6b7280';
+                }
+            }
+        }
+        
+        function displayUserInfo(userData) {
+            console.log('显示用户信息:', userData);
+            
+            // 隐藏默认状态
+            const defaultState = document.getElementById('face-default-state');
+            if (defaultState) {
+                defaultState.style.display = 'none';
+            }
+            
+            // 显示用户信息
+            const userInfoDisplay = document.getElementById('face-user-info-display');
+            if (userInfoDisplay) {
+                userInfoDisplay.style.display = 'flex';
+                
+                // 更新用户信息
+                const userAvatar = document.getElementById('face-user-avatar');
+                const userName = document.getElementById('face-user-name');
+                const userStatus = document.getElementById('face-user-status');
+                const userWorkstation = document.getElementById('face-user-workstation');
+                const userLocation = document.getElementById('face-user-location');
+                const userPermission = document.getElementById('face-user-permission');
+                
+                if (userAvatar) userAvatar.src = `https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=${userData.name}`;
+                if (userName) userName.textContent = userData.name;
+                if (userStatus) userStatus.textContent = '识别成功';
+                if (userWorkstation) userWorkstation.textContent = userData.workstation;
+                if (userLocation) userLocation.textContent = userData.lastLocation;
+                if (userPermission) userPermission.textContent = userData.permission;
+                
+                // 更新历史任务
+                updateTaskHistory(userData.taskHistory);
+            }
+        }
+        
+        function updateTaskHistory(taskHistory) {
+            const historyList = document.getElementById('face-history-list');
+            if (!historyList) return;
+            
+            historyList.innerHTML = taskHistory.map(task => {
+                const statusText = task.status === 'completed' ? '已完成' : 
+                                  task.status === 'cancelled' ? '已取消' : '进行中';
+                
+                return `
+                    <div class="face-history-item">
+                        <div class="face-history-header">
+                            <p class="face-history-time">${task.time}</p>
+                            <span class="face-history-status">${statusText}</span>
+                        </div>
+                        <p class="face-history-desc">${task.description}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 摄像头画面定时器
+        let cameraUpdateTimer = null;
+        
+        function startCameraUpdateTimer() {
+            if (cameraUpdateTimer) {
+                clearInterval(cameraUpdateTimer);
+            }
+            cameraUpdateTimer = setInterval(() => {
+                if (window.faceRecognitionBridge) {
+                    window.faceRecognitionBridge.get_camera_frame().then(result => {
+                        try {
+                            const data = JSON.parse(result);
+                            if (data.success) {
+                                updateCameraDisplay(data.image);
+                            }
+                        } catch (e) {
+                            console.error('更新摄像头画面失败:', e);
+                        }
+                    }).catch(err => {
+                        console.error('获取摄像头画面失败:', err);
+                    });
+                }
+            }, 200); // 每200ms更新一次，约5fps
+        }
+        
+        function stopCameraUpdateTimer() {
+            if (cameraUpdateTimer) {
+                clearInterval(cameraUpdateTimer);
+                cameraUpdateTimer = null;
+            }
+        }
+        
+        // 人脸识别页面清理函数
+        function cleanupFaceRecognition() {
+            console.log('清理人脸识别页面资源...');
+            
+            // 停止摄像头画面更新
+            stopCameraUpdateTimer();
+            
+            // 释放摄像头资源
+            if (window.faceRecognitionBridge) {
+                window.faceRecognitionBridge.release_camera().then(result => {
+                    try {
+                        const data = JSON.parse(result);
+                        if (data.success) {
+                            console.log('摄像头资源已释放:', data.message);
+                        } else {
+                            console.error('释放摄像头资源失败:', data.error);
+                        }
+                    } catch (e) {
+                        console.error('解析摄像头资源释放结果失败:', e);
+                    }
+                }).catch(err => {
+                    console.error('释放摄像头资源调用失败:', err);
+                });
+            }
+            
+            // 重置状态
+            faceRecognitionState = {
+                isScanning: false,
+                currentUser: null,
+                scanStatus: 'waiting',
+                taskHistory: []
+            };
+        }
+        
+        // 页面卸载时清理资源
+        window.addEventListener('beforeunload', cleanupFaceRecognition);
+        
+        // 清理之前页面的资源
+        function cleanupPreviousPage() {
+            // 检查当前页面是否包含人脸识别相关元素
+            const faceRecognitionContainer = document.querySelector('.face-recognition-container');
+            if (faceRecognitionContainer) {
+                // 当前页面是人脸识别页面，清理相关资源
+                cleanupFaceRecognition();
+            }
+            
+            // 未来可以在这里添加其他页面的清理逻辑
+            // 例如：清理3D渲染器、停止视频流等
         }
         
     </script>
