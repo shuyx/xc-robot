@@ -34,3 +34,7 @@ YOU MUST 记住这些内容
 ## 使用 zen mcp
 
 - 我可以在 claude 里面，直接输入：使用 zen，调用 gemini pro 或者 gemini flash进行xxx 任务
+
+## 提示词
+
+请阅读项目根目录 CLAUDE_CODE_INSTRUCTIONS.md文档。请阅读 design_reference 文件夹内的 component_specs.md 和 style_guide.md 的内容。然后，请严格按照design_reference文件夹下 ui_mockups文件夹中的 smart_interface_chat.html设计实现界面布局，但配色必须使用项目现有配色系统。参考color_mapping.md中的配色映射关系，保持HTML设计的所有布局、尺寸、间距、圆角等视觉规格，只替换配色方案。
