@@ -4238,8 +4238,8 @@
                     </div>
                     <div class="nav-item" data-page="coord-control">
                         <span class="nav-item-icon">🔄</span>
-                        协调控制
-                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'coord-control', '🔄 协调控制')" title="收藏此功能">☆</button>
+                        联动控制
+                        <button class="favorite-btn item-favorite" onclick="toggleFavorite('item', 'coord-control', '🔄 联动控制')" title="收藏此功能">☆</button>
                     </div>
                 </div>
             </div>
@@ -4728,7 +4728,7 @@
                 '网络连接状态检查: 右臂延迟2ms, 左臂延迟3ms, 底盘延迟5ms',
                 '系统内存使用率: 67.2% (8.1GB/12GB)',
                 'CPU使用率: 45.3% (Intel i7-12700K)',
-                '机械臂协调控制任务完成: ID#T20240717-001',
+                '机械臂联动控制任务完成: ID#T20240717-001',
                 '点云数据处理完成: 154,832个点, 处理耗时125ms',
                 '路径规划算法执行: A*算法, 节点数1,247, 耗时89ms',
                 '夹爪压力传感器数据: 左爪15.2N, 右爪14.8N',
@@ -4773,10 +4773,10 @@
                 'arm-control': {
                     icon: '🦾',
                     title: '机械臂控制',
-                    description: '对法奥意威FR3机械臂进行单臂或双臂协调控制',
+                    description: '对法奥意威FR3机械臂进行单臂或双臂联动控制',
                     features: [
                         { icon: '🎮', title: '实时控制', desc: '关节空间和笛卡尔空间控制<br>支持示教和回放功能' },
-                        { icon: '🔄', title: '双臂协调', desc: '双臂同步运动控制<br>碰撞避免和负载分配' },
+                        { icon: '🔄', title: '双臂联动', desc: '双臂同步运动控制<br>碰撞避免和负载分配' },
                         { icon: '📊', title: '状态监控', desc: '实时关节角度、速度、力矩<br>温度和电流监控' },
                         { icon: '⚙️', title: '参数配置', desc: '运动速度、加速度设置<br>安全限位和保护参数' }
                     ]
@@ -4794,12 +4794,12 @@
                 },
                 'coord-control': {
                     icon: '🔄',
-                    title: '协调控制',
-                    description: '机械臂与底盘的协调控制，实现复杂的移动操作任务',
+                    title: '联动控制',
+                    description: '机械臂与底盘的联动控制，实现复杂的移动操作任务',
                     features: [
                         { icon: '🤖', title: '系统初始化', desc: '双臂和底盘系统初始化<br>连接状态检查和配置' },
                         { icon: '⚙️', title: '任务配置', desc: '协调任务参数设置<br>运动约束和安全配置' },
-                        { icon: '🔄', title: '双臂协调', desc: '双臂同步协调控制<br>复杂操作任务执行' },
+                        { icon: '🔄', title: '双臂联动', desc: '双臂同步联动控制<br>复杂操作任务执行' },
                         { icon: '📊', title: '3D可视化', desc: '实时3D模型显示<br>关节角度和位置监控' }
                     ]
                 },
@@ -4973,9 +4973,9 @@
                     title: '机器人控制',
                     description: '控制机械臂和底盘的运动，实现复杂的机器人操作',
                     features: [
-                        { icon: '🦾', title: '机械臂控制', desc: '右臂控制、左臂控制、双臂协调控制', pageId: 'arm-control' },
+                        { icon: '🦾', title: '机械臂控制', desc: '右臂控制、左臂控制、双臂联动控制', pageId: 'arm-control' },
                         { icon: '🚛', title: '底盘控制', desc: '移动控制、导航设置、路径规划', pageId: 'chassis-control' },
-                        { icon: '🔄', title: '协调控制', desc: '移动+机械臂协调、安全联锁', pageId: 'coord-control' }
+                        { icon: '🔄', title: '联动控制', desc: '移动+机械臂联动、安全联锁', pageId: 'coord-control' }
                     ]
                 },
                 'simulation': {
@@ -5766,7 +5766,7 @@
                     <h3>🎛️ main_control</h3>
                     <ul>
                         <li>主要控制程序，多为集成功能</li>
-                        <li>双臂协调控制和底盘联动</li>
+                        <li>双臂联动控制和底盘联动</li>
                     </ul>
                     
                     <h3>✅ tests</h3>
@@ -6169,7 +6169,7 @@ pip install vtk==9.3.0</code></pre>
                     <h3>机械臂控制</h3>
                     <ul>
                         <li>单臂控制（左臂/右臂）</li>
-                        <li>双臂协调控制</li>
+                        <li>双臂联动控制</li>
                         <li>实时状态监控</li>
                     </ul>
                     
@@ -7282,8 +7282,8 @@ window.show()</code></pre>
             pageContent.innerHTML = `
                 <div class="page-header">
                     <div>
-                        <h2 class="page-title">🤝 协调控制</h2>
-                        <p class="page-description">XC-ROBOT整合控制系统，支持双臂机械臂与移动底盘的协调作业</p>
+                        <h2 class="page-title">🤝 联动控制</h2>
+                        <p class="page-description">XC-ROBOT整合控制系统，支持双臂机械臂与移动底盘的联动作业</p>
                     </div>
                 </div>
                 
