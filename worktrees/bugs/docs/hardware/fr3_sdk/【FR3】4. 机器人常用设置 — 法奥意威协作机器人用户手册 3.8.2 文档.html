@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR3】4. 机器人常用设置 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR3】4. 机器人常用设置 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 4. 机器⼈常⽤设置</p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>4.</strong> 机器⼈常⽤设置</p>
+<p><strong>4.1.</strong> 设置全局速度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 27%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SetSpeed(vel)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>设置全局速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>. vel :速度百分⽐ ，范围[0~100]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.SetSpeed(20)</p>
+<p>print("设置全局速度错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.2.</strong> 设置系统变量值</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 36%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetSysVarValue(id,value)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置系统变量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. id ：变量编号，范围[1~20];</p>
+<p>· value ：变量值</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image2.png" style="width:0.52794in;height:0.87487in" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image3.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR3_4__________________________3_8_2___/media/image4.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>4.2.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><strong>for</strong> i <strong>in</strong> range(1,21):</p>
+<p>error = robot.SetSysVarValue(i,10)</p>
+<p>robot.WaitMs(1000)</p>
+<p><strong>for</strong> i <strong>in</strong> range(1,21):</p>
+<p>sys_var = robot.GetSysVarValue(i) print("系统变量编号:",i,"值",sys_var)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.3.</strong> 设置⼯具参考点<strong>-</strong>六点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 20%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetToolPoint(point_num)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置⼯具参考点-六点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. point_num ：点编号,范围[1~6]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.3.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>t_coord = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p><strong>for</strong> i <strong>in</strong> range(1,7):</p>
+<p>robot.DragTeachSwitch(1)<em>#切⼊拖动示教模式</em></p>
+<p>time.sleep(5)</p>
+<p>error = robot.SetToolPoint(i) <em>#实际应当控制机器⼈按照要求移动到合适位置后再发送指令</em> print("六点法设置⼯具坐标系，记录点",i,"错误码",error)</p>
+<p>robot.DragTeachSwitch(0)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.ComputeTool()</p>
+<p>print("六点法设置⼯具坐标系错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image5.png" style="width:0.34028in;height:0.40449in" /><strong>4.4.</strong> 计算⼯具坐标系<strong>-</strong>六点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 17%" />
+<col style="width: 62%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ComputeTool()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>计算⼯具坐标系-六点法（设置完六个⼯具参考点后再进⾏计算）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+<td><img src="images/_FR3_4__________________________3_8_2___/media/image7.png" style="width:0.16601in;height:0.18748in" /></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image11.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. tcp_pose= [x,y,z,rx,ry,rz] ：⼯具坐标系</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.5.</strong> 设置⼯具参考点<strong>-</strong>四点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 12%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetTcp4RefPoint(point_num)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置⼯具参考点-四点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"></td>
+<td rowspan="3"><blockquote>
+<p>：点编号,范围[1~4]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"></td>
+<td colspan="2"><blockquote>
+<p>point_num</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image12.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR3_4__________________________3_8_2___/media/image13.png" /></td>
+<td colspan="2"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">tcp_pose=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="4"><img src="images/_FR3_4__________________________3_8_2___/media/image14.png" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>t_coord = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p><strong>for</strong> i <strong>in</strong> range(1,5):</p>
+<p>robot.DragTeachSwitch(1)<em>#切⼊拖动示教模式</em></p>
+<p>time.sleep(5)</p>
+<p>error = robot.SetTcp4RefPoint(i) <em>#应当控制机器⼈按照要求移动到合适位置后再发送指令</em> print("四点法设置⼯具坐标系，记录点",i,"错误码",error)</p>
+<p>robot.DragTeachSwitch(0)</p>
+<p>time.sleep(1)</p>
+<p>error,t_coord= robot.ComputeTcp4()</p>
+<p>print("四点法设置⼯具坐标系错误码",error,"⼯具TCP",t_coord)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image15.png" style="width:0.34028in;height:0.40449in" /><strong>4.6.</strong> 计算⼯具坐标系<strong>-</strong>四点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 14%" />
+<col style="width: 62%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>ComputeTcp4()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>计算⼯具坐标系-四点法（设置完四个⼯具参考点后再进⾏计算）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image16.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. tcp_pose= [x,y,z,rx,ry,rz] ：⼯具坐标系</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.7.</strong> 设置⼯具坐标系</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 1%" />
+<col style="width: 50%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>SetToolCoord(id,t_coord,type,install,toolID,loadNum)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>设置⼯具坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="10"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="10"><p><img src="images/_FR3_4__________________________3_8_2___/media/image17.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image18.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image19.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image20.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image21.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image22.png" /></p></td>
+<td></td>
+<td colspan="5" rowspan="2"><blockquote>
+<p>:坐标系编号，范围[1~15]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>id</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>t_coord</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>:⼯具中⼼点相对末端法兰中⼼位姿，单位[mm][°]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="4" rowspan="2"><blockquote>
+<p>:0-⼯具坐标系，1-传感器坐标系；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>type</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>install</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>:安装位置，0-机器⼈末端，1-机器⼈外部</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>:⼯具ID</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>toolID</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>loadNum</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:负载编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.7.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>t_coord = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p>error = robot.SetToolCoord(10,t_coord,0,0,0,0) print("设置⼯具坐标系错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image23.png" style="width:0.34028in;height:0.40449in" /><strong>4.8.</strong> 设置⼯具坐标系列表</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 38%" />
+<col style="width: 32%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>SetToolList(id,t_coord ,type, install, loadNum)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>设置⼯具坐标系列表</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>. id :坐标系编号，范围[1~15]；</p>
+<p>. t_coord :[x,y,z,rx,ry,rz] ⼯具中⼼点相对末端法兰中⼼位姿，单位[mm][°]；</p>
+<p>. type :0-⼯具坐标系，1-传感器坐标系；</p>
+<p>. install :安装位置，0-机器⼈末端，1-机器⼈外部</p>
+<p>. loadNum :负载编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.8.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>t_coord = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p>error = robot.SetToolList(10,t_coord,0,0,0) print("设置⼯具坐标系列表错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.9.</strong> 设置外部⼯具参考点<strong>-</strong>三点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 22%" />
+<col style="width: 19%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetExTCPPoint(point_num)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置外部⼯具参考点-三点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. point_num ：点编号,范围[1~3]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.9.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>etcp = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p>etool = [21.0,22.0,23.0,24.0,25.0,26.0]</p>
+<p><strong>for</strong> i <strong>in</strong> range(1,4):</p>
+<p>error = robot.SetExTCPPoint(i) <em>#应当控制机器⼈按照要求移动到合适位置后再发送指令</em> print("三点法设置外部⼯具坐标系，记录点",i,"错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error,etcp = robot.ComputeExTCF()</p>
+<p>print("三点法设置外部⼯具坐标系错误码",error,"外部⼯具TCP",etcp)</p>
+<p>error = robot.SetExToolCoord(10,etcp,etool)</p>
+<p>print("设置外部⼯具坐标系错误码",error)</p>
+<p>error = robot.SetExToolList(10,etcp,etool)</p>
+<p>print("设置外部⼯具坐标系列表错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image24.png" style="width:0.34028in;height:0.40449in" /><strong>4.10.</strong> 计算外部⼯具坐标系<strong>-</strong>三点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 12%" />
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 24%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>ComputeExTCF (point_num)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>计算外部⼯具坐标系-三点法（设置完三个参考点后再进⾏计算）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：点编号,范围[1~3]</p>
+</blockquote></td>
+<td rowspan="3"><img src="images/_FR3_4__________________________3_8_2___/media/image26.png" style="width:0.16601in;height:0.18748in" /></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>point_num</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image27.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. etcp= [x,y,z,rx,ry,rz] ：外部⼯具坐标系</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.11.</strong> 设置外部⼯具坐标系</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 33%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>SetExToolCoord(id,etcp,etool)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>设置外部⼯具坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><p><img src="images/_FR3_4__________________________3_8_2___/media/image28.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image29.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image30.png" /></p></td>
+<td colspan="5"><blockquote>
+<p>id :坐标系编号，范围[0~14]；</p>
+<p>etcp :外部⼯具坐标系，单位[mm][°]；</p>
+<p>etool :末端⼯具坐标系，单位[mm][°]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.11.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>etcp = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p>etool = [21.0,22.0,23.0,24.0,25.0,26.0]</p>
+<p>error = robot.SetExToolCoord(10,etcp,etool) print("设置外部⼯具坐标系错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image31.png" style="width:0.34028in;height:0.40449in" /><strong>4.12.</strong> 设置外部⼯具坐标系列表</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 33%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>SetExToolList(id,etcp ,etool)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>设置外部⼯具坐标系列表</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><p><img src="images/_FR3_4__________________________3_8_2___/media/image32.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image33.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image34.png" /></p></td>
+<td colspan="5"><blockquote>
+<p>id :坐标系编号，范围[0~14]；</p>
+</blockquote>
+<p>etcp :外部⼯具坐标系，单位[mm][°]；</p>
+<p>etool :末端⼯具坐标系，单位[mm][°]；</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.12.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>etcp = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p>etool = [21.0,22.0,23.0,24.0,25.0,26.0]</p>
+<p>error = robot.SetExToolList(10,etcp,etool) print("设置外部⼯具坐标系列表错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.13.</strong> 设置⼯件参考点<strong>-</strong>三点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 39%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>SetWObjCoordPoint(point_num)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置⼯件参考点-三点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>point_num :点编号,范围[1~3]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.13.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p><em>指令</em></p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>w_coord = [11.0,12.0,13.0,14.0,15.0,16.0]</p>
+<p>robot.SetToolList(0,[0,0,0,0,0,0],0,0)<em>#设置参考点前应当将⼯具和⼯件号坐标系切换⾄0</em></p>
+<p>robot.SetWObjList(0,[0,0,0,0,0,0])</p>
+<p><strong>for</strong> i <strong>in</strong> range(1,4):</p>
+<p>error = robot.SetWObjCoordPoint(i) <em>#实际应当控制机器⼈按照要求移动到合适位置后再发送</em></p>
+<p>print("三点法设置⼯件坐标系，记录点",i,"错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error, w_coord = robot.ComputeWObjCoord(0,0)</p>
+<p>print("三点法计算⼯件坐标系错误码",error,"⼯件坐标系", w_coord)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image35.png" style="width:0.34028in;height:0.40449in" /><strong>4.14.</strong> 计算⼯件坐标系<strong>-</strong>三点法</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 2%" />
+<col style="width: 27%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>ComputeWObjCoord(method, refFrame)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>计算⼯件坐标系-三点法（三个参考点设置完成后再进⾏计算）;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="4"><p><img src="images/_FR3_4__________________________3_8_2___/media/image36.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image37.png" /></p></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>：计算⽅式0：原点-x轴-z轴，1 ：原点-x轴-xy平⾯</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>method</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>refFrame</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>：参考坐标系</p>
+</blockquote></td>
+<td rowspan="2"><img src="images/_FR3_4__________________________3_8_2___/media/image39.png" style="width:0.16601in;height:0.18748in" /></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image40.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. wobj_pose= [x,y,z,rx,ry,rz] ：⼯件坐标系</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.15.</strong> 设置⼯件坐标系</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 27%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>SetWObjCoord(id, coord, refFrame)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>设置⼯件坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR3_4__________________________3_8_2___/media/image41.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image42.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image43.png" /></p></td>
+<td colspan="5"><blockquote>
+<p>id :坐标系编号，范围[0~14]；</p>
+<p>coord <img src="images/_FR3_4__________________________3_8_2___/media/image44.png" style="height:0.18368in" />:⼯件坐标系相对于末端法兰中⼼位姿，单位 [mm][°]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>refFrame</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:参考坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.15.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>w_coord = [11.0,12.0,13.0,14.0,15.0,16.0]</p>
+<p>error = robot.SetWObjCoord(id=11,coord=w_coord,refFrame=0) print("设置⼯件坐标系错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image45.png" style="width:0.34028in;height:0.40449in" /><strong>4.16.</strong> 设置⼯件坐标系列表</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 26%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>SetWObj List(id, coord, refFrame)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>设置⼯件坐标系列表</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR3_4__________________________3_8_2___/media/image46.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image47.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image48.png" /></p></td>
+<td colspan="5"><blockquote>
+<p>id :坐标系编号，范围[0~14]；</p>
+<p>coord <img src="images/_FR3_4__________________________3_8_2___/media/image49.png" style="height:0.18368in" />:⼯件坐标系相对于末端法兰中⼼位姿，单位 [mm][°]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>refFrame</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:参考坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.16.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>w_coord = [11.0,12.0,13.0,14.0,15.0,16.0]</p>
+<p>error = robot.SetWObjList(id=11,coord=w_coord,refFrame=0) print("设置⼯件坐标系列表错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.17.</strong> 设置末端负载重量</p>
+<p><em>在</em> <em>Python 版本发⽣变更:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 10%" />
+<col style="width: 22%" />
+<col style="width: 45%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetLoadWeight(loadNum, weight)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置末端负载重量,错误负载重量设置可能会导致拖动模式下机器⼈失控</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. loadNum :负载编号</p>
+<p>. weight :单位[kg]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.17.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image50.jpeg" style="height:0.69792in" /><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.SetLoadWeight(0,0)<em>#！！！</em> <em>负载重量设置应于实际相符(错误负载重量设置可能会导致</em></p>
+<p><em>拖动模式下机器⼈失控)</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image51.png" style="width:0.34028in;height:0.40449in" /><strong>4.18.</strong> 设置机器⼈安装⽅式<strong>-</strong>固定安装</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 7%" />
+<col style="width: 17%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetRobotInstallPos(method)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置机器⼈安装⽅式-固定安装,错误安装⽅式设置会导致拖动模式下机器⼈失控</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:0-平装，1-侧装，2-挂装</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>method</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.18.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR3_4__________________________3_8_2___/media/image52.png" style="height:0.17701in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR3_4__________________________3_8_2___/media/image53.png" style="height:0.17442in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 3 <img src="images/_FR3_4__________________________3_8_2___/media/image54.png" style="height:0.16416in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>4 <img src="images/_FR3_4__________________________3_8_2___/media/image55.png" style="height:0.17445in" /> error = robot.SetRobotInstallPos(0) <em>#！！！</em> <em>安装⽅式设置应与实际—致</em> <em>0-正装，1-侧装，2-倒</em> <em>装</em> <em>(错误安装⽅式设置会导致拖动模式下机器⼈失控）</em></p>
+<p>5 <img src="images/_FR3_4__________________________3_8_2___/media/image56.png" style="height:0.17701in" /> print("设置机器⼈安装⽅式错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.19.</strong> 设置机器⼈安装角度<strong>-</strong>⾃由安装</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 8%" />
+<col style="width: 26%" />
+<col style="width: 44%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetRobotInstallAngle(yangle,zangle)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置机器⼈安装角度-⾃由安装,错误安装角度设置会导致拖动模式下机器⼈失控</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="4"><p><img src="images/_FR3_4__________________________3_8_2___/media/image57.png" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image58.png" /></p></td>
+<td></td>
+<td colspan="2" rowspan="4"><blockquote>
+<p>：倾斜角</p>
+<p>：旋转角</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>yangle</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><u>zangle</u></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.19.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.SetRobotInstallAngle(0.0,0.0) <em>#！！！</em> <em>安装角度设置应与实际—致</em> <em>(错误安装角度</em></p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p><em>设置会导致拖动模式下机器⼈失控）</em></p>
+<p>5 <img src="images/_FR3_4__________________________3_8_2___/media/image59.png" style="height:0.17708in" /> print("设置机器⼈安装角度错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image60.png" style="width:0.34028in;height:0.40449in" /><strong>4.20.</strong> 设置末端负载质⼼坐标</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 2%" />
+<col style="width: 16%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetLoadCoord(x,y,z)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置末端负载质⼼坐标,错误负载质⼼设置可能会导致拖动模式下机器⼈失控</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. x : 质⼼坐标，单位[mm]</p>
+<p>. y : 质⼼坐标，单位[mm]</p>
+<p>. z : 质⼼坐标，单位[mm]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.20.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image61.png" style="height:0.69762in" /><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.SetLoadCoord(3.0,4.0,5.0) <em>#！！！</em> <em>负载质⼼设置应于实际相符(错误负载质⼼设置可</em></p>
+<p><em>能会导致拖动模式下机器⼈失控)</em></p>
+<p>5 <img src="images/_FR3_4__________________________3_8_2___/media/image62.png" style="height:0.17701in" /> print("设置负载质⼼错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.21.</strong> 等待指定时间</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>WaitMs(t_ms)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>等待指定时间</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>:单位[ms]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>t_ms</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.21.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.WaitMs(1000)</p>
+<p>print("等待指定时间错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.22.</strong> 设置机器⼈加速度</p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image63.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 22%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetOaccScale(acc)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置机器⼈加速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>:机器⼈加速度百分⽐</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>acc</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.22.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>robot.SetOaccScale (20)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.23.</strong> 设置机器指定姿态速度开启</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 28%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AngularSpeedStart(ratio)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>指定姿态速度开启</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. ratio :姿态速度百分⽐[0-300]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.24.</strong> 指定姿态速度关闭</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 38%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>AngularSpeedEnd()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>指定姿态速度关闭</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.25.</strong> ⼯具坐标系转换开始</p>
+<p><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 17%" />
+<col style="width: 21%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ToolTrsfStart(toolNum)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⼯具坐标系转换开始</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. toolNum :⼯具坐标系编号[0-14]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image64.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image65.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR3_4__________________________3_8_2___/media/image66.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>4.26.</strong> ⼯具坐标系转换结束</p>
+<p><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 29%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ToolTrsfEnd()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⼯具坐标系转换结束</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.26.1.</strong> 代码示例</p>
+<p><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>startjointPos = [52.850, -84.327, 102.163, -112.843, -84.131, 0.063]</p>
+<p>startdescPose = [-226.699, -501.969, 264.638, -174.973, 5.852, 143.301]</p>
+<p>endjointPos = [52.850, -77.596, 111.785, -129.196, -84.131, 0.062]</p>
+<p>enddescPose = [-226.702, -501.973, 155.833, -174.973, 5.852, 143.301]</p>
+<p>robot.ToolTrsfStart(1)</p>
+<p>rtn = robot.MoveJ(startjointPos, 0, 0, startdescPose)</p>
+<p>print("rtn is ", rtn)</p>
+<p>rtn = robot.MoveJ(endjointPos, 0, 0, enddescPose)</p>
+<p>print("rtn is ", rtn)</p>
+<p>robot.ToolTrsfEnd()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.27.</strong> 根据点位信息计算⼯具坐标系</p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image67.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR3_4__________________________3_8_2___/media/image68.png" style="width:0.11458in" /><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 21%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>ComputeToolCoordWithPoints(method, pos)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>根据点位信息计算⼯具坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. method ：计算⽅法；0-四点法；1-六点法</p>
+<p>. pos ：关节位置组， 四点法时数组⻓度为4个，六点法时数组⻓度为6个</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image69.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image70.png" style="width:0.16601in;height:0.1847in" /> latest</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR3_4__________________________3_8_2___/media/image71.png" /></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">tcp_offset=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image72.png" style="width:1.14583in" /><u>[x,y,z,rx,ry,rz]</u> <img src="images/_FR3_4__________________________3_8_2___/media/image73.jpeg" style="height:0.19792in" />：根据点位信息计算得到的⼯具坐标系，单位 [mm][°]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.27.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/_FR3_4__________________________3_8_2___/media/image74.png" style="height:4.89544in" /><img src="images/_FR3_4__________________________3_8_2___/media/image75.png" style="height:2.62479in" /></p>
+<blockquote>
+<p>p1Desc = [-394.073, -276.405, 399.451, -133.692, 7.657, -139.047]</p>
+<p>p1Joint = [15.234, -88.178, 96.583, -68.314, -52.303, -122.926]</p>
+<p>p2Desc = [-187.141, -444.908, 432.425, 148.662, 15.483, -90.637]</p>
+<p>p2Joint = [61.796, -91.959, 101.693, -102.417, -124.511, -122.767]</p>
+<p>p3Desc = [-368.695, -485.023, 426.640, -162.588, 31.433, -97.036]</p>
+<p>p3Joint = [43.896, -64.590, 60.087, -50.269, -94.663, -122.652]</p>
+<p>p4Desc = [-291.069, -376.976, 467.560, -179.272, -2.326, -107.757]</p>
+<p>p4Joint = [39.559, -94.731, 96.307, -93.141, -88.131, -122.673]</p>
+<p>p5Desc = [-284.140, -488.041, 478.579, 179.785, -1.396, -98.030]</p>
+<p>p5Joint = [49.283, -82.423, 81.993, -90.861, -89.427, -122.678]</p>
+<p>p6Desc = [-296.307, -385.991, 484.492, -178.637, -0.057, -107.059]</p>
+<p>p6Joint = [40.141, -92.742, 91.410, -87.978, -88.824, -122.808]</p>
+<p>exaxisPos = [0, 0, 0, 0]</p>
+<p>offdese = [0, 0, 0, 0, 0, 0]</p>
+<p>posJ = [p1Joint, p2Joint, p3Joint, p4Joint, p5Joint, p6Joint]</p>
+<p>rtn, coordRtn = robot.ComputeToolCoordWithPoints(1, posJ)</p>
+<p>print("ComputeToolCoordWithPoints ", rtn, "coord is ", coordRtn [0], coordRtn [1],</p>
+<p>coordRtn [2], coordRtn [3], coordRtn [4], coordRtn [5])</p>
+<p>robot.MoveJ(p1Joint, 0, 0, p1Desc)</p>
+<p>robot.SetToolPoint(1)</p>
+<p>robot.MoveJ(p2Joint, 0, 0, p2Desc)</p>
+<p>robot.SetToolPoint(2)</p>
+<p>robot.MoveJ(p3Joint, 0, 0, p3Desc)</p>
+<p>robot.SetToolPoint(3)</p>
+<p>robot.MoveJ(p4Joint, 0, 0, p4Desc)</p>
+<p>robot.SetToolPoint(4)</p>
+<p>robot.MoveJ(p5Joint, 0, 0, p5Desc)</p>
+<p>robot.SetToolPoint(5)</p>
+<p>robot.MoveJ(p6Joint, 0, 0, p6Desc)</p>
+<p>robot.SetToolPoint(6)</p>
+<p>rtn, coordRtn = robot.ComputeTool()</p>
+<p>print("ComputeTool ", rtn, "coord is ", coordRtn [0], coordRtn [1], coordRtn [2],</p>
+<p>coordRtn [3], coordRtn [4], coordRtn [5])</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image76.png" style="width:0.34028in;height:0.40449in" /><strong>4.28.</strong> 根据点位信息计算⼯件坐标系</p>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image78.png" style="width:0.11458in" /><em>在</em> <em>Python 版本加⼊:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 53%" />
+<col style="width: 24%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>ComputeWObjCoordWithPoints(method, pos, refFrame)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>根据点位信息计算⼯件坐标系</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 5%" />
+<col style="width: 72%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>. method ：计算⽅法；0 ：原点-x轴-z轴 1 ：原点-x轴-xy平⾯</p>
+<p>. pos ：三个TCP位置组</p>
+<p>. refFrame ：参考坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image79.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><img src="images/_FR3_4__________________________3_8_2___/media/image80.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">wobj_offset=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image81.png" style="width:1.14583in" /><u>[x,y,z,rx,ry,rz]</u> <img src="images/_FR3_4__________________________3_8_2___/media/image82.jpeg" style="height:0.19792in" />：根据点位信息计算得到的⼯件坐标系，单位 [mm][°]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>4.28.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/_FR3_4__________________________3_8_2___/media/image83.jpeg" style="height:3.32292in" /></p>
+<blockquote>
+<p>p1Desc = [-275.046, -293.122, 28.747, 174.533, -1.301, -112.101]</p>
+<p>p1Joint = [35.207, -95.350, 133.703, -132.403, -93.897, -122.768]</p>
+<p>p2Desc = [-280.339, -396.053, 29.762, 174.621, -3.448, -102.901]</p>
+<p>p2Joint = [44.304, -85.020, 123.889, -134.679, -92.658, -122.768]</p>
+<p>p3Desc = [-270.597, -290.603, 83.034, 179.314, 0.808, -114.171]</p>
+<p>p3Joint = [32.975, -99.175, 125.966, -116.484, -91.014, -122.857]</p>
+<p>exaxisPos = [0, 0, 0, 0]</p>
+<p>offdese = [0, 0, 0, 0, 0, 0]</p>
+<p>posTCP = [p1Desc, p2Desc, p3Desc]</p>
+<p>rtn, coordRtn = robot.ComputeWObjCoordWithPoints(1, posTCP, 0)</p>
+<p>print("ComputeWObjCoordWithPoints ", rtn, "coord is ", coordRtn [0], coordRtn [1],</p>
+<p>coordRtn [2], coordRtn [3], coordRtn [4], coordRtn [5])</p>
+<p>20 <img src="images/_FR3_4__________________________3_8_2___/media/image84.png" style="height:0.17452in" /></p>
+<p>21 <img src="images/_FR3_4__________________________3_8_2___/media/image85.png" style="height:0.1721in" /> robot.MoveJ(p1Joint, 1, 0, p1Desc)</p>
+<p>22 <img src="images/_FR3_4__________________________3_8_2___/media/image86.png" style="height:0.15944in" /> robot.SetWObjCoordPoint(1)</p>
+<p>23 <img src="images/_FR3_4__________________________3_8_2___/media/image87.png" style="height:0.16963in" /> robot.MoveJ(p2Joint, 1, 0, p2Desc)</p>
+<p>24 <img src="images/_FR3_4__________________________3_8_2___/media/image88.png" style="height:0.1721in" /> robot.SetWObjCoordPoint(2)</p>
+<p>25 <img src="images/_FR3_4__________________________3_8_2___/media/image89.png" style="height:0.1721in" /> robot.MoveJ(p3Joint, 1, 0, p3Desc)</p>
+<p>26 <img src="images/_FR3_4__________________________3_8_2___/media/image90.png" style="height:0.1721in" /> robot.SetWObjCoordPoint(3)</p>
+<p>27 <img src="images/_FR3_4__________________________3_8_2___/media/image91.png" style="height:0.15944in" /> rtn, coordRtn = robot.ComputeWObjCoord(1, 0)</p>
+<p>28 <img src="images/_FR3_4__________________________3_8_2___/media/image92.png" style="height:0.16963in" /> print("ComputeTool ", rtn, "coord is ", coordRtn [0], coordRtn [1], coordRtn [2],</p>
+<p>coordRtn [3], coordRtn [4], coordRtn [5])</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR3_4__________________________3_8_2___/media/image93.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#67C23A",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "deviceOrange": "#FF9500",
+        "deviceLight": "#FFF3E0",
+        "green": "#67C23A",
+        "greenLight": "#E1F3D8",
+        "yellow": "#E6A23C",
+        "yellowLight": "#FAECD8",
+        "red": "#F56C6C",
+        "redLight": "#FDE2E2",
+        "blue": "#409EFF",
+        "blueLight": "#ECF5FF"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans text-secondary bg-gray-50">
+    <div id="main-content" class="w-full h-[calc(100vh-100px)] overflow-y-auto p-6">
+        <!-- Page Header -->
+        <div id="page-header" class="mb-6">
+            <h1 class="text-2xl font-bold text-secondary">设备连接管理</h1>
+            <p class="text-gray-500 mt-1">机器人硬件设备连接与网络配置</p>
+        </div>
+        
+        <!-- Connection Overview -->
+        <div id="connection-overview" class="mb-6">
+            <div class="flex items-center mb-4">
+                <i class="fa-solid fa-chart-line text-deviceOrange mr-2"></i>
+                <h2 class="text-lg font-semibold">连接概览</h2>
+                <button class="ml-auto text-primary hover:text-blue-600 text-sm flex items-center">
+                    <i class="fa-solid fa-sync mr-1"></i>刷新
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-4 gap-4">
+                <div id="total-devices" class="bg-white rounded-lg shadow p-4 border-l-4 border-deviceOrange">
+                    <div class="text-gray-500 text-sm mb-1">总设备</div>
+                    <div class="flex items-center">
+                        <span class="text-2xl font-bold">6</span>
+                        <span class="ml-1 text-gray-500">台</span>
+                    </div>
+                </div>
+                
+                <div id="online-devices" class="bg-white rounded-lg shadow p-4 border-l-4 border-green">
+                    <div class="text-gray-500 text-sm mb-1">在线设备</div>
+                    <div class="flex items-center">
+                        <span class="text-2xl font-bold text-green">4</span>
+                        <span class="ml-1 text-gray-500">台</span>
+                    </div>
+                </div>
+                
+                <div id="offline-devices" class="bg-white rounded-lg shadow p-4 border-l-4 border-red">
+                    <div class="text-gray-500 text-sm mb-1">离线设备</div>
+                    <div class="flex items-center">
+                        <span class="text-2xl font-bold text-red">2</span>
+                        <span class="ml-1 text-gray-500">台</span>
+                    </div>
+                </div>
+                
+                <div id="network-quality" class="bg-white rounded-lg shadow p-4 border-l-4 border-blue">
+                    <div class="text-gray-500 text-sm mb-1">网络质量</div>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-circle text-green mr-2"></i>
+                        <span class="font-medium">良好</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Robot Devices -->
+        <div id="robot-devices" class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-robot text-deviceOrange mr-2"></i>
+                    <h2 class="text-lg font-semibold">机器人设备</h2>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="bg-deviceOrange hover:bg-orange-600 text-white px-3 py-1.5 rounded text-sm flex items-center transition">
+                        <i class="fa-solid fa-plug mr-1"></i>全部连接
+                    </button>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1.5 rounded text-sm flex items-center transition">
+                        <i class="fa-solid fa-power-off mr-1"></i>全部断开
+                    </button>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1.5 rounded text-sm flex items-center transition">
+                        <i class="fa-solid fa-sync mr-1"></i>重启设备
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">设备名称</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP地址</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">延迟</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-circle text-green mr-2 text-xs"></i>
+                                    <span>FR3右臂</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">192.168.58.2</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs rounded-full bg-greenLight text-green">在线</span>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-green">5ms</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="text-gray-500 hover:text-red-500 mr-2 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-power-off mr-1"></i>断开
+                                </button>
+                                <button class="text-gray-500 hover:text-blue-500 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-cog mr-1"></i>设置
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-circle text-green mr-2 text-xs"></i>
+                                    <span>FR3左臂</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">192.168.58.3</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs rounded-full bg-greenLight text-green">在线</span>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-green">6ms</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="text-gray-500 hover:text-red-500 mr-2 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-power-off mr-1"></i>断开
+                                </button>
+                                <button class="text-gray-500 hover:text-blue-500 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-cog mr-1"></i>设置
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-circle text-green mr-2 text-xs"></i>
+                                    <span>Hermes底盘</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">192.168.31.211</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs rounded-full bg-greenLight text-green">在线</span>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-green">8ms</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="text-gray-500 hover:text-red-500 mr-2 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-power-off mr-1"></i>断开
+                                </button>
+                                <button class="text-gray-500 hover:text-blue-500 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-cog mr-1"></i>设置
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Vision Devices -->
+        <div id="vision-devices" class="mb-6">
+            <div class="flex items-center mb-4">
+                <i class="fa-solid fa-camera text-deviceOrange mr-2"></i>
+                <h2 class="text-lg font-semibold">视觉设备</h2>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">设备名称</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP地址</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">延迟</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-circle text-green mr-2 text-xs"></i>
+                                    <span>TOF相机</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">192.168.58.100</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs rounded-full bg-greenLight text-green">在线</span>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-yellow">12ms</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="text-gray-500 hover:text-red-500 mr-2 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-power-off mr-1"></i>断开
+                                </button>
+                                <button class="text-gray-500 hover:text-blue-500 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-cog mr-1"></i>设置
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-circle text-red mr-2 text-xs"></i>
+                                    <span>2D相机1</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">192.168.58.101</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs rounded-full bg-redLight text-red">离线</span>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-gray-400">-</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="text-deviceOrange hover:text-orange-600 mr-2 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-plug mr-1"></i>连接
+                                </button>
+                                <button class="text-gray-500 hover:text-blue-500 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-cog mr-1"></i>设置
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <input type="checkbox" class="rounded text-deviceOrange focus:ring-deviceOrange">
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-circle text-red mr-2 text-xs"></i>
+                                    <span>鱼眼相机</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap">192.168.58.102</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <span class="px-2 py-1 text-xs rounded-full bg-redLight text-red">离线</span>
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-gray-400">-</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="text-deviceOrange hover:text-orange-600 mr-2 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-plug mr-1"></i>连接
+                                </button>
+                                <button class="text-gray-500 hover:text-blue-500 px-2 py-1 rounded text-sm">
+                                    <i class="fa-solid fa-cog mr-1"></i>设置
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Network Tools -->
+        <div id="network-tools">
+            <div class="flex items-center mb-4">
+                <i class="fa-solid fa-wrench text-deviceOrange mr-2"></i>
+                <h2 class="text-lg font-semibold">网络工具</h2>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-4">
+                <div id="ping-test" class="bg-white rounded-lg shadow p-5">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-network-wired text-deviceOrange mr-2"></i>
+                        <h3 class="font-medium">Ping测试</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">检测设备连接延迟和可达性</p>
+                    <div class="mb-4">
+                        <label class="block text-sm text-gray-600 mb-1">目标地址</label>
+                        <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-deviceOrange focus:border-transparent" placeholder="输入IP地址">
+                    </div>
+                    <button class="w-full bg-deviceOrange hover:bg-orange-600 text-white px-4 py-2 rounded transition flex items-center justify-center">
+                        <i class="fa-solid fa-play mr-1"></i>开始测试
+                    </button>
+                </div>
+                
+                <div id="port-scan" class="bg-white rounded-lg shadow p-5">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-sitemap text-deviceOrange mr-2"></i>
+                        <h3 class="font-medium">端口扫描</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">检测目标设备开放的网络端口</p>
+                    <div class="mb-4">
+                        <label class="block text-sm text-gray-600 mb-1">目标地址</label>
+                        <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-deviceOrange focus:border-transparent" placeholder="输入IP地址">
+                    </div>
+                    <button class="w-full bg-deviceOrange hover:bg-orange-600 text-white px-4 py-2 rounded transition flex items-center justify-center">
+                        <i class="fa-solid fa-search mr-1"></i>开始扫描
+                    </button>
+                </div>
+                
+                <div id="network-diagnostics" class="bg-white rounded-lg shadow p-5">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-chart-line text-deviceOrange mr-2"></i>
+                        <h3 class="font-medium">网络诊断</h3>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">分析网络质量和潜在问题</p>
+                    <div class="mb-4">
+                        <label class="block text-sm text-gray-600 mb-1">诊断范围</label>
+                        <select class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-deviceOrange focus:border-transparent">
+                            <option>所有设备</option>
+                            <option>机器人设备</option>
+                            <option>视觉设备</option>
+                        </select>
+                    </div>
+                    <button class="w-full bg-deviceOrange hover:bg-orange-600 text-white px-4 py-2 rounded transition flex items-center justify-center">
+                        <i class="fa-solid fa-stethoscope mr-1"></i>开始诊断
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Auto-refresh indicator -->
+        <div class="fixed bottom-4 right-4 bg-white rounded-full shadow-lg px-3 py-2 text-xs text-gray-500 flex items-center">
+            <i class="fa-solid fa-sync-alt mr-1 animate-spin"></i>
+            <span>5秒后自动刷新</span>
+        </div>
+    </div>
+    
+    <script>
+        // Simulating auto-refresh countdown
+        let countdown = 5;
+        const countdownElement = document.querySelector('.fixed.bottom-4.right-4 span');
+        
+        setInterval(() => {
+            countdown--;
+            if (countdown <= 0) {
+                countdownElement.textContent = '刷新中...';
+                setTimeout(() => {
+                    countdown = 5;
+                    countdownElement.textContent = `${countdown}秒后自动刷新`;
+                }, 1000);
+            } else {
+                countdownElement.textContent = `${countdown}秒后自动刷新`;
+            }
+        }, 1000);
+    </script>
+
+</body></html>

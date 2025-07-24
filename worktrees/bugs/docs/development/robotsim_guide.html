@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ROBOTSIM_GUIDE</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="css/markdown.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ROBOTSIM_GUIDE</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#robotsim-机器人仿真模块使用指南" id="toc-robotsim-机器人仿真模块使用指南"><span class="toc-section-number">1</span> RobotSim 机器人仿真模块使用指南</a>
+<ul>
+<li><a href="#概述" id="toc-概述"><span class="toc-section-number">1.1</span> 概述</a></li>
+<li><a href="#功能特性" id="toc-功能特性"><span class="toc-section-number">1.2</span> 功能特性</a>
+<ul>
+<li><a href="#d-可视化" id="toc-d-可视化"><span class="toc-section-number">1.2.1</span> 1. 3D 可视化</a></li>
+<li><a href="#stl-模型支持" id="toc-stl-模型支持"><span class="toc-section-number">1.2.2</span> 2. STL 模型支持</a></li>
+<li><a href="#关节控制" id="toc-关节控制"><span class="toc-section-number">1.2.3</span> 3. 关节控制</a></li>
+<li><a href="#运动学计算" id="toc-运动学计算"><span class="toc-section-number">1.2.4</span> 4. 运动学计算</a></li>
+<li><a href="#末端位姿控制" id="toc-末端位姿控制"><span class="toc-section-number">1.2.5</span> 5. 末端位姿控制</a></li>
+<li><a href="#预设动作" id="toc-预设动作"><span class="toc-section-number">1.2.6</span> 6. 预设动作</a></li>
+</ul></li>
+<li><a href="#安装要求" id="toc-安装要求"><span class="toc-section-number">1.3</span> 安装要求</a>
+<ul>
+<li><a href="#必需依赖" id="toc-必需依赖"><span class="toc-section-number">1.3.1</span> 必需依赖</a></li>
+<li><a href="#推荐依赖" id="toc-推荐依赖"><span class="toc-section-number">1.3.2</span> 推荐依赖</a></li>
+</ul></li>
+<li><a href="#使用方法" id="toc-使用方法"><span class="toc-section-number">1.4</span> 使用方法</a>
+<ul>
+<li><a href="#启动仿真系统" id="toc-启动仿真系统"><span class="toc-section-number">1.4.1</span> 1. 启动仿真系统</a></li>
+<li><a href="#加载机器人模型" id="toc-加载机器人模型"><span class="toc-section-number">1.4.2</span> 2. 加载机器人模型</a></li>
+<li><a href="#关节角度控制" id="toc-关节角度控制"><span class="toc-section-number">1.4.3</span> 3. 关节角度控制</a></li>
+<li><a href="#末端位姿控制-1" id="toc-末端位姿控制-1"><span class="toc-section-number">1.4.4</span> 4. 末端位姿控制</a></li>
+<li><a href="#预设动作-1" id="toc-预设动作-1"><span class="toc-section-number">1.4.5</span> 5. 预设动作</a></li>
+</ul></li>
+<li><a href="#运动学参数" id="toc-运动学参数"><span class="toc-section-number">1.5</span> 运动学参数</a>
+<ul>
+<li><a href="#fr3-机械臂-dh-参数" id="toc-fr3-机械臂-dh-参数"><span class="toc-section-number">1.5.1</span> FR3 机械臂 DH 参数</a></li>
+<li><a href="#关节角度限制" id="toc-关节角度限制"><span class="toc-section-number">1.5.2</span> 关节角度限制</a></li>
+</ul></li>
+<li><a href="#文件结构" id="toc-文件结构"><span class="toc-section-number">1.6</span> 文件结构</a></li>
+<li><a href="#测试功能" id="toc-测试功能"><span class="toc-section-number">1.7</span> 测试功能</a>
+<ul>
+<li><a href="#基础测试" id="toc-基础测试"><span class="toc-section-number">1.7.1</span> 基础测试</a></li>
+<li><a href="#完整测试" id="toc-完整测试"><span class="toc-section-number">1.7.2</span> 完整测试</a></li>
+</ul></li>
+<li><a href="#扩展功能" id="toc-扩展功能"><span class="toc-section-number">1.8</span> 扩展功能</a>
+<ul>
+<li><a href="#集成-fr3-sdk" id="toc-集成-fr3-sdk"><span class="toc-section-number">1.8.1</span> 1. 集成 FR3 SDK</a></li>
+<li><a href="#添加碰撞检测" id="toc-添加碰撞检测"><span class="toc-section-number">1.8.2</span> 2. 添加碰撞检测</a></li>
+<li><a href="#轨迹规划" id="toc-轨迹规划"><span class="toc-section-number">1.8.3</span> 3. 轨迹规划</a></li>
+</ul></li>
+<li><a href="#故障排除" id="toc-故障排除"><span class="toc-section-number">1.9</span> 故障排除</a>
+<ul>
+<li><a href="#vtk-安装问题" id="toc-vtk-安装问题"><span class="toc-section-number">1.9.1</span> 1. VTK 安装问题</a></li>
+<li><a href="#模型加载失败" id="toc-模型加载失败"><span class="toc-section-number">1.9.2</span> 2. 模型加载失败</a></li>
+<li><a href="#运动学计算错误" id="toc-运动学计算错误"><span class="toc-section-number">1.9.3</span> 3. 运动学计算错误</a></li>
+</ul></li>
+<li><a href="#开发计划" id="toc-开发计划"><span class="toc-section-number">1.10</span> 开发计划</a>
+<ul>
+<li><a href="#短期目标" id="toc-短期目标"><span class="toc-section-number">1.10.1</span> 短期目标</a></li>
+<li><a href="#中期目标" id="toc-中期目标"><span class="toc-section-number">1.10.2</span> 中期目标</a></li>
+<li><a href="#长期目标" id="toc-长期目标"><span class="toc-section-number">1.10.3</span> 长期目标</a></li>
+</ul></li>
+<li><a href="#贡献指南" id="toc-贡献指南"><span class="toc-section-number">1.11</span> 贡献指南</a></li>
+<li><a href="#许可证" id="toc-许可证"><span class="toc-section-number">1.12</span> 许可证</a></li>
+<li><a href="#联系信息" id="toc-联系信息"><span class="toc-section-number">1.13</span> 联系信息</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="robotsim-机器人仿真模块使用指南"><span class="header-section-number">1</span> RobotSim 机器人仿真模块使用指南</h1>
+<h2 data-number="1.1" id="概述"><span class="header-section-number">1.1</span> 概述</h2>
+<p>RobotSim 是基于 VTK+PyQt5 的机器人仿真模块，为 XC-ROBOT 系统提供了 3D 机器人仿真功能。支持 STL 模型导入、关节角度控制、正逆运动学计算，以及与 FR3 SDK 的集成。</p>
+<h2 data-number="1.2" id="功能特性"><span class="header-section-number">1.2</span> 功能特性</h2>
+<h3 data-number="1.2.1" id="d-可视化"><span class="header-section-number">1.2.1</span> 1. 3D 可视化</h3>
+<ul>
+<li>基于 VTK 的 3D 渲染引擎</li>
+<li>浅色背景设计，提供更好的模型对比度</li>
+<li>右上角坐标轴指示器，带XYZ字母标注
+<ul>
+<li>X轴 (红色): 水平方向</li>
+<li>Y轴 (绿色): 景深前后方向<br />
+</li>
+<li>Z轴 (蓝色): 上下方向</li>
+</ul></li>
+<li>清洁的3D场景，专注于机器人模型显示</li>
+<li>支持网格显示和实时模型变换</li>
+<li>清晰的界面布局，右侧日志区域宽度优化</li>
+</ul>
+<h3 data-number="1.2.2" id="stl-模型支持"><span class="header-section-number">1.2.2</span> 2. STL 模型支持</h3>
+<ul>
+<li>导入和显示 STL 格式的机器人模型</li>
+<li>支持FR3机械臂标准命名规则 (参见 <code>STL_NAMING_GUIDE.md</code>)</li>
+<li>模型材质和光照效果</li>
+<li>支持犀牛导出的高精度STL文件</li>
+</ul>
+<h3 data-number="1.2.3" id="关节控制"><span class="header-section-number">1.2.3</span> 3. 关节控制</h3>
+<ul>
+<li>6 个关节的独立角度控制</li>
+<li>基于 FR3 机械臂的关节限制</li>
+<li>实时关节角度显示</li>
+</ul>
+<h3 data-number="1.2.4" id="运动学计算"><span class="header-section-number">1.2.4</span> 4. 运动学计算</h3>
+<ul>
+<li>正向运动学：关节角度 → 末端位姿</li>
+<li>逆运动学：末端位姿 → 关节角度</li>
+<li>基于 DH 参数的运动学模型</li>
+</ul>
+<h3 data-number="1.2.5" id="末端位姿控制"><span class="header-section-number">1.2.5</span> 5. 末端位姿控制</h3>
+<ul>
+<li>实时末端位姿显示</li>
+<li>目标位姿设置</li>
+<li>逆运动学求解</li>
+</ul>
+<h3 data-number="1.2.6" id="预设动作"><span class="header-section-number">1.2.6</span> 6. 预设动作</h3>
+<ul>
+<li>回到原点位置</li>
+<li>挥手动作演示</li>
+<li>可扩展的动作库</li>
+</ul>
+<h2 data-number="1.3" id="安装要求"><span class="header-section-number">1.3</span> 安装要求</h2>
+<h3 data-number="1.3.1" id="必需依赖"><span class="header-section-number">1.3.1</span> 必需依赖</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install vtk<span class="op">&gt;</span>=9.0.0</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install PyQt5<span class="op">&gt;</span>=5.15.0</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy<span class="op">&gt;</span>=1.21.0</span></code></pre></div>
+<h3 data-number="1.3.2" id="推荐依赖"><span class="header-section-number">1.3.2</span> 推荐依赖</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pyyaml<span class="op">&gt;</span>=6.0     <span class="co"># 配置文件支持</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install colorlog<span class="op">&gt;</span>=6.0.0 <span class="co"># 日志增强</span></span></code></pre></div>
+<h2 data-number="1.4" id="使用方法"><span class="header-section-number">1.4</span> 使用方法</h2>
+<h3 data-number="1.4.1" id="启动仿真系统"><span class="header-section-number">1.4.1</span> 1. 启动仿真系统</h3>
+<h4 data-number="1.4.1.1" id="方法一使用启动脚本推荐"><span class="header-section-number">1.4.1.1</span> 方法一：使用启动脚本（推荐）</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 激活虚拟环境</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> venv/bin/activate</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用启动脚本</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> start_robotsim.py</span></code></pre></div>
+<h4 data-number="1.4.1.2" id="方法二直接启动"><span class="header-section-number">1.4.1.2</span> 方法二：直接启动</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 激活虚拟环境</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> venv/bin/activate</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 启动主程序</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> gui/main_window.py</span></code></pre></div>
+<h4 data-number="1.4.1.3" id="安全退出"><span class="header-section-number">1.4.1.3</span> 安全退出</h4>
+<ul>
+<li><strong>正常退出</strong>: 点击窗口的关闭按钮</li>
+<li><strong>终端退出</strong>: 在终端中按 <code>Ctrl+C</code> (已优化，会正确清理资源)</li>
+<li><strong>紧急退出</strong>: 如果程序无响应，使用 <code>Ctrl+Z</code> 然后 <code>kill %1</code></li>
+</ul>
+<h3 data-number="1.4.2" id="加载机器人模型"><span class="header-section-number">1.4.2</span> 2. 加载机器人模型</h3>
+<ol type="1">
+<li><strong>准备STL文件</strong>: 按照 <code>STL_NAMING_GUIDE.md</code> 的命名规则准备模型文件</li>
+<li>点击”浏览”按钮选择 STL 模型文件 (建议从 <code>fr3_base.stl</code> 开始)</li>
+<li>点击”加载模型”按钮<br />
+</li>
+<li>模型将显示在明亮的浅色 3D 视窗中</li>
+<li>右上角显示坐标轴指示器:
+<ul>
+<li>X轴 (红色): 水平方向，标注字母 “X”</li>
+<li>Y轴 (绿色): 景深前后方向，标注字母 “Y”</li>
+<li>Z轴 (蓝色): 上下方向，标注字母 “Z”<br />
+</li>
+<li>会跟随相机视角自动旋转</li>
+</ul></li>
+</ol>
+<h3 data-number="1.4.3" id="关节角度控制"><span class="header-section-number">1.4.3</span> 3. 关节角度控制</h3>
+<ul>
+<li>使用滑块调节各关节角度</li>
+<li>关节角度限制基于 FR3 机械臂规格</li>
+<li>实时显示当前关节角度</li>
+</ul>
+<h3 data-number="1.4.4" id="末端位姿控制-1"><span class="header-section-number">1.4.4</span> 4. 末端位姿控制</h3>
+<ul>
+<li>查看”当前位姿”显示实时末端位置和姿态</li>
+<li>在”目标位姿”区域设置期望的末端位置和姿态</li>
+<li>点击”移动到目标位姿”执行逆运动学求解</li>
+</ul>
+<h3 data-number="1.4.5" id="预设动作-1"><span class="header-section-number">1.4.5</span> 5. 预设动作</h3>
+<ul>
+<li>“回到原点”：所有关节回到 0° 位置</li>
+<li>“挥手动作”：执行预设的挥手动作序列</li>
+</ul>
+<h2 data-number="1.5" id="运动学参数"><span class="header-section-number">1.5</span> 运动学参数</h2>
+<h3 data-number="1.5.1" id="fr3-机械臂-dh-参数"><span class="header-section-number">1.5.1</span> FR3 机械臂 DH 参数</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [a, alpha, d, theta_offset]</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dh_params <span class="op">=</span> [</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,     <span class="dv">0</span>,          <span class="fl">0.333</span>,    <span class="dv">0</span>],      <span class="co"># 关节1</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,     <span class="op">-</span>π<span class="op">/</span><span class="dv">2</span>,       <span class="dv">0</span>,        <span class="dv">0</span>],      <span class="co"># 关节2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,     π<span class="op">/</span><span class="dv">2</span>,        <span class="fl">0.316</span>,    <span class="dv">0</span>],      <span class="co"># 关节3</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.0825</span>, π<span class="op">/</span><span class="dv">2</span>,       <span class="dv">0</span>,        <span class="dv">0</span>],      <span class="co"># 关节4</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="fl">0.0825</span>, <span class="op">-</span>π<span class="op">/</span><span class="dv">2</span>,     <span class="fl">0.384</span>,    <span class="dv">0</span>],      <span class="co"># 关节5</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,     <span class="dv">0</span>,          <span class="dv">0</span>,        <span class="dv">0</span>]       <span class="co"># 关节6</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<h3 data-number="1.5.2" id="关节角度限制"><span class="header-section-number">1.5.2</span> 关节角度限制</h3>
+<ul>
+<li>关节1: -165° ~ 165°</li>
+<li>关节2: -110° ~ 110°</li>
+<li>关节3: -165° ~ 165°</li>
+<li>关节4: -110° ~ 110°</li>
+<li>关节5: -165° ~ 165°</li>
+<li>关节6: -180° ~ 180°</li>
+</ul>
+<h2 data-number="1.6" id="文件结构"><span class="header-section-number">1.6</span> 文件结构</h2>
+<pre><code>xc-robot/
+├── gui/
+│   └── widgets/
+│       ├── robot_sim_widget.py      # RobotSim 主界面
+│       ├── fr3_kinematics.py        # FR3 运动学模型
+│       └── ...
+├── models/
+│   └── fr3_base.stl                 # FR3 基座模型
+├── test_robot_sim.py                # 基础测试
+├── test_robot_sim_complete.py       # 完整测试
+└── requirements.txt                 # 依赖列表</code></pre>
+<h2 data-number="1.7" id="测试功能"><span class="header-section-number">1.7</span> 测试功能</h2>
+<h3 data-number="1.7.1" id="基础测试"><span class="header-section-number">1.7.1</span> 基础测试</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> test_robot_sim.py</span></code></pre></div>
+<h3 data-number="1.7.2" id="完整测试"><span class="header-section-number">1.7.2</span> 完整测试</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> test_robot_sim_complete.py</span></code></pre></div>
+<p>测试内容包括： - 界面创建 - 运动学模型 - 模型加载 - 关节控制 - 末端位姿控制 - 逆运动学求解 - 预设动作 - 紧急停止</p>
+<h2 data-number="1.8" id="扩展功能"><span class="header-section-number">1.8</span> 扩展功能</h2>
+<h3 data-number="1.8.1" id="集成-fr3-sdk"><span class="header-section-number">1.8.1</span> 1. 集成 FR3 SDK</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 fr3_kinematics.py 中添加</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> connect_fr3_sdk(<span class="va">self</span>):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;连接 FR3 SDK&quot;&quot;&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这里添加 FR3 SDK 连接代码</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_real_joint_angles(<span class="va">self</span>):</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;获取真实机械臂关节角度&quot;&quot;&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这里添加从 FR3 SDK 获取角度的代码</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div>
+<h3 data-number="1.8.2" id="添加碰撞检测"><span class="header-section-number">1.8.2</span> 2. 添加碰撞检测</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_collision(<span class="va">self</span>, joint_angles):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;检查关节角度是否会导致碰撞&quot;&quot;&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这里添加碰撞检测算法</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div>
+<h3 data-number="1.8.3" id="轨迹规划"><span class="header-section-number">1.8.3</span> 3. 轨迹规划</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plan_trajectory(<span class="va">self</span>, start_pose, end_pose):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;规划机械臂运动轨迹&quot;&quot;&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 这里添加轨迹规划算法</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div>
+<h2 data-number="1.9" id="故障排除"><span class="header-section-number">1.9</span> 故障排除</h2>
+<h3 data-number="1.9.1" id="vtk-安装问题"><span class="header-section-number">1.9.1</span> 1. VTK 安装问题</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果 VTK 安装失败，尝试：</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--upgrade</span> pip</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install vtk==9.3.0</span></code></pre></div>
+<h3 data-number="1.9.2" id="模型加载失败"><span class="header-section-number">1.9.2</span> 2. 模型加载失败</h3>
+<ul>
+<li>确保 STL 文件格式正确</li>
+<li>检查文件路径是否存在</li>
+<li>确认文件读取权限</li>
+</ul>
+<h3 data-number="1.9.3" id="运动学计算错误"><span class="header-section-number">1.9.3</span> 3. 运动学计算错误</h3>
+<ul>
+<li>检查关节角度是否在限制范围内</li>
+<li>确认 DH 参数设置正确</li>
+<li>验证目标位姿是否可达</li>
+</ul>
+<h2 data-number="1.10" id="开发计划"><span class="header-section-number">1.10</span> 开发计划</h2>
+<h3 data-number="1.10.1" id="短期目标"><span class="header-section-number">1.10.1</span> 短期目标</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />基本界面和 3D 显示</label></li>
+<li><label><input type="checkbox" checked="" />STL 模型导入和显示</label></li>
+<li><label><input type="checkbox" checked="" />关节角度控制</label></li>
+<li><label><input type="checkbox" checked="" />正逆运动学计算</label></li>
+<li><label><input type="checkbox" checked="" />末端位姿控制</label></li>
+</ul>
+<h3 data-number="1.10.2" id="中期目标"><span class="header-section-number">1.10.2</span> 中期目标</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />真实 FR3 SDK 集成</label></li>
+<li><label><input type="checkbox" />多部件模型支持</label></li>
+<li><label><input type="checkbox" />碰撞检测</label></li>
+<li><label><input type="checkbox" />轨迹规划</label></li>
+</ul>
+<h3 data-number="1.10.3" id="长期目标"><span class="header-section-number">1.10.3</span> 长期目标</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />力控制仿真</label></li>
+<li><label><input type="checkbox" />动力学仿真</label></li>
+<li><label><input type="checkbox" />虚拟现实支持</label></li>
+<li><label><input type="checkbox" />机器学习集成</label></li>
+</ul>
+<h2 data-number="1.11" id="贡献指南"><span class="header-section-number">1.11</span> 贡献指南</h2>
+<p>欢迎贡献代码和建议！请遵循以下步骤：</p>
+<ol type="1">
+<li>Fork 项目</li>
+<li>创建功能分支</li>
+<li>提交变更</li>
+<li>创建 Pull Request</li>
+</ol>
+<h2 data-number="1.12" id="许可证"><span class="header-section-number">1.12</span> 许可证</h2>
+<p>本项目采用 MIT 许可证，详见 LICENSE 文件。</p>
+<h2 data-number="1.13" id="联系信息"><span class="header-section-number">1.13</span> 联系信息</h2>
+<p>如有问题或建议，请联系开发团队。</p>
+</body>
+</html>

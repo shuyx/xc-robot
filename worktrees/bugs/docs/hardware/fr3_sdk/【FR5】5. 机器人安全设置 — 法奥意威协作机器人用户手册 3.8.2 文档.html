@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR5】5. 机器人安全设置 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR5】5. 机器人安全设置 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 5. 机器⼈安全设置</p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>5.</strong> 机器⼈安全设置</p>
+<p><strong>5.1.</strong> 设置碰撞等级</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 8%" />
+<col style="width: 2%" />
+<col style="width: 40%" />
+<col style="width: 19%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>SetAnticollision (mode,level,config)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置碰撞等级</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. mode :0-等级，1-百分⽐；</p>
+<p>. level= [j1,j2,j3,j4,j5,j6] :碰撞阈值；</p>
+<p>. config :0-不更新配置⽂件，1-更新配置⽂件</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>level = [1.0,2.0,3.0,4.0,5.0,6.0]</p>
+<p>error = robot.SetAnticollision(0,level,1) print("设置碰撞等级错误码:",error)</p>
+<p>level = [50.0,20.0,30.0,40.0,50.0,60.0] error = robot.SetAnticollision(1,level,1) print("设置碰撞等级错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.2.</strong> 设置碰撞后策略</p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image2.png" /><img src="images/_FR5_5__________________________3_8_2___/media/image3.png" /><img src="images/_FR5_5__________________________3_8_2___/media/image4.png" /><img src="images/_FR5_5__________________________3_8_2___/media/image5.png" /><img src="images/_FR5_5__________________________3_8_2___/media/image6.png" /><img src="images/_FR5_5__________________________3_8_2___/media/image7.png" style="width:0.11458in" /><em>在</em> <em>Python 版本发⽣变更:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 8%" />
+<col style="width: 4%" />
+<col style="width: 2%" />
+<col style="width: 54%" />
+<col style="width: 22%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>SetCollisionStrategy(strategy,safeTime,safeDistance,safeVel,safetyMargin)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="7"><blockquote>
+<p>设置碰撞后策略</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image8.png" style="width:0.52794in;height:0.87487in" /> strategy ：0-报错暂停，1-继续运⾏ ，2-报错停⽌ ，3-重⼒矩模式，4-震荡相应模式，5-碰撞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>. safeTime ：安全停⽌时间[1000-2000]ms ，默认为：1000</p>
+<p>. safeDistance ：安全停⽌距离[1-150]mm ，默认为：100</p>
+<p>. safeVel ：安全停⽌速度[50-250]mm/s ，默认为：250</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image9.png" style="width:0.16601in;height:0.18748in" /> latest</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="7"><blockquote>
+<p>. safetyMargin [6] ：安全系数[1-10] ，默认为 ：[10,10,10,10,10,10]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.2.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.SetCollisionStrategy(strategy=1) print("设置碰撞后策略错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.3.</strong> 设置正限位</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 29%" />
+<col style="width: 36%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td></td>
+<td colspan="3"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetLimitPositive(p_limit)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置正限位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image13.png" style="width:0.60417in" /><img src="images/_FR5_5__________________________3_8_2___/media/image14.png" style="width:0.60417in" />p_limit=</p>
+</blockquote></td>
+<td rowspan="3"><blockquote>
+<p>：六个关节位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>[j1,j2,j3,j4,j5,j6]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.3.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>p_limit = [170.0,80.0,150.0,80.0,170.0,160.0] error = robot.SetLimitPositive(p_limit)</p>
+<p>print("设置正限位错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image15.png" style="width:0.34028in;height:0.40449in" /><strong>5.4.</strong> 设置负限位</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 29%" />
+<col style="width: 36%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td></td>
+<td colspan="3"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetLimitNegative(n_limit)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>设置负限位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image16.png" style="width:0.60417in" /><img src="images/_FR5_5__________________________3_8_2___/media/image17.png" style="width:0.60417in" />n_limit=</p>
+</blockquote></td>
+<td rowspan="3"><blockquote>
+<p>：六个关节位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>[j1,j2,j3,j4,j5,j6]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.4.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>n_limit = [-170.0,-260.0,-150.0,-260.0,-170.0,-160.0]</p>
+<p>error = robot.SetLimitNegative(n_limit)</p>
+<p>print("设置负限位错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.5.</strong> 错误状态清除</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 29%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ResetAllError()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误状态清除，只能清除可复位的错误</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.ResetAllError()</p>
+<p>print("错误状态清除错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image18.png" style="width:0.34028in;height:0.40449in" /><strong>5.6.</strong> 关节摩擦⼒补偿开关</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 11%" />
+<col style="width: 45%" />
+<col style="width: 4%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FrictionCompensationOnOff(state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>关节摩擦⼒补偿开关</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：0-关，1-开</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image20.png" style="width:0.11458in" /><strong>5.6.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.FrictionCompensationOnOff(1) print("关节摩擦⼒补偿开关错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image25.png" style="width:6.78125in;height:0.23958in" /></p>
+<blockquote>
+<p><strong>5.7.</strong> 设置关节摩擦⼒补偿系数<strong>-</strong>正装</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 28%" />
+<col style="width: 1%" />
+<col style="width: 9%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="2"></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>SetFrictionValue_level(coeff)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置关节摩擦⼒补偿系数-固定安装-正装</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR5_5__________________________3_8_2___/media/image26.png" /></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image27.jpeg" style="height:0.19792in" /> <u>coeff=</u></p>
+<p><u>[j1,j2,j3,j4,j5,j6]</u> <img src="images/_FR5_5__________________________3_8_2___/media/image28.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>：六个关节补偿系数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.7.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>lcoeff = [0.9,0.9,0.9,0.9,0.9,0.9]</p>
+<p>error = robot.SetFrictionValue_level(lcoeff) print("设置关节摩擦⼒补偿系数-正装错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.8.</strong> 设置关节摩擦⼒补偿系数<strong>-</strong>侧装</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 28%" />
+<col style="width: 0%" />
+<col style="width: 8%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="2"></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>SetFrictionValue_wall(coeff)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置关节摩擦⼒补偿系数-固定安装-侧装</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR5_5__________________________3_8_2___/media/image29.png" /></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image30.jpeg" style="height:0.19792in" /> <u>coeff=</u></p>
+<p><u>[j1,j2,j3,j4,j5,j6]</u> <img src="images/_FR5_5__________________________3_8_2___/media/image31.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>：六个关节补偿系数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image32.png" style="width:0.34028in;height:0.40449in" /><strong>5.8.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>wcoeff = [0.4,0.4,0.4,0.4,0.4,0.4]</p>
+<p>error = robot.SetFrictionValue_wall(wcoeff) print("设置关节摩擦⼒补偿系数-侧装错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.9.</strong> 设置关节摩擦⼒补偿系数<strong>-</strong>倒装</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 28%" />
+<col style="width: 1%" />
+<col style="width: 12%" />
+<col style="width: 24%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="2"></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>SetFrictionValue_ceiling(coeff)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置关节摩擦⼒补偿系数-固定安装-倒装</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR5_5__________________________3_8_2___/media/image33.png" /></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image34.png" style="width:0.46875in" /><img src="images/_FR5_5__________________________3_8_2___/media/image35.jpeg" style="height:0.19792in" /> <u>coeff=</u></p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image36.png" style="width:1.35417in" /> <u>[j1,j2,j3,j4,j5,j6]</u> <img src="images/_FR5_5__________________________3_8_2___/media/image37.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>：六个关节补偿系数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.9.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ccoeff = [0.6,0.6,0.6,0.6,0.6,0.6]</p>
+<p>error =robot.SetFrictionValue_ceiling(ccoeff) print("设置关节摩擦⼒补偿系数-倒装错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.10.</strong> 设置关节摩擦⼒补偿系数<strong>-</strong>⾃由安装</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 7%" />
+<col style="width: 30%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="3"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetFrictionValue_freedom(coeff)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>设置关节摩擦⼒补偿系数-⾃由安装</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><img src="images/_FR5_5__________________________3_8_2___/media/image38.png" /></td>
+<td><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image39.png" style="width:0.46875in" /><img src="images/_FR5_5__________________________3_8_2___/media/image40.jpeg" style="height:0.19792in" /> <u>coeff=</u></p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image41.png" style="width:1.35417in" /> <u>[j1,j2,j3,j4,j5,j6]</u> <img src="images/_FR5_5__________________________3_8_2___/media/image42.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+<td><blockquote>
+<p>：六个关节补偿系数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image43.png" style="width:0.34028in;height:0.40449in" /><strong>5.10.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>fcoeff = [0.5,0.5,0.5,0.5,0.5,0.5]</p>
+<p>error =robot.SetFrictionValue_freedom(fcoeff) print("设置关节摩擦⼒补偿系数-⾃由装错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.11.</strong> 下载点位表数据库</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image44.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR5_5__________________________3_8_2___/media/image45.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 19%" />
+<col style="width: 2%" />
+<col style="width: 40%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>PointTableDownLoad(point_table_name,save_file_path)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>下载点位表数据库</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. point_table_name ：要下载的点位表名称 pointTable1.db;</p>
+<p>. save_file_path :下载点位表的存储路径 C://test/;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.11.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR5_5__________________________3_8_2___/media/image46.png" style="height:0.17701in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR5_5__________________________3_8_2___/media/image47.png" style="height:0.17701in" /></p>
+<p>3 <img src="images/_FR5_5__________________________3_8_2___/media/image48.png" style="height:0.1666in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR5_5__________________________3_8_2___/media/image49.png" style="height:0.17701in" /> robot = Robot.RPC( '192.168.58.2')</p>
+<p>5 <img src="images/_FR5_5__________________________3_8_2___/media/image50.png" style="height:0.17445in" /> error =</p>
+<p>robot.PointTableDownLoad("point_table_a.db","D://Desktop/testPoint/download/") 6 <img src="images/_FR5_5__________________________3_8_2___/media/image51.png" style="height:0.17575in" /> print("PointTableDownLoad错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.12.</strong> 上传点位表数据库</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 42%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>PointTableUpLoad(point_table_file_path)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>上传点位表数据库</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>. point_table_file_path ：上传点位表的全路径名 C://test/pointTable1.db</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image52.png" style="width:0.34028in;height:0.40449in" /><strong>5.12.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.PointTableUpLoad("D://Desktop/testPoint/point_table_a.db") print("PointTableUpLoad错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.13.</strong> 点位表切换</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image56.png" style="width:6.78125in" /><img src="images/_FR5_5__________________________3_8_2___/media/image57.png" style="width:6.78125in" /><img src="images/_FR5_5__________________________3_8_2___/media/image58.png" /></p>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image59.png" style="width:6.78125in" />切换</p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image60.png" style="width:6.78125in" /><img src="images/_FR5_5__________________________3_8_2___/media/image61.png" style="width:6.78125in" />int_table_name ：要切换的点位表名称pointTable1.db, 当点位表为空，即 ” 时，表示将lua程序更新为未应</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="2"><blockquote>
+<p>成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><strong>5.13.1.</strong> 代码示例</td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>1 <strong>from fairino import</strong> Robot</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>error = robot.PointTableSwitch("point_table_a.db")</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>print("PointTableSwitch:",error)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><strong>5.14.</strong> 点位表更新<strong>lua</strong>⽂件 <em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td>ableUpdateLua(point_table_name, lua_file_name)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image62.png" style="width:6.78125in" /><img src="images/_FR5_5__________________________3_8_2___/media/image63.png" style="width:0.97917in;height:0.19792in" />更新lua⽂件</p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image64.png" style="width:0.77083in;height:0.19792in" />int_table_name ：要切换的点位表名称 pointTable1.db, 当点位表为空，即 ” 时，表示将lua程序更新为未应</p>
+<p>a_file_name : 要更新的lua⽂件名称 testPointTable.lua</p>
+</blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image65.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image66.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>成功-0 失败- errcode</p>
+</blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image67.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image68.png" style="width:0.34028in;height:0.40449in" /><strong>5.14.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.PointTableUpdateLua("point_table_a.db","testpoint.lua")</p>
+<p>print("PointTableUpdateLua:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.15.</strong> 设置机器⼈碰撞检测⽅法</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5 <img src="images/_FR5_5__________________________3_8_2___/media/image69.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR5_5__________________________3_8_2___/media/image70.png" style="width:0.11458in" /></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 87%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetCollisionDetectionMethod(method)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>设置机器⼈碰撞检测⽅法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p>method ：碰撞检测⽅法：0-电流模式；1-双编码器；2-电流和双编码器同时开启</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image74.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.16.</strong> 设置静态下碰撞检测开始关闭</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 14%" />
+<col style="width: 41%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetStaticCollisionOnOff(status)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置静态下碰撞检测开始关闭</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>： 0-关闭；1-开启</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>status</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image75.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.17.</strong> 设置碰撞检测开始关闭</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 35%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetPowerLimit(status, power)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置静态下碰撞检测开始关闭</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. status ： 0-关闭；1-开启</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image76.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image77.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><strong>5.17.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR5_5__________________________3_8_2___/media/image78.png" style="height:0.17399in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR5_5__________________________3_8_2___/media/image79.png" style="height:0.17399in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR5_5__________________________3_8_2___/media/image80.png" style="height:0.16665in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>4 <img src="images/_FR5_5__________________________3_8_2___/media/image81.png" style="height:0.1745in" /></p>
+<p>5 <img src="images/_FR5_5__________________________3_8_2___/media/image82.png" style="height:0.17457in" /> robot = Robot.RPC( '192.168.58.2')</p>
+<p>6 <img src="images/_FR5_5__________________________3_8_2___/media/image83.png" style="height:0.1745in" /></p>
+<p>7 <img src="images/_FR5_5__________________________3_8_2___/media/image84.png" style="height:0.17208in" /> error = robot.SetPowerLimit(0,2)</p>
+<p>8 <img src="images/_FR5_5__________________________3_8_2___/media/image85.png" style="height:0.16184in" /> print("SetPowerLimit return:",error)</p>
+<p>9 <img src="images/_FR5_5__________________________3_8_2___/media/image86.png" style="height:0.17196in" /></p>
+<p>10 <img src="images/_FR5_5__________________________3_8_2___/media/image87.png" style="height:0.17208in" /> error = robot.DragTeachSwitch(1)</p>
+<p>11 <img src="images/_FR5_5__________________________3_8_2___/media/image88.png" style="height:0.17457in" /> print("DragTeachSwitch return:",error)</p>
+<p>12 <img src="images/_FR5_5__________________________3_8_2___/media/image89.png" style="height:0.1745in" /></p>
+<p>13 <img src="images/_FR5_5__________________________3_8_2___/media/image90.png" style="height:0.15942in" /> error,joint_torque = robot.GetJointTorques()</p>
+<p>14 <img src="images/_FR5_5__________________________3_8_2___/media/image91.png" style="height:0.16961in" /> print("GetJointTorques return",joint_torque)</p>
+<p>15 <img src="images/_FR5_5__________________________3_8_2___/media/image92.png" style="height:0.17208in" /> joint_torque =</p>
+</blockquote>
+<p>[joint_torque[0],joint_torque[1],joint_torque[2],joint_torque[3],joint_torque[4],joint_t</p>
+<blockquote>
+<p>16 <img src="images/_FR5_5__________________________3_8_2___/media/image93.png" style="height:0.17706in" /> error_joint = 0</p>
+<p>17 <img src="images/_FR5_5__________________________3_8_2___/media/image94.png" style="height:0.16408in" /> count =100</p>
+<p>18 <img src="images/_FR5_5__________________________3_8_2___/media/image95.png" style="height:0.17208in" /> error = robot.ServoJTStart() <em>#servoJT开始</em></p>
+<p>19 <img src="images/_FR5_5__________________________3_8_2___/media/image96.png" style="height:0.17208in" /> print("ServoJTStart return",error)</p>
+<p>20 <img src="images/_FR5_5__________________________3_8_2___/media/image97.png" style="height:0.17457in" /> <strong>while</strong>(count):</p>
+<p>21 <img src="images/_FR5_5__________________________3_8_2___/media/image98.png" style="height:0.1745in" /> <strong>if</strong> error!=0:</p>
+<p>22 <img src="images/_FR5_5__________________________3_8_2___/media/image99.png" style="height:0.15942in" /> error_joint =error</p>
+<p>23 <img src="images/_FR5_5__________________________3_8_2___/media/image100.png" style="height:0.16961in" /> joint_torque[0] = joint_torque[0] + 10 <em>#每次1轴增加0.1NM，</em> <em>运动100次</em></p>
+<p>24 <img src="images/_FR5_5__________________________3_8_2___/media/image101.png" style="height:0.17457in" /> error = robot.ServoJT(joint_torque, 0.001) <em># 关节空间伺服模式运动</em></p>
+<p>25 <img src="images/_FR5_5__________________________3_8_2___/media/image102.png" style="height:0.1745in" /> count = count - 1</p>
+<p>26 <img src="images/_FR5_5__________________________3_8_2___/media/image103.png" style="height:0.17208in" /> time.sleep(0.001)</p>
+<p>27 <img src="images/_FR5_5__________________________3_8_2___/media/image104.png" style="height:0.16502in" /> print("ServoJTStart return",error_joint) 28 <img src="images/_FR5_5__________________________3_8_2___/media/image105.png" style="height:0.17534in" /> error = robot.ServoJTEnd() <em>#伺服运动结束</em> 29 <img src="images/_FR5_5__________________________3_8_2___/media/image106.png" style="height:0.17534in" /> time.sleep(1)</p>
+<p>30 <img src="images/_FR5_5__________________________3_8_2___/media/image107.png" style="height:0.17457in" /> print("ServoJTEnd return",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.18.</strong> 奇异位姿保护开启</p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image108.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 6%" />
+<col style="width: 11%" />
+<col style="width: 1%" />
+<col style="width: 2%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image109.png" style="width:4.59375in" /><img src="images/_FR5_5__________________________3_8_2___/media/image110.png" style="width:1.08333in" /><img src="images/_FR5_5__________________________3_8_2___/media/image111.jpeg" style="height:0.19792in" /> <u>SingularAvoidStart(protectMode, minShoulderPos=100, minElbowPos=50,</u> <u>minWristPos=10)</u> <img src="images/_FR5_5__________________________3_8_2___/media/image112.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>开启奇异位姿保护</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. protectMode ：奇异位姿保护保护模式：0-关节模式；1-笛卡尔模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="6"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td rowspan="6"><p><img src="images/_FR5_5__________________________3_8_2___/media/image113.png" /></p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image114.png" /></p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image115.png" /></p></td>
+<td colspan="3"></td>
+<td rowspan="2"><blockquote>
+<p>：肩奇异调整范围(mm), 默认100.0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>minShoulderPos</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>minElbowPos</p>
+</blockquote></td>
+<td colspan="2" rowspan="4"><blockquote>
+<p>：肘奇异调整范围(mm), 默认50.0 ：腕奇异调整范围(°), 默认10.0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>minWristPos</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image116.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.19.</strong> 奇异位姿保护关闭</p>
+</blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image117.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR5_5__________________________3_8_2___/media/image118.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 37%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SingularAvoidEnd()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>关闭奇异位姿保护</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image119.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.19.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/_FR5_5__________________________3_8_2___/media/image120.png" style="height:3.32241in" /></p>
+<blockquote>
+<p>startdescPose = [-352.437, -88.350, 226.471, 177.222, 4.924, 86.631]</p>
+<p>startjointPos = [-3.463, -84.308, 105.579, -108.475, -85.087, -0.334]</p>
+<p>middescPose = [-518.339, -23.706, 207.899, -178.420, 0.171, 71.697]</p>
+<p>midjointPos = [-8.587, -51.805, 64.914, -104.695, -90.099, 9.718]</p>
+<p>enddescPose = [-273.934, 323.003, 227.224, 176.398, 2.783, 66.064]</p>
+<p>endjointPos = [-63.460, -71.228, 88.068, -102.291, -90.149, -39.605]</p>
+<p>robot.MoveL(desc_pos=startdescPose, tool=0, user=0,vel=50)</p>
+<p>error = robot.SingularAvoidStart(1,100,50,10)</p>
+<p>print("SingularAvoidStart return ", error)</p>
+</blockquote>
+<p>robot.MoveC(desc_pos_p=middescPose,tool_p=0,user_p=0,desc_pos_t=enddescPose,tool_t=0,use</p>
+<blockquote>
+<p>20 <img src="images/_FR5_5__________________________3_8_2___/media/image121.png" style="height:0.17457in" /> error = robot.SingularAvoidEnd()</p>
+<p>21 <img src="images/_FR5_5__________________________3_8_2___/media/image122.png" style="height:0.17457in" /> print("SingularAvoidEnd return ", error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.20.</strong> ⾃定义碰撞检测阈值功能开始，设置关节端和<strong>TCP</strong>端的 碰撞检测阈值</p>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image124.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR5_5__________________________3_8_2___/media/image125.png" style="width:0.11458in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.1.0</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 84%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image126.png" style="width:4.19792in" /><img src="images/_FR5_5__________________________3_8_2___/media/image127.png" style="width:2.09375in" /><img src="images/_FR5_5__________________________3_8_2___/media/image128.jpeg" style="height:0.19792in" /> <u>CustomCollisionDetectionStart(flag, jointDetectionTh reshould,</u> <u>tcpDetectionTh reshould, block)</u> <img src="images/_FR5_5__________________________3_8_2___/media/image129.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>⾃定义碰撞检测阈值功能开始，设置关节端和TCP端的碰撞检测阈值</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. flag ： 1-仅关节检测开启；2-仅TCP检测开启；3-关节和TCP检测同时开启</p>
+<p>. jointDetectionTh reshould ： 关节碰撞检测阈值 j1-j6</p>
+<p>. tcpDetectionTh reshould ： TCP碰撞检测阈值，xyzabc</p>
+<p>. block ： 0-⾮阻塞；1-阻塞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image130.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.21.</strong> ⾃定义碰撞检测阈值功能关闭</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.1.0</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 58%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CustomCollisionDetectionEnd()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⾃定义碰撞检测阈值功能关闭</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image134.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>5.21.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR5_5__________________________3_8_2___/media/image135.png" style="height:0.17401in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR5_5__________________________3_8_2___/media/image136.png" style="height:0.17401in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR5_5__________________________3_8_2___/media/image137.png" style="height:0.16667in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>4 <img src="images/_FR5_5__________________________3_8_2___/media/image138.png" style="height:0.17452in" /></p>
+<p>5 <img src="images/_FR5_5__________________________3_8_2___/media/image139.png" style="height:0.1721in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>6 <img src="images/_FR5_5__________________________3_8_2___/media/image140.png" style="height:0.1721in" /> safety = [5, 5, 5, 5, 5, 5]</p>
+<p>7 <img src="images/_FR5_5__________________________3_8_2___/media/image141.png" style="height:0.1721in" /> robot.SetCollisionStrategy(3, 1000, 150, 250, safety)</p>
+<p>8 <img src="images/_FR5_5__________________________3_8_2___/media/image142.png" style="height:0.15944in" /> jAointDetectionTh reshould = [0.3, 0.3, 0.3, 0.3, 0.3, 0.3]</p>
+<p>9 <img src="images/_FR5_5__________________________3_8_2___/media/image143.png" style="height:0.16963in" /> tcpDetectionTh reshould = [80, 80, 80, 80, 80, 80]</p>
+<p>10 <img src="images/_FR5_5__________________________3_8_2___/media/image144.png" style="height:0.1721in" /> rtn = robot.CustomCollisionDetectionStart(3, jAointDetectionTh reshould,</p>
+<p>tcpDetectionTh reshould, 0)</p>
+<p>11 <img src="images/_FR5_5__________________________3_8_2___/media/image145.png" style="height:0.17459in" /> print("CustomCollisionDetectionStart rtn is ", rtn)</p>
+<p>12 <img src="images/_FR5_5__________________________3_8_2___/media/image146.png" style="height:0.15944in" /> p1Desc = [228.879, -503.594, 453.984, -175.580, 8.293, 171.267]</p>
+<p>13 <img src="images/_FR5_5__________________________3_8_2___/media/image147.png" style="height:0.17212in" /> p1Joint = [102.700, -85.333, 90.518, -102.365, -83.932, 22.134]</p>
+<p>14 <img src="images/_FR5_5__________________________3_8_2___/media/image148.png" style="height:0.17452in" /></p>
+<p>15 <img src="images/_FR5_5__________________________3_8_2___/media/image149.png" style="height:0.1721in" /> p2Desc = [-333.302, -435.580, 449.866, -174.997, 2.017, 109.815]</p>
+<p>16 <img src="images/_FR5_5__________________________3_8_2___/media/image150.png" style="height:0.17459in" /> p2Joint = [41.862, -85.333, 90.526, -100.587, -90.014, 22.135]</p>
+<p>17 <img src="images/_FR5_5__________________________3_8_2___/media/image151.png" style="height:0.1641in" /></p>
+<p>18 <img src="images/_FR5_5__________________________3_8_2___/media/image152.png" style="height:0.1721in" /> exaxisPos = [0.0, 0.0, 0.0, 0.0]</p>
+<p>19 <img src="images/_FR5_5__________________________3_8_2___/media/image153.png" style="height:0.17459in" /> offdese = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</p>
+<p>20 <img src="images/_FR5_5__________________________3_8_2___/media/image154.png" style="height:0.17452in" /> <strong>while True</strong>:</p>
+<p>21 <img src="images/_FR5_5__________________________3_8_2___/media/image155.png" style="height:0.1721in" /> robot.MoveL(desc_pos=p1Desc, tool=0, user=0, vel=100, acc=100, ovl=100)</p>
+<p>22 <img src="images/_FR5_5__________________________3_8_2___/media/image156.png" style="height:0.15944in" /> robot.MoveL(desc_pos=p2Desc, tool=0, user=0, vel=100, acc=100, ovl=100)</p>
+<p>23 <img src="images/_FR5_5__________________________3_8_2___/media/image157.png" style="height:0.16963in" /> rtn = robot.CustomCollisionDetectionEnd()</p>
+<p>24 <img src="images/_FR5_5__________________________3_8_2___/media/image158.png" style="height:0.17459in" /> print("CustomCollisionDetectionEnd rtn is ", rtn)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR5_5__________________________3_8_2___/media/image159.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

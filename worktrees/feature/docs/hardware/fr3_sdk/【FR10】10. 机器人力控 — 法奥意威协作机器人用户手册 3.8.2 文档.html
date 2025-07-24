@@ -1,0 +1,3235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR10】10. 机器人力控 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR10】10. 机器人力控 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 10. 机器⼈⼒控</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>10.</strong> 机器⼈⼒控</p>
+<p><strong>10.1.</strong> 获取⼒传感器配置</p>
+</blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image2.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image3.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image4.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image5.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image6.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>20-ATI 传感器，21-中科⽶点，22-伟航敏芯;device 设备号，坤维 (0-KWR75B) ，航天⼗—院 (0-M</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image7.png" style="width:0.11458in" /><img src="images/_FR10_10________________________3_8_2___/media/image8.png" style="width:0.52794in;height:0.87487in" /><strong>10.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image9.png" style="width:0.16601in;height:0.18748in" /><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>company = 17 <em>#传感器⼚商，17-坤维科技</em></p>
+<p>device = 0 <em>#传感器设备号</em></p>
+<p>error = robot.FT_SetConfig(company, device) <em>#配置⼒传感器</em> print("配置⼒传感器错误码",error)</p>
+<p>config = robot.FT_GetConfig() <em>#获取⼒传感器配置信息</em> print( I获取⼒传感器配置信息 I,config)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.FT_Activate(0) <em>#传感器复位</em> print("传感器复位错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.FT_Activate(1) <em>#传感器激活</em> print("传感器激活错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.SetLoadWeight(0.0) <em>#末端负载设置为零</em></p>
+<p>print("末端负载设置为零错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.SetLoadCoord(0.0,0.0,0.0) <em>#末端负载质⼼设置为零</em> print("末端质⼼设置为零错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.FT_SetZero(0) <em>#传感器去除零点</em></p>
+<p>print("传感器去除零点错误码",error)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.FT_GetForceTorqueOrigin() <em>#查询传感器原始数据</em> print("查询传感器原始数据",error)</p>
+<p>error = robot.FT_SetZero(1) print("传感器零点矫正",error) time.sleep(1)</p>
+<p>error = robot.FT_GetForceTorqueRCS() <em>#查询传感器坐标系下数据</em> print("查询传感器坐标系下数据",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image10.png" style="width:6.78125in;height:0.23892in" /></p>
+<blockquote>
+<p><strong>10.2.</strong> ⼒传感器配置</p>
+<p><em>在</em> <em>Python 版本发⽣变更:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image11.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image12.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image13.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>-ATI传感器，21-中科⽶点，22-伟航敏芯，23-NBIT ，24-鑫精诚(XJC) ，26-NSR；</p>
+</blockquote>
+<p>6A-200-4) ，ATI(0-AXIA80-M8) ， 中科⽶点(0-MST2010) ，伟航敏芯(0-WHC6L-YB-10A) ，NBIT(0-</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image14.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image15.png" style="width:6.78125in;height:0.35417in" /></p>
+<blockquote>
+<p><strong>10.3.</strong> ⼒传感器激活</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 12%" />
+<col style="width: 21%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_Activate(state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⼒传感器激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. state ：0-复位，1-激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image16.png" style="width:0.34028in;height:0.40449in" /><strong>10.4.</strong> ⼒传感器校零</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 11%" />
+<col style="width: 15%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_SetZero(state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⼒传感器校零</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：0-去除零点，1-零点矫正</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.5.</strong> 设置⼒传感器参考坐标系</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image17.png" style="width:0.11458in" /><img src="images/_FR10_10________________________3_8_2___/media/image18.png" style="width:0.16601in;height:0.18748in" /><em>在</em> <em>python 版本发⽣变更:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 48%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>FT_SetRCS(ref,coord= [0,0,0,0,0,0])</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>设置⼒传感器参考坐标系</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. ref ：0-⼯具坐标系，1-基坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. coord ：[x,y,z,rx,ry,rz]⾃定义坐标系值,默认[0,0,0,0,0,0]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image19.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR10_10________________________3_8_2___/media/image20.png" style="width:0.11458in" /><strong>10.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR10_10________________________3_8_2___/media/image21.png" style="height:0.16023in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR10_10________________________3_8_2___/media/image22.png" style="height:0.17035in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR10_10________________________3_8_2___/media/image23.png" style="height:0.17708in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR10_10________________________3_8_2___/media/image24.png" style="height:0.17708in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>5 <img src="images/_FR10_10________________________3_8_2___/media/image25.png" style="height:0.17452in" /> <em>#负载辨识，</em> <em>此时末端安装要辨识的⼯具，</em> <em>⼯具安装在⼒传感器下⽅,末端竖直向下</em></p>
+<p>6 <img src="images/_FR10_10________________________3_8_2___/media/image26.png" style="height:0.16422in" /> error = robot.FT_SetRCS(0) <em>#设置参考坐标系为⼯具坐标系，0-⼯具坐标系，1-基坐标系</em> 7 <img src="images/_FR10_10________________________3_8_2___/media/image27.png" style="height:0.17448in" /> print( I设置参考坐标系错误码 I,error)</p>
+<p>8 <img src="images/_FR10_10________________________3_8_2___/media/image28.png" style="height:0.17459in" /> time.sleep(1)</p>
+<p>9 <img src="images/_FR10_10________________________3_8_2___/media/image29.png" style="height:0.17452in" /> tool_id = 10 <em>#传感器坐标系编号</em></p>
+<p>10 <img src="images/_FR10_10________________________3_8_2___/media/image30.png" style="height:0.17578in" /> tool_coord = [0.0,0.0,35.0,0.0,0.0,0.0] <em># 传感器相对末端法兰位姿</em> 11 <img src="images/_FR10_10________________________3_8_2___/media/image31.png" style="height:0.16544in" /> tool_type = 1 <em># 0-⼯具，1-传感器</em></p>
+<p>12 <img src="images/_FR10_10________________________3_8_2___/media/image32.png" style="height:0.17452in" /> tool_install = 0 <em># 0-安装末端，1-机器⼈外部</em></p>
+<p>13 <img src="images/_FR10_10________________________3_8_2___/media/image33.png" style="height:0.17459in" /> error = robot.SetToolCoord(tool_id,tool_coord,tool_type,tool_install) <em>#设置传</em></p>
+<p><em>感器坐标系，</em> <em>传感器相对末端法兰位姿</em></p>
+<p>14 <img src="images/_FR10_10________________________3_8_2___/media/image34.png" style="height:0.17459in" /> print( I设置传感器坐标系错误码 I,error)</p>
+<p>15 <img src="images/_FR10_10________________________3_8_2___/media/image35.png" style="height:0.15944in" /> time.sleep(1)</p>
+<p>16 <img src="images/_FR10_10________________________3_8_2___/media/image36.png" style="height:0.1733in" /> error = robot.FT_PdIdenRecord(tool_id) <em>#记录辨识数据</em> 17 <img src="images/_FR10_10________________________3_8_2___/media/image37.png" style="height:0.1733in" /> print( I记录负载重量错误码 I,error)</p>
+<p>18 <img src="images/_FR10_10________________________3_8_2___/media/image38.png" style="height:0.1721in" /> time.sleep(1)</p>
+<p>19 <img src="images/_FR10_10________________________3_8_2___/media/image39.png" style="height:0.17453in" /> error = robot.FT_PdIdenRecord() <em>#计算负载重量，</em> <em>单位kg</em> 20 <img src="images/_FR10_10________________________3_8_2___/media/image40.png" style="height:0.16426in" /> print( I计算负载重量错误码 I,error)</p>
+<p>21 <img src="images/_FR10_10________________________3_8_2___/media/image41.png" style="height:0.17453in" /> <em>#负载质⼼辨识，</em> <em>机器⼈需要示教三个不同的姿态，</em> <em>然后记录辨识数据，</em> <em>最后计算负载质⼼</em> 22 <img src="images/_FR10_10________________________3_8_2___/media/image42.png" style="height:0.17453in" /> robot.Mode(1)</p>
+<p>23 <img src="images/_FR10_10________________________3_8_2___/media/image43.png" style="height:0.17567in" /> ret = robot.DragTeachSwitch(1) <em>#机器⼈切⼊拖动示教模式，</em> <em>必须在⼿动模式下才能切⼊拖动示教</em> <em>模式</em></p>
+<p>24 <img src="images/_FR10_10________________________3_8_2___/media/image44.png" style="height:0.16186in" /> time.sleep(5)</p>
+<p>25 <img src="images/_FR10_10________________________3_8_2___/media/image45.png" style="height:0.16963in" /> ret = robot.DragTeachSwitch(0)</p>
+<p>26 <img src="images/_FR10_10________________________3_8_2___/media/image46.png" style="height:0.1721in" /> time.sleep(1)</p>
+<p>27 <img src="images/_FR10_10________________________3_8_2___/media/image47.png" style="height:0.1721in" /> error = robot.FT_PdCogIdenRecord(tool_id,1)</p>
+<p>28 <img src="images/_FR10_10________________________3_8_2___/media/image48.png" style="height:0.1721in" /> print( I负载质⼼1错误码 I,error)<em>#记录辨识数据</em></p>
+<p>29 <img src="images/_FR10_10________________________3_8_2___/media/image49.png" style="height:0.16529in" /> ret = robot.DragTeachSwitch(1) <em>#机器⼈切⼊拖动示教模式，</em> <em>必须在⼿动模式下才能切⼊拖动示教</em> <em>模式</em></p>
+<p>30 <img src="images/_FR10_10________________________3_8_2___/media/image50.png" style="height:0.17459in" /> time.sleep(5)</p>
+<p>31 <img src="images/_FR10_10________________________3_8_2___/media/image51.png" style="height:0.1721in" /> ret = robot.DragTeachSwitch(0)</p>
+<p>32 <img src="images/_FR10_10________________________3_8_2___/media/image52.png" style="height:0.1721in" /> time.sleep(1)</p>
+<p>33 <img src="images/_FR10_10________________________3_8_2___/media/image53.png" style="height:0.15944in" /> error = robot.FT_PdCogIdenRecord(tool_id,2)</p>
+<p>34 <img src="images/_FR10_10________________________3_8_2___/media/image54.png" style="height:0.16963in" /> print( I负载质⼼2错误码 I,error)</p>
+<p>35 <img src="images/_FR10_10________________________3_8_2___/media/image55.png" style="height:0.17567in" /> ret = robot.DragTeachSwitch(1) <em>#机器⼈切⼊拖动示教模式，</em> <em>必须在⼿动模式下才能切⼊拖动示教</em> <em>模式</em></p>
+<p>36 <img src="images/_FR10_10________________________3_8_2___/media/image56.png" style="height:0.17459in" /> time.sleep(5)</p>
+<p>37 <img src="images/_FR10_10________________________3_8_2___/media/image57.png" style="height:0.15944in" /> ret = robot.DragTeachSwitch(0)</p>
+<p>38 <img src="images/_FR10_10________________________3_8_2___/media/image58.png" style="height:0.16963in" /> time.sleep(1)</p>
+<p>39 <img src="images/_FR10_10________________________3_8_2___/media/image59.png" style="height:0.1721in" /> error = robot.FT_PdCogIdenRecord(tool_id,3)</p>
+<p>40 <img src="images/_FR10_10________________________3_8_2___/media/image60.png" style="height:0.1721in" /> print( I负载质⼼3错误码 I,error)</p>
+<p>41 <img src="images/_FR10_10________________________3_8_2___/media/image61.png" style="height:0.1721in" /> time.sleep(1)</p>
+<p>42 <img src="images/_FR10_10________________________3_8_2___/media/image62.png" style="height:0.15944in" /> error = robot.FT_PdCogIdenCompute()</p>
+<p>43 <img src="images/_FR10_10________________________3_8_2___/media/image63.png" style="height:0.17212in" /> print( I负载质⼼计算错误码 I,error)</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image64.png" style="width:0.16601in;height:0.18748in" /> latest</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>10.6.</strong> 负载重量辨识计算</p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_PdIdenCompute()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>负载重量辨识计算</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image65.png" /> 错误码</p>
+</blockquote></td>
+<td colspan="2" rowspan="2">成功-0 失败- errcode ：负载重量，单位 kg</td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>10.7.</strong> 负载重量辨识记录</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 14%" />
+<col style="width: 21%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_PdIdenRecord(tool_id)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>负载重量辨识记录</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. tool_id ：传感器坐标系编号，范围[0~14]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>10.8.</strong> 负载质⼼辨识计算</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_PdCogIdenCompute()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>负载质⼼辨识计算</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image66.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR10_10________________________3_8_2___/media/image67.png" /></td>
+<td colspan="3"><img src="images/_FR10_10________________________3_8_2___/media/image68.png" /></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image69.png" style="width:1.14583in" /> <u>[cogx,cogy,cogz]</u> <img src="images/_FR10_10________________________3_8_2___/media/image70.jpeg" style="height:0.19792in" /> ：负载质⼼ ，单位 mm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image73.png" style="width:0.34028in;height:0.40449in" /><strong>10.9.</strong> 负载质⼼辨识记录</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 3%" />
+<col style="width: 35%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>FT_PdCogIdenRecord(tool_id,index)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>负载质⼼辨识记录</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="4"><p><img src="images/_FR10_10________________________3_8_2___/media/image74.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image75.png" /></p></td>
+<td colspan="2"></td>
+<td colspan="2" rowspan="4"><blockquote>
+<p>：传感器坐标系编号，范围[0~14]; 点编号[1~3]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>tool_id</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>index</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>:</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.10.</strong> 获取参考坐标系下⼒<strong>/</strong>扭矩数据</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 26%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>FT_GetForceTorqueRCS()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>获取参考坐标系下⼒/扭矩数据</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image79.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR10_10________________________3_8_2___/media/image80.png" /></td>
+<td colspan="2"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">data=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image81.png" style="width:1.35417in" /><u>[fx,fy,fz,tx,ty,tz]</u> <img src="images/_FR10_10________________________3_8_2___/media/image82.jpeg" style="height:0.19792in" />：参考坐标系下⼒/扭矩数据</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.10.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>import frrpc</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = frrpc.RPC( I192.168.58.2I)</p>
+<p>rcs = robot.FT_GetForceTorqueRCS() <em>#查询传感器坐标系下数据</em> print(rcs)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.11.</strong> 获取⼒传感器原始⼒<strong>/</strong>扭矩数据</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 26%" />
+<col style="width: 5%" />
+<col style="width: 36%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_GetForceTorqueOrigin()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取⼒传感器原始⼒/扭矩数据</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3" style="text-align: right;"><img src="images/_FR10_10________________________3_8_2___/media/image83.png" /> 错误码 成功-0 失败</td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>- errcode</p>
+<p>：⼒传感器原始⼒/扭矩数据</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR10_10________________________3_8_2___/media/image84.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">data=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image85.png" style="width:1.35417in" />[fx,fy,fz,tx,ty,tz]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image86.png" style="width:0.34028in;height:0.40449in" /><strong>10.11.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>import frrpc</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = frrpc.RPC( I192.168.58.2I)</p>
+<p>origin = robot.FT_GetForceTorqueOrigin() <em>#查询传感器原始数据</em> print(origin)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.12.</strong> 碰撞守护</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 6%" />
+<col style="width: 65%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_Guard(flag,sensor_num,select,force_torque,max_threshold,min_threshold)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>碰撞守护</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. flag ：0-关闭碰撞守护，1-开启碰撞守护；</p>
+<p>. sensor_num ：⼒传感器编号；</p>
+<p>. select ：六个⾃由度是否检测碰撞[fx,fy,fz,mx,my,mz] ，0-不⽣效，1-⽣效；</p>
+<p>. force_torque ：碰撞检测⼒/⼒矩，单位N或Nm；</p>
+<p>. max_threshold ：最⼤阈值；</p>
+<p>. min_threshold ：最⼩阈值；</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image87.png" /> ⼒/⼒矩检测范围:(force_torque-min_threshold,force_torque+max_threshold)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image88.png" style="width:0.34028in;height:0.40449in" /><strong>10.12.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR10_10________________________3_8_2___/media/image89.png" style="height:0.17708in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR10_10________________________3_8_2___/media/image90.png" style="height:0.17452in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>3 <img src="images/_FR10_10________________________3_8_2___/media/image91.png" style="height:0.16186in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>4 <img src="images/_FR10_10________________________3_8_2___/media/image92.png" style="height:0.17454in" /> <em>#碰撞守护</em></p>
+<p>5 <img src="images/_FR10_10________________________3_8_2___/media/image93.png" style="height:0.1758in" /> actFlag = 1 <em>#开启标志，0-关闭碰撞守护，1-开启碰撞守护</em> 6 <img src="images/_FR10_10________________________3_8_2___/media/image94.png" style="height:0.1758in" /> sensor_num = 1 <em>#⼒传感器编号</em></p>
+<p>7 <img src="images/_FR10_10________________________3_8_2___/media/image95.png" style="height:0.1721in" /> is_select = [1,1,1,1,1,1] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em></p>
+<p>8 <img src="images/_FR10_10________________________3_8_2___/media/image96.png" style="height:0.16542in" /> force_torque = [0.0,0.0,0.0,0.0,0.0,0.0] <em>#碰撞检测⼒和⼒矩，</em> <em>检测范围（force_torque- min_threshold,force_torque+max_threshold）</em></p>
+<p>9 <img src="images/_FR10_10________________________3_8_2___/media/image97.png" style="height:0.17582in" /> max_threshold = [10.0,10.0,10.0,10.0,10.0,10.0] <em>#最⼤阈值</em> 10 <img src="images/_FR10_10________________________3_8_2___/media/image98.png" style="height:0.17582in" /> min_threshold = [5.0,5.0,5.0,5.0,5.0,5.0] <em>#最⼩阈值</em></p>
+<p>11 <img src="images/_FR10_10________________________3_8_2___/media/image99.png" style="height:0.1721in" /> P1= [-160.619,-586.138,384.988,-170.166,-44.782,169.295]</p>
+<p>12 <img src="images/_FR10_10________________________3_8_2___/media/image100.png" style="height:0.15944in" /> P2= [-87.615,-606.209,556.119,-102.495,10.118,178.985]</p>
+<p>13 <img src="images/_FR10_10________________________3_8_2___/media/image101.png" style="height:0.16963in" /> P3= [41.479,-557.243,484.407,-125.174,46.995,-132.165]</p>
+<p>14 <img src="images/_FR10_10________________________3_8_2___/media/image102.png" style="height:0.1758in" /> error = robot.FT_Guard(actFlag, sensor_num, is_select, force_torque, max_threshold, min_threshold) <em>#开启碰撞守护</em></p>
+<p>15 <img src="images/_FR10_10________________________3_8_2___/media/image103.png" style="height:0.17459in" /> print("开启碰撞守护错误码",error)</p>
+<p>16 <img src="images/_FR10_10________________________3_8_2___/media/image104.png" style="height:0.15944in" /> error = robot.MoveL(P1,1,0) <em>#笛卡尔空间直线运动</em></p>
+<p>17 <img src="images/_FR10_10________________________3_8_2___/media/image105.png" style="height:0.16963in" /> print("笛卡尔空间直线运动错误码",error)</p>
+<p>18 <img src="images/_FR10_10________________________3_8_2___/media/image106.png" style="height:0.1721in" /> error = robot.MoveL(P2,1,0)</p>
+<p>19 <img src="images/_FR10_10________________________3_8_2___/media/image107.png" style="height:0.1721in" /> print("笛卡尔空间直线运动错误码",error)</p>
+<p>20 <img src="images/_FR10_10________________________3_8_2___/media/image108.png" style="height:0.1721in" /> error = robot.MoveL(P3,1,0)</p>
+<p>21 <img src="images/_FR10_10________________________3_8_2___/media/image109.png" style="height:0.16422in" /> print("笛卡尔空间直线运动错误码",error) 22 <img src="images/_FR10_10________________________3_8_2___/media/image110.png" style="height:0.17448in" /> actFlag = 0</p>
+<p>23 <img src="images/_FR10_10________________________3_8_2___/media/image111.png" style="height:0.1758in" /> error = robot.FT_Guard(actFlag, sensor_num, is_select, force_torque, max_threshold, min_threshold) <em>#关闭碰撞守护</em></p>
+<p>24 <img src="images/_FR10_10________________________3_8_2___/media/image112.png" style="height:0.17708in" /> print("关闭碰撞守护错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.13.</strong> 恒⼒控制</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 2%" />
+<col style="width: 86%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;">FT_Control(flag,sensor_num,select,force_torque,gain,adj_sign,ILC_sign,max_dis,max_ang)</td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 88%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>恒⼒控制</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td><blockquote>
+<p>. flag ：恒⼒控制开启标志，0-关，1-开；</p>
+<p>. sensor_num ：⼒传感器编号；</p>
+<p>. select ：六个⾃由度是否检测 [fx,fy,fz,mx,my,mz] ，0-不⽣效，1-⽣效；</p>
+<p>. force_torque ：检测⼒/⼒矩，单位N或Nm；</p>
+<p>. gain ：[f_p,f_i,f_d,m_p,m_i,m_d],⼒PID参数，⼒矩PID参数；</p>
+<p>. adj_sign ： ⾃适应启停状态，0-关闭，1-开启；</p>
+<p>. ILC_sign : ILC控制启停状态，0-停⽌ ，1-训练，2-实操；</p>
+<p>. max_dis ：最⼤调整距离；</p>
+<p>. max_ang ：最⼤调整角度；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image115.png" style="width:0.34028in;height:0.40449in" /><strong>10.13.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR10_10________________________3_8_2___/media/image116.png" style="height:0.17706in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR10_10________________________3_8_2___/media/image117.png" style="height:0.17706in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 3 <img src="images/_FR10_10________________________3_8_2___/media/image118.png" style="height:0.17706in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>4 <img src="images/_FR10_10________________________3_8_2___/media/image119.png" style="height:0.16665in" /> <em>#恒⼒控制</em></p>
+<p>5 <img src="images/_FR10_10________________________3_8_2___/media/image120.png" style="height:0.17578in" /> status = 1 <em>#恒⼒控制开启标志，0-关，1-开</em> 6 <img src="images/_FR10_10________________________3_8_2___/media/image121.png" style="height:0.17578in" /> sensor_num = 1 <em>#⼒传感器编号</em></p>
+<p>7 <img src="images/_FR10_10________________________3_8_2___/media/image122.png" style="height:0.17454in" /> is_select = [0,0,1,0,0,0] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em> 8 <img src="images/_FR10_10________________________3_8_2___/media/image123.png" style="height:0.17454in" /> force_torque = [0.0,0.0,-10.0,0.0,0.0,0.0]</p>
+<p>9 <img src="images/_FR10_10________________________3_8_2___/media/image124.png" style="height:0.1642in" /> gain = [0.0005,0.0,0.0,0.0,0.0,0.0] <em>#⼒PID参数，</em> <em>⼒矩PID参数</em> 10 <img src="images/_FR10_10________________________3_8_2___/media/image125.png" style="height:0.17446in" /> adj_sign = 0 <em>#⾃适应启停状态，0-关闭，1-开启</em></p>
+<p>11 <img src="images/_FR10_10________________________3_8_2___/media/image126.png" style="height:0.17457in" /> ILC_sign = 0 <em>#ILC控制启停状态，0-停⽌</em> <em>，1-训练，2-实操</em></p>
+<p>12 <img src="images/_FR10_10________________________3_8_2___/media/image127.png" style="height:0.17578in" /> max_dis = 100.0 <em>#最⼤调整距离</em> 13 <img src="images/_FR10_10________________________3_8_2___/media/image128.png" style="height:0.17578in" /> max_ang = 0.0 <em>#最⼤调整角度</em></p>
+<p>14 <img src="images/_FR10_10________________________3_8_2___/media/image129.png" style="height:0.15942in" /> J1= [70.395, -46.976, 90.712, -133.442, -87.076, -27.138]</p>
+<p>15 <img src="images/_FR10_10________________________3_8_2___/media/image130.png" style="height:0.16961in" /> P2= [-123.978, -674.129, 44.308, -178.921, 2.734, -172.449]</p>
+<p>16 <img src="images/_FR10_10________________________3_8_2___/media/image131.png" style="height:0.17208in" /> P3= [123.978, -674.129, 42.308, -178.921, 2.734, -172.449]</p>
+<p>17 <img src="images/_FR10_10________________________3_8_2___/media/image132.png" style="height:0.17208in" /> error = robot.MoveJ(J1,1,0)</p>
+<p>18 <img src="images/_FR10_10________________________3_8_2___/media/image133.png" style="height:0.17208in" /> print("关节空间运动指令错误码",error)</p>
+<p>19 <img src="images/_FR10_10________________________3_8_2___/media/image134.png" style="height:0.15942in" /> error = robot.MoveL(P2,1,0)</p>
+<p>20 <img src="images/_FR10_10________________________3_8_2___/media/image135.png" style="height:0.16961in" /> print("笛卡尔空间直线运动指令错误码",error)</p>
+<p>21 <img src="images/_FR10_10________________________3_8_2___/media/image136.png" style="height:0.17208in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>22 <img src="images/_FR10_10________________________3_8_2___/media/image137.png" style="height:0.17457in" /> print("恒⼒控制开启错误码",error)</p>
+<p>23 <img src="images/_FR10_10________________________3_8_2___/media/image138.png" style="height:0.16542in" /> error = robot.MoveL(P3,1,0) <em>#笛卡尔空间直线运动</em> 24 <img src="images/_FR10_10________________________3_8_2___/media/image139.png" style="height:0.17576in" /> print("笛卡尔空间直线运动指令错误码",error)</p>
+<p>25 <img src="images/_FR10_10________________________3_8_2___/media/image140.png" style="height:0.1745in" /> status = 0</p>
+<p>26 <img src="images/_FR10_10________________________3_8_2___/media/image141.png" style="height:0.17208in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>27 <img src="images/_FR10_10________________________3_8_2___/media/image142.png" style="height:0.16665in" /> print("恒⼒控制结束错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image144.png" style="width:0.16601in;height:0.18748in" /><strong>10.14.</strong> 螺旋线探索</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 3%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image145.png" style="width:3.3125in" /><img src="images/_FR10_10________________________3_8_2___/media/image146.png" style="width:3.3125in" />FT_SpiralSearch(rcs, ft, dr=0.7, max_t_ms=60000 <u>max_vel=5)</u> <img src="images/_FR10_10________________________3_8_2___/media/image147.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 7%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 6%" />
+<col style="width: 56%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>螺旋线探索</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. rcs ：参考坐标系，0-⼯具坐标系，1-基坐标系</p>
+<p>. ft ：⼒或⼒矩阈值 (0~100) ，单位 N 或 Nm;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td rowspan="3"><p><img src="images/_FR10_10________________________3_8_2___/media/image148.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image149.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image150.png" /></p></td>
+<td colspan="4"><blockquote>
+<p>dr ：每圈半径进给量，单位 mm 默认0.7;</p>
+<p>max_t_ms <img src="images/_FR10_10________________________3_8_2___/media/image151.png" style="height:0.17535in" />： 最⼤探索时间，单位 ms 默认 60000;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>max_vel</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>：线速度最⼤值，单位 mm/s 默认 5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.14.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/_FR10_10________________________3_8_2___/media/image152.png" style="height:3.67664in" /><img src="images/_FR10_10________________________3_8_2___/media/image153.png" style="height:0.8749in" /></p>
+<blockquote>
+<p>P = [36.794,-675.119, 65.379, -176.938, 2.535, -179.829]</p>
+<p><em>#恒⼒参数</em></p>
+<p>status = 1 <em>#恒⼒控制开启标志，0-关，1-开</em></p>
+<p>sensor_num = 1 <em>#⼒传感器编号</em></p>
+<p>is_select = [0,0,1,0,0,0] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em> force_torque = [0.0,0.0,-10.0,0.0,0.0,0.0]</p>
+<p>gain = [0.0001,0.0,0.0,0.0,0.0,0.0] <em>#⼒PID参数，</em> <em>⼒矩PID参数</em> adj_sign = 0 <em>#⾃适应启停状态，0-关闭，1-开启</em></p>
+<p>ILC_sign = 0 <em>#ILC控制启停状态，0-停⽌</em> <em>，1-训练，2-实操</em> max_dis = 100.0 <em>#最⼤调整距离</em></p>
+<p>max_ang = 5.0 <em>#最⼤调整角度</em></p>
+<p><em>#螺旋线探索参数</em></p>
+<p>rcs = 0 <em>#参考坐标系，0-⼯具坐标系，1-基坐标系</em> fFinish = 10 <em>#⼒或⼒矩阈值（0~100），</em> <em>单位N或Nm</em></p>
+<p>error = robot.MoveL(P,1,0) <em>#笛卡尔空间直线运动⾄初始点</em> print("笛卡尔空间直线运动⾄初始点",error)</p>
+<p>is_select = [0,0,1,1,1,0] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em></p>
+<p>error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign, max_dis,max_ang)</p>
+<p>print("恒⼒控制开启错误码",error)</p>
+<p>error = robot.FT_SpiralSearch(rcs,fFinish,max_vel=3)</p>
+<p>print("螺旋线探索错误码",error)</p>
+<p>status = 0</p>
+<p>error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign, max_dis,max_ang)</p>
+<p>27 <img src="images/_FR10_10________________________3_8_2___/media/image154.png" style="height:0.17706in" /> print("恒⼒控制关闭错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image156.png" style="width:0.34028in;height:0.37586in" /><img src="images/_FR10_10________________________3_8_2___/media/image157.png" style="width:0.21467in;height:0.135in" /><img src="images/_FR10_10________________________3_8_2___/media/image158.png" style="width:0.11458in" /><strong>10.15.</strong> 旋转插⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image159.png" style="width:4.66667in" /><img src="images/_FR10_10________________________3_8_2___/media/image160.png" style="width:0.67708in" /><img src="images/_FR10_10________________________3_8_2___/media/image161.jpeg" style="height:0.19792in" /> <u>FT_RotInsertion(rcs, ft, orn, angVelRot=3, angleMax=45, angAccmax=0,</u> <u>rotorn=1)</u> <img src="images/_FR10_10________________________3_8_2___/media/image162.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>旋转插⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. rcs ：参考坐标系，0-⼯具坐标系，1-基坐标系；</p>
+<p>. ft ：⼒或⼒矩阈值 (0~100) ，单位 N 或 Nm;</p>
+<p>. orn ：⼒/扭矩⽅向，1-沿z轴⽅向，2-绕z轴⽅向;</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. angVelRot ：旋转角速度，单位°/s,默认 3;</p>
+<p>. angleMax ：最⼤旋转角度，单位 ° 默认 45;</p>
+<p>. angAccmax ：最⼤旋转加速度，单位 °/s^2 ，暂不使⽤ 默认0;</p>
+<p>. rotorn ：旋转⽅向，1-顺时针，2-逆时针 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.15.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/_FR10_10________________________3_8_2___/media/image163.png" style="height:4.37453in" /><img src="images/_FR10_10________________________3_8_2___/media/image164.png" style="height:0.87491in" /></p>
+<blockquote>
+<p>P = [36.794,-675.119, 65.379, -176.938, 2.535, -179.829]</p>
+<p><em>#恒⼒参数</em></p>
+<p>status = 1 <em>#恒⼒控制开启标志，0-关，1-开</em></p>
+<p>sensor_num = 1 <em>#⼒传感器编号</em></p>
+<p>is_select = [0,0,1,0,0,0] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em> force_torque = [0.0,0.0,-10.0,0.0,0.0,0.0]</p>
+<p>gain = [0.0001,0.0,0.0,0.0,0.0,0.0] <em>#⼒PID参数，</em> <em>⼒矩PID参数</em> adj_sign = 0 <em>#⾃适应启停状态，0-关闭，1-开启</em></p>
+<p>ILC_sign = 0 <em>#ILC控制启停状态，0-停⽌</em> <em>，1-训练，2-实操</em> max_dis = 100.0 <em>#最⼤调整距离</em></p>
+<p>max_ang = 5.0 <em>#最⼤调整角度</em></p>
+<p><em>#旋转插⼊参数</em></p>
+<p>rcs = 0 <em>#参考坐标系，0-⼯具坐标系，1-基坐标系</em></p>
+<p>forceInsertion = 2.0 <em>#⼒或⼒矩阈值（0~100），</em> <em>单位N或Nm</em> orn = 1 <em>#⼒的⽅向，1-fz,2-mz</em></p>
+<p><em>#默认参数</em> <em>angVelRot：</em> <em>旋转角速度，</em> <em>单位</em> <em>°/s 默认</em> <em>3</em></p>
+<p><em>#默认参数</em> <em>angleMax：</em> <em>最⼤旋转角度，</em> <em>单位</em> <em>° 默认</em> <em>5</em></p>
+<p><em>#默认参数</em> <em>angAccmax：</em> <em>最⼤旋转加速度，</em> <em>单位</em> <em>°/s^2，</em> <em>暂不使⽤</em> <em>默认0</em></p>
+<p><em>#默认参数</em> <em>rotorn ：旋转⽅向，1-顺时针，2-逆时针</em> <em>默认1</em></p>
+<p>error = robot.MoveL(P,1,0) <em>#笛卡尔空间直线运动⾄初始点</em> print("笛卡尔空间直线运动⾄初始点",error)</p>
+<p>error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>print("恒⼒控制开启错误码",error)</p>
+<p>error = robot.FT_RotInsertion(rcs,1,orn)</p>
+<p>print("旋转插⼊错误码",error)</p>
+<p>status = 0</p>
+<p>error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>31 <img src="images/_FR10_10________________________3_8_2___/media/image165.png" style="height:0.17706in" /> print("恒⼒控制关闭错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image166.png" style="width:0.34028in;height:0.40449in" /><strong>10.16.</strong> 直线插⼊</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 7%" />
+<col style="width: 60%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image167.png" style="width:3.52083in" /><img src="images/_FR10_10________________________3_8_2___/media/image168.png" style="width:0.73958in" /><img src="images/_FR10_10________________________3_8_2___/media/image169.png" style="height:0.19715in" /> <u>FT_LinInsertion(rcs, ft, disMax, linorn, lin_v=1.0,</u> <u>lin_a=1.0)</u> <img src="images/_FR10_10________________________3_8_2___/media/image170.png" style="height:0.19715in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>直线插⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td rowspan="2"><p><img src="images/_FR10_10________________________3_8_2___/media/image171.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image172.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image173.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image174.png" /></p></td>
+<td><p><u>rcs</u> ：参考坐标系，0-⼯具坐标系，1-基坐标系；</p>
+<p>ft ：⼒或⼒矩阈值 (0~100) ，单位 N 或 Nm;</p></td>
+<td><img src="images/_FR10_10________________________3_8_2___/media/image176.png" style="width:0.16601in;height:0.18675in" /></td>
+</tr>
+<tr>
+<td colspan="2"><p>disMax ：最⼤插⼊距离，单位 mm;</p>
+<p>linorn ：插⼊⽅向:0-负⽅向，1-正⽅向</p></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 7%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><p><img src="images/_FR10_10________________________3_8_2___/media/image177.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image178.png" /></p></td>
+<td><p>lin_v ：直线速度，单位 mm/s 默认1;</p>
+<p>lin_a ：直线加速度，单位 mm/s^2 ，暂不使⽤ 默认1</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.16.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR10_10________________________3_8_2___/media/image179.png" style="height:0.17706in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR10_10________________________3_8_2___/media/image180.png" style="height:0.17578in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 3 <img src="images/_FR10_10________________________3_8_2___/media/image181.png" style="height:0.17578in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>4 <img src="images/_FR10_10________________________3_8_2___/media/image182.png" style="height:0.17576in" /> P = [36.794,-675.119, 65.379, -176.938, 2.535, -179.829] 5 <img src="images/_FR10_10________________________3_8_2___/media/image183.png" style="height:0.16542in" /> <em>#恒⼒参数</em></p>
+<p>6 <img src="images/_FR10_10________________________3_8_2___/media/image184.png" style="height:0.17578in" /> status = 1 <em>#恒⼒控制开启标志，0-关，1-开</em> 7 <img src="images/_FR10_10________________________3_8_2___/media/image185.png" style="height:0.17578in" /> sensor_num = 1 <em>#⼒传感器编号</em></p>
+<p>8 <img src="images/_FR10_10________________________3_8_2___/media/image186.png" style="height:0.17454in" /> is_select = [0,0,1,0,0,0] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em> 9 <img src="images/_FR10_10________________________3_8_2___/media/image187.png" style="height:0.17454in" /> force_torque = [0.0,0.0,-10.0,0.0,0.0,0.0]</p>
+<p>10 <img src="images/_FR10_10________________________3_8_2___/media/image188.png" style="height:0.1642in" /> gain = [0.0001,0.0,0.0,0.0,0.0,0.0] <em>#⼒PID参数，</em> <em>⼒矩PID参数</em> 11 <img src="images/_FR10_10________________________3_8_2___/media/image189.png" style="height:0.17446in" /> adj_sign = 0 <em>#⾃适应启停状态，0-关闭，1-开启</em></p>
+<p>12 <img src="images/_FR10_10________________________3_8_2___/media/image190.png" style="height:0.17457in" /> ILC_sign = 0 <em>#ILC控制启停状态，0-停⽌</em> <em>，1-训练，2-实操</em></p>
+<p>13 <img src="images/_FR10_10________________________3_8_2___/media/image191.png" style="height:0.17706in" /> max_dis = 100.0 <em>#最⼤调整距离</em> 14 <img src="images/_FR10_10________________________3_8_2___/media/image192.png" style="height:0.17706in" /> max_ang = 5.0 <em>#最⼤调整角度</em> 15 <img src="images/_FR10_10________________________3_8_2___/media/image193.png" style="height:0.16665in" /> <em>#直线插⼊参数</em></p>
+<p>16 <img src="images/_FR10_10________________________3_8_2___/media/image194.png" style="height:0.1745in" /> rcs = 0 <em>#参考坐标系，0-⼯具坐标系，1-基坐标系</em></p>
+<p>17 <img src="images/_FR10_10________________________3_8_2___/media/image195.png" style="height:0.1758in" /> force_goal = 10.0 <em>#⼒或⼒矩阈值（0~100），</em> <em>单位N或Nm</em> 18 <img src="images/_FR10_10________________________3_8_2___/media/image196.png" style="height:0.1758in" /> disMax = 100.0 <em>#最⼤插⼊距离，</em> <em>单位mm</em></p>
+<p>19 <img src="images/_FR10_10________________________3_8_2___/media/image197.png" style="height:0.17492in" /> linorn = 1 <em>#插⼊⽅向，1-正⽅向，2-负⽅向</em> 20 <img src="images/_FR10_10________________________3_8_2___/media/image198.png" style="height:0.16463in" /> <em>#默认参数</em> <em>lin_v ：直线速度，</em> <em>单位</em> <em>mm/s 默认1</em></p>
+<p>21 <img src="images/_FR10_10________________________3_8_2___/media/image199.png" style="height:0.17481in" /> <em>#默认参数</em> <em>lin_a ：直线加速度，</em> <em>单位</em> <em>mm/s^2，</em> <em>暂不使⽤</em> <em>默认0</em> 22 <img src="images/_FR10_10________________________3_8_2___/media/image200.png" style="height:0.17481in" /> error = robot.MoveL(P,1,0) <em>#笛卡尔空间直线运动⾄初始点</em> 23 <img src="images/_FR10_10________________________3_8_2___/media/image201.png" style="height:0.17481in" /> print("笛卡尔空间直线运动⾄初始点",error)</p>
+<p>24 <img src="images/_FR10_10________________________3_8_2___/media/image202.png" style="height:0.15942in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>25 <img src="images/_FR10_10________________________3_8_2___/media/image203.png" style="height:0.17457in" /> print("恒⼒控制开启错误码",error)</p>
+<p>26 <img src="images/_FR10_10________________________3_8_2___/media/image204.png" style="height:0.17208in" /> error = robot.FT_LinInsertion(rcs,force_goal,disMax,linorn)</p>
+<p>27 <img src="images/_FR10_10________________________3_8_2___/media/image205.png" style="height:0.17457in" /> print("直线插⼊错误码",error)</p>
+<p>28 <img src="images/_FR10_10________________________3_8_2___/media/image206.png" style="height:0.16409in" /> status = 0</p>
+<p>29 <img src="images/_FR10_10________________________3_8_2___/media/image207.png" style="height:0.17208in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>30 <img src="images/_FR10_10________________________3_8_2___/media/image208.png" style="height:0.17706in" /> print("恒⼒控制关闭错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image209.png" style="width:0.34028in;height:0.40449in" /><strong>10.17.</strong> 计算中间平⾯位置开始</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 42%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>FT_CalCenterStart()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>计算中间平⾯位置开始</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>10.18.</strong> 计算中间平⾯位置结束</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 2%" />
+<col style="width: 18%" />
+<col style="width: 2%" />
+<col style="width: 51%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>FT_CalCenterEnd()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>计算中间平⾯位置结束</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image213.png" style="width:0.33333in" /><img src="images/_FR10_10________________________3_8_2___/media/image214.png" style="width:1.14583in" />错误码 成功-0 失败- errcode - <img src="images/_FR10_10________________________3_8_2___/media/image215.jpeg" style="height:0.19792in" /> <u>pos=</u> <u>[x,y,z,rx,ry,rz]</u> <img src="images/_FR10_10________________________3_8_2___/media/image216.jpeg" style="height:0.19792in" />： 中间平⾯位置</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>10.19.</strong> 表⾯定位</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 7%" />
+<col style="width: 3%" />
+<col style="width: 2%" />
+<col style="width: 62%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image217.png" style="width:3.70833in" /><img src="images/_FR10_10________________________3_8_2___/media/image218.png" style="width:0.72917in" /><img src="images/_FR10_10________________________3_8_2___/media/image219.jpeg" style="height:0.19792in" /> <u>FT_FindSurface (rcs, dir, axis, disMax, ft, lin_v=3.0,</u> <u>lin_a=0.0)</u> <img src="images/_FR10_10________________________3_8_2___/media/image220.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>表⾯定位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="6"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td rowspan="6"><p><img src="images/_FR10_10________________________3_8_2___/media/image221.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image222.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image223.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image224.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image225.png" /></p></td>
+<td colspan="2"></td>
+<td rowspan="5"><blockquote>
+<p>： 参考坐标系，0-⼯具坐标系，1-基坐标系； ：移动⽅向，1-正⽅向，2-负⽅向；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>rcs</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>dir</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="3"><p>axis ：移动轴，1-x ，2-y ，3-z；</p>
+<blockquote>
+<p>disMax ：最⼤探索距离，单位 mm;</p>
+</blockquote>
+<p>ft ：动作终⽌⼒阈值，单位N；</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>. lin_v ：探索直线速度，单位mm/s 默认3;</p>
+<p>. lin_a ：探索直线加速度，单位mm/s^2 默认0;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image226.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image227.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR10_10________________________3_8_2___/media/image228.png" style="width:0.11458in" /><strong>10.19.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR10_10________________________3_8_2___/media/image229.jpeg" style="height:0.17388in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR10_10________________________3_8_2___/media/image230.png" style="height:0.17388in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR10_10________________________3_8_2___/media/image231.png" style="height:0.16654in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR10_10________________________3_8_2___/media/image232.png" style="height:0.17695in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>5 <img src="images/_FR10_10________________________3_8_2___/media/image233.png" style="height:0.17695in" /> <em>#恒⼒控制</em></p>
+<p>6 <img src="images/_FR10_10________________________3_8_2___/media/image234.png" style="height:0.17567in" /> status = 1 <em>#恒⼒控制开启标志，0-关，1-开</em> 7 <img src="images/_FR10_10________________________3_8_2___/media/image235.png" style="height:0.17567in" /> sensor_num = 1 <em>#⼒传感器编号</em></p>
+<p>8 <img src="images/_FR10_10________________________3_8_2___/media/image236.png" style="height:0.1641in" /> is_select = [1,0,0,0,0,0] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em> 9 <img src="images/_FR10_10________________________3_8_2___/media/image237.png" style="height:0.17435in" /> force_torque = [-2.0,0.0,0.0,0.0,0.0,0.0]</p>
+<p>10 <img src="images/_FR10_10________________________3_8_2___/media/image238.png" style="height:0.17443in" /> gain = [0.0002,0.0,0.0,0.0,0.0,0.0] <em>#⼒PID参数，</em> <em>⼒矩PID参数</em> 11 <img src="images/_FR10_10________________________3_8_2___/media/image239.png" style="height:0.17443in" /> adj_sign = 0 <em>#⾃适应启停状态，0-关闭，1-开启</em></p>
+<p>12 <img src="images/_FR10_10________________________3_8_2___/media/image240.png" style="height:0.17446in" /> ILC_sign = 0 <em>#ILC控制启停状态，0-停⽌</em> <em>，1-训练，2-实操</em></p>
+<p>13 <img src="images/_FR10_10________________________3_8_2___/media/image241.png" style="height:0.16654in" /> max_dis = 15.0 <em>#最⼤调整距离</em> 14 <img src="images/_FR10_10________________________3_8_2___/media/image242.png" style="height:0.17695in" /> max_ang = 0.0 <em>#最⼤调整⻆度</em> 15 <img src="images/_FR10_10________________________3_8_2___/media/image243.png" style="height:0.17695in" /> <em>#表⾯定位参数</em></p>
+<p>16 <img src="images/_FR10_10________________________3_8_2___/media/image244.png" style="height:0.17638in" /> rcs = 0 <em>#参考坐标系，0-⼯具坐标系，1-基坐标系</em> 17 <img src="images/_FR10_10________________________3_8_2___/media/image245.png" style="height:0.17638in" /> direction = 1 <em>#移动⽅向，1-正⽅向，2-负⽅向</em> 18 <img src="images/_FR10_10________________________3_8_2___/media/image246.png" style="height:0.166in" /> axis = 1 <em>#移动轴，1-X,2-Y,3-Z</em></p>
+<p>19 <img src="images/_FR10_10________________________3_8_2___/media/image247.png" style="height:0.17364in" /> lin_v = 3.0 <em>#探索直线速度，</em> <em>单位mm/s</em></p>
+<p>20 <img src="images/_FR10_10________________________3_8_2___/media/image248.png" style="height:0.17485in" /> lin_a = 0.0 <em>#探索直线加速度，</em> <em>单位mm/s^2</em> 21 <img src="images/_FR10_10________________________3_8_2___/media/image249.png" style="height:0.17485in" /> disMax = 50.0 <em>#最⼤探索距离，</em> <em>单位mm</em></p>
+<p>22 <img src="images/_FR10_10________________________3_8_2___/media/image250.png" style="height:0.17198in" /> force_goal = 2.0 <em>#动作终⽌⼒阈值，</em> <em>单位N</em></p>
+<p>23 <img src="images/_FR10_10________________________3_8_2___/media/image251.png" style="height:0.16532in" /> P1= [-77.24,-679.599,58.328,179.373,-0.028,-167.849] 24 <img src="images/_FR10_10________________________3_8_2___/media/image252.png" style="height:0.17565in" /> Robot.MoveCart(P1,1,0) <em>#关节空间点到点运动</em></p>
+<p>25 <img src="images/_FR10_10________________________3_8_2___/media/image253.png" style="height:0.17567in" /> <em>#x⽅向寻找中⼼</em> 26 <img src="images/_FR10_10________________________3_8_2___/media/image254.png" style="height:0.17567in" /> <em>#第1个表⾯</em></p>
+<p>27 <img src="images/_FR10_10________________________3_8_2___/media/image255.png" style="height:0.17198in" /> error = robot.FT_CalCenterStart()</p>
+<p>28 <img src="images/_FR10_10________________________3_8_2___/media/image256.png" style="height:0.15933in" /> print("计算中间平⾯开始错误码",error)</p>
+<p>29 <img src="images/_FR10_10________________________3_8_2___/media/image257.png" style="height:0.16951in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>30 <img src="images/_FR10_10________________________3_8_2___/media/image258.png" style="height:0.17446in" /> print("恒⼒控制开始错误码",error)</p>
+<p>31 <img src="images/_FR10_10________________________3_8_2___/media/image259.png" style="height:0.17198in" /> error = robot.FT_FindSurface(rcs,direction,axis,disMax,force_goal)</p>
+<p>32 <img src="images/_FR10_10________________________3_8_2___/media/image260.png" style="height:0.16174in" /> print("寻找X+表⾯错误码",error)</p>
+<p>33 <img src="images/_FR10_10________________________3_8_2___/media/image261.png" style="height:0.17185in" /> status = 0</p>
+<p>34 <img src="images/_FR10_10________________________3_8_2___/media/image262.png" style="height:0.17198in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>35 <img src="images/_FR10_10________________________3_8_2___/media/image263.png" style="height:0.16174in" /> print("恒⼒控制结束错误码",error)</p>
+<p>36 <img src="images/_FR10_10________________________3_8_2___/media/image264.png" style="height:0.16951in" /> time.sleep(2)</p>
+<p>37 <img src="images/_FR10_10________________________3_8_2___/media/image265.png" style="height:0.17198in" /> error = robot.MoveCart(P1,1,0) <em>#关节空间点到点运动</em></p>
+<p>38 <img src="images/_FR10_10________________________3_8_2___/media/image266.png" style="height:0.17198in" /> print("关节空间点到点运动错误码",error)</p>
+<p>39 <img src="images/_FR10_10________________________3_8_2___/media/image267.png" style="height:0.17446in" /> time.sleep(5)</p>
+<p>40 <img src="images/_FR10_10________________________3_8_2___/media/image268.png" style="height:0.16398in" /> <em>#第2个表⾯</em></p>
+<p>41 <img src="images/_FR10_10________________________3_8_2___/media/image269.png" style="height:0.17198in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>42 <img src="images/_FR10_10________________________3_8_2___/media/image270.png" style="height:0.17695in" /> print("恒⼒控制开始错误码",error)</p>
+<p>43 <img src="images/_FR10_10________________________3_8_2___/media/image271.png" style="height:0.17439in" /> direction = 2 <em>#移动⽅向，1-正⽅向，2-负⽅向</em></p>
+<p>44 <img src="images/_FR10_10________________________3_8_2___/media/image272.png" style="height:0.15933in" /> error = robot.FT_FindSurface(rcs,direction,axis,disMax,force_goal)</p>
+<p>45 <img src="images/_FR10_10________________________3_8_2___/media/image273.png" style="height:0.172in" /> print("寻找X—表⾯错误码",error)</p>
+<p>46 <img src="images/_FR10_10________________________3_8_2___/media/image274.png" style="height:0.17439in" /> status = 0</p>
+<p>47 <img src="images/_FR10_10________________________3_8_2___/media/image275.png" style="height:0.17198in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>48 <img src="images/_FR10_10________________________3_8_2___/media/image276.png" style="height:0.16532in" /> print("恒⼒控制结束错误码",error) 49 <img src="images/_FR10_10________________________3_8_2___/media/image277.png" style="height:0.17565in" /> <em>#计算x ⽅向中⼼位置</em></p>
+<p>50 <img src="images/_FR10_10________________________3_8_2___/media/image278.png" style="height:0.17198in" /> error,xcenter = robot.FT_CalCenterEnd()</p>
+<p>51 <img src="images/_FR10_10________________________3_8_2___/media/image279.png" style="height:0.17198in" /> print("计算X⽅向中间平⾯结束错误码",xcenter)</p>
+<p>52 <img src="images/_FR10_10________________________3_8_2___/media/image280.png" style="height:0.16436in" /> error = robot.MoveCart(xcenter,1,0)</p>
+<p>53 <img src="images/_FR10_10________________________3_8_2___/media/image281.png" style="height:0.15313in" /> print("关节空间点到点运动错误码",error) <img src="images/_FR10_10________________________3_8_2___/media/image282.png" style="width:0.16601in;height:0.17225in" /> latest</p>
+<p>54 <img src="images/_FR10_10________________________3_8_2___/media/image283.png" style="height:0.17036in" /> time.sleep(1)</p>
+<p>55 <img src="images/_FR10_10________________________3_8_2___/media/image284.png" style="height:0.17612in" /> <em>#y⽅向寻找中⼼</em> 56 <img src="images/_FR10_10________________________3_8_2___/media/image285.png" style="height:0.17612in" /> <em>#第1个表⾯</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>57 <img src="images/_FR10_10________________________3_8_2___/media/image286.png" style="height:0.17453in" /> error =robot.FT_CalCenterStart()</p>
+<p>58 <img src="images/_FR10_10________________________3_8_2___/media/image287.png" style="height:0.17204in" /> print("计算中间平⾯开始错误码",error)</p>
+<p>59 <img src="images/_FR10_10________________________3_8_2___/media/image288.png" style="height:0.15938in" /> error =robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>60 <img src="images/_FR10_10________________________3_8_2___/media/image289.png" style="height:0.17702in" /> print("恒⼒控制开始错误码",error)</p>
+<p>61 <img src="images/_FR10_10________________________3_8_2___/media/image290.png" style="height:0.17702in" /> direction = 1 <em>#移动⽅向，1-正⽅向，2-负⽅向</em> 62 <img src="images/_FR10_10________________________3_8_2___/media/image291.png" style="height:0.17702in" /> axis = 2 <em>#移动轴，1-X,2-Y,3-Z</em></p>
+<p>63 <img src="images/_FR10_10________________________3_8_2___/media/image292.png" style="height:0.16536in" /> disMax = 150.0 <em>#最⼤探索距离，</em> <em>单位mm</em> 64 <img src="images/_FR10_10________________________3_8_2___/media/image293.png" style="height:0.1757in" /> lin_v = 6.0 <em>#探索直线速度，</em> <em>单位mm/s</em></p>
+<p>65 <img src="images/_FR10_10________________________3_8_2___/media/image294.png" style="height:0.17204in" /> error =robot.FT_FindSurface(rcs,direction,axis,disMax,force_goal)</p>
+<p>66 <img src="images/_FR10_10________________________3_8_2___/media/image295.png" style="height:0.17453in" /> print("寻找表⾯Y+错误码",error)</p>
+<p>67 <img src="images/_FR10_10________________________3_8_2___/media/image296.png" style="height:0.17446in" /> status = 0</p>
+<p>68 <img src="images/_FR10_10________________________3_8_2___/media/image297.png" style="height:0.15938in" /> error =robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>69 <img src="images/_FR10_10________________________3_8_2___/media/image298.png" style="height:0.17453in" /> print("恒⼒控制结束错误码",error)</p>
+<p>70 <img src="images/_FR10_10________________________3_8_2___/media/image299.png" style="height:0.17204in" /> error =robot.MoveCart(P1,1,0) <em>#关节空间点到点运动</em></p>
+<p>71 <img src="images/_FR10_10________________________3_8_2___/media/image300.png" style="height:0.17204in" /> print("关节空间点到点运动错误码",error)</p>
+<p>72 <img src="images/_FR10_10________________________3_8_2___/media/image301.png" style="height:0.1618in" /> Robot.WaitMs(1000)</p>
+<p>73 <img src="images/_FR10_10________________________3_8_2___/media/image302.png" style="height:0.17192in" /> <em>#第2个表⾯</em></p>
+<p>74 <img src="images/_FR10_10________________________3_8_2___/media/image303.png" style="height:0.17204in" /> error =robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>75 <img src="images/_FR10_10________________________3_8_2___/media/image304.png" style="height:0.17702in" /> print("恒⼒控制开始错误码",error)</p>
+<p>76 <img src="images/_FR10_10________________________3_8_2___/media/image305.png" style="height:0.16404in" /> direction = 2 <em>#移动⽅向，1-正⽅向，2-负⽅向</em></p>
+<p>77 <img src="images/_FR10_10________________________3_8_2___/media/image306.png" style="height:0.17204in" /> error =robot.FT_FindSurface(rcs,direction,axis,disMax,force_goal)</p>
+<p>78 <img src="images/_FR10_10________________________3_8_2___/media/image307.png" style="height:0.17453in" /> print("寻找表⾯Y-错误码",error)</p>
+<p>79 <img src="images/_FR10_10________________________3_8_2___/media/image308.png" style="height:0.17446in" /> status = 0</p>
+<p>80 <img src="images/_FR10_10________________________3_8_2___/media/image309.png" style="height:0.17204in" /> error =robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>81 <img src="images/_FR10_10________________________3_8_2___/media/image310.png" style="height:0.17324in" /> print("恒⼒控制结束错误码",error) 82 <img src="images/_FR10_10________________________3_8_2___/media/image311.png" style="height:0.17324in" /> <em>#计算y⽅向中⼼位置</em></p>
+<p>83 <img src="images/_FR10_10________________________3_8_2___/media/image312.png" style="height:0.17204in" /> error,ycenter=robot.FT_CalCenterEnd()</p>
+<p>84 <img src="images/_FR10_10________________________3_8_2___/media/image313.png" style="height:0.17204in" /> print("计算中间平⾯Y⽅向结束错误码",ycenter)</p>
+<p>85 <img src="images/_FR10_10________________________3_8_2___/media/image314.png" style="height:0.15938in" /> error =robot.MoveCart(ycenter,1,0)</p>
+<p>86 <img src="images/_FR10_10________________________3_8_2___/media/image315.png" style="height:0.17206in" /> print("关节空间点到点运动错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.20.</strong> 柔顺控制关闭</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 42%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>FT_ComplianceStop()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>柔顺控制关闭</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.21.</strong> 柔顺控制开启</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 12%" />
+<col style="width: 34%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>FT_ComplianceStart(p, force)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>柔顺控制开启</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. p : 位置调节系数或柔顺系数</p>
+<p>. force ：柔顺开启⼒阈值，单位N</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image316.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image317.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR10_10________________________3_8_2___/media/image318.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.21.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR10_10________________________3_8_2___/media/image319.png" style="height:0.17395in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR10_10________________________3_8_2___/media/image320.png" style="height:0.17395in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR10_10________________________3_8_2___/media/image321.png" style="height:0.16537in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR10_10________________________3_8_2___/media/image322.png" style="height:0.17571in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>5 <img src="images/_FR10_10________________________3_8_2___/media/image323.png" style="height:0.17638in" /> J1= [75.005,-46.434,90.687,-133.708,-90.315,-27.139] 6 <img src="images/_FR10_10________________________3_8_2___/media/image324.png" style="height:0.17638in" /> P2= [-77.24,-679.599,38.328,179.373,-0.028,-167.849] 7 <img src="images/_FR10_10________________________3_8_2___/media/image325.png" style="height:0.17638in" /> P3= [77.24,-679.599,38.328,179.373,-0.028,-167.849] 8 <img src="images/_FR10_10________________________3_8_2___/media/image326.png" style="height:0.16601in" /> <em>#恒⼒控制参数</em></p>
+<p>9 <img src="images/_FR10_10________________________3_8_2___/media/image327.png" style="height:0.17574in" /> status = 1 <em>#恒⼒控制开启标志，0-关，1-开</em> 10 <img src="images/_FR10_10________________________3_8_2___/media/image328.png" style="height:0.17574in" /> sensor_num = 1 <em>#⼒传感器编号</em></p>
+<p>11 <img src="images/_FR10_10________________________3_8_2___/media/image329.png" style="height:0.17319in" /> is_select = [1,1,1,0,0,0] <em>#六个⾃由度选择[fx,fy,fz,mx,my,mz]，0-不⽣效，1-⽣效</em> 12 <img src="images/_FR10_10________________________3_8_2___/media/image330.png" style="height:0.163in" /> force_torque = [-10.0,-10.0,-10.0,0.0,0.0,0.0]</p>
+<p>13 <img src="images/_FR10_10________________________3_8_2___/media/image331.png" style="height:0.17325in" /> gain = [0.0005,0.0,0.0,0.0,0.0,0.0] <em>#⼒PID参数，</em> <em>⼒矩PID参数</em> 14 <img src="images/_FR10_10________________________3_8_2___/media/image332.png" style="height:0.17325in" /> adj_sign = 0 <em>#⾃适应启停状态，0-关闭，1-开启</em></p>
+<p>15 <img src="images/_FR10_10________________________3_8_2___/media/image333.png" style="height:0.17454in" /> ILC_sign = 0 <em>#ILC控制启停状态，0-停⽌</em> <em>，1-训练，2-实操</em></p>
+<p>16 <img src="images/_FR10_10________________________3_8_2___/media/image334.png" style="height:0.17571in" /> max_dis = 1000.0 <em>#最⼤调整距离</em> 17 <img src="images/_FR10_10________________________3_8_2___/media/image335.png" style="height:0.16537in" /> max_ang = 0.0 <em>#最⼤调整角度</em></p>
+<p>18 <img src="images/_FR10_10________________________3_8_2___/media/image336.png" style="height:0.17205in" /> error = robot.MoveJ(J1,1,0)</p>
+<p>19 <img src="images/_FR10_10________________________3_8_2___/media/image337.png" style="height:0.1745in" /> print("关节空间运动到点1错误码",error) 20 <img src="images/_FR10_10________________________3_8_2___/media/image338.png" style="height:0.1745in" /> <em>#柔顺控制</em></p>
+<p>21 <img src="images/_FR10_10________________________3_8_2___/media/image339.png" style="height:0.17205in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>22 <img src="images/_FR10_10________________________3_8_2___/media/image340.png" style="height:0.17207in" /> print("恒⼒控制开始错误码",error)</p>
+<p>23 <img src="images/_FR10_10________________________3_8_2___/media/image341.png" style="height:0.17574in" /> p = 0.00005 <em>#位置调节系数或柔顺系数</em> 24 <img src="images/_FR10_10________________________3_8_2___/media/image342.png" style="height:0.17574in" /> force = 30.0 <em>#柔顺开启⼒阈值，</em> <em>单位N</em></p>
+<p>25 <img src="images/_FR10_10________________________3_8_2___/media/image343.png" style="height:0.17205in" /> error = robot.FT_ComplianceStart(p,force)</p>
+<p>26 <img src="images/_FR10_10________________________3_8_2___/media/image344.png" style="height:0.15939in" /> print("柔顺控制开始错误码",error)</p>
+<p>27 <img src="images/_FR10_10________________________3_8_2___/media/image345.png" style="height:0.16958in" /> error = robot.MoveL(P2,1,0,vel =10) <em>#笛卡尔空间直线运动</em></p>
+<p>28 <img src="images/_FR10_10________________________3_8_2___/media/image346.png" style="height:0.17205in" /> print("笛卡尔空间直线运动到点2错误码", error)</p>
+<p>29 <img src="images/_FR10_10________________________3_8_2___/media/image347.png" style="height:0.17205in" /> error = robot.MoveL(P3,1,0,vel =10)</p>
+<p>30 <img src="images/_FR10_10________________________3_8_2___/media/image348.png" style="height:0.17205in" /> print("笛卡尔空间直线运动到点3错误码", error)</p>
+<p>31 <img src="images/_FR10_10________________________3_8_2___/media/image349.png" style="height:0.15939in" /> time.sleep(1)</p>
+<p>32 <img src="images/_FR10_10________________________3_8_2___/media/image350.png" style="height:0.16958in" /> error = robot.FT_ComplianceStop()</p>
+<p>33 <img src="images/_FR10_10________________________3_8_2___/media/image351.png" style="height:0.17454in" /> print("柔顺控制结束错误码",error)</p>
+<p>34 <img src="images/_FR10_10________________________3_8_2___/media/image352.png" style="height:0.17446in" /> status = 0</p>
+<p>35 <img src="images/_FR10_10________________________3_8_2___/media/image353.png" style="height:0.17205in" /> error = robot.FT_Control(status,sensor_num,is_select,force_torque,gain,adj_sign,</p>
+<p>ILC_sign,max_dis,max_ang)</p>
+<p>36 <img src="images/_FR10_10________________________3_8_2___/media/image354.png" style="height:0.17207in" /> print("恒⼒控制关闭错误码",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.22.</strong> 负载辨识滤波初始化</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 58%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>LoadIdentifyDynFilterInit()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>负载辨识滤波初始化</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image355.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image356.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR10_10________________________3_8_2___/media/image357.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>10.22.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#负载辨识滤波初始化</em></p>
+<p>error = robot.LoadIdentifyDynFilterInit()</p>
+<p>print("LoadIdentifyDynFilterInit:",error)</p>
+<p><em>#负载辨识变量初始化</em></p>
+<p>error = robot.LoadIdentifyDynVarInit()</p>
+<p>print("LoadIdentifyDynVarInit:",error)</p>
+<p>joint_torque= [0,0,0,0,0,0]</p>
+<p>joint_pos= [0,0,0,0,0,0]</p>
+<p>gain= [0,0.05,0,0,0,0,0,0.02,0,0,0,0] t =10</p>
+<p>error,joint_pos=robot.GetActualJointPosDegree(1)</p>
+<p>joint_pos [1] = joint_pos [1]+10</p>
+<p>error,joint_torque=robot.GetJointTorques(1)</p>
+<p>joint_torque[1] = joint_torque[1]+2</p>
+<p><em>#负载辨识主程序</em></p>
+<p>error = robot.LoadIdentifyMain(joint_torque, joint_pos, t)</p>
+<p>print("LoadIdentifyMain:",error)</p>
+<p><em>#获取负载辨识结果</em></p>
+<p>error = robot.LoadIdentifyGetResult(gain)</p>
+<p>print("LoadIdentifyGetResult:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.23.</strong> 负载辨识变量初始化</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 52%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>LoadIdentifyDynVarInit()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>负载辨识变量初始化</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.24.</strong> 负载辨识主程序</p>
+</blockquote>
+<p><em>在</em> <em>python</em></p>
+<p><em>版本加⼊:</em> SDK-v2.0.1</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image360.png" style="width:0.34028in;height:0.40449in" /></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image361.png" style="width:2.83333in" /><img src="images/_FR10_10________________________3_8_2___/media/image362.png" style="width:0.19792in" /><img src="images/_FR10_10________________________3_8_2___/media/image363.png" style="height:0.19771in" /> <u>LoadIdentifyMain(joint_torque, joint_pos,</u> <u>t)</u> <img src="images/_FR10_10________________________3_8_2___/media/image364.png" style="height:0.19771in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>负载辨识主程序</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. joint_torque ： 关节扭矩 j1-j6；</p>
+<p>. joint_pos ：关节位置 j1-j6</p>
+<p>. t ：采样周期</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.25.</strong> 获取负载辨识结果</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 8%" />
+<col style="width: 2%" />
+<col style="width: 6%" />
+<col style="width: 16%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>LoadIdentifyGetResult(gain)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>获取负载辨识结果</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>. gain ：重⼒项系数double[6] ，离⼼项系数double[6]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image368.png" /> 错误码 成功-0 失败- errcode . weight ：负载重量</p>
+<p>. cog= [x,y,z] ：负载质⼼坐标</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.26.</strong> ⼒传感器辅助拖动</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image369.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image370.png" style="width:4.46875in" /><img src="images/_FR10_10________________________3_8_2___/media/image371.png" style="width:3.17708in" /><img src="images/_FR10_10________________________3_8_2___/media/image372.jpeg" style="height:0.19792in" /> <u>ForceAndJointImpedanceStartStop(status, impedanceFlag, lamdeDain,</u> <u>KGain, BGain, dragMaxTcpVel, dragMaxTcpOriVel)</u> <img src="images/_FR10_10________________________3_8_2___/media/image373.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼒传感器辅助拖动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. status ：控制状态，0-关闭；1-开启</p>
+<p>. impedanceFlag ： 阻抗开启标志，0-关闭；1-开启</p>
+<p>. lamdeDain ：[D1,D2,D3,D4,D5, D6] 拖动增益</p>
+<p>. KGain ：[K1,K2,K3,K4,K5,K6]刚度增益</p>
+<p>. BGain ：[B1,B2,B3,B4,B5,B]阻尼增益</p>
+<p>. dragMaxTcpVel ：拖动末端最⼤线速度限制</p>
+<p>. dragMaxTcpOriVel ：拖动末端最⼤角速度限制</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.26.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/_FR10_10________________________3_8_2___/media/image374.png" style="height:3.14542in" /><img src="images/_FR10_10________________________3_8_2___/media/image375.png" style="height:0.87488in" /></p>
+<blockquote>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>status = 1 <em>#控制状态，0-关闭；1-开启</em></p>
+<p>asaptiveFlag = 1 <em>#⾃适应开启标志，0-关闭；1-开启</em></p>
+<p>interfereDragFlag = 1 <em>#⼲涉区拖动标志，0-关闭；1-开启</em></p>
+<p>ingularityConstraintsFlag = 0 <em>#奇异点策略，0-规避；1-穿越</em></p>
+<p>M = [15, 15, 15, 0.5, 0.5, 0.1] <em>#惯性系数</em> B = [150, 150, 150, 5, 5, 1] <em>#阻尼系数</em></p>
+<p>K = [0, 0, 0, 0, 0, 0] <em>#刚度系数</em></p>
+<p>F = [5, 5, 5, 1, 1, 1] <em>#拖动六维⼒阈值</em> Fmax = 50 <em>#最⼤拖动⼒限制</em></p>
+<p>Vmax = 1810 <em>#最⼤关节速度限制</em></p>
+<p>error = robot.EndForceDragControl(status, asaptiveFlag, interfereDragFlag,</p>
+<p>ingularityConstraintsFlag, M, B, K, F, Fmax, Vmax)</p>
+<p>print("EndForceDragControl return:",error)</p>
+<p>time.sleep(10)</p>
+<p>status=0</p>
+<p>error = robot.EndForceDragControl(status, asaptiveFlag, interfereDragFlag,</p>
+<p>ingularityConstraintsFlag, M, B, K, F, Fmax, Vmax)</p>
+<p>24 <img src="images/_FR10_10________________________3_8_2___/media/image376.png" style="height:0.17706in" /> print("EndForceDragControl return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.27.</strong> 报错清除后⼒传感器⾃动开启</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 41%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetForceSensorDragAutoFlag(status)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>报错清除后⼒传感器⾃动开启</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：控制状态，0-关闭；1-开启</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>status</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image378.png" style="width:0.29944in;height:0.21467in" /><img src="images/_FR10_10________________________3_8_2___/media/image379.png" style="width:0.11458in" /><img src="images/_FR10_10________________________3_8_2___/media/image380.png" style="width:0.3146in;height:0.33056in" /><strong>10.27.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot. SetForceSensorDragAutoFlag (1)</p>
+<p>print("SetForceSensorDragAutoFlag return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.28.</strong> 设置六维⼒和关节阻抗混合拖动开关及参数</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image381.png" style="width:4.125in" /><img src="images/_FR10_10________________________3_8_2___/media/image382.png" style="width:3.44792in" /><img src="images/_FR10_10________________________3_8_2___/media/image383.jpeg" style="height:0.19792in" /> <u>EndForceDragControl(status, asaptiveFlag, interfereDragFlag,</u> <u>ingularityConstraintsFlag, M, B, K, F, Fmax, Vmax)</u> <img src="images/_FR10_10________________________3_8_2___/media/image384.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>设置六维⼒和关节阻抗混合拖动开关及参数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. status ：控制状态，0-关闭；1-开启</p>
+<p>. asaptiveFlag ： ⾃适应开启标志，0-关闭；1-开启</p>
+<p>. interfereDragFlag ：⼲涉区拖动标志，0-关闭；1-开启</p>
+<p>. ingularityConstraintsFlag ：奇异点策略，0-规避；1-穿越 . M= [m1,m2,m3,m4,m5,m6] ：惯性系数</p>
+<p>. B= [b1,b2,b3,b4,b5,b6] ： 阻尼系数</p>
+<p>. K= [k1,k2,k3,k4,k5,k6] ： 刚度系数</p>
+<p>. F= [f1,f2,f3,f4,f5,f6] ：拖动六维⼒阈值</p>
+<p>. Fmax ：最⼤拖动⼒限制</p>
+<p>. Vmax ：最⼤关节速度限制</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image385.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><strong>10.28.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR10_10________________________3_8_2___/media/image386.png" style="height:0.17399in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR10_10________________________3_8_2___/media/image387.png" style="height:0.17399in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR10_10________________________3_8_2___/media/image388.png" style="height:0.16665in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>4 <img src="images/_FR10_10________________________3_8_2___/media/image389.png" style="height:0.1745in" /></p>
+<p>5 <img src="images/_FR10_10________________________3_8_2___/media/image390.png" style="height:0.17458in" /> robot = Robot.RPC( '192.168.58.2')</p>
+<p>6 <img src="images/_FR10_10________________________3_8_2___/media/image391.png" style="height:0.17707in" /></p>
+<p>7 <img src="images/_FR10_10________________________3_8_2___/media/image392.png" style="height:0.17707in" /> status = 1 <em>#控制状态，0-关闭；1-开启</em></p>
+<p>8 <img src="images/_FR10_10________________________3_8_2___/media/image393.png" style="height:0.16409in" /> impedanceFlag = 1 <em>#阻抗开启标志，0-关闭；1-开启</em></p>
+<p>9 <img src="images/_FR10_10________________________3_8_2___/media/image394.png" style="height:0.17622in" /> lamdeDain = [ 3.0, 2.0, 2.0, 2.0, 2.0, 3.0] <em># 拖动增益</em> 10 <img src="images/_FR10_10________________________3_8_2___/media/image395.png" style="height:0.17622in" /> KGain = [0.00, 0.00, 0.00, 0.00, 0.00, 0.00] <em># 刚度增益</em> 11 <img src="images/_FR10_10________________________3_8_2___/media/image396.png" style="height:0.17622in" /> BGain = [150, 150, 150, 5.0, 5.0, 1.0] <em># 阻尼增益</em></p>
+<p>12 <img src="images/_FR10_10________________________3_8_2___/media/image397.png" style="height:0.17707in" /> dragMaxTcpVel = 1000 <em>#拖动末端最⼤线速度限制</em> 13 <img src="images/_FR10_10________________________3_8_2___/media/image398.png" style="height:0.16665in" /> dragMaxTcpOriVel = 180 <em>#拖动末端最⼤角速度限制</em></p>
+<p>14 <img src="images/_FR10_10________________________3_8_2___/media/image399.png" style="height:0.1745in" /></p>
+<p>15 <img src="images/_FR10_10________________________3_8_2___/media/image400.png" style="height:0.17209in" /> error = robot.DragTeachSwitch(1)</p>
+<p>16 <img src="images/_FR10_10________________________3_8_2___/media/image401.png" style="height:0.17458in" /> print("DragTeachSwitch 1 return:",error)</p>
+<p>17 <img src="images/_FR10_10________________________3_8_2___/media/image402.png" style="height:0.1745in" /></p>
+<p>18 <img src="images/_FR10_10________________________3_8_2___/media/image403.png" style="height:0.15943in" /> error = robot.ForceAndJointImpedanceStartStop(status, impedanceFlag, lamdeDain,</p>
+<p>KGain, BGain,dragMaxTcpVel,dragMaxTcpOriVel)</p>
+<p>19 <img src="images/_FR10_10________________________3_8_2___/media/image404.png" style="height:0.17707in" /> print("ForceAndJointImpedanceStartStop return:",error)</p>
+<p>20 <img src="images/_FR10_10________________________3_8_2___/media/image405.png" style="height:0.1745in" /></p>
+<p>21 <img src="images/_FR10_10________________________3_8_2___/media/image406.png" style="height:0.17209in" /> error = robot.GetForceAndTorqueDragState()</p>
+<p>22 <img src="images/_FR10_10________________________3_8_2___/media/image407.png" style="height:0.16184in" /> print("GetForceAndTorqueDragState return:",error)</p>
+<p>23 <img src="images/_FR10_10________________________3_8_2___/media/image408.png" style="height:0.17196in" /></p>
+<p>24 <img src="images/_FR10_10________________________3_8_2___/media/image409.png" style="height:0.17458in" /> time.sleep(10)</p>
+<p>25 <img src="images/_FR10_10________________________3_8_2___/media/image410.png" style="height:0.17707in" /></p>
+<p>26 <img src="images/_FR10_10________________________3_8_2___/media/image411.png" style="height:0.17707in" /> status = 0 <em>#控制状态，0-关闭；1-开启</em></p>
+<p>27 <img src="images/_FR10_10________________________3_8_2___/media/image412.png" style="height:0.16409in" /> impedanceFlag = 0 <em>#阻抗开启标志，0-关闭；1-开启</em></p>
+<p>28 <img src="images/_FR10_10________________________3_8_2___/media/image413.png" style="height:0.17209in" /> error = robot.ForceAndJointImpedanceStartStop(status, impedanceFlag, lamdeDain,</p>
+<p>KGain, BGain,dragMaxTcpVel,dragMaxTcpOriVel)</p>
+<p>29 <img src="images/_FR10_10________________________3_8_2___/media/image414.png" style="height:0.17707in" /> print("ForceAndJointImpedanceStartStop return:",error)</p>
+<p>30 <img src="images/_FR10_10________________________3_8_2___/media/image415.png" style="height:0.1745in" /></p>
+<p>31 <img src="images/_FR10_10________________________3_8_2___/media/image416.png" style="height:0.15943in" /> error = robot.GetForceAndTorqueDragState()</p>
+<p>32 <img src="images/_FR10_10________________________3_8_2___/media/image417.png" style="height:0.17211in" /> print("GetForceAndTorqueDragState return:",error)</p>
+<p>33 <img src="images/_FR10_10________________________3_8_2___/media/image418.png" style="height:0.1745in" /></p>
+<p>34 <img src="images/_FR10_10________________________3_8_2___/media/image419.png" style="height:0.17209in" /> error = robot.DragTeachSwitch(0)</p>
+<p>35 <img src="images/_FR10_10________________________3_8_2___/media/image420.png" style="height:0.16424in" /> print("DragTeachSwitch 0 return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.29.</strong> 获取⼒传感器拖动开关状态</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image421.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 2%" />
+<col style="width: 37%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetForceAndTorqueDragState()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>获取⼒传感器拖动开关状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image422.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. dragState ：⼒传感器辅助拖动控制状态，0-关闭；1-开启 . sixDimensionalDragState ：六维⼒辅助拖动控制状态，0-关</p>
+</blockquote></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.30.</strong> 设置⼒传感器下负载重量</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 12%" />
+<col style="width: 16%" />
+<col style="width: 32%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetForceSensorPayload(weight)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置⼒传感器下负载重量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. weight ：负载重量 kg</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.30.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.SetForceSensorPayload(0.8)</p>
+<p>print("SetForceSensorPayload return:",error)</p>
+<p>error = robot.SetForceSensorPayloadCog(0.5,0.6,12.5)</p>
+<p>print("SetForceSensorPayLoadCog return:",error)</p>
+<p>error = robot.GetForceSensorPayload()</p>
+<p>print("GetForceSensorPayLoad return:",error)</p>
+<p>error = robot.GetForceSensorPayloadCog()</p>
+<p>print("GetForceSensorPayLoadCog return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.31.</strong> 设置⼒传感器下负载质⼼</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 51%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetForceSensorPayloadCog(x,y,z)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置⼒传感器下负载质⼼</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>· x ：负载质⼼x mm</p>
+<p>. y ：负载质⼼y mm</p>
+<p>. z ：负载质⼼z mm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image425.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image426.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR10_10________________________3_8_2___/media/image427.png" style="width:0.11458in" /></p>
+<p><strong>10.32.</strong> 获取⼒传感器下负载重量</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetForceSensorPayload()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取⼒传感器下负载重量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image428.png" /> 错误码 成功-0 失败- errcode . weight ：负载重量 kg</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>10.33.</strong> 获取⼒传感器下负载质⼼</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 4%" />
+<col style="width: 42%" />
+<col style="width: 15%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetForceSensorPayloadCog()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取⼒传感器下负载质⼼</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image429.png" /> 错误码 成功-0 失败- errcode . x ：负载质⼼x mm</p>
+<p>. y ：负载质⼼y mm</p>
+<p>. z ：负载质⼼z mm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>10.34.</strong> ⼒传感器⾃动校零</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 14%" />
+<col style="width: 34%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ForceSensorAutoComputeLoad()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⼒传感器⾃动校零</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><p><img src="images/_FR10_10________________________3_8_2___/media/image430.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image431.png" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image432.png" /></p></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode weight ：传感器质量 kg</p>
+<p>pos= [x,y,z] ：传感器质⼼ mm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image433.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image434.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR10_10________________________3_8_2___/media/image435.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>10.34.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.SetForceSensorPayload(0)</p>
+<p>print("SetForceSensorPayload return:",error)</p>
+<p>error = robot.SetForceSensorPayloadCog(0,0,0)</p>
+<p>print("SetForceSensorPayLoadCog return:",error)</p>
+<p>error = robot.ForceSensorAutoComputeLoad()</p>
+<p>print("ForceSensorAutoComputeLoad return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.35.</strong> 传感器⾃动校零数据记录</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 41%" />
+<col style="width: 4%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ForceSensorSetSaveDataFlag(recordCount)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>传感器⾃动校零数据记录</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. recordCount ：记录数据个数 1-3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败-errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>10.36.</strong> 传感器⾃动校零计算</p>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image436.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>ForceSensorComputeLoad()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>传感器⾃动校零数据记录</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR10_10________________________3_8_2___/media/image437.png" /> 错误码 成功-0 失败-errcode . weight ：传感器质量 kg</p>
+<p>. pos= [x,y,z] ：传感器质⼼ mm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

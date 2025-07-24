@@ -1,0 +1,3517 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Hermes 底盘其他知识</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Hermes 底盘其他知识</h1>
+</header>
+<blockquote>
+<p>U 思岚学堂</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image2.png" /><img src="images/Hermes_______/media/image3.png" style="width:0.80555in;height:0.13889in" /><img src="images/Hermes_______/media/image4.png" /></p>
+<blockquote>
+<p>版本说明</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 14%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 38%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>版本号</p>
+</blockquote></td>
+<td><blockquote>
+<p>发布/更新⽇期</p>
+</blockquote></td>
+<td><blockquote>
+<p>版本更新说明</p>
+</blockquote></td>
+<td><blockquote>
+<p>更新⼈</p>
+</blockquote></td>
+<td><blockquote>
+<p>备注</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>V1 .0</p>
+</blockquote></td>
+<td><blockquote>
+<p>6-5</p>
+</blockquote></td>
+<td><blockquote>
+<p>初版</p>
+</blockquote></td>
+<td><blockquote>
+<p>Support Team</p>
+</blockquote></td>
+<td><blockquote>
+<p>1.4-1.6开箱视频暂未发布</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>引导语</p>
+<p>尊敬的思岚⽤户，</p>
+<p>您好！⾸先⾮常感谢您购买和使⽤思岚科技的产品，为了帮助您更⾼效地了解和使⽤思岚科技的底盘系列产品（如Hermes/Athena2.0/Phoebus系 列），我们为您准备了—份详尽的⽂档中⼼链接：</p>
+<p><img src="images/Hermes_______/media/image5.png" style="width:0.11467in;height:0.11467in" /> <a href="https://slamtec.feishu.cn/docx/KyMudqWfDoDhNIxvSUVcSdcunUf?from=from_copylink"><u>思岚科技快速上⼿与FAQ⽂档</u></a>： <a href="https://slamtec.feishu.cn/docx/KyMudqWfDoDhNIxvSUVcSdcunUf">https://slamtec.feishu.cn/docx/KyMudqWfDoDhNIxvSUVcSdcunUf</a> <a href="https://slamtec.feishu.cn/docx/WSCid8Lk6ofIHpxWA2NcRveqnxe?from=from_copylink"><u>思岚科技产品⽂档</u></a>：<a href="https://slamtec.feishu.cn/docx/WSCid8Lk6ofIHpxWA2NcRveqnxe?from=from_copylink"><img src="images/Hermes_______/media/image6.png" style="width:0.125in;height:0.11111in" />思岚全系列产品⼯具包外发链接</a>（各型号产品⼯具包示意图如下图所示）</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image7.jpeg" style="width:5.47222in;height:1.80556in" /></p>
+<blockquote>
+<p>这两份⽂档是您快速上⼿和开发的得⼒助⼿ ，您可以在其中找到：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>圜 <img src="images/Hermes_______/media/image8.png" style="width:0.11467in;height:0.11467in" /> 快速⼊⻔指南： 清晰指引您如何开箱、配置和初步运⾏底盘，让您迅速体验产品功能。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>圓 贾 深⼊开发资源： 包含详细的API说明、SDK使⽤⽂档、开发教程和最佳实践，助您⾼效集成底盘到您的产品⽅案中。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image9.png" style="width:0.14333in;height:0.14333in" /> ? 常见问题解答 (FAQ)： 集中整理了⽤户⾼频咨询的技术问题、使⽤技巧和故障排查⽅法，⽅便您快速⾃助解决疑问。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>我们建议您收藏此链接，在开发过程中随时查阅。相信这份⽂档能为您节省⼤量摸索时间，加速您的产品开发进程！</p>
+<p>如果您在查阅⽂档后仍有任何疑问，欢迎随时联系我们，技术⽀持邮箱<a href="mailto:support@slamtec.com">support@slamtec.com</a>。祝您产品开发顺利！</p>
+<p>⽂档⽬录</p>
+</blockquote>
+<p><a href="https://slamtec.feishu.cn/docx/KyMudqWfDoDhNIxvSUVcSdcunUf1/85">https://slamtec.feishu.cn/docx/KyMudqWfDoDhNIxvSUVcSdcunUf 1/85</a></p>
+<p><img src="images/Hermes_______/media/image10.jpeg" style="width:7.36111in;height:5.40278in" /></p>
+<blockquote>
+<p>1. 开箱指南</p>
+<p>1.0 核⼼产品参数对⽐</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image11.jpeg" style="width:6.83333in;height:3.75694in" /></p>
+<blockquote>
+<p>1.1 通⽤底盘开箱</p>
+<p>（1） Hermes Athena2.0验货,开箱检查外观线材等</p>
+<p>（2） 电池安装，安装视频如下， 电池安装完成后⼿动将机器推上充电桩机器可正常开机。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image12.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image13.png" style="height:0.10641in" />Hermes开箱视频-安装电池.mp4</p>
+<p>255.39MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image14.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image15.png" style="height:0.10641in" />Athena 2.0开箱视频-安装电池.mp4</p>
+<p>233.53MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>1.2 ⼯业AGV底盘开箱</p>
+<p>（1） ⼯业AGV验货,开箱检查外观线材等</p>
+<p>（2） 电池安装，安装视频如下， 电池安装完成后将机器后⾯空开打开，⼿动将机器推上充电桩机器可正常开机。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image16.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image17.png" style="height:0.10641in" />AGV安装电池视频.mp4</p>
+<p>40.56MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>1.3 SLAMKIT 开箱</p>
+<p>以下是Slamkit开箱视频以及相关操作。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image18.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image19.png" style="height:0.10641in" />Tutorials For SLAMKIT Product _SLAMTEC0514.mp4</p>
+<p>198.88MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><a href="https://www.youtube.com/watch?v=ouquqLTRR3M">https://www.youtube.com/watch?v=ouquqLTRR3M</a></p>
+<p>1.4 Ares2.0 底盘开箱 Coming Soon</p>
+<p>1.5 48V Hermes底盘开箱 Coming Soon</p>
+<p>1.6 Cube2R 套件开箱 Coming Soon</p>
+<p>2. 新⼿上路</p>
+<p>2.1 开关机操作</p>
+<p>2.1.1 通⽤底盘开关机</p>
+<p>开机：若机器不在充电桩位置，⽽是在其他任意位置，那么⻓按电源开关，直到电源开关指示灯亮起后松开，机器系统进⼊开机流程，机器前部灯带亮 起，轮毂在刹车状态下，表示开机完成。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image20.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image21.png" style="height:0.10641in" />通⽤底盘开机视频.mp4</p>
+<p>6.63MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>若机器在充电桩位置，那么短按电源开关，直到电源开关指示灯亮起后松开，机器系统进⼊开机流程，机器前部灯带亮起，轮毂在刹车状态下，表示开 机完成。</p>
+<p>关机：⻓按电源开关，直到电源开关指示灯熄灭后松开，机器进⼊关机流程，机器前部灯带熄灭，机器可任意推动，表示关机完成。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image22.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image23.png" style="height:0.10641in" />通⽤底盘关机视频.mp4</p>
+<p>5.20MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2.1.2 ⼯业AGV底盘开关机</p>
+<p>开机：若机器不在充电桩位置，⽽是在其他任意位置，先打开机器尾部空⽓开关，然后⻓按电源开关，直到电源开关指示灯亮起后松开，机器系统进⼊ 开机流程，机器前部灯带亮起，轮毂在刹车状态下，表示开机完成。若机器在充电桩位置，那么短按电源开关，直到电源开关指示灯亮起后松开，机器 系统进⼊开机流程，机器前部灯带亮起，轮毂在刹车状态下，表示开机完成。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image24.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image25.png" style="height:0.10641in" />⼯业AGV底盘开机视频.mp4</p>
+<p>15.85MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>关机：⻓按电源开关，直到电源开关指示灯熄灭后松开，机器进⼊关机流程，机器前部灯带熄灭，机器可任意推动，表示关机完成。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image26.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image27.png" style="height:0.10641in" />⼯业AGV底盘关机视频.mp4</p>
+<p>6.30MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2.1.3 按钮说明</p>
+<p>1. 电源开关</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image28.jpeg" style="width:0.59028in;height:0.57639in" /></p>
+<blockquote>
+<p>此开关为整个系统的电源开关，短按⾄指示灯亮起power-on，⻓按⾄指示灯灭power-off。</p>
+<p>2. 急停开关</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image29.jpeg" style="width:0.5625in;height:0.58333in" /></p>
+<blockquote>
+<p>⽤于在紧急状况下对底盘进⾏有效的控制，按下后底盘将⻢上停⽌运动。</p>
+<p>3. 刹车</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image30.jpeg" style="width:0.61806in;height:0.66667in" /></p>
+<blockquote>
+<p>机器在通电状态下，按下此开关，会进⾏刹车释放，可⾃由推动机器；再按—次，则进⾏刹车制动，此时机器将⽆法⾃由推动。</p>
+<p>4. 空开（ 限AGV产品）</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image31.jpeg" style="width:0.875in;height:1.16667in" /></p>
+<blockquote>
+<p>5. 磷酸铁锂电池开关</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image32.jpeg" style="width:0.91667in;height:1.63194in" /></p>
+<blockquote>
+<p>2.1.4 电池安装</p>
+<p>电池安装说明可参考1 .1和1 .2所述。</p>
+<p>2.2 连接机器⼈</p>
+<p>连接机器⼈前请参考2.3.1 所示下载Robostudio ⼯具，机器⼈默认为AP模式，请将PC连上机器⼈的WIFI 名称 “SLAMWARE-XXXX”。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image33.jpeg" style="width:1.72222in;height:1.52083in" /></p>
+<blockquote>
+<p>连接上机器⼈热点后，打开Robostudio前往菜单-⼯具栏区域依次点击 “⽂件-机器⼈ ” ，⼯作区左侧会出现—个名为机器⼈的停靠窗⼝ ，如下图所示。⽤ 户通过该窗⼝进⾏连接/断开机器⼈的操作。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image34.png" style="width:7.37489in;height:4.02083in" /></p>
+<blockquote>
+<p>该窗⼝将机器⼈分为两类，分别是本地设备与⼿动连接历史。</p>
+<p>本地：RoboStudio 会不断地在局域⽹内搜寻可使⽤的机器⼈ ，—旦发现会将其添加⾄本地列表中。</p>
+<p>⼿动连接历史：⼿动连接设备成功后会将设备的 IP 地址和端⼝信息保存⾄⼿动连接历史列表中。</p>
+<p>当需要连接机器⼈时，可通过两种⽅式进⾏连接：</p>
+<p>TIPS:</p>
+<p>1) 2024年7⽉购买的迭代底盘（ 具备低矮避障雷达），默认AP热点为192.168.12.1 ，⽼版本系列可仍然使⽤192.168.11.1.</p>
+<p>2) 3399的主板从5.1.3 RTM 开始⽀持192.168.12.1</p>
+<p>3）3588的主板从6.2.0 RTM 开始⽀持192.168.12.1</p>
+<p>4）如有固件升级需要可联系思岚Support 团队进⾏⽀持</p>
+<p>5）如何查看固件版本请参考本⽂4.13 章节所示</p>
+<p>1. 在机器⼈窗⼝的本地列表与⼿动连接列表中找到所需连接的机器⼈ ，点击展开后会出现 “连接”按钮（如下图所示），点击该按钮即可进⾏连接。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image35.jpeg" style="width:1.65278in;height:2.66667in" /></p>
+<blockquote>
+<p>2. 右键单击机器⼈列表空⽩处，在弹出的菜单中点击 “⼿动连接机器⼈ ” ，弹出连接机器⼈对话框（如下图所示），输⼊机器⼈的 IP 地址和端⼝号并点击 连接按钮即可进⾏连接。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image36.jpeg" style="width:2.375in;height:1.75694in" /></p>
+<blockquote>
+<p>成功连接后，⼯作区会显示机器⼈ 、地图信息和状态信息。机器⼈窗⼝中会发现连接设备名变为绿⾊ ，状态为 “ 已连接” ，如下图所示。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image37.png" style="width:7.37489in;height:4.02083in" /></p>
+<blockquote>
+<p>2.2.1 AP /Station/安卓管理模式⽹络说明</p>
+<p>AP 模式是机器⼈作为⽆线⽹络中的核⼼设备，允许其他设备（如⼿机、 电脑）通过 Wi-Fi 连接到机器⼈产⽣的热点。</p>
+<p>STA模式是机器⼈主动连接到⽆线⽹环境中的路由器的WIFI热点，可以将机器⼈与其他终端设备处于同—个⽆线⽹络进⾏互通。 安卓模式指的是机器⼈通过主控板进⼊安卓管理模式下，类似安卓⼿机的管理可以主动连接其他wifi热点。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image38.jpeg" style="width:7.30556in;height:3.42361in" /></p>
+<blockquote>
+<p>2.2.2 AP 模式下连接机器⼈</p>
+<p>收到底盘开机后—般默认为AP模式。可以使⽤您⾃⼰的⼯作电脑去搜索看有没有—个AP wifi热点，—般名为SLAMWARE-XXXXXX “XXXXXX”为独特 的⼤写数字字⺟组合，搜到后连接即可与底盘建⽴TCP/IP连接。 连接后建议使⽤浏览器（推荐使⽤Chrome）访问192.168.11.1 /192.168.12.1 可看到类 似如下web potal界⾯。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image39.png" style="width:7.37489in;height:3.28472in" /></p>
+<blockquote>
+<p>登陆后可进⼊⽹络配置界⾯ ，点击右上⻆login按钮(账号:admin 密码admin111)</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image40.jpeg" style="width:6.16667in;height:2.85417in" /></p>
+<blockquote>
+<p>2.2.3 切换到Station 模式连接机器⼈</p>
+<p>如果要设置为 STA 模式（wifi模式）连接当前环境中的—个⽆线⽹络，可以选择 Scan WiFi Network ，如下所示：</p>
+<p><img src="images/Hermes_______/media/image41.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>先进⾏扫描，选择需要的⽹络输⼊密码进⾏连接，</p>
+<p><img src="images/Hermes_______/media/image42.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>等待配置成功后，可以通过安卓投屏连接底盘，通过android系统中Firefox浏览器访问127.0.0.1 MODE SSID IP查看IP地址，如果在STA模式下，想打开 ⽹⻚配置⻚需要把192.168.11.1替换为下图中IP地址</p>
+<p><img src="images/Hermes_______/media/image43.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>2.2.4 切换到安卓管理模式连接机器⼈（不推荐切换安卓管理模式）</p>
+<p>如果在⽹⻚端设置⽹络由Android管理请选择Enable Android Network Management可看到以下界⾯ ,点击Enable 。配置完成后，操作结束。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image44.png" style="width:7.37489in;height:3.05556in" /></p>
+<blockquote>
+<p>安卓投屏连接⽅法如下所示：</p>
+<p>⽅式1： 通过HDMI连接线连接显⽰屏和底盘。</p>
+<p>⽅式2：可以使⽤ typec-USB A 的数据线连接 PC 和底盘⼯控板，使⽤安卓投屏软件进⾏设置，常⽤的可以到互联⽹获取 scrcpy 投屏软件 scrcpy 是 Genymotion 旗下的开源项⽬ ，免费、⽆码率限制、⽆⼴告并且⽀持全平台。</p>
+<p>2.3 建图部署</p>
+<p>2.3.1 ⼯具准备</p>
+<p>具备完整功能的RoboStudio（可从官⽹<a href="https://www.slamtec.com/cn/RoboStudio">https://www.slamtec.com/cn/RoboStudio</a>下载，或者咨询技术⽀持⼈员）；使⽤⽅法参考可参考如下⽂档。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image45.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image46.png" style="width:0.12552in" />RS使⽤⼿册.pdf</p>
+<p>4.42MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>或者直接下载离线版本（推荐使⽤ ，功能更完整）：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image47.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image48.png" style="width:0.12552in" />RoboStudio_2.1.1_rtm.zip</p>
+<p>302.11 MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2.3.2 建图技巧</p>
+<p>1. 尽量在待扫区域没有⼈ ，或者⼈较少的时间点进⾏扫图。</p>
+<p>2. 尽量清除待扫区域中经常移动的物体。</p>
+<p>3. 对于场景中的反光，透光，吸光等物体，在条件允许的情况下，尽量在机器⼈的雷达扫描平⾯处贴上其他不影响雷达正常扫描的材料。</p>
+<p>4. 机器⼈和外部系统通过⽹络连接。机器⼈上电，PC 机搜索机器⼈的 wifi，并连接。Robostudio 通过固定 IP 地址 192.168.12.1(较早期底盘采⽤</p>
+<p>192.168.11.1) 或者 wifi 的实际 ip 地址连接机器⼈。</p>
+<p>5. 如果要重新建⽴全新的地图，请先点击 “SLAM”菜单下的 “清空地图”按 钮，然后通过 PC 机键盘上的上下左右键控制机器⼈运动，在运动的过程中， 安装于机器⼈身上的雷达对环境进⾏扫描，同时建图中⼼将处理雷达数据并⽣成地图传送给 Robostudio，然后Robostudio 实时呈现地图。</p>
+<p>6. 注意：当建图时提示 “Loop closure done”后，可以点击下 “ 同步地图”按钮，及时刷新显示的地图。如下：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image49.png" style="width:7.37489in;height:4.14583in" /></p>
+<blockquote>
+<p>7. 建图技巧视频指南</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image50.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image51.png" style="width:0.12552in" />建图技巧_SLAMTEC.pptx</p>
+<p>24.09MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2.3.3 部署充电桩</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image52.jpeg" style="width:5.6875in;height:3.50694in" /></p>
+<blockquote>
+<p>1. 左右两侧与障碍物之间的距离需要⼤于35cm；</p>
+<p>2. 充电桩需要<u>靠墙或者其他不透红外光的固定物体</u>（物体宽度需要⼤于充电桩宽度，且左右具备35cm以上的多余宽度空间），不要放置在镜⾯墙、背 ⾯镂空墙等区域；</p>
+<p>3. 充电桩位置不能放置在地毯、斜坡等不⽔平地⾯ ，否则会产⽣⾼度差和开机溜桩等情况，并⽆法保障充电功能；</p>
+<p>4. 场景中的充电桩位置需要固定，如有临时挪动需求，需要在地⾯做好标记，防⽌挪动后位置错误导致回桩异常。</p>
+<p>2.3.4 常⽤模块</p>
+<p>1. 移动机器⼈</p>
+<p>通过 PC 机键盘上的上下左右键控制机器⼈运动，在运动的过程中，安装于机器⼈身上的雷达对环境进⾏扫描，同时建图中⼼将处理雷达数据并⽣ 成地图传送给 Robostudio，然后Robostudio 实时呈现地图。也可在Robostudio软件上进⾏点击，机器⾃动规划路径进⾏扫图。</p>
+<p>RoboStudio 可以通过多种⽅式使机器⼈移动，在操作机器⼈移动时，可以让机器⼈前往未知区域，机器⼈会⾃主地进⾏路径规划前往⽬标地点， 并聪明地避开障碍物，⽆需⽤户担⼼。</p>
+<p>左键：导航模式下，在地图上任意点点击左键，机器⼈会清除已有的⽬标点，以该点击点作为新的⽬标点重新进⾏路径规划和移动。</p>
+<p>Shift+左键：导航模式下，在地图上任意点进⾏ Shift+左键点击的操作，该点击点将被添加到⽬标队列最后，等完成之前的移动任务后才会向该点移 动。</p>
+<p>Ctrl+左键：导航模式下，在地图上任意点进⾏ Ctrl+左键点击的操作，将会弹出运动选项设置窗⼝ ，可以设置本次运动的选项。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image53.jpeg" style="width:5.35417in;height:3.52778in" /></p>
+<blockquote>
+<p>设置路径点：在菜单-⼯具栏区域依次点击 “动作-设置路径点” ，进⼊设置路径⼯作模式，在地图中按下⿏标左键进⾏拖拽（产⽣⿊⾊轨迹线，如下图所 示），释放后沿轨迹线将产⽣—系列的⽬标点，以使机器⼈沿着轨迹移动。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image54.jpeg" style="width:7.11111in;height:5.52083in" /></p>
+<blockquote>
+<p>回桩：在菜单-⼯具栏区域依次点击 “动作-回桩” ，机器⼈将返回坐标原点，然后在附近搜索匹配充电桩，找到后完成⾃动对桩。</p>
+<p>基本移动：在菜单-⼯具栏区域依次点击 “动作-左转/右转/前进/后退” ，或⻓按键盘的左、右、上、下⽅向键，机器⼈将进⾏左转、右转、前进与后退等 基本运动。</p>
+<p>停⽌：在地图任意点右键点击两次或者左键点击⼯作区的 “取消动作” ，将停⽌当前的运动。</p>
+<p>2.定位与建图</p>
+<p>地图相关功能操作</p>
+<p>思岚科技的移动机器⼈是基于栅格地图的 SLAM 设计。机器⼈边⾏⾛边探索，并不断地在她的 “⼩脑” 中更新地图。</p>
+<p>在 RoboStudio 中，每—个栅格像素的颜⾊灰度值即表征其是否为障碍物概率。 ⽩⾊为⽆障碍，⿊⾊为障碍物。在建图过程中，每个栅格像素的颜 ⾊并不是⾮⿊即⽩ ，例如未探索区域对于机器⼈来说既不是障碍物，也不能证明其⽆障碍，则表征为中性的灰⾊ 。利⽤Robostudio软件，可通过以下⽅ 式为机器⼈ “洗脑” ，⼈为地去改变机器⼈的地图。</p>
+<p>地图橡⽪擦</p>
+<p>在菜单-⼯具栏区域依次点击 “SLAM-地图橡⽪擦⽩⾊/灰⾊ ” ，进⼊地图橡⽪擦模式，通过左键点击与拖拽去设置某些栅格区域为⽩⾊或灰⾊。 清空地图</p>
+<p>在菜单-⼯具栏区域依次点击 “SLAM-清空地图” ，在弹出的清空提示对话框中点击 “是” ，即可清空机器⼈地图。如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image55.jpeg" style="width:1.25in;height:0.78472in" /></p>
+<blockquote>
+<p>同步地图</p>
+<p>在默认模式下，本软件仅在机器⼈周围的区域⾥更新地图信息，当需要更新全局地图时，在菜单-⼯具栏区域依次点击 “SLAM-同步地图”即可。 地图编辑器</p>
+<p>连接状态下，在菜单-⼯具栏区域依次点击 “⽂件-地图编辑器”可打开地图编辑器，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image56.jpeg" style="width:3.68056in;height:2.89583in" /></p>
+<blockquote>
+<p>地图编辑器功能⾮常强⼤ ，可以加载⽀持的地图⽂件（ 包括图⽚格式），并上传到机器⼈固件，也可以下载机器⼈地图保存为地图⽂件。此外，可 以通过拖拽来调整坐标原点位置与机器⼈位姿。</p>
+<p>重定位</p>
+<p>当机器⼈被抱离或出现位姿偏差时，除了设置地图或⼿动调整外，—个更好的处理⽅式便是使⽤重定位功能。如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image57.jpeg" style="width:2.67361in;height:2.11111in" /></p>
+<blockquote>
+<p>3. 虚拟墙管理（慎⽤）</p>
+<p>虚拟墙技术基于纯软件⽅式，⽆需额外辅助设备，实现移动机器⼈的虚拟墙避障，限定移动机器⼈活动范围等功能。该技术具有成本低、精度⾼的 特点，并可根据具体情况灵活切换或变更虚拟墙的位置和形状。</p>
+<p>RoboStudio 能够与移动机器⼈进⾏交互，在其所建地图中直接添加、编辑或删除虚拟墙。移动机器⼈在移动过程中将虚拟墙视作为实际墙体，并 进⾏避障⾏为。虚拟墙管理具备如下操作：</p>
+<p>添加虚拟墙</p>
+<p>在菜单-⼯具栏区域依次点击 “虚拟墙-直线墙/矩形墙/曲线墙” ，进⼊添加虚拟墙⼯作模式，通过左键点击与拖拽来添加各种形状的虚拟墙，如下所 示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image58.jpeg" style="width:3.44444in;height:1.84028in" /></p>
+<blockquote>
+<p>平移虚拟墙</p>
+<p>在菜单-⼯具栏区域依次点击 “虚拟墙-选择” ，进⼊选择虚拟墙模式，选择需要移动的虚拟墙（点击或框选）。随后在⼯具栏区域点击 “移动”按钮， 进⼊移动虚拟墙模式，在地图中任意位置按下⿏标左键并进⾏拖拽移动，将虚拟墙移动到指定位置后释放左键即能实现平移，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image59.jpeg" style="width:3.56944in;height:2.22917in" /></p>
+<p><img src="images/Hermes_______/media/image60.jpeg" style="width:3.36111in;height:2.20139in" /></p>
+<blockquote>
+<p>编辑虚拟墙形状</p>
+<p>与平移虚拟墙类似，⾸先选中需要编辑的虚拟墙，在⼯具栏区域点击 “移动”按钮，进⼊编辑虚拟墙模式然后在虚拟墙的端点或节点位置按下⿏标左 键，拖拽该端点或节点到指定位置后释放⿏标左键即完成了虚拟墙形状的改变，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image61.jpeg" style="width:3.11111in;height:1.58333in" /></p>
+<blockquote>
+<p>删除虚拟墙</p>
+<p>⾸先选中需要删除的虚拟墙，在⼯具栏区域点击 “移除”按钮即可删除指定虚拟墙。若需删除所有虚拟墙，则直接在⼯具栏区域点击 “移除所有”按 钮。</p>
+<p>4. 虚拟禁区</p>
+<p>仓储环境中，为了避免机器⼈碰到货架，设置了虚拟墙作为边界保护。但是，这种保护存在—个缺陷，当机器⼈在搬运货物的过程中，由于某种原因， 可能是被其它机器⼈挤进去，或者被认为推进去之后，现有的虚拟墙规则会导致其⽆法判断当前在⾃由区还是禁区，从⽽⽆法到达原定的任务⽬标点。 为了能够避免类似问题，RoboStudio 提供了禁⾏区域管理功能，使得机器⼈能够⾃⾏判断是否处于禁区内，进⽽可以⾃主逃脱禁区。除了仓储环境，</p>
+<p>该功能也适合保护玻璃展柜、楼梯⼝等区域。禁区所表达的含义是这块区域越往中⼼越危险，因此禁区主要由两部分组成：可逃脱区域和核⼼区域，当 机器⼈在可逃脱区域时，会尝试规划—条远离核⼼区的路径来逃脱禁区，如果机器⼈进⼊了核⼼区域，则会彻底停⽌移动。</p>
+<p>禁⾏区域⼯具栏显示</p>
+<p>只有拥有禁⾏区域插件的 RS 在连接上具有禁⾏区域功能的机器⼈之后，会出现禁⾏区域⼯具栏，如图所示。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image62.jpeg" style="width:6.35417in;height:0.73611in" /></p>
+<blockquote>
+<p>添加禁⾏区域</p>
+<p>在菜单-⼯具栏区域依次点击 “禁⾏区域-添加” ，点亮添加禁⾏区域功能之后，单击⿏标左键，在地图拖拽数据会有—个绿⾊的直线，松开⿏标之</p>
+<p>后，会出现—个弹窗，如下所示:</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image63.jpeg" style="width:2.80555in;height:1.59722in" /></p>
+<blockquote>
+<p>添加禁⾏区域弹窗，添加禁⾏区域弹窗中各个控件说明：</p>
+<p>“起点”： ⽤户单击时，光标在地图上的位置；</p>
+<p>“终点”： ⽤户松开⿏标时，光标在地图上的位置；</p>
+<p>“⻓度”： 起点和终点之间的欧式距离；</p>
+<p>“宽度”： 可以由⽤户更改，表示禁⾏区域或者内部禁⾏区域的宽度；</p>
+<p>“逃脱区域位置”；</p>
+<p>“逃脱区域⼤⼩ ”： 表示禁⾏区域中内部禁⾏区域和禁⾏区域边界之间的距离， “确认”： 确认向地图添加禁⾏区域；</p>
+<p>“取消”： 取消添加禁⾏区域操作；</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image64.jpeg" style="width:3.77778in;height:1.61111in" /></p>
+<blockquote>
+<p>2）逃脱区域位置说明</p>
+<p>添加禁⾏区域时设置逃脱区域位置有三种模式，分别是 “ 向内设置” ，“ 向外设置” 和 “ 向外设置”下⾯分别进⾏介绍。</p>
+<p>这⾥为了更好的说明，引⼊—些符号，以便更好说明。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image65.jpeg" style="width:3.60417in;height:1.4375in" /></p>
+<blockquote>
+<p>a)向内设置</p>
+<p>该模式下内部禁⾏区域和整个禁⾏区域的中⼼为⽤户添加拖拽的直线的中⼼ ，并且，内部禁⾏区域和禁⾏区域的⻓和宽如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image66.jpeg" style="width:3.61111in;height:1.86111in" /></p>
+<blockquote>
+<p>b)向外设置</p>
+<p>该模式下内部禁⾏区域和整个禁⾏区域的中⼼为⽤户添加拖拽的直线的中⼼ ，并且，内部禁⾏区域和禁⾏区域的⻓和宽如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image67.jpeg" style="width:2.65278in;height:2.375in" /></p>
+<blockquote>
+<p>c)向右设置</p>
+<p>该模式下从起点往终点⽅向，禁⾏区域在右边，并且，内部禁⾏区域和禁⾏区域的⻓和宽如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image68.jpeg" style="width:2.90278in;height:2.5625in" /></p>
+<blockquote>
+<p>选择禁⾏区域</p>
+<p>在菜单-⼯具栏区域依次点击 “禁⾏区域-选择” ，⿏标会变为⿊⾊⼗字，左击拖拽⿏标，将要选择的整个禁⾏区域框住，禁⾏区域就会由红⾊变为紫⾊。 移除禁⾏区域</p>
+<p>选中禁⾏区域后，点击 “移除”即可将被选中的禁⾏区域删除。</p>
+<p>清空禁⾏区域</p>
+<p>在菜单-⼯具栏区域依次点击 “禁⾏区域-移除” ，当前地图中的所有禁⾏区域都会被删除。</p>
+<p>5. 虚拟轨道</p>
+<p>添加虚拟轨道</p>
+<p>在菜单-⼯具栏区域依次点击 “虚拟轨道-直线轨道/曲线轨道” ，进⼊添加虚拟轨道⼯作模式，通过左键点击与拖拽来添加各种形状的虚拟轨道，如下 所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image69.jpeg" style="width:2.70139in;height:2.40278in" /></p>
+<blockquote>
+<p>平移虚拟轨道</p>
+<p>在菜单-⼯具栏区域依次点击 “虚拟轨道-选择” ，进⼊选择虚拟轨道模式，选择需要移动的虚拟轨道（点击或框选）。随后在⼯具栏区域点击 “移动”按 钮，进⼊移动虚拟轨道模式，在地图中任意位置按下⿏标左键并进⾏拖拽移动，将虚拟轨道移动到指定位置后释放左键即能实现平移，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image70.jpeg" style="width:2.75in;height:1.85417in" /></p>
+<p><img src="images/Hermes_______/media/image71.jpeg" style="width:2.61111in;height:1.61111in" /></p>
+<blockquote>
+<p>编辑虚拟轨道形状</p>
+<p>与平移虚拟轨道类似，⾸先选中需要编辑的虚拟轨道，在⼯具栏区域点击 “移动”按钮，进⼊编辑虚拟轨道模式然后在虚拟轨道的端点或节点位置按 下⿏标左键，拖拽该端点或节点到指定位置后释放⿏标左键即完成了虚拟轨道形状的改变，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image72.jpeg" style="width:2.58333in;height:2.08333in" /></p>
+<blockquote>
+<p>删除虚拟轨道</p>
+<p>⾸先选中需要删除的虚拟轨道，在⼯具栏区域点击 “移除”按钮即可删除指定虚拟轨道。若需删除所有虚拟轨道，则直接在⼯具栏区域点击 “移除所 有”按钮。</p>
+<p>虚拟轨道导航</p>
+<p>在普通导航模式下，移动机器⼈的路径规划将不受虚拟轨道的影响，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image73.jpeg" style="width:2.77083in;height:3.14583in" /></p>
+<p><img src="images/Hermes_______/media/image74.jpeg" style="width:1.9375in;height:1.14583in" /></p>
+<p><img src="images/Hermes_______/media/image75.jpeg" style="width:2.69444in;height:2.34722in" /></p>
+<blockquote>
+<p>当点击⼯作区左上角的 “虚拟轨道导航”按钮，进⼊虚拟轨道巡航模式，在此模式下为机器⼈设定⽬标点后，移动机器⼈会搜索距离起始点最近的虚 拟轨道关键点，并找出到达⽬标点最近的虚拟轨道路径，此外，Shift在该模式下仍然有效。</p>
+<p>轨道优先导航</p>
+<p>在菜单栏⼯具栏依次点击 “虚拟轨道-轨道优先导航” ，并点击⼯作区左上角的 “虚拟轨道导航” ，机器⼈进⼊轨道优先导航模式，不同于虚拟轨道导 航，采⽤轨道优先导航时，如果途中遇到障碍物，机器⼈并不会停下，⽽是直接下轨道绕过障碍物，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image76.jpeg" style="width:3.22917in;height:2.15278in" /></p>
+<p><img src="images/Hermes_______/media/image77.jpeg" style="width:3.72222in;height:1.79861in" /></p>
+<blockquote>
+<p>通过点击⽣成轨道</p>
+<p>在虚拟轨道菜单栏中新增【通过点击⽣成轨道】按钮，点击后轨道⽣成⽅式变为点击地图中的轨道开始点和结束点进⾏绘制，⽅便在地图尺⼨较⼤ 不易通过拖动进⾏画线的场景使⽤ ，在绘制过程中对起⽌点增加圆形标识显示，⽅便⽤户查看，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image78.png" style="width:7.37489in;height:3.76389in" /></p>
+<blockquote>
+<p>展示轨道⽅向</p>
+<p>在虚拟轨道菜单栏中新增【展示轨道⽅向】按钮，该功能⽤于展示有向轨道的连接⽅向，如图所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image79.jpeg" style="width:3in;height:1.86806in" /></p>
+<blockquote>
+<p>当在展示轨道⽅向模式下添加轨道或者选择轨道时，轨道会分段展示箭头提醒当前轨道的⽅向，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image80.jpeg" style="width:3.36806in;height:1.93056in" /></p>
+<blockquote>
+<p>反转轨道</p>
+<p>在虚拟轨道菜单栏中新增【反转轨道】按钮，该功能⽤于将有向轨道⽅向进⾏反转，⽅便在有向轨道⽅向画错时进⾏修正。</p>
+<p>6. 星标管理（ POI）（推荐的创建任务点⽅式）</p>
+<p>⽤户可通过星标管理功能保存感兴趣的坐标点，并直接通过星标列表导航前往指定⽬标点。要使⽤星标管理功能必须安装星标管理（ POI）插件， 可联系技术⽀持获取离线版本的Robostudion软件。</p>
+<p>打开星标管理列表</p>
+<p>在菜单-⼯具栏区域依次点击 “星标 -星标列表” ，⼯作区左侧会出现—个名为POIs 的停靠窗⼝ ，⽤户通过该窗⼝进⾏星标的创建、编辑、移动、删 除和导航操作，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image81.png" style="width:7.37489in;height:4.3125in" /></p>
+<blockquote>
+<p>创建星标</p>
+<p>右键单击 POI 列表空⽩处，在弹出的菜单中点击 “创建星标” ，进⼊创建星标⼯作模式（地图中⿏标变为向上箭头状），在地图上寻找需要添加星标 点的位置点击左键，将打开星标信息对话框，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image82.jpeg" style="width:2.09028in;height:2.27778in" /></p>
+<blockquote>
+<p>⽤户可在星标信息对话框中编辑星标名，选择星标类型，通过修改 X 轴及 Y 轴坐标值调整星标位置，修改 Yaw 值调整星标⻆度，编辑完成后点击 确定完成星标创建。此时，在 POI 列表中将出现指定名称的星标。值得注意的是，星标名可以重复同名，但星标 ID 是唯—的。类型指 metadata 中的 type 字段，在Agent 和上位机中可以依此进⾏星标的分类管理，分组指metadata 中的 group字段，⽤于标记同—类或同—区域的星标，这两个属性都 是可选的，如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image83.jpeg" style="width:3.05555in;height:2.49306in" /></p>
+<blockquote>
+<p>此外，⽤户也可以在机器⼈当前位置创建星标。右键单击 POI 列表空⽩处，在弹出的菜单中点击 “在当前位置创建星标 … ” ，将直接打开星标信息对 话框，同样编辑完成后点击确定即可。</p>
+<p>编辑星标</p>
+<p>在 POI 列表的星标位置右键，在弹出的菜单中点击 “编辑 … ” ，打开星标信息对话框，编辑星标名，星标类型以及星标位姿（X轴、Y轴及Yaw ⻆）， 星标处右键菜单，如下所示:</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image84.jpeg" style="width:1.61111in;height:0.97222in" /></p>
+<blockquote>
+<p>选择星标</p>
+<p>右键单击 POI 列表空⽩处，在弹出的菜单中点击 “选择星标” ，进⼊选择星标⼯作模式（地图中⿏标变为⼗字状），可在地图上框选星标点，也可在 POI 列表中单击星标进⾏选择/取消，当星标被选中时，POI 列表及地图中的星标图标均变为绿⾊。</p>
+<p>以下⽅式可退出选择星标模式：</p>
+<p>1） 右键单击 POI 列表空⽩处，在弹出的菜单中点击 “选择星标” ，退出选择星标模式；</p>
+<p>2）在⼯作区地图上右键单击，重置⼯作模式。</p>
+<p>移动星标</p>
+<p>当有选中星标时，右键单击 POI 列表空⽩处，在弹出的菜单中点击 “移动星标” ，进⼊移动星标模式（地图中⿏标变为移动⼗字状），通过左键拖拽 ⿏标完成星标移动。</p>
+<p>以下⽅式可退出选择星标模式：</p>
+<p>1） 右键单击 POI 列表空⽩处，在弹出的菜单中点击 “选择星标” ，退出移动与选择星标模式；</p>
+<p>2）右键单击 POI 列表空⽩处，在弹出的菜单中点击 “移动星标” ，退出移动星标模式；</p>
+<p>3）在⼯作区地图上右键单击，重置⼯作模式。</p>
+<p>移除星标</p>
+<p>移除所选星标：当有选中星标时，右键单击 POI 列表空⽩处，在弹出的菜单中点击 “移除所选星标”；</p>
+<p>移除所有星标：右键单击 POI 列表空⽩处，在弹出的菜单中点击 “移除所有星标”；</p>
+<p>移除单个星标：在 POIs 列表的星标位置右键，在弹出的菜单中点击 “移除” ，即可在地图中移除该星标。</p>
+<p>星标导航</p>
+<p>⽤户可通过以下⽅式进⾏星标导航：</p>
+<p>1） 双击 POI 列表的星标，⽀持 Shift、虚拟轨道等移动选项；</p>
+<p>2）在 POI 列表的星标位置右键，在弹出的菜单中点击 “前往”；</p>
+<p>3）在 POI 列表的星标位置右键，在弹出的菜单中点击 “前往（虚拟轨道）” , （机器⼈⽀持虚拟轨道，且 RoboStudio 装有虚拟轨道插件）;</p>
+<p>4）在 POI 列表的星标位置右键，在弹出的菜单中点击 “前往（含 yaw⻆）”。</p>
+<p>添加排队点</p>
+<p>⽤户可通过以下⽅式为 parking 点添加排队点：</p>
+<p>1） 点击⼯具栏的 “星标” ，然后点击 “选择”按钮；</p>
+<p>2）找到待添加的 parking 点，按下⿏标左键，选中该 parking 点，可以看到该POI 点变为绿⾊；</p>
+<p>3）点击 “添加排队点”按钮，在地图上 parking 点周围选择要添加的位置，点击⿏标 左 键，弹出 “添加排队点”对话框添加排队点。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image85.jpeg" style="width:2.95833in;height:2.95833in" /></p>
+<blockquote>
+<p>4）修改星标名，绑定的 POI 的 ID，以及顺序值，默认从 1 开始递增，当有多个排队点时，顺序值越⼩ ，优先级越⾼。</p>
+<p>5）点击 “确认”按钮，完成排队点的添加。</p>
+<p>7. 传感器图层管理</p>
+<p>机器⼈实时融合雷达、碰撞、超声等传感器数据，并在进⾏建图和路径规划时综合参考传感器信息。同时，⽤户也需要评估其中某类传感器在建图 和路径规划过程中所起的作⽤。</p>
+<p>传感器地图插件可满⾜此类⽤户的需求，将提供以下类型传感器的独⽴视野图层：</p>
+<p>1） 传感器视野（ 雷达）；</p>
+<p>2）传感器视野（沿墙）；</p>
+<p>3）传感器视野（碰撞）；</p>
+<p>4）传感器视野（深度摄像头）；</p>
+<p>5）传感器视野（超声）；</p>
+<p>6）传感器视野（ Door）；</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image86.jpeg" style="width:7.09722in;height:5.52778in" /></p>
+<blockquote>
+<p>值得注意的是，插件加载时默认并不会打开传感器视野图层，当需要查看时，可点击地图左上⻆的 “显示设置”按钮，⼯作区左侧会出现—个名为</p>
+<p>“ 图层”的停靠窗⼝ ，点击打开需要观察的图层即可。此时，观察地图上出现 “⼩栅格”即为实时的传感器独⽴视野。</p>
+<p>禁⾏区域管理</p>
+<p>仓储环境中，为了避免机器⼈碰到货架，设置了虚拟墙作为边界保护。但是，这种保护存在—个缺陷，当机器⼈在搬运货物的过程中，由于某种原 因，可能是被其它机器⼈挤进去，或者被认为推进去之后，现有的虚拟墙规则会导致其⽆法判断当前在⾃由区还是禁区，从⽽⽆法到达原定的任务⽬标 点。为了能够避免类似问题，RoboStudio 提供了禁⾏区域管理功能，使得机器⼈能够⾃⾏判断是否处于禁区内，进⽽可以⾃主逃脱禁区。除了仓储环 境，该功能也适合保护玻璃展柜、楼梯⼝等区域。</p>
+<p>禁区所表达的含义是这块区域越往中⼼越危险，因此禁区主要由两部分组成：</p>
+<p>可逃脱区域和核⼼区域，当机器⼈在可逃脱区域时，会尝试规划—条远离核⼼区的路径来逃脱禁区，如果机器⼈进⼊了核⼼区域，则会彻底停⽌移</p>
+<p>禁⾏区域⼯具栏显示</p>
+<p>只有拥有禁⾏区域插件的 RS 在连接上具有禁⾏区域功能的机器⼈之后，会出现禁⾏区域⼯具栏,如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image62.jpeg" style="width:6.35417in;height:0.73611in" /></p>
+<blockquote>
+<p>8. 传感器禁⽤区域</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image87.png" style="width:0.10938in;height:0.13966in" /><img src="images/Hermes_______/media/image88.png" style="width:5.67361in;height:3.18056in" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>9. 地图编辑器</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image89.jpeg" style="width:6.40972in;height:5.02778in" /></p>
+<blockquote>
+<p>操作</p>
+<p>地图编辑器打开后默认显示的是当前机器⼈的地图，可以点击【加载⽂件】选择加载—个 stcm ⽂件。【保存⽂件】则是将当前数据保存为—个地图⽂ 件，可以保存为 stcm ⽂件和 bmp 图⽚(只能保留 explorer map，丢失虚拟墙等信息)，点击【上传到固件】可以将地图设置到当前连接的机器⼈中。</p>
+<p>定位</p>
+<p>拖动机器⼈图标可实现修改机器⼈的位姿，拖动⼗字星图标可修改地图原点，点击【上传位姿】可将新的位姿设置到机器⼈中，设置机器⼈位姿和地 图位置如下所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image90.jpeg" style="width:5.84722in;height:3.52083in" /></p>
+<blockquote>
+<p>充电桩</p>
+<p>拖动充电桩图标可以修改充电桩的位姿，点击【添加充电桩】可以添加新的充电桩，—个地图中可以包含多个充电桩。（4.3.5 以及更⾼版本的固件才⽀ 持该功能）</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image91.jpeg" style="width:6.29167in;height:3.36111in" /></p>
+<blockquote>
+<p>橡⽪擦</p>
+<p>橡⽪擦有⿊ 、灰、 ⽩三种颜⾊ ，⿊⾊表示障碍物，灰⾊表示未知区域， ⽩⾊表示空旷区域。橡⽪擦的光标尺⼨是固定⼤⼩的，通过滚动⿏标滚轮放⼤/缩 ⼩地图可以实现橡⽪擦的⼤⼩调节，如下两图所示，缩⼩地图等效于放⼤橡⽪擦尺⼨ ，放⼤地图等效于缩⼩橡⽪擦尺⼨ ，地图放⼤ 6 倍就可以实现单个 栅格的修改。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image92.jpeg" style="width:6.25in;height:4.375in" /></p>
+<p><img src="images/Hermes_______/media/image93.jpeg" style="width:6.27083in;height:4.39583in" /></p>
+<blockquote>
+<p>虚拟墙</p>
+<p>功能和主界⾯中的虚拟墙管理相同，区别是主界⾯中是直接修改到机器⼈中，地图编辑器中的修改只保留在 RoboStudio 的内存中，需要【上传到固件】 才能⽣效，或者保存到 stcm ⽂件中。</p>
+<p>虚拟轨道</p>
+<p>功能和主界⾯中的虚拟轨道管理相同，区别是主界⾯中是直接修改到机器⼈中，地图编辑器中的修改只保留在 RoboStudio 的内存中，需要【上传到固 件】才能⽣效，或者保存到 stcm ⽂件中。</p>
+<p>矩形区域</p>
+<p>矩形区域是在地图上⼈⼯标记的区域， ⽬前⽀持的矩形区域有：</p>
+<p>● 禁⾏区域： 禁⽌机器⼈进⼊ ，—旦误⼊或被推⼊ ，机器⼈可以⾃动脱困</p>
+<p>● 电梯区域： 标记电梯位置，多楼层地图必须包含的元素</p>
+<p>● 危险区域： ⽤于限制机器⼈的最⼤移动速度</p>
+<p>● 覆盖区域：⽤于覆盖规划的区域</p>
+<p>● 限⾏区域： ⽤于多机调度的区域，该区域内限制同时进⼊的机器⼈数量。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image94.jpeg" style="width:6.29167in;height:4.39583in" /></p>
+<blockquote>
+<p>星标</p>
+<p>功能和主界⾯中的星标管理类似。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image95.jpeg" style="width:6.24306in;height:4.25694in" /></p>
+<blockquote>
+<p>地图裁剪</p>
+<p>地图裁剪的功能是将已经创建好的地图通过拉框⽅式，选择需要保留的地图区域。在框内的图层元素，如 ：虚拟墙、虚拟轨道等将会完整保留。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image96.png" style="width:7.37489in;height:3.88889in" /></p>
+<blockquote>
+<p>裁剪框中没有充电桩会弹窗进⾏提醒是否继续裁剪。裁剪后原点将重置为地图中⼼点。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image97.jpeg" style="width:5.47222in;height:2.67361in" /></p>
+<blockquote>
+<p>10. 保存地图</p>
+<p>⽂件⽬录下点击地图编辑器，点击 “保存⽂件”将新地图存⼊PC端。</p>
+<p>11. RS上传地图</p>
+<p>⽂件⽬录下点击地图编辑器，点击加载⽂件，选择想要上传的地图，点击上传到固件后会加载到RS软件中。</p>
+<p>12. 持久化保存地图</p>
+<p>如果想将"9.保存地图"导出的地图，通过API的⽅式保存到机器⼈中，有两种⽅式可以保存地图。</p>
+<p>⽅法1:</p>
+<p>将地图导出后，通过API的⽅式保存到机器⼈中，请按照下述接⼝调⽤顺序保存地图：</p>
+<p>a. 上传地图到机器⼈</p>
+<p>上传的地图会持久化保存在⽂件系统中, 但不会加载到Slamware中。【注意】当机器⼈由云端管理时，从云端下载的地图会覆盖本地地图。</p>
+<p>b. 重新加载地图</p>
+<p>c. 持久化保存当前地图</p>
+<p>⽅法2：</p>
+<p>通过 “10.RS上传地图”把地图加载到固件后；调⽤端只需要调⽤同步地图接⼝即可保存地图</p>
+<p>a. 同步地图</p>
+<p>【注意】：保存当前地图到⽂件，并重新加载，相当于save和reload 2个接⼝的组合。多楼层环境中禁⽌该操作，否则会丢失其他楼层的地图。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/multi-floor/map/v1/stcm/:sync</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>13. 多楼层地图编辑器</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image98.jpeg" style="width:5.77778in;height:4.375in" /></p>
+<blockquote>
+<p>保存⽂件</p>
+<p>将当前若⼲地图合并保存到—个⽂件，后缀名 stcmx。</p>
+<p>加载⽂件</p>
+<p>从—个 stcmx ⽂件加载多楼层地图。</p>
+<p>保存楼层</p>
+<p>将当前选中 tab 页的楼层单独保存为—个 stcm ⽂件。</p>
+<p>添加楼层</p>
+<p>选择—个 stcm ⽂件添加到当前的多楼层地图中。添加时需要输⼊楼层和建筑名。地图中需要包含⾄少—个电梯区域，且电梯 ID 和已有楼层的电 梯 ID —致。第—个添加的应当是默认楼层。默认楼层不—定是 1 楼，应当是所有电梯都停靠的楼层，当需要换乘电梯时，机器⼈需要先到默认楼层。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image99.jpeg" style="width:5.77083in;height:3.59028in" /></p>
+<blockquote>
+<p>移除楼层</p>
+<p>删除当前楼层地图 替换楼层</p>
+<p>选择—个 stcm ⽂件，并替换当前楼层。</p>
+<p>编辑楼层</p>
+<p>打开地图编辑器窗⼝ ，⽤于编辑当前楼层。</p>
+<p>调整楼层顺序</p>
+<p>楼层顺序⽤于显示地图时的排序，—般是按照从下往上的顺序，也可以进⾏⾃定义，拖动地图的 tab ⻚可实现顺序调整。⼆楼的 order 是0，1 楼 是 1。</p>
+<p>14. 地图拼接器</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image100.png" style="width:0.10938in;height:0.13966in" /><img src="images/Hermes_______/media/image101.png" style="width:4.70451in;height:2.48958in" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>概述</p>
+<p>地图拼接可以⽤于将两个连续区域的地图拼接成—个地图或者将原地图错误的部分替换为另—张地图正确的部分。<u>这有助于减⼩构建⼤场景地图时</u> <u>的难度以及减⼩后期运维⼯作量，可以⽀持分区域建图后进⾏拼接或者续建的⽅式</u>。</p>
+<p>添加地图</p>
+<p>点击 RoboStudio 界⾯地图拼接器按钮会出现如下拼接界⾯：依次点击 “添加—图”按钮和 “添加⼆图”按钮添加需要拼接的地图。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image102.png" style="width:7.37489in;height:3.98611in" /></p>
+<p><img src="images/Hermes_______/media/image103.png" style="width:7.37489in;height:3.98611in" /></p>
+<blockquote>
+<p>操作地图</p>
+<p>选择需要操作的地图：通过点击红框内的按钮来切换需要操作的地图。其中第—张地图只⽀持平移不⽀持旋转，第⼆张地图⽀持旋转和平移。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image104.png" style="width:7.37489in;height:3.98611in" /></p>
+<blockquote>
+<p>移动地图：</p>
+<p>可以通过⿏标右键拖动地图进⾏平移，也可以点击红框内的平移按钮之后点击⿏标左键进⾏平移。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image105.png" style="width:7.37489in;height:3.96528in" /></p>
+<blockquote>
+<p>旋转地图：</p>
+<p>点击红框内的旋转按钮，之后通过⿏标左键旋转地图。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image106.png" style="width:7.37489in;height:3.99306in" /></p>
+<blockquote>
+<p>缩放地图：</p>
+<p>通过⿏标滚轮上下滚动来缩放地图。</p>
+<p>选择匹配区域</p>
+<p>通过⿏标拖动地图，将两张地图的相似区域进⾏重合，点击 “选择匹配区域”按钮选择感兴趣区域，这将会⽤于计算匹配。感兴趣区域的选择将会— 定程度影响最后的拼接结果。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image107.png" style="width:7.37489in;height:4in" /></p>
+<blockquote>
+<p>展示匹配结果</p>
+<p>点击 “展示匹配结果”按钮，将会弹出地图匹配的结果。⽤户可以根据匹配连线的准确度判断最后拼接结果的好坏。—般情况来说，正确的连线越</p>
+<p>多，则地图拼接结果的精确度越⾼ 。如果点击 “展示匹配结果”按钮之后出现置信度过低的提示，则说明⽆法进⾏地图拼接，需要重新选择匹配区域或者 选择质量更⾼的地图进⾏拼接。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image108.png" style="width:7.37489in;height:5.27778in" /></p>
+<p><img src="images/Hermes_______/media/image109.png" style="width:7.37489in;height:3.97917in" /></p>
+<blockquote>
+<p>地图拼接</p>
+<p>选择匹配区域之后，点击 “地图拼接按钮”进⾏地图拼接，会弹出置信度阈值选择框：选择合适的阈值之后点击确定完成地图拼接。⽤户需要注意的是置 信度阈值设置越低，那么匹配的效果越差。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image110.png" style="width:7.37489in;height:3.97917in" /></p>
+<p><img src="images/Hermes_______/media/image111.png" style="width:7.37489in;height:3.98611in" /></p>
+<blockquote>
+<p>地图替换</p>
+<p>选择匹配区域之后，点击 “地图替换”进⾏地图拼接，步骤与地图拼接相同，区别在于地图替换会在拼接两张地图相似区域时优先选择使⽤第—张地图的 信息。</p>
+<p>保存地图</p>
+<p>点击 “保存地图”将新地图存⼊ stcm ⽂件中。</p>
+<p>使⽤说明</p>
+<p>地图拼接可以⽤于将两个连续区域的地图拼接成—个地图或者将原地图错误的部分替换为另—张地图正确的部分。</p>
+<p>地图拼接窗⼝虽然只显示地图轮廓信息，但是虚拟墙，虚拟轨道，矩形区域等也都会同步完成拼接。</p>
+<p>地图的选择：</p>
+<p>两张拼接地图需要是连续区域，并且两张地图需要有公共区域，也就是相似区域。相似区域需要⼤于⼗平⽅⽶，两张地图的相同区域越⼤ ，那么拼接的 成功率也越⾼ 。地图之间的相似区域需要具有完整的轮廓信息，边界清晰，</p>
+<p>轮廓平整，如下图所示。每个栅格颜⾊尽可能保证只是⿊⾊或者⽩⾊ ，灰⾊栅格会—定程度影响匹配结果。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image112.jpeg" style="width:4.97222in;height:1.84028in" /></p>
+<blockquote>
+<p>若是相似区域轮廓信息不完整，如下图所示，地图存在边界不够平整，地图构建不完善，灰⾊像素值过多等情况，则有⼤概率会导致拼接失败，或者拼 接准确度变低。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image113.jpeg" style="width:6.11806in;height:1.74306in" /></p>
+<blockquote>
+<p>选择匹配区域：</p>
+<p>框选相似区域时，保证预选框不可过⼩ ，最好⽐相似区域稍⼤ ，需要完整包含两张地图的重合区域，如下图所示：</p>
+<p>框选范围过⼩，不完全会导致拼接失败，错误框选示例如下图所示：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image114.png" style="width:7.37489in;height:3.97222in" /></p>
+<blockquote>
+<p><img src="images/Hermes_______/media/image115.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>匹配结果展示：</p>
+<p>正确的匹配连线⾄少需要⼤于五对，过少的匹配对会导致拼接失败或者准确度降低。正确的匹配对越多，那么拼接的准确度就越⾼。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image116.jpeg" style="width:5.94445in;height:6.27778in" /></p>
+<blockquote>
+<p>地图拼接：</p>
+<p>点击地图拼接按钮会弹出置信度阈值设置窗⼝ ，⽤户可以⾃⾏选择需要的置信度阈值，阈值设置越低，拼接成功概率越⾼ ，拼接的准确度相对降</p>
+<p>低。如果显示拼接失败，⽤户可以选择调低置信度提⾼成功概率。需要注意的是，点击地图拼接按钮之前如果未点击展示匹配结果按钮，那么置信度阈 值默认设置为 1 ，这种情况下拼接可能会失败，需要⽤户按照提示修改阈值或者选择质量更⾼的地图进⾏拼接。点击地图拼接按钮之前点击展示匹配结 果按钮，那么弹出的置信度阈值设置窗⼝会给出合适的参考置信度阈值，⽤户可以直接点击确定按钮完成拼接，也可以调低阈值，但不要⾼于给出的参 考阈值，这会导致拼接成功概率降低。</p>
+<p>15. 提取⽇志</p>
+<p>TIPS：通常⽇志需要思岚的FAE或者研发⼯程师进⾏查阅，⽤户暂⽆权限查阅log，建议⽤户按如下操作提取⽇志后发给思岚的技术⽀持团队进⾏问题 分析和诊断。</p>
+<p>在诊断菜单栏下的【Fetch Agent Log】按钮功能可以通过 agent 服务抓取想要分析的⽇志⽂件。整个功能为异步操作，相⽐已有的【Fetch All Debug Data】按钮功能同步操作可以不受⽹络波动带来的影响。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image117.jpeg" style="width:5.61111in;height:3.80556in" /></p>
+<blockquote>
+<p>操作流程</p>
+<p>点击右上⻆的【⽣成⽇志】按钮，会弹出可以选择想要抓取的⽇志⽂件类型，勾选后点击【确认】按钮，agent 服务开始抓取⽇志并最终压缩 为.zip 的压缩⽂件。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image118.jpeg" style="width:5.70833in;height:3.85417in" /></p>
+<blockquote>
+<p>左下⻆的进度条可以显示当前异步抓取⽇志的进度，并在抓取完成后在列表中显示已经抓取好的压缩包⽂件。选中⽂件后可以点击【删除】或【下 载】按钮进⾏操作，⽂件下载后机器上抓取到的压缩包⽂件也会进⾏删除避免磁盘空间浪费。</p>
+<p>16. 运维区域</p>
+<p>1. 运维区域是指该区域内的地图元素可实时进⾏更新，将更新后的元素作为定位参考，以减少因环境变化⼤导致的定位误差⼤的⻛险。（<u>在需要使⽤时</u> <u>需要联系技术⽀持⼈员确认功能开启状态</u>）</p>
+<p>2. 适⽤场景：多变的场景，⽐如在车库车位中的车辆（ 车辆会移动变化）、图书馆阅读区的椅⼦ 、⼯⼚中临时存放区、办公区域的临时区域等。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 51%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image119.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p>运维区域.mp4</p>
+<p>570.85KB</p>
+</blockquote></td>
+<td><img src="images/Hermes_______/media/image120.png" style="height:0.10641in" /></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>17. 危险区域</p>
+<p>危险区域包含多种区域类型，常⽤的是斜坡区域和窄⾛廊区域。</p>
+<p>（1） 斜坡区域：地⾯崎岖不平，有坡度的路段可以画此区域（ ⼩于10°的坡或者⼩于3cm的坎），降低移动速度，使机器更加平缓运⾏ ，减少颠簸晃 动，避免速度过快引发的⻛险。</p>
+<p>（2）窄⾛廊区域：对于⽐较狭窄的通道/⻔等（ 60~80CM），可以画此区域临时关闭深度检测，减少机器膨胀半径，提升窄道可通过性。（使⽤该功能 时建议联系技术⽀持⼈员确认设备配置是否开启）</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image121.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image122.png" style="height:0.10641in" />窄⾛廊区域.mp4</p>
+<p>411 .83KB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image123.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image124.png" style="height:0.10641in" />斜坡区域.mp4</p>
+<p>1.73MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2.3.5 通⽤底盘部署⼿册（ 强烈推荐使⽤）</p>
+<p>通⽤底盘部署可参考如下⼿册：</p>
+<p><a href="https://slamtec.feishu.cn/docx/AKKCdZmtIopyuYxdMsBcDpGDnkb"><img src="images/Hermes_______/media/image125.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image126.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image127.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image128.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image129.png" /> 标准底盘产品部署⼿册</a></p>
+<p>2.3.6 ⼯业AGV部署⼿册（ 强烈推荐使⽤）</p>
+<p>⼯业AGV部署可参考如下⼿册：</p>
+<p><a href="https://slamtec.feishu.cn/docx/Y6KpdznBrozAICx7gbjcLI1Lnmg"><img src="images/Hermes_______/media/image130.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image131.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image132.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image133.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image134.png" /> ⼯业底盘部署⼿册</a></p>
+<p>3. 开发指南</p>
+<p>3.1 SDK</p>
+<p>强烈推荐 ：新⼿建议直接采⽤Restful API ，⽀持跨平台开发且接⼝应⽤最全。</p>
+<p>3.1.1 Restful API</p>
+<p>1. SDK ⽂档链接 ：<a href="https://docs.slamtec.com/">https://docs.slamtec.com/</a>；</p>
+<p>2. 在线调试REST API</p>
+<p>调试端⼝为1448，输⼊您机器⼈的IP+:1448即可进⼊调试⻚；例如：IP为192.168.11.1 :1448/192.168.12.1 :1448/xx.xx.xx.xx:1448，在线调试如下图 即可进⼊[注意冒号采⽤英⽂格式下的符号]</p>
+<p>3. SDK 开发指南 <a href="https://slamtec.feishu.cn/docx/StfqdFhcmo8ivSxXQYcceagTnen"><img src="images/Hermes_______/media/image135.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image136.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image137.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image138.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image139.png" /> Slamware RESTful API开发⼿册</a></p>
+<p>4. 例程参考:</p>
+<p><a href="https://wiki.slamtec.com/pages/viewpage.action?pageId=122159112">https://wiki.slamtec.com/pages/viewpage.action?pageId=122159112</a></p>
+<p>5. REST API 指南视频：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image140.png" style="width:0.10938in;height:0.13966in" /><img src="images/Hermes_______/media/image141.png" style="width:5.67361in;height:3.18403in" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>6. ROS2 下调⽤REST API:详情可见右侧⽂档内3.4的内容：<a href="https://slamtec.feishu.cn/docx/IV5edQISqoqGuXx8wD3cTNA2nMg"><img src="images/Hermes_______/media/image142.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image143.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image144.png" style="height:0.11112in" /><img src="images/Hermes_______/media/image145.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image146.png" /> 基于 WSL Ubuntu22.04 使⽤ ROS2 SDK控制思岚科技底盘的详细指南</a></p>
+<p>7. SLAMTEC REST TOOL ⼯具及指南：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image147.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image148.png" style="width:0.12552in" />Slamtec_API_Tool V1.5.rar</p>
+<p>66.15MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/Hermes_______/media/image149.png" style="width:0.10938in;height:0.13966in" /></p>
+<blockquote>
+<p><img src="images/Hermes_______/media/image150.png" style="width:5.68056in;height:2.97221in" /> 01 :37</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>3.1.2 ROS/ROS2 SDK</p>
+<p>1. SDK 下载地址：<a href="https://www.slamtec.com/cn/Support#apollo">https://www.slamtec.com/cn/Support#apollo</a></p>
+<p>2. ⽀持的系统版本：</p>
+<p>ROS1 ：Ubuntu 16.04,18.04,20.04</p>
+<p>ROS2 ：Ubuntu 20.04,22.04</p>
+<p>3. SDK 开发指南：ROS⽂档：<a href="https://developer.slamtec.com/docs/slamware/ros-sdk/2.8.2_rtm/">https://developer.slamtec.com/docs/slamware/ros-sdk/2.8.2_rtm/</a> ROS2 ⽂档：<a href="javascript:void(0);"><img src="images/Hermes_______/media/image151.png" style="height:0.125in" /><img src="images/Hermes_______/media/image152.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image153.png" /><img src="images/Hermes_______/media/image154.png" /> ROS2使⽤⽂档.pdf</a></p>
+<p>4. Demo：</p>
+<p>ROS1：<a href="https://wiki.slamtec.com/display/SD/ROS+SDK">https://wiki.slamtec.com/display/SD/ROS+SDK</a></p>
+<p>ROS2：<a href="https://slamtec.feishu.cn/docx/IV5edQISqoqGuXx8wD3cTNA2nMg"><img src="images/Hermes_______/media/image155.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image156.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image157.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image158.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image159.png" /> 基于 WSL Ubuntu22.04 使⽤ ROS2 SDK控制思岚科技底盘的详细指南</a></p>
+<p>GCC9 操作ROS SDK 开启Rviz:</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image160.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image161.png" style="height:0.10641in" />GCC9 环境下操作ROS1 RVIZ.mp4</p>
+<p>398.20MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>3.1.2 Linux SDK</p>
+<p>1. SDK 下载地址<a href="https://www.slamtec.com/cn/Support#apollo">:https://www.slamtec.com/cn/Support#apollo</a></p>
+<p>2. ⽀持的系统版本</p>
+<p>a. ROS1 ：GCC5.4\GCC7\GCC9(aarch64&amp;x86架构)</p>
+<p>b. ROS2 ：GCC9\GCC11(aarch64&amp;x86架构)</p>
+<p>c. C++:GCC5.4\GCC7\GCC9\GCC11(aarch64&amp;x86架构)</p>
+<p>3. SDK 开发指南</p>
+<p>a. 参考<a href="https://developer.slamtec.com/docs/slamware/cpp-sdk/5.1.1_rtm/">https://developer.slamtec.com/docs/slamware/cpp-sdk/5.1.1_rtm/</a></p>
+<p>4. Demo</p>
+<p>a. 参考<a href="https://wiki.slamtec.com/pages/viewpage.action?pageId=38666274">https://wiki.slamtec.com/pages/viewpage.action?pageId=38666274</a></p>
+<p>3.1.3 Windows SDK</p>
+<p>1. SDK 下载地址<a href="https://www.slamtec.com/cn/Support#apollo">:https://www.slamtec.com/cn/Support#apollo</a></p>
+<p>2. ⽀持的系统版本</p>
+<p>a. Windows sdk(32bit)：vs2010\2017\2019</p>
+<p>b. Windows sdk(64bit)：vs2022</p>
+<p>3. SDK 开发指南</p>
+<p>a. 参考：<a href="https://developer.slamtec.com/docs/slamware/cpp-sdk/5.1.1_rtm/">https://developer.slamtec.com/docs/slamware/cpp-sdk/5.1.1_rtm/</a></p>
+<p>4. Demo</p>
+<p>a. 参考：<a href="https://wiki.slamtec.com/pages/viewpage.action?pageId=20021512">https://wiki.slamtec.com/pages/viewpage.action?pageId=20021512</a></p>
+<p>3.1.4 Android SDK</p>
+<p>1. SDK 下载地址：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image162.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image163.png" style="width:0.12552in" />slamware-sdk-android-6.1.2.zip</p>
+<p>13.80MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2. ⽀持的系统版本：Android 5.0或以上版本</p>
+<p>3. SDK 开发指南：</p>
+<p>a. ⽂档链接：<a href="https://developer.slamtec.com/docs/slamware/android-sdk/4.6.0_rtm/">https://developer.slamtec.com/docs/slamware/android-sdk/4.6.0_rtm/</a></p>
+<p>4. Demo:</p>
+<p>a. SDK Demo：<a href="https://github.com/SlamtecSupport/UICommander.Android">https://github.com/SlamtecSupport/UICommander.Android</a></p>
+<p>3.2 底盘主板的开放程度说明</p>
+<p>TIPS: ⽬前RYD3399 和 RYD3588 仅开放以太⽹通讯⼝ ，HDMI，USB，TTL串⼝ ，通⽤简单的配送类APK⽀持安装到底盘上的主板，如涉及复杂的 APK且消耗内存资源的⽬前不⽀持安装和使⽤。</p>
+<p>3.2.1 RYD3399 主板（标准系列底盘）</p>
+<p><img src="images/Hermes_______/media/image164.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>RK3399安卓系统主板，采⽤Rockchip RK3399主控⽅案。主板规格为标准3.5⼨结构，尺⼨ 为146*100mm。 主板处理核⼼RK3399基于双Cortex- A72+四Cortex-A53 ⼤⼩核CPU结构。采⽤性能强劲的 Mali-T864 GPU图形显示核⼼ ，⽀持VP9、H.265/H264硬件解码以及4K超清输出。板载</p>
+<p>4GB DDR3内存以及32GB存储。显示接⼝有：1*HDMI、1*eDP，⽀持双屏显示，可满⾜灵活多样的点 屏应⽤需求。板载有1个3.5mm⽿麦插座和以 及1个双声道3W功放喇叭接⼝ ，能满⾜⾳频类应⽤的 需求。主板集成1个千兆⽹⼝ ，此外还集成了WIFI/Bluetooth模块，⽀持多样的⽹络接⼊⽅式。 板 载Mini-PCIe扩展插槽，⽀持4G上⽹卡模块扩展。主板有8路USB接⼝ ，4路串⼝ ，7路GPIO扩展 ⼝ ，1路ADC扩展⼝以及2路I2C扩展⼝ 。此外主 板板载丰富的功能扩展插针接⼝ 。主板采⽤宽电压 输⼊ ，⽀持12V-36V输⼊ ，直流适配器供电。</p>
+<p>主板特点：</p>
+<p>★基于瑞芯微 RK3399 ARM 处理器⽅案；</p>
+<p>★显示接⼝拥有 eDP/HDMI OUT/HDMI IN/LVDS/；</p>
+<p>★硬件解码 H.265 ⾼清视频，⽀持 4K 超⾼清输出；</p>
+<p>★功能丰富，板载 8*USB/2*COM/7*GPIO； 详细信息请参考对应底盘⽤户⼿册查看。</p>
+<p>3.2.2 RYD3588主板（ PRO MAX系列底盘）</p>
+<p><img src="images/Hermes_______/media/image165.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>RK3588 安卓系统主板，采⽤ Rockchip RK3588 主控⽅案。搭载⼋核 64 位 CPU，四核 A76+四核 A55，主频⾼达 2.4GHz, 集成 ARM Mali-G610 MP4 四核 GPU，内置 AI 加速器 NPU，可提供 6Tops 算⼒ ，最⼤可配 32GB 内存；⽀持 8K@60fps H.265/VP9 视频解码和 8K@30fps</p>
+<p>H.265/H.264 视频解码，⽀持同编同解，最⾼可实现 32 路 1080P@30fps 解码和 16 路 1080P@30fps 编码；主板显示输出接⼝⽀持 Type-C、</p>
+<p>HDMI、EDP、MIPI-DSI 和双通道 8 位 LVDS，⽀持四屏异显；⽹络接⼝⽀持双千兆以太⽹ 、2.4GHz/5GHz WIFI6(802.11ax)、4G/5G 16 / 63 LTE 扩展；视频输⼊⽀持 HDMI IN、双 MIPI-CSI 摄像头；存储接⼝⽀持 TF 卡，SATA 插座， NVMe SSD-M KEY 插座；丰富的扩展接⼝ ：多路 USB、 UART、CAN 和 GPIO。此外主板板载丰 富的功能扩展插针接⼝ 。主板采⽤单 12V 直流适配器供电。</p>
+<p>主板特点：</p>
+<p>★显示接⼝⻬全：集成 Type-C、HDMI、EDP、MIPI-DSI 和双通道 8 位 LVDS 各种显示接⼝于—体；</p>
+<p>★存储接⼝丰富：⽀持 TF 卡，SATA 插座，NVMe SSD-M KEY 插座；</p>
+<p>★⽹络⽀持：⽀持双千兆以太⽹ 、2.4GHz/5GHz WIFI6(802.11ax)、4G/5G LTE 扩展；</p>
+<p>★丰富的扩展接⼝ ：9 个 USB 接⼝(6 个插针 USB 2.0，2 个标准 USB 3.0 ⼝ ，1 路 Type-C 为 OTG ⼝)，4 个可扩展串⼝ ，1 个 CAN 接⼝ ， GPIO/ADC 接⼝ ，</p>
+<p>★丰富的扩展接⼝ ：算⼒⾼达 6 TOPS，⽀持 INT4/INT8/INT16 混合运算；可实现基于 TensorFlow / MXNet / PyTorch / Caffe 等系列框架的⽹ 络模型转换；</p>
+<p>★⽀持四屏异显组合</p>
+<p>详细信息请参考对应底盘⽤户⼿册查看。</p>
+<p>3.3 通讯模块相关</p>
+<p>3.3.1 以太⽹端⼝示意图</p>
+<p>3.3.1.1 RYD3399</p>
+<p><img src="images/Hermes_______/media/image166.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>3.3.1.2 RYD3588</p>
+<p><img src="images/Hermes_______/media/image167.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>3.3.2 4G模组与流量卡配置说明</p>
+<p>4G模组与流量卡的配置需根据具体型号和使⽤场景进⾏调整。若您遇到配置问题或需要技术指导，请直接联系思岚科技技术⽀持团队获取专业协 助。</p>
+<p>Tips: <u>4G模组与流量卡为选配，如需要请联系思岚销售⼈员进⾏采购。</u></p>
+<p>3.3.3 wifi通讯</p>
+<p>1. 静态IP 配置：<a href="https://slamtec.feishu.cn/docx/ARR3dhvmroT8fOxnSiWcrHKtngh"><img src="images/Hermes_______/media/image168.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image169.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image170.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image171.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image172.png" /> IPC Station模式下修改静态IP</a></p>
+<p>2. 通信频段说明:</p>
+<p>a. RK3399、RK3588仅⽀持2.4GHz 频段；</p>
+<p>b. ⼯业AGV⽀持 双频 Wi-Fi，涵盖：</p>
+<p>. 2.4GHz 频段（ IEEE 802.11 b/g/n）</p>
+<p>. 5GHz 频段（ IEEE 802.11 a/n/ac）</p>
+<p>3. AP 与 Station 模式切换：<a href="https://slamtec.feishu.cn/docx/MBi6dMUnfo4mvJxFMx2c9lqSnbd"><img src="images/Hermes_______/media/image173.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image174.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image175.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image176.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image177.png" /> ⽹络管理模式配置使⽤⼿册</a></p>
+<p>3.3.4 Lora模块说明</p>
+<p>1. lora模块功能</p>
+<p>请参考⽂档：<a href="https://slamtec.feishu.cn/docx/B4d3dGQgBoItkDxPvZLcw1Yjnrb?from=from_copylink"><img src="images/Hermes_______/media/image178.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image179.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image180.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image181.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image182.png" /> 基于Lora的多机调度部署⽅法</a></p>
+<p>2. 开放程度</p>
+<p>。 适⽤于 3 台及以内机器⼈ 的协同避障，确保在共享⼯作空间内安全运⾏。</p>
+<p>。 基于 LoRa 通信，实现机器⼈间的实时数据交互，优化路径规划。</p>
+<p>。 仅⽀持查询Lora模块的⼯作状态，不⽀持⼆次开发。</p>
+<p>3. 多机调度调试⽣效接⼝</p>
+<p>。请参考右侧⽂档中2.Lora多机调度验证步骤：<a href="https://slamtec.feishu.cn/docx/B4d3dGQgBoItkDxPvZLcw1Yjnrb?from=from_copylink"><img src="images/Hermes_______/media/image183.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image184.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image185.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image186.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image187.png" /> 基于Lora的多机调度部署⽅法</a></p>
+<p>4. 通讯距离覆盖范围</p>
+<p>。 单个模块<u>空旷</u>传输距离 1 Km</p>
+<p>3.4 图纸说明</p>
+<p><img src="images/Hermes_______/media/image188.png" /> 3.4.1 ⽀撑板与上位机固定的螺丝规格</p>
+<p><img src="images/Hermes_______/media/image189.png" /> 3.4.2 底盘3D模型图纸</p>
+<p><img src="images/Hermes_______/media/image190.png" /> 3.5 末端对接</p>
+<p>3.6 梯控</p>
+<p>3.6.1 梯控的开放程度</p>
+<p>梯控是—套辅助机器⼈上下电梯的电梯控制设备，思岚全系列底盘均可选配搭载思岚的梯控模组。 思岚主要的梯控模组为梯控4.0⽅案，通过光电开关、霍尔传感器等器件判断电梯所在楼层。</p>
+<p>梯控前⾯板接⼝：</p>
+<p>从左⾄右，接⼝依次是：</p>
+<p>ANT-WIFI：WiFi天线接⼝ （ ⺟头）</p>
+<p>DSP：⽓压计接⼝ （ I2C）；</p>
+<p>SEN2：传感器接⼝2（ GPIO）；</p>
+<p>SEN1 ：传感器接⼝1（ GPIO，上平层感应器）；</p>
+<p>KEY B：按键板接⼝ （ RS485）；</p>
+<p>LIDAR：lidar接⼝ （ RS422）；</p>
+<p>LAN：以太⽹⼝ ；</p>
+<p>USB：USB2.0接⼝ ；</p>
+<p>POWER：12V电源接⼝ 。</p>
+<p>ANT-4G：4G天线接⼝ （公头）。</p>
+<p><img src="images/Hermes_______/media/image191.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>后⾯板接⼝：</p>
+<p><img src="images/Hermes_______/media/image192.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>ANT-LORA：lora天线接⼝</p>
+<p>SEN 3：传感器接⼝3（ GPIO，下平层感应器）</p>
+<p><img src="images/Hermes_______/media/image193.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3.6.2 梯控的部署要求</p>
+<p>电梯部署对接时的要求详情可见勘测部署表 <a href="https://slamtec.feishu.cn/share/base/form/shrcnpAkg01LSo5citUd8k95L3Z">https://slamtec.feishu.cn/share/base/form/shrcnpAkg01LSo5citUd8k95L3Z</a> —般情况下需要满⾜三点：</p>
+<p>1 、 电梯平层信息，标准情况为隔磁板⽅案；</p>
+<p><img src="images/Hermes_______/media/image194.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2、 电梯按钮背部接线，需要为正常通断信号接线的⽅式；</p>
+<p><img src="images/Hermes_______/media/image195.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3、 电梯停平时轿厢和平层的地⾯⾼低差在允许范围内；</p>
+<p><img src="images/Hermes_______/media/image196.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>具体要求需要按实填写勘测部署表；注 ：填写时需要提供电梯维保联系⽅式</p>
+<p>3.6.3 梯控⽀持哪些品牌的电梯</p>
+<p>市⾯上主流电梯品牌思岚均有合作的案例：如三菱、通⼒等；部署电梯之前需要填写勘测部署表（可⻅3.6.2 梯控部署要求</p>
+<p><a href="https://slamtec.feishu.cn/share/base/form/shrcnpAkg01LSo5citUd8k95L3Z">https://slamtec.feishu.cn/share/base/form/shrcnpAkg01LSo5citUd8k95L3Z</a>），提供勘察信息，交予思岚技术⼈员来评估电梯是否⽀持梯控的安 装部署。</p>
+<p>4. FAQ</p>
+<p>4.0 如何快速排查机器⼈故障 STEP1: 观察机器⼈与充电桩的指示灯状态 底盘指示灯状态说明：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image197.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image198.png" style="width:0.12552in" />新版指示灯状态说明.pdf</p>
+<p>204.28KB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>充电桩指示灯状态说明：</p>
+<p><img src="images/Hermes_______/media/image199.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>STEP2: 结合指示灯状态，排查急停和刹车按钮是否被按下，复位后观察是否恢复正常</p>
+<p>STEP3: 将RS 连接上底盘后，如观察到RS上有<u>感叹号图标</u>，点击感叹号，展示详细的说明，并结合4.6.1 所示的故障清单作进—步排查</p>
+<p><img src="images/Hermes_______/media/image200.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>STEP4: 遇到机器⼈突然停⽌不动或者运⾏异常的，可打开Robostudio的costmap图层，便于思岚技术⽀持分析；</p>
+<p>cost map说明⽂档：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image201.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image202.png" style="width:0.12552in" />RoboStudio CostMap说明⽂档.pdf</p>
+<p>161 .51 KB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>如何打开cost map:</p>
+<p><img src="images/Hermes_______/media/image203.png" style="width:5.69444in;height:3.20833in" />00:20</p>
+<p>STEP5: 如果直接出现⽹络问题或者底盘瘫痪，重启仍然⽆法恢复，可联系思岚技术⽀持进⾏排查。</p>
+<p>4.1 开机/关机</p>
+<p>1. ⽆法开机</p>
+<p>1） 检查底盘开关状态（ ⼯业AGV产品须打开空⽓开关）以及电池的开关状态</p>
+<p><img src="images/Hermes_______/media/image204.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image205.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image206.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2）测量电池电压，检查电池是否有电</p>
+<p><img src="images/Hermes_______/media/image207.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3）检查CAN通讯线是否连接</p>
+<p><img src="images/Hermes_______/media/image208.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2. ⽆法关机</p>
+<p>1） 检查底盘上⾯的开关机按钮是否良好</p>
+<p><img src="images/Hermes_______/media/image209.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2）检查cube2R上⾯的集成线束是否松动</p>
+<p><img src="images/Hermes_______/media/image210.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3）尝试将机器耗电到⾃动关机、或⼿动关闭电池开关（将"0"按下）</p>
+<p>3. 底盘异常关机</p>
+<p>1） 测量电池电压，检查电池是否有电</p>
+<p><img src="images/Hermes_______/media/image211.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2）检查电池开关是否松脱</p>
+<p><img src="images/Hermes_______/media/image212.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3）检查cube2R是否正常（检查电压是否正常或者线缆是否松动）</p>
+<p><img src="images/Hermes_______/media/image213.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image214.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>4. ⾃动开机</p>
+<p>TIPS： 如果机器⼈在充电桩上，默认会⾃动开机。</p>
+<p>请联系思岚技术⽀持进⾏排查。</p>
+<p>4.2 固件与配置</p>
+<p>1. 固件说明</p>
+<p>⽬前思岚通⽤底盘的最新固件版本为6.2.1 RTM(迭代系列底盘)和5.2.1 RTM（ ⽼款底盘系列），如需升级可联系思岚技术⽀持进⾏升级。Athena1.0 ⽬前已 停产不再提供软件维护。</p>
+<p>2. 如何升级固件和配置</p>
+<p><a href="javascript:void(0);"><img src="images/Hermes_______/media/image215.png" style="height:0.125in" /><img src="images/Hermes_______/media/image216.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image217.png" /><img src="images/Hermes_______/media/image218.png" /> 1.底盘固件升级&amp;升级cube config⽂件使⽤⼿册.pdf</a></p>
+<p>3. 如何获取最新固件和配置 请联系思岚技术⽀持。</p>
+<p>4.3 ⽹络</p>
+<p>1. 搜索不到底盘AP热点</p>
+<p>1） 先尝试关机重启看能否恢复；</p>
+<p>2）确认硬件连接是否正常，即3399/3588主板上的天线是否正常连接，如是，则进⾏下—步；</p>
+<p><img src="images/Hermes_______/media/image219.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image220.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>3）使⽤⽹线将电脑直连机器⼈底盘的以太⽹接⼝ （此处如果电脑⽆法正常识别设备，可⼿动配置⽹关为192.168.11.1），在浏览器中访问底盘默认IP 地址192.168.11.1 ，检查底盘当前⽹络模式是AP模式还是STA模式；</p>
+<p>如果处于AP模式，但搜不到热点，可以进⼊系统的⽹络管理设置，勾选 “Disable Android Network Management” ，点击Disable之后等待—分钟， 然后关机重启机器，看能否搜到热点；</p>
+<p>如果处于STA模式，可以进⼊系统的⽹络管理设置，勾选 “Disable Android Network Management” ，点击Disable之后等待—分钟，然后关机重启 机器，看能否搜到热点；（注意不要错选为 “Enable” ，这个是使能安卓管理，这个模式下没有热点，⽹⼝也不通）；</p>
+<p><img src="images/Hermes_______/media/image221.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>如果错切到安卓管理，请接显示器到3399/3588的HDMI⼝ ，并接键盘或⿏标到3399/3588的USB⼝ ，然后操作进⼊安卓系统，找到浏览器，输⼊</p>
+<p>127.0.0.1 ，进⼊⽹⻚ ，重新切回AP模式；</p>
+<p>若以上仍⽆法解决，建议联系思岚技术⽀持获取远程协助。</p>
+<p>2. RS 连接底盘热点卡顿</p>
+<p>1） ⾸先，板载wifi热点信号强度有限，请尽量保证不要离机器太远（调试时尽量1 m以内）；</p>
+<p>2）其次，检查设备硬件天线连接是否正常，是否存在⾦属结构屏蔽，可能会影响信号强度；</p>
+<p>针对1） 和2）可以ping—下ip，看看延时是否过⾼或者存在丢包的情况，如果是，则会导致RS卡顿；</p>
+<p>3）RS本身数据量较⼤时也会导致卡顿，建议按照下图进⾏操作，先开启 “极简数据模式”和 “ 同步刷新” ，并 “持久化保存” ，再连接机器，这样可以 降低数据刷新量和刷新频率，—定程度上缓解卡顿问题；</p>
+<p><img src="images/Hermes_______/media/image222.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>如果以上都没有效果，也可以采⽤STA模式或者⽹线连接，可能会⽐热点信号要好；</p>
+<p>3. 如何设置wifi密码</p>
+<p>1） 可以使⽤接⼝设置wifi名称和密码，见（<a href="http://docs.slamtec.com/">docs.slamtec.com</a>)</p>
+<p>PUT {{baseUrl}} /api/core/system/v1/network/status</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "networkmode": 0, #0为AP模式，1为station模式</p>
+<p>3 "options": {</p>
+<p>4 "ssid":"⾃定义", #可选，但是在station模式下必须写⼊</p>
+<p>5 "password":"⾃定义" #可选，但是在station模式下必须写⼊</p>
+<p>6 }</p>
+<p>7 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意：如果是AP模式，ssid如果不填，默认变为 “LOCALHOST” ，密码需要8位以上，13位以下；</p>
+<p>2）也可以在⽹页上设置，参考下图：</p>
+<p><img src="images/Hermes_______/media/image223.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>4. ⽆法ping通192.168.11.1</p>
+<p>• 底盘在AP模式下，确认电脑或其他终端设备已经连接到底盘的热点（默认名称为SLAMWARE-{ssid}）；</p>
+<p>• 底盘在STA模式下，确认⽹线连接正常，然后在⽹络设置⾥查看⽹络信息是否已经显示⽹关/IP地址等，如未显示，可以⼿动分配IP地址、⼦⽹掩码、 ⽹关、DNS；</p>
+<p>• 底盘在安卓⽹络管理，此模式默认没有AP热点，且⽹⼝192.168.11.1不通，可以接显示器进⼊安卓系统，将底盘切回AP或STA模式，连接热点或者使 ⽤⽹线连接，才能恢复使⽤192.168.11.1；</p>
+<p>5. 如何设置底盘的静态IP</p>
+<p>• 在Station⽹络模式，每过—段时间机器被分配的IP可能会改变，如果需要—直维持某—个固定的IP，可以使⽤如下接⼝实现（ 固件需要6.2.1-rc2版 本及以上才能⽀持此功能）；</p>
+<p>⾸先，确保提前知晓所连接sta⽹路的ip地址范围、⽹关地址，分别填⼊参数ip，route中；</p>
+<p><img src="images/Hermes_______/media/image224.png" style="height:2.9375in" />先调⽤接⼝ ，然后到⽹⻚扫描需要连接的wifi，进⾏连接；</p>
+<p><img src="images/Hermes_______/media/image225.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>• 在Android⽹络管理，可以设置以太⽹静态IP，请按照下图步骤进⾏操作：</p>
+<p>⽹线连接底盘和上位机路由，投屏/连接屏幕进⼊底盘安卓系统，在设置⾥选择 Ethernet ，如果选择dhcp，路由会随机给底盘分配同⽹段的IP，也可以 选择static模式，⼿动修改—个同⽹段的IP；（注意：如果上位机没有路由，只有交换机，只能拓展⽹⼝ ，但⽆法给底盘分配IP，这种情况下，因为底盘 ⽹⼝默认IP是192.168.11.1 ，请将上位机其他设备改为192.168.11⽹段，以便和底盘保持统—⽹段进⾏通讯）</p>
+<p><img src="images/Hermes_______/media/image226.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image227.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image228.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image229.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>4.4 充电桩与电池</p>
+<p>1. ⽆法正常充电</p>
+<p>1.请检查充电桩电源线插头是否插⼊插座，充电桩指示灯是否正常亮起。</p>
+<p><img src="images/Hermes_______/media/image230.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚ <img src="images/Hermes_______/media/image231.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2.⽤软布擦拭充电桩&amp;底盘弹⽚</p>
+<p><img src="images/Hermes_______/media/image232.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3.检查底盘弹⽚和充电桩弹⽚是否接触牢靠</p>
+<p><img src="images/Hermes_______/media/image233.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>4.如均⽆法解决，联系思岚售后进⾏处理,可能原因：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 58%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原因</p>
+</blockquote></td>
+<td><blockquote>
+<p>排查⽅向</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>1.充电桩坏了，⽆法供电；</p>
+</blockquote></td>
+<td><blockquote>
+<p>硬件⽅⾯：</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2.Cube2R板⼦MOS管烧坏；</p>
+</blockquote></td>
+<td><blockquote>
+<p>1. 更换充电桩是否可以有效充电；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3.充电桩与机器不匹配；</p>
+</blockquote></td>
+<td><blockquote>
+<p>2. 更换电池看能否充电；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4.磁⽚可能被刮坏了；</p>
+</blockquote></td>
+<td><blockquote>
+<p>软件⽅⾯：机器中配置是否配置成不充电或者电池类型配置是</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5.应⽤了默认不充电配置</p>
+</blockquote></td>
+<td><blockquote>
+<p>否有误。</p>
+<p>若问题仍未解决，请联系思岚FAE。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2. 充电充不满</p>
+<p>交叉验证充电桩是否是良品。</p>
+<p>3. 充电桩的2D和3D图纸</p>
+<p>C1M5：</p>
+<p>3D图纸：<a href="https://confluence.slamtec.com/download/attachments/178654044/00-c1m5_asm.stp?version=1&amp;modificationDate=1735263404840&amp;api=v2">00-c1m5_asm.stp</a></p>
+<p>C1M3：</p>
+<p>3D图纸： <a href="https://confluence.slamtec.com/download/attachments/178654044/C1M3-20230224.stp?version=1&amp;modificationDate=1735263404717&amp;api=v2">C1M3-20230224.stp</a></p>
+<p>4. 充电桩的指示灯含义</p>
+<p>充电桩指示灯具体含义请参考此链接：<a href="https://confluence.slamtec.com/pages/viewpage.action?pageId=178654049">https://confluence.slamtec.com/pages/viewpage.action?pageId=178654049</a></p>
+<p>5. 电池认证</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 49%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image234.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p>电池认证.zip</p>
+<p>17.79MB</p>
+</blockquote></td>
+<td><img src="images/Hermes_______/media/image235.png" style="width:0.12552in" /></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>UN38.3认证：</p>
+<p>20AH 磷酸铁锂：<a href="https://confluence.slamtec.com/download/attachments/178654031/20Ah%E7%94%B5%E6%B1%A0.7z?version=1&amp;modificationDate=1735263404209&amp;api=v2">20AH UN38.3</a></p>
+<p>30AH 磷酸铁锂：<a href="https://confluence.slamtec.com/download/attachments/178654031/30Ah%E7%94%B5%E6%B1%A0.7z?version=1&amp;modificationDate=1735263404182&amp;api=v2">30A UN38.3</a></p>
+<p><a href="https://slamtec.feishu.cn/docx/NIUGdE6DxoOhkExh2J2cMgaPnde"><img src="images/Hermes_______/media/image236.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image237.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image238.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image239.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image240.png" /> 电池认证证书</a></p>
+<p>6. 电池使⽤寿命</p>
+<p>2000 次充放电循环下降到初始容量的80%</p>
+<p>7. 电池的规格书</p>
+<p>三元锂电池24V 18Ah:</p>
+<p><a href="javascript:void(0);"><img src="images/Hermes_______/media/image241.png" style="height:0.125in" /><img src="images/Hermes_______/media/image242.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image243.png" /><img src="images/Hermes_______/media/image244.png" /> UTL-18650-2600mAh-6S7P-22.2V18.2Ah规格书-220623(1).pdf</a></p>
+<p>磷酸铁锂电池 24V 20Ah:</p>
+<p><a href="javascript:void(0);"><img src="images/Hermes_______/media/image245.png" style="height:0.125in" /><img src="images/Hermes_______/media/image246.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image247.png" /><img src="images/Hermes_______/media/image248.png" /> JQ606-01L 22.4V19.6Ah A0初版规格书.pdf</a></p>
+<p>磷酸铁锂电池 24V 30Ah:</p>
+<p><a href="javascript:void(0);"><img src="images/Hermes_______/media/image249.png" style="height:0.125in" /><img src="images/Hermes_______/media/image250.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image251.png" /><img src="images/Hermes_______/media/image252.png" /> JQ606-02L 22.4V29.4Ah A0初版规格书.pdf</a></p>
+<p>8. 机器⼈⽆法正常回桩</p>
+<p>1.地图中的充电桩位置与实际安装位置存在偏差，检查地图中充电桩的标注位置是否与实际安装位置相符。</p>
+<p><img src="images/Hermes_______/media/image253.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚ <img src="images/Hermes_______/media/image254.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2.充电桩的注册位置错误，确认充电桩的实际安装位置是否有倾斜或坡度，影响机器⼈的准确对接。</p>
+<p><img src="images/Hermes_______/media/image255.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>3.当前充电桩摆放位置不平整，出现溜桩现象。</p>
+<p>4.客户是否⾃主修改Config参数，如base.radius_extended_margin 改⼤有⽆法回桩⻛险，确认客户是否⾃主修改过Config参数，若问题仍未解决，请 联系思岚FAE。</p>
+<p>9. 多机如何部署充电桩</p>
+<p>多机部署充电桩参考此链接<a href="https://confluence.slamtec.com/pages/viewpage.action?pageId=135889139">https://confluence.slamtec.com/pages/viewpage.action?pageId=135889139</a></p>
+<p>10. 充电桩具备哪些认证</p>
+<p>充电器认证：FCC，CE，UL，PSE，KC</p>
+<p>C1 M3充电器PSE认证：<a href="https://confluence.slamtec.com/download/attachments/178654040/%E6%97%A5%E6%9C%ACPSE%2062368-200.pdf?version=1&amp;modificationDate=1735263404501&amp;api=v2">⽇本PSE 62368-200.pdf</a> 10/49</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image256.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image257.png" style="width:0.12552in" />RKSC241016002-01A_EMC_EN 61000-6-2+EN 61000-6-4.pdf</p>
+<p>6.57MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image258.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image259.png" style="width:0.12552in" />RKSC241016002-SF EN 60335-2-</p>
+<p>29 Safety report.pdf</p>
+<p>2.96MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image260.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image261.png" style="width:0.12552in" />C02-C5 EMC RKSC241016002- 01A.pdf</p>
+<p>724.82KB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>11. 是否可以使⽤客户⾃⼰的锂电池</p>
+<p>⽬前不⽀持更换其他型号电池，如需定制请联系思岚技术⽀持⼈员评估。</p>
+<p>12. 机器⼈⼀直尝试上桩和下桩的动作</p>
+<p>需检查充电桩是否供电，观察充电桩指示灯是否亮起</p>
+<p><img src="images/Hermes_______/media/image262.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>4.5 传感器</p>
+<p>1. 底盘传感器的覆盖范围</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>传感器名称</p>
+</blockquote></td>
+<td><blockquote>
+<p>参数类型</p>
+</blockquote></td>
+<td><blockquote>
+<p>Apollo2.0</p>
+</blockquote></td>
+<td><blockquote>
+<p>Athena2.0标准 版（三元锂版</p>
+<p>本）</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>Athena2.0标 准版(磷酸铁锂 版本)</p>
+</blockquote></td>
+<td><blockquote>
+<p>Athena2.0PROMAX （三元锂版本）</p>
+</blockquote></td>
+<td><blockquote>
+<p>Athena2.0PROMAX(磷 酸铁锂版本)</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>Hermes标 （磷酸铁</p>
+<p>本）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>激光雷达传感器</p>
+</blockquote></td>
+<td><blockquote>
+<p>最⼤扫描半径</p>
+</blockquote></td>
+<td><blockquote>
+<p>30m</p>
+</blockquote></td>
+<td><blockquote>
+<p>30m</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>30m</p>
+</blockquote></td>
+<td><blockquote>
+<p>30m</p>
+</blockquote></td>
+<td><blockquote>
+<p>30m</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>30m</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>深度摄像头传感器</p>
+</blockquote></td>
+<td><blockquote>
+<p>探测距离</p>
+<p>（随照明条件⽽变 化）</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.186m~2m</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3m – 3.5m</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>0.3m – 3.5m</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3m - 2m</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3m - 2m</p>
+</blockquote></td>
+<td style="text-align: right;">0.3m – 2m</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>视场（ FOV）</p>
+</blockquote></td>
+<td><blockquote>
+<p>H:147.3±3°;</p>
+<p>V:71.3±3°</p>
+</blockquote></td>
+<td><blockquote>
+<p>H:75±3°;</p>
+<p>V:51 ±3°</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>H:75±3°;</p>
+<p>V:51 ±3°</p>
+</blockquote></td>
+<td><blockquote>
+<p>H:121 ±3°；V:71 ±3°</p>
+</blockquote></td>
+<td><blockquote>
+<p>H:121 ±3°；V:71 ±3°</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>H:117±3°;</p>
+<p>V:70±3°</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>低矮障碍物识别传感器</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p>&gt;3cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>&gt;3cm</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>&gt;3cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>&gt;3cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>&gt;3cm</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>&gt;3cm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="2"></td>
+<td><blockquote>
+<p>最低障碍物识别⾼ 度</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>悬崖最⼩感应深度</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>5cm</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>5cm</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>5cm</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>5cm</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>5cm</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>5cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>物理磁传感器</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最⼤探测距离</p>
+<p>（默认禁⽤ ，按需 使能）</p>
+</blockquote></td>
+<td><blockquote>
+<p>35mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>35mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>35mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>35mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>35mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>35mm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>物理碰撞传感器</p>
+</blockquote></td>
+<td><blockquote>
+<p>最⼩感应⼒值</p>
+</blockquote></td>
+<td><blockquote>
+<p>10N</p>
+</blockquote></td>
+<td><blockquote>
+<p>8N</p>
+</blockquote></td>
+<td><blockquote>
+<p>8N</p>
+</blockquote></td>
+<td><blockquote>
+<p>8N</p>
+</blockquote></td>
+<td><blockquote>
+<p>8N</p>
+</blockquote></td>
+<td><blockquote>
+<p>8N</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>触发距离</p>
+</blockquote></td>
+<td><blockquote>
+<p>NA</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3-0.5cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3~0.5cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3~0.5cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3~0.5cm</p>
+</blockquote></td>
+<td style="text-align: right;">0.3~0.5cm</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>超声波</p>
+</blockquote></td>
+<td><blockquote>
+<p>最⼤探测距离</p>
+</blockquote></td>
+<td><blockquote>
+<p>300cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>NA</p>
+</blockquote></td>
+<td><blockquote>
+<p>NA</p>
+</blockquote></td>
+<td><blockquote>
+<p>NA</p>
+</blockquote></td>
+<td><blockquote>
+<p>NA</p>
+</blockquote></td>
+<td><blockquote>
+<p>NA</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2. 深度图像是否开放</p>
+<p>通⽤底盘（Athena2.0，Apollo2.0，Hermes）5.x版本固件⽀持深度图像在Robostudio中开放。</p>
+<p>⼯业底盘agv 6.2.0以上版本不⽀持深度图像查看。</p>
+<p>3. 激光雷达出现噪点</p>
+<p>请提供Robostudio录屏并联系思岚FAE进⾏远程排查。</p>
+<p>4. 雷达lidar rampup failed</p>
+<p>请联系思岚FAE进⾏远程排查。</p>
+<p>5. 底盘QR code 摄像头的作⽤</p>
+<p>通⽤底盘（Athena2.0，Apollo2.0，Hermes）QRcode摄像头是进⾏⼆维码末端对接使⽤。</p>
+<p>⼯业底盘AGV QR code摄像头⽤来在云端远程部署查看使⽤ ，暂不⽀持。</p>
+<p>6. 底盘QR code 摄像头如何部署</p>
+<p>请参考<a href="https://slamtec.feishu.cn/docx/BeDjdNC1BozVXuxgbSncwVFZnBd"><img src="images/Hermes_______/media/image263.png" style="width:0.125in;height:0.11109in" />⼆维码相机部署及使⽤⽅法说明</a></p>
+<p>7. 底盘前⽅出现⼀道虚拟墙</p>
+<p>通常由于环境中有强光环境形成了⼲涉所致，建议此类场景直接禁⽤低矮避障TOF传感器，不影响底盘的正常使⽤。 禁⽤低矮避障TOF传感器的⽅法如下：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image264.png" style="width:0.10938in;height:0.13966in" /><img src="images/Hermes_______/media/image265.png" style="width:4.75694in;height:2.48958in" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>8. 传感器的状态和接⼝开放</p>
+<p>⽬前传感器只开放了IMU和雷达数据可在接⼝中查看。 雷达数据：</p>
+<p><img src="images/Hermes_______/media/image266.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>IMU数据：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image267.png" style="width:7.37489in;height:1.40972in" /></p>
+<blockquote>
+<p>深度数据不开放，</p>
+<p>碰撞传感器可以在Robostudio显示触发或者通过轮询调⽤ event接⼝进⾏查看：</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image268.jpeg" style="width:6.08333in;height:0.70833in" /></p>
+<blockquote>
+<p>9. 低矮避障TOF 传感器的检测范围</p>
+<p>低矮最低探测3cm⾼度以上且在底盘前⽅30cm以外。</p>
+<p>10. 深度传感器选装要求（需要联系思岚FAE）</p>
+<p>a. 背⾯预留 2 个 M3 螺孔为固定相机之⽤ 。侧⾯预留 1 个 M3 可做接地处理。</p>
+<p>b. 将深度相机的⽀架与整机的⾦属部分相连接，有利于降低硬件⼯作的环境温度。</p>
+<p>c. 尽量增加原深相机周围空间，令原深相机有更⼤空间进⾏常规散热。</p>
+<p>d. 组装到整机的过程中，各光学器件的表⾯，严格注意防尘、防污。a)整机使⽤时，注</p>
+<p>e. 意保护盖板的外表⾯需清洁⼲净，以免影响产品效果。</p>
+<p>f. 禁⽌在原深相机前覆盖玻璃或其它遮挡物。</p>
+<p>g. 深度相机位置误差在 3mm 以内，⻆度误差在 1.5°以内。</p>
+<p>h. 参考如下尺⼨进⾏机械安装设计</p>
+<p><img src="images/Hermes_______/media/image269.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>i. 深度3D图纸如下</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Hermes_______/media/image270.png" style="width:0.22917in;height:0.29167in" /></td>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image271.png" style="width:0.12552in" />nuwa-xb40-3d.stp</p>
+<p>4.15MB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>4.6 常见故障码</p>
+<p>4.6.1 故障码清单及清除⼿段</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>NO.</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误来源</p>
+</blockquote></td>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>触发条件</p>
+</blockquote></td>
+<td><blockquote>
+<p>触发后底盘 动作</p>
+</blockquote></td>
+<td><blockquote>
+<p>等级</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误代码</p>
+</blockquote></td>
+<td><blockquote>
+<p>显示信息</p>
+</blockquote></td>
+<td><blockquote>
+<p>消除⽅法</p>
+</blockquote></td>
+<td><blockquote>
+<p>备注</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td rowspan="11"><blockquote>
+<p>底盘固件</p>
+</blockquote></td>
+<td><blockquote>
+<p>急停开关</p>
+</blockquote></td>
+<td><blockquote>
+<p>急停开关触 发</p>
+</blockquote></td>
+<td><blockquote>
+<p>紧急停⽌，</p>
+<p>下发速度不 再响应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x02010100</p>
+</blockquote></td>
+<td><blockquote>
+<p>" system</p>
+<p>emergency stop"</p>
+</blockquote></td>
+<td><blockquote>
+<p>急停开关恢 复</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>低电量报 警</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量低于</p>
+<p>15%</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01020100</p>
+</blockquote></td>
+<td><blockquote>
+<p>" power low"</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量⾼于</p>
+<p>15%</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>15%值可以 通过config 配置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>低电量报 警</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量低于5%</p>
+</blockquote></td>
+<td><blockquote>
+<p>⾃动关机，</p>
+<p>所有电源关 闭</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>" power low"</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量⾼于5%</p>
+</blockquote></td>
+<td><blockquote>
+<p>5%值可以通 过config配 置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>刹⻋释放</p>
+</blockquote></td>
+<td><blockquote>
+<p>刹⻋释放按 钮触发</p>
+</blockquote></td>
+<td><blockquote>
+<p>电机松轴，</p>
+<p>下发速度不 再响应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x02010700</p>
+</blockquote></td>
+<td><blockquote>
+<p>" motor brake released"</p>
+</blockquote></td>
+<td><blockquote>
+<p>刹⻋释放按 钮恢复</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>驱动电机 报警</p>
+</blockquote></td>
+<td><blockquote>
+<p>驱动电机驱 动器报警</p>
+</blockquote></td>
+<td><blockquote>
+<p>依赖驱动器</p>
+<p>固件，如过</p>
+<p>流报警时会 松轴。</p>
+</blockquote></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01030100</p>
+</blockquote></td>
+<td><blockquote>
+<p>" motor alarm"</p>
+</blockquote></td>
+<td><blockquote>
+<p>底盘固件会</p>
+<p>尝试清除驱</p>
+<p>动器报警</p>
+<p>后，再次检 测是否有报</p>
+<p>警，若⽆再 次报警则⾃</p>
+<p>动清除health</p>
+</blockquote></td>
+<td><blockquote>
+<p>详细的驱动</p>
+<p>器报警原因 暂未上报</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p>电机⾥程 计报警</p>
+</blockquote></td>
+<td><blockquote>
+<p>电机在停⽌</p>
+<p>时（ ⽆下发</p>
+<p>速度，或下 发速度为</p>
+<p>0），电机移 动超过</p>
+<p>500mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0103010x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" motor[y]odome try alarm"</p>
+</blockquote></td>
+<td><blockquote>
+<p>有速度下</p>
+<p>发，或刹⻋ 释放触发</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>x:1或2；y: 0 或1 ，代表左 右轮</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>底盘开⻔ 狗触发</p>
+</blockquote></td>
+<td><blockquote>
+<p>底盘固件看</p>
+<p>⻔狗触发， 固件重启</p>
+</blockquote></td>
+<td><blockquote>
+<p>固件重启</p>
+<p>后，下发速</p>
+<p>度不再响应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0201040 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" watchdog</p>
+<p>overflow"</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼿动消除</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p>磁传感器 触发</p>
+</blockquote></td>
+<td><blockquote>
+<p>磁传感器触 发</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0204050 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" magtape[x] triggered"</p>
+</blockquote></td>
+<td><blockquote>
+<p>急停开关触</p>
+<p>发，或⼿动 清除</p>
+</blockquote></td>
+<td><blockquote>
+<p>x:磁传感器的 位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p>磁传感器</p>
+<p>通信错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>磁传感器通 信错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td><blockquote>
+<p>FATAL</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0404060 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" magnetic [x]:y."</p>
+</blockquote></td>
+<td><blockquote>
+<p>检查连接线</p>
+<p>是否可靠连</p>
+<p>接，检查传</p>
+<p>感器是否损</p>
+<p>坏，⼿动清</p>
+<p>除错误，必</p>
+<p>要时重启底 盘</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>x:传感器位 置：</p>
+<p>y:错误代码， 如下：</p>
+<p>02 接触异常</p>
+<p>03 数据异常</p>
+<p>04 ⾃检失败</p>
+<p>05 数据更新 异常</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>11</p>
+</blockquote></td>
+<td><blockquote>
+<p>tof跌落通 信错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>tof跌落通信 错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td><blockquote>
+<p>FATAL</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0404020 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" cliff[x]:y."</p>
+</blockquote></td>
+<td><blockquote>
+<p>检查连接线</p>
+<p>是否可靠连</p>
+<p>接，检查传</p>
+<p>感器是否损</p>
+<p>坏，⼿动清</p>
+<p>除错误，必</p>
+<p>要时重启底 盘</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞传感 器错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞持续触</p>
+<p>发且向前⾏</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0204010x</p>
+</blockquote></td>
+<td><blockquote>
+<p>"bumper sensor error"</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞信号消 除</p>
+</blockquote></td>
+<td><blockquote>
+<p>x:传感器位置</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td rowspan="2"></td>
+<td></td>
+<td><blockquote>
+<p>⾛200mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>13</p>
+</blockquote></td>
+<td><blockquote>
+<p>tof跌落信 号错误</p>
+</blockquote></td>
+<td rowspan="2" style="text-align: left;"><blockquote>
+<p>tof跌落持续 触发且向前 ⾏⾛200mm</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>0x0204020 x</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>" cliff sensor error"</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>tof跌落信号 消除</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>x:传感器位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="13"><blockquote>
+<p>onlinesla m</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>14</p>
+</blockquote></td>
+<td><blockquote>
+<p>超声电源</p>
+<p>控制错误</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0102030 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" sensor power</p>
+<p>controller down"</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>15</p>
+</blockquote></td>
+<td><blockquote>
+<p>深度断连</p>
+</blockquote></td>
+<td><blockquote>
+<p>深度数据延</p>
+<p>时⽐较⼤或 ⽆数据</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01040A0 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>"depth camera disconnect"</p>
+</blockquote></td>
+<td><blockquote>
+<p>⾃动消除</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>16</p>
+</blockquote></td>
+<td><blockquote>
+<p>onlinesla</p>
+<p>m reboot</p>
+</blockquote></td>
+<td><blockquote>
+<p>onlineslam 重新启动</p>
+</blockquote></td>
+<td><blockquote>
+<p>不执⾏action</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0201060 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" slamware has</p>
+<p>rebooted, clear the error to</p>
+<p>move"</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼿动消除</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>17</p>
+</blockquote></td>
+<td><blockquote>
+<p>底盘重连</p>
+</blockquote></td>
+<td><blockquote>
+<p>断连后重新</p>
+<p>连接底盘</p>
+</blockquote></td>
+<td><blockquote>
+<p>断连后启动 重新连接</p>
+</blockquote></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01010500</p>
+</blockquote></td>
+<td><blockquote>
+<p>" slamware has</p>
+<p>disconnected and</p>
+<p>reconnected again"</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼿动消除</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>18</p>
+</blockquote></td>
+<td><blockquote>
+<p>底盘断连</p>
+</blockquote></td>
+<td><blockquote>
+<p>base连不 上/cp0连不 上/lidar连不 上</p>
+</blockquote></td>
+<td><blockquote>
+<p>不执⾏action</p>
+</blockquote></td>
+<td><blockquote>
+<p>FATAL</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0401050 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" slamware has</p>
+<p>disconnected to control bus"</p>
+</blockquote></td>
+<td><blockquote>
+<p>检查底盘连</p>
+<p>接线、各个</p>
+<p>模块的通信</p>
+<p>等后，重新 启动</p>
+<p>onlineslam</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>19</p>
+</blockquote></td>
+<td><blockquote>
+<p>雷达SN不 匹配</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0104090 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>"lidar is</p>
+<p>replaced, please re-calibrate it"</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>20</p>
+</blockquote></td>
+<td><blockquote>
+<p>雷达启动</p>
+<p>失败</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p>不执⾏action</p>
+</blockquote></td>
+<td><blockquote>
+<p>FATAL</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0404090 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>"lidar rampup failed"</p>
+</blockquote></td>
+<td><blockquote>
+<p>可能与底盘</p>
+<p>断联同时出 现</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>21</p>
+</blockquote></td>
+<td><blockquote>
+<p>雷达状态</p>
+<p>异常</p>
+</blockquote></td>
+<td><blockquote>
+<p>雷达通讯异 常</p>
+</blockquote></td>
+<td><blockquote>
+<p>不执⾏action</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0204090 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>"lidar is bad"</p>
+</blockquote></td>
+<td><blockquote>
+<p>检查雷达连</p>
+<p>接线，重新 启动</p>
+<p>onlineslam</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>22</p>
+</blockquote></td>
+<td><blockquote>
+<p>配置项⽆ 效</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01010B00</p>
+</blockquote></td>
+<td><blockquote>
+<p>"invalid</p>
+<p>configuration items: "</p>
+</blockquote></td>
+<td><blockquote>
+<p>不影响运动 控制，可联 系FAE进⾏调 整</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>23</p>
+</blockquote></td>
+<td><blockquote>
+<p>imu硬件 错误</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>FATAL</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0404070 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>"IMU failure"</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>24</p>
+</blockquote></td>
+<td><blockquote>
+<p>低定位错 误</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0201090 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" Low</p>
+<p>localization due to great</p>
+<p>environmental change,</p>
+<p>because visual</p>
+<p>coarse pose received"</p>
+<p>或</p>
+<p>" Low</p>
+<p>localization quality"</p>
+</blockquote></td>
+<td><blockquote>
+<p>使⽤</p>
+<p>robostudio 检查地图匹</p>
+<p>配度，可重</p>
+<p>定位恢复。</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>25</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞传感 器触发</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞传感器 触发</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p>WARNING</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01040B0 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" sensor bumper triggered"</p>
+</blockquote></td>
+<td><blockquote>
+<p>松开碰撞条 或弹簧</p>
+</blockquote></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>26</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td><blockquote>
+<p>重定位错 误</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0201080 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" Relocalization</p>
+<p>has failed last</p>
+<p>time, clear the</p>
+<p>error to move"</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼿动进⾏定 位恢复</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>27</p>
+</blockquote></td>
+<td><blockquote>
+<p>超声波触 发</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>WARN</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0104030 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>sensor sonar triggered</p>
+</blockquote></td>
+<td><blockquote>
+<p>障碍物离开</p>
+<p>或停⽌运动</p>
+<p>时⾃动消除</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>28</p>
+</blockquote></td>
+<td></td>
+<td><blockquote>
+<p>电机通讯 错误</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>33752064</p>
+</blockquote></td>
+<td><blockquote>
+<p>motor can</p>
+<p>communication error</p>
+</blockquote></td>
+<td><blockquote>
+<p>检查</p>
+<p>cube2/cube 2R上的电机 供电保险丝</p>
+<p>是否跳闸，</p>
+<p>并进⾏恢复</p>
+</blockquote></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>4.7 底盘与充电桩指示灯</p>
+<p>指示灯状态说明请参考：<a href="https://slamtec.feishu.cn/docx/ZUoEduITsoKaggxb7XMczvgYn8c?from=from_copylink"><img src="images/Hermes_______/media/image272.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image273.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image274.png" style="height:0.11109in" /><img src="images/Hermes_______/media/image275.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image276.png" /> 指示灯控制使⽤⼿册V1.1-20250212</a></p>
+<p>4.8 主板</p>
+<p>1. 主板的开放程度</p>
+<p>1.1 RYD3399 主板（标准系列底盘）</p>
+<p><img src="images/Hermes_______/media/image277.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>RK3399安卓系统主板，采⽤Rockchip RK3399主控⽅案。主板规格为标准3.5⼨结构，尺⼨ 为146*100mm。 主板处理核⼼RK3399基于双</p>
+<p>Cortex-A72+四Cortex-A53 ⼤⼩核CPU结构。采⽤性能强劲的 Mali-T864 GPU图形显示核⼼ ，⽀持VP9、H.265/H264硬件解码以及4K超清输 出。板载4GB DDR3内存以及32GB存储。显示接⼝有：1*HDMI、1*eDP，⽀持双屏显示，可满⾜灵活多样的点 屏应⽤需求。板载有1个3.5mm</p>
+<p>⽿麦插座和以及1个双声道3W功放喇叭接⼝ ，能满⾜⾳频类应⽤的 需求。主板集成1个千兆⽹⼝ ，此外还集成了WIFI/Bluetooth模块，⽀持多样 的⽹络接⼊⽅式。板 载Mini-PCIe扩展插槽，⽀持4G上⽹卡模块扩展。主板有8路USB接⼝ ，4路串⼝ ，7路GPIO扩展 ⼝ ，1路ADC扩展⼝以及2 路I2C扩展⼝ 。此外主板板载丰富的功能扩展插针接⼝ 。主板采⽤宽电压 输⼊ ，⽀持12V-36V输⼊ ，直流适配器供电。</p>
+<p>主板特点：</p>
+<p>★基于瑞芯微 RK3399 ARM 处理器⽅案；</p>
+<p>★显示接⼝拥有 eDP/HDMI OUT/HDMI IN/LVDS/；</p>
+<p>★硬件解码 H.265 ⾼清视频，⽀持 4K 超⾼清输出； ★功能丰富，板载 8*USB/2*COM/7*GPIO； 详细信息请参考对应底盘⽤户⼿册查看。</p>
+<p>1.2 RYD3588主板（ PRO MAX系列底盘）</p>
+<p><img src="images/Hermes_______/media/image278.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>RK3588 安卓系统主板，采⽤ Rockchip RK3588 主控⽅案。搭载⼋核 64 位 CPU，四核 A76+四核 A55，主频⾼达 2.4GHz, 集成 ARM Mali- G610 MP4 四核 GPU，内置 AI 加速器 NPU，可提供 6Tops 算⼒ ，最⼤可配 32GB 内存；⽀持 8K@60fps H.265/VP9 视频解码和 8K@30fps H.265/H.264 视频解码，⽀持同编同解，最⾼可实现 32 路 1080P@30fps 解码和 16 路 1080P@30fps 编码；主板显示输出接⼝⽀持 Type-C、 HDMI、EDP、MIPI-DSI 和双通道 8 位 LVDS，⽀持四屏异显；⽹络接⼝⽀持双千兆以太⽹ 、2.4GHz/5GHz WIFI6(802.11ax)、4G/5G 16 / 63 LTE 扩展；视频输⼊⽀持 HDMI IN、双 MIPI-CSI 摄像头；存储接⼝⽀持 TF 卡，SATA 插座， NVMe SSD-M KEY 插座；丰富的扩展接⼝ ：多路 USB、UART、CAN 和 GPIO。此外主板板载丰 富的功能扩展插针接⼝ 。主板采⽤单 12V 直流适配器供电。</p>
+<p>主板特点：</p>
+<p>★显示接⼝⻬全：集成 Type-C、HDMI、EDP、MIPI-DSI 和双通道 8 位 LVDS 各种显示接⼝于—体；</p>
+<p>★存储接⼝丰富：⽀持 TF 卡，SATA 插座，NVMe SSD-M KEY 插座；</p>
+<p>★⽹络⽀持：⽀持双千兆以太⽹ 、2.4GHz/5GHz WIFI6(802.11ax)、4G/5G LTE 扩展；</p>
+<p>★丰富的扩展接⼝ ：9 个 USB 接⼝(6 个插针 USB 2.0，2 个标准 USB 3.0 ⼝ ，1 路 Type-C 为 OTG ⼝)，4 个可扩展串⼝ ，1 个 CAN 接⼝ ， GPIO/ADC 接⼝ ，</p>
+<p>★丰富的扩展接⼝ ：算⼒⾼达 6 TOPS，⽀持 INT4/INT8/INT16 混合运算；可实现基于 TensorFlow / MXNet / PyTorch / Caffe 等系列框架的 ⽹络模型转换；</p>
+<p>★⽀持四屏异显组合</p>
+<p>详细信息请参考对应底盘⽤户⼿册查看。</p>
+<p>2. 主板的系统版本</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>主板型号</p>
+</blockquote></td>
+<td><blockquote>
+<p>Andorid版本</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>RYD3399</p>
+</blockquote></td>
+<td><blockquote>
+<p>Android 10</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>RYD3588</p>
+</blockquote></td>
+<td><blockquote>
+<p>Android 12</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>3. 是否可以替换为客户⾃⼰的算⼒板</p>
+<p>默认不⽀持，如需要变更为客户⾃⼰的算⼒板，请和商务⼈员沟通定制需求。</p>
+<p>4.9 ⽤户供电</p>
+<p>1. ⽀持的⽤户供电端⼦说明</p>
+<p>请查阅对应底盘的⽤户⼿册。</p>
+<p>2. ⽀持的最⼤⽤户供电电压、 电流、功率</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 15%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>底盘类型</p>
+</blockquote></td>
+<td><blockquote>
+<p>供电端⼦</p>
+</blockquote></td>
+<td><blockquote>
+<p>额定电压</p>
+</blockquote></td>
+<td><blockquote>
+<p>最⼤电流</p>
+</blockquote></td>
+<td><blockquote>
+<p>最⼤功率</p>
+</blockquote></td>
+<td><blockquote>
+<p>主要⽤途</p>
+</blockquote></td>
+<td><blockquote>
+<p>关键注意事项</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>通⽤底盘</p>
+</blockquote></td>
+<td><blockquote>
+<p>24V 电源</p>
+</blockquote></td>
+<td><blockquote>
+<p>24V DC</p>
+</blockquote></td>
+<td><blockquote>
+<p>10A</p>
+</blockquote></td>
+<td><blockquote>
+<p>240W</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼯业设备/⼤功率 外设供电</p>
+</blockquote></td>
+<td><blockquote>
+<p>• 严禁超负荷使⽤</p>
+<p>• 推荐18~22AWG电源线</p>
+<p>• 需匹配⼯业级接线端⼦</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12V-DISP</p>
+</blockquote></td>
+<td><blockquote>
+<p>12V DC</p>
+</blockquote></td>
+<td><blockquote>
+<p>2A</p>
+</blockquote></td>
+<td><blockquote>
+<p>24W</p>
+</blockquote></td>
+<td><blockquote>
+<p>Cube2R外接显示 屏专⽤供电</p>
+</blockquote></td>
+<td><blockquote>
+<p>• 仅限⼈机交互设备使⽤</p>
+<p>• 严格按设计图纸接线</p>
+<p>• 禁⽌接⼊其他负载设备</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>⼯业AGV</p>
+</blockquote></td>
+<td><blockquote>
+<p>24V 电源</p>
+</blockquote></td>
+<td><blockquote>
+<p>24V DC</p>
+</blockquote></td>
+<td><blockquote>
+<p>10A</p>
+</blockquote></td>
+<td><blockquote>
+<p>240W</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼯业设备/⼤功率 外设供电</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>若电源同时使⽤时，24V 仅 ⽀持8A</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12V-DISP</p>
+</blockquote></td>
+<td><blockquote>
+<p>12V DC</p>
+</blockquote></td>
+<td><blockquote>
+<p>5A</p>
+</blockquote></td>
+<td><blockquote>
+<p>60W</p>
+</blockquote></td>
+<td><blockquote>
+<p>Cube2R外接显示 屏专⽤供电</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>3. 是否⽀持48V 供电</p>
+<p>⽀持，可和商务⼈员沟通</p>
+<p>4. 底盘输出端⼝电压电流参数</p>
+<p>标准底盘有24V 12V输出端⼝ ，对应电流是10A、2A 24V端⼝型号是XT30 4.10 上位机设计</p>
+<p>1. 上位机的设计重⼼参考位置</p>
+<p><img src="images/Hermes_______/media/image279.png" style="width:0.11111in;height:0.11111in" />Athena2.0</p>
+<p>Athena2.0</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image280.png" style="width:7.02767in" /></p>
+<blockquote>
+<p><img src="images/Hermes_______/media/image281.png" style="width:0.11111in;height:0.11111in" />Athena2.0PRO MAX</p>
+<p><img src="images/Hermes_______/media/image282.png" style="width:7.02767in" />Athena2.0PRO MAX</p>
+<p><img src="images/Hermes_______/media/image283.png" style="width:0.11111in;height:0.11111in" />HERMES</p>
+<p>HERMES</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image284.png" style="width:7.02767in" /></p>
+<blockquote>
+<p><img src="images/Hermes_______/media/image285.png" style="width:0.11111in;height:0.11111in" />HERMES PRO MAX</p>
+<p><img src="images/Hermes_______/media/image286.png" style="width:7.02767in" />HERMES PRO MAX</p>
+<p><img src="images/Hermes_______/media/image287.png" style="width:0.11111in;height:0.11111in" />APOLLO 2.0</p>
+<p>APOLLO 2.0</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image288.png" style="width:7.02767in" /></p>
+<blockquote>
+<p><img src="images/Hermes_______/media/image289.png" style="width:0.11111in;height:0.11111in" />Phoebus</p>
+<p>Phoebus</p>
+<p>2. 上位机的⻓宽尺⼨设计参考</p>
+<p>正常情况下，上位机的⻓宽不得超过底盘的尺⼨ ，并且不得⼲扰雷达净空区和深度净空区。</p>
+<p>3. 上位机的尺⼨超过底盘最⼤尺⼨的要求</p>
+<p>建议上位机的旋转直径不超过底盘的旋转直径，如⽆法避免，建议不要超过10cm。</p>
+<p>4. 是否可以移动底盘⽀撑板上的硬件模块位置</p>
+<p>可以移动3399/3588主板以及hub位置，但是需要注意，拔插hub上的usb⼝时，需要按照原来的接⼊顺序接⼊。</p>
+<p>5. ⽀持的上位机的最⼤负载</p>
+<p>⻅上述重⼼图所示。</p>
+<p>4.11底盘的移动性</p>
+<p>1. 底盘是否⽀持梯控</p>
+<p>⽀持，可选⽤思岚配套的梯控系统或者使⽤客户⾃身的梯控系统。</p>
+<p>若客户采⽤⾃⼰的梯控系统，思岚仅配套提供梯控的进出梯及相关接⼝ ，参考下述⽂档。</p>
+<p><a href="javascript:void(0);"><img src="images/Hermes_______/media/image290.png" style="height:0.13193in" /><img src="images/Hermes_______/media/image291.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image292.png" /><img src="images/Hermes_______/media/image293.png" /> 电梯说明⽂档.pdf</a></p>
+<p>2. 底盘的越障⾼度</p>
+<p>全系列底盘产品：垂直过坎⾼度2cm，⽔平过坎宽度4cm。</p>
+<p>3. 能否在地毯上运动</p>
+<p>底盘不能在铺有导致底盘下陷2cm意思的柔软地毯运动。</p>
+<p>4. 能否涉⽔⾏驶</p>
+<p>不能涉⽔使⽤ ，尽量避免此类环境</p>
+<p>5. 最⼤的移动速度是多少</p>
+<p>最⼤移动速度：1.2m/s,可定制到1 .5m/s.</p>
+<p>6. 最⼤允许的爬坡⾼度是多少</p>
+<p>Apollo2，Hermes，Athena2.0:底盘最⼤坡⻆度10° , 坡度为18%坡道整机质⼼⾼度18cm以内安全坡道10°以内(坡度100%是指45°坡道，100m的⻓度 ⾼度差是100m.</p>
+<p>Phoebus:底盘最⼤坡度⻆度5°。</p>
+<p>7. 如何设置底盘的运⾏速度</p>
+<p>1 、restful API：</p>
+<p>（1） 设置系统参数，修改后单次⽣效，重启失效；</p>
+<p><img src="images/Hermes_______/media/image294.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>（2）调⽤ moveto时可以⾃定义修改speed ratio速度⽐例（取值0.1 ~1）；</p>
+<p><img src="images/Hermes_______/media/image295.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>2、robostudio→slamware配置⼯具：</p>
+<p>（1） 可以直接修改线速度/线加减速度/角速度/角加速度，修改上传后，单次⽣效，重启失效；</p>
+<p><img src="images/Hermes_______/media/image296.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3、robostudio→slamcube配置⼯具：</p>
+<p>可以直接修改线速度/线加减速度/角速度/角加速度/刹车减速度，修改上传后，永久⽣效；</p>
+<p><img src="images/Hermes_______/media/image297.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>4、robostudio→调试 →场景策略，选择default，可以⾃定义线速度/⻆速度，单次⽣效，重启失效；</p>
+<p><img src="images/Hermes_______/media/image298.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>8. 底盘是否⽀持直线⾏驶</p>
+<p>底盘⽀持直线⾏驶。</p>
+<p>⽅法1： 通过Robostudio画虚拟轨道，强制轨道可以按照轨道进⾏直线⾏驶。</p>
+<p>备注：具体虚拟轨道如何使⽤ ，请参考<a href="https://confluence.slamtec.com/download/attachments/178653171/SA008_SLAMTEC_slamware_robot_studio_appnote_v1.5_cn.pdf?version=1&amp;modificationDate=1735209430583&amp;api=v2">Robostudio⽤户⼿册</a></p>
+<p>⽅法2：通过Restful API接⼝使⽤ movebyaction去控制底盘直线运⾏或者下发action接⼝按照直线轨道运⾏。</p>
+<p><img src="images/Hermes_______/media/image299.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p><img src="images/Hermes_______/media/image300.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>9. 底盘的最⼩移动距离cm</p>
+<p>全系列底盘最⼩移距离为5cm/s。</p>
+<p>10. 底盘是否⽀持⼿柄遥控⾏驶</p>
+<p>⽬前可以使⽤思岚最新⽅案，搭配额外的屏幕加软件使⽤⼿柄遥控底盘运⾏进⾏建图。或者客户可以根据思岚SDK⾃⾏开发。 如客户⾃⾏开发，请参考SDK⽂档：</p>
+<p>a. RESTFul Api：参考MOVE BY相关遥控指令；</p>
+<p>b. C++ SDK: rpos::actions::VelocityControlMoveAction::setVelocity(linear_x, linear_y, angular_z) ; SDK 参考MOVE BY相关遥控指令。</p>
+<p>11. 底盘是否⽀持户外⾏驶 ⽬前仅⽀持户外半封闭环境。</p>
+<p>12. 最⼩通过距离</p>
+<p>Hermes 最⼩通过距离：75cm， Athena2.0最⼩通过距离：55cm, Apollo2.0最⼩通过距离：70cm,</p>
+<p>Phoebus最⼩通过距离：60cm，流程通⾏宽度为70cm</p>
+<p>4.12 定位和建图</p>
+<p>1. 底盘的定位精度如何？</p>
+<p>a.通⽤底盘</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td><blockquote>
+<p>Apollo2.0</p>
+</blockquote></td>
+<td><blockquote>
+<p>Athena2.0 标准版（三</p>
+<p>元锂版本）</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>Athena2.0 标准版(磷酸 铁锂版本)</p>
+</blockquote></td>
+<td><blockquote>
+<p>Athena2.0P ROMAX（三</p>
+<p>元锂版本）</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>Athena2.0P ROMAX(磷 酸铁锂版本)</p>
+</blockquote></td>
+<td><blockquote>
+<p>Hermes标 准版（磷酸</p>
+<p>铁锂版本）</p>
+</blockquote></td>
+<td><blockquote>
+<p>Hermes</p>
+<p>ProMax（磷 酸铁锂版本</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>到点精度</p>
+<p>(AVG) 典型 值</p>
+</blockquote></td>
+<td><blockquote>
+<p>±2cm</p>
+<p>（1 .5cm 地 图分辨率)</p>
+</blockquote></td>
+<td><blockquote>
+<p>±5cm</p>
+<p>（5cm 地图 分辨率</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>±5cm,</p>
+<p>（5cm 地图 分辨率)</p>
+</blockquote></td>
+<td><blockquote>
+<p>±2cm(1 .5cm 地图分辨率)</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>±2cm(1 .5cm 地图分辨率)</p>
+</blockquote></td>
+<td><blockquote>
+<p>±5cm,</p>
+<p>（5cm 地图 分辨率)</p>
+</blockquote></td>
+<td><blockquote>
+<p>±2cm(1 .5cm 地图分辨率)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>到点精度</p>
+<p>(MAX) 典型 值</p>
+</blockquote></td>
+<td><blockquote>
+<p>±4cm(1 .5cm 地图分辨率)</p>
+</blockquote></td>
+<td><blockquote>
+<p>±8cm</p>
+<p>（5cm 地图 分辨率）</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>±8cm</p>
+<p>（5cm 地图 分辨率）</p>
+</blockquote></td>
+<td><blockquote>
+<p>±4cm(1 .5cm 地图分辨率)</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>±4cm(1 .5cm 地图分辨率)</p>
+</blockquote></td>
+<td><blockquote>
+<p>±8cm</p>
+<p>（5cm 地图 分辨率）</p>
+</blockquote></td>
+<td><blockquote>
+<p>±4cm</p>
+<p>（1 .5cm 地 图分辨率）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最⼩到点角 度</p>
+</blockquote></td>
+<td><blockquote>
+<p>±1 .0°</p>
+</blockquote></td>
+<td><blockquote>
+<p>±3.0°</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>±3.0°</p>
+</blockquote></td>
+<td><blockquote>
+<p>±1 .0°</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>±1 .0°</p>
+</blockquote></td>
+<td><blockquote>
+<p>±3.0°</p>
+</blockquote></td>
+<td><blockquote>
+<p>±1 .0°</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>b.⼯业AGV</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 30%" />
+<col style="width: 43%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td><blockquote>
+<p>Phoebus P4M11（顶升版本）</p>
+</blockquote></td>
+<td><blockquote>
+<p>Phoebus P4M21（ ⾮顶升版本）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>到点精度</p>
+</blockquote></td>
+<td><blockquote>
+<p>±4cm</p>
+</blockquote></td>
+<td><blockquote>
+<p>±4cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>到点角度</p>
+</blockquote></td>
+<td><blockquote>
+<p>±2.0°</p>
+</blockquote></td>
+<td><blockquote>
+<p>±2.0°</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>末端定位精度</p>
+</blockquote></td>
+<td><blockquote>
+<p>&lt;±1 cm，1 °</p>
+</blockquote></td>
+<td><blockquote>
+<p>&lt;±1 cm，1 °</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>末端定位⽅式</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽀架腿定位⽅式 ( ±20mm，±2°) 定位梢 ( ±10mm，±1°)</p>
+<p>地⾯⼆维码⽅式 ( ±10mm，±1°) （ 暂 不⽀持）</p>
+<p>marker 定位⽅案（ L 形、V 形等） ( ±10mm，±1°)</p>
+<p>反光条辅助定位 ( ±10mm，±1°)</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽀架腿定位⽅式 ( ±20mm，±2°)</p>
+<p>定位梢 ( ±10mm，±1°)</p>
+<p>地⾯⼆维码⽅式 ( ±10mm，±1°) （ 暂不⽀持）</p>
+<p>marker 定位⽅案（ L 形、V 形等） ( ±10mm，±1°) 反光条辅助定位 ( ±10mm，±1°)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2. 底盘能否在⻓⾛廊或者相似场景可靠运⾏？</p>
+<p>底盘可以在⻓⾛廊或者相似场景可正常运⾏ ，部分情况下需要对环境在部署底盘时做—些调整和改造：（例如增加花坛或者贴磨砂⼴告纸等⽅式增加 特征参考），如果现场环境不⽅便做变动改造，可以联系思岚FAE协助处理。</p>
+<p>建议⽅案：</p>
+<p>超过30⽶的狭⻓且空旷⾛廊环境可能导致机器⼈建图和定位出现误差；可以采取以下措施来改进：</p>
+<p>①在⾛廊中放置—些物品（如盆栽等），物品表⾯使⽤磨砂的不反光材质且形状各异，以提供额外的激光特征作为定位参照</p>
+<p><img src="images/Hermes_______/media/image301.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>②如果⾛廊两侧墙⾯本身能被雷达探测到，可每隔3～4⽶在墙上贴—段约30cm宽的⿊⾊不反光材料，制造周期性的 “消失”段落，以形成可辨识的节奏 特征</p>
+<p>③如果墙⾯本身是激光雷达不可探测的（ ⽐如玻璃墙），可以按上述⽅法贴上可探测材料，但每隔3～4⽶留出30cm空隙。这些定期出现的特征能帮助 机器⼈在⻓⾛廊中保持定位稳定。</p>
+<p>3. 底盘是否⽀持重定位？</p>
+<p>底盘⽀持重定位功能，当现场如果机器⼈因环境剧烈变化或被搬动⽽迷失定位，可⾸先尝试通过RoboStudio的 “重定位”功能让机器⼈原地旋转扫 描，重新匹配当前环境与已有地图；</p>
+<p>机器⼈重新获取位姿后即可继续执⾏任务。若机器⼈频繁迷失且⽆法⾃动恢复，建议⼈⼯将其移⾄地图中特征清晰的已知位置，然后执⾏重定位（操 作可⻅ ⽂档4.136章节 如何开启重定位）</p>
+<p>4. 底盘定位异常如何处理？</p>
+<p>对于⼈流密集等动态环境导致的临时定位丢失，思岚算法会使机器⼈原地旋转，尽量保持地图不丢失、不偏移，以实现可靠的暂时定位；</p>
+<p>如果机器定位丢失严重，可以建议⼈⼯将其移⾄地图中特征清晰的已知位置，然后执⾏重定位（可⻅⽂档4.136章节 如何开启重定位）</p>
+<p>5. 定位质量低如何处理？</p>
+<p>⾸先确定定位质量低的原因：查看地图激光扫到的区域是否和设置的地图匹配，如果地图环境有变动，可以建议重新执⾏扫图，如果是环境场景内 的部分区域定位质量低，且此位置是临时堆放区，环境变动⽐较频繁，可以在RS上针对此区域添加运维区域（参考运维区域部署⽅案章节2.3.4 第14节 所述）。</p>
+<p><img src="images/Hermes_______/media/image302.png" style="width:0.11111in;height:0.11111in" />⻜书⽂档 - 图⽚</p>
+<p>6. 如何开启重定位？</p>
+<p>通过RoboStudio的 “重定位”功能让机器⼈原地旋转扫描，重新匹配当前环境与已有地图，需要保证机器处于正常可运动（ ⾮急停、刹车）状态</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p><img src="images/Hermes_______/media/image303.png" style="width:0.10938in;height:0.13966in" /></p>
+<blockquote>
+<p><img src="images/Hermes_______/media/image304.png" style="width:5.68056in;height:3.19443in" /> 00:12</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>7. 底盘开机后地图消失如何处理？</p>
+<p>需要确定您机器创建提图——上传到固件之后是否有调⽤接⼝持久化保存地图，在RS上传地图到固件之后需要调⽤接⼝ ：/api/multi- floor/map/v1/stcm/:save 来进⾏持久化地图保存。</p>
+<p>8. 如何进⾏持久化保存地图？</p>
+<p>在RS上传地图到固件之后需要调⽤接⼝ ：/api/multi-floor/map/v1/stcm/:save 来进⾏持久化地图保存</p>
+<p><img src="images/Hermes_______/media/image305.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>9. 底盘⽀持的最⼤建图⾯积是多少？</p>
+<p>最⼤⽀持约500m × 500m的地图⾯积。</p>
+<p>10. 建图成功后机器⼈仍然⽆法正常移动？</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 52%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原因</p>
+</blockquote></td>
+<td><blockquote>
+<p>排查⽅向</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>1.急停按钮&amp;刹车按钮被按下；</p>
+</blockquote></td>
+<td><blockquote>
+<p>1.检查急停按钮&amp;刹车按钮是否被按下；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2.磁传感器触发；</p>
+</blockquote></td>
+<td><blockquote>
+<p>2.通过RoboStudio或者API查看是否健康状态事件信息；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3.机器⼈故障；</p>
+</blockquote></td>
+<td><blockquote>
+<p>3.丢定位可⻅此⽂档4.13 6章节进⾏重定位操作处理；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4.定位丢失；</p>
+</blockquote></td>
+<td><blockquote>
+<p>4.若问题仍未解决，请联系思岚FAE。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>11. 底盘未能精确到达⽬标点位如何处理？</p>
+<p>在调⽤移动到点接⼝时在"flag" 中添加 “with_yaw”和 “precise”， 如： "flags" :[" precise"," with_yaw"]</p>
+<p><img src="images/Hermes_______/media/image306.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>12. 是否⽀持机器⼈⾃动建图？</p>
+<p>⽀持！通过RoboStudio给点的⽅式(即点击地图需要让机器⼈去的位置)让机器⼈⾃主前往⽬标点的过程中⾃动建图。</p>
+<p>TIPS： ⽬前不⽀持机器⼈⾃主探索式建图，如需实现需要客户⾃⾏开发该功能。</p>
+<p>13. 如何进⾏多楼层建图？</p>
+<p>1 、将每个楼层建好的图保存为stm⽂件格式的⽂件，按照楼层编号进⾏命名。如1楼的地图保存为1.stcm。地图部署详情可⻅⽂档<a href="https://slamtec.feishu.cn/docx/AKKCdZmtIopyuYxdMsBcDpGDnkb"><img src="images/Hermes_______/media/image307.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image308.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image309.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image310.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image311.png" /> 标准底盘产品</a> <a href="https://slamtec.feishu.cn/docx/AKKCdZmtIopyuYxdMsBcDpGDnkb">部署⼿册</a></p>
+<p>2、使⽤ robostudio⼯具的多楼层编辑器，创建多楼层地图，楼层编号使⽤阿拉伯数字1 ，2，3，4</p>
+<p><img src="images/Hermes_______/media/image312.png" style="width:0.11111in;height:0.11111in" />飞书⽂档 - 图⽚</p>
+<p>3、添加楼层时注意⾸先会提示添加默认楼层，此默认楼层定义为充电桩所在楼层</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image313.png" style="width:7.37489in;height:4.25694in" /></p>
+<blockquote>
+<p>4、所有楼层添加完毕之后，选择保存⽂件，多楼层地图保存为.stcmx格式。 b 14. 如何查看底盘固件与SN</p>
+<p>15. 如何升级固件及底盘配置 升级固件配置可参考如下⽂档：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Hermes_______/media/image314.png" style="width:0.22917in;height:0.29167in" /><img src="images/Hermes_______/media/image315.png" style="width:0.12552in" />1.底盘固件升级&amp;升级cube config⽂ 件使⽤⼿册.pdf</p>
+<p>461.36KB</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>4.13 log</p>
+<p>1. log是否开放给⽤户查阅 log⽬前不开放给⽤户查阅。</p>
+<p>2. 如何下载有效的log 请参考<a href="https://slamtec.feishu.cn/docx/Cuj7d7EN9oAynbx757acztTPnAd"><img src="images/Hermes_______/media/image316.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image317.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image318.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image319.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image320.png" /> log获取⽅法</a></p>
+<p>3. 是否⽀持API 获取底盘的log</p>
+<p>⽀持API获取log，具体请参考<a href="https://slamtec.feishu.cn/docx/Cuj7d7EN9oAynbx757acztTPnAd"><img src="images/Hermes_______/media/image321.png" style="height:0.11104in" /><img src="images/Hermes_______/media/image322.png" style="height:0.11104in" /><img src="images/Hermes_______/media/image323.png" style="height:0.11104in" /><img src="images/Hermes_______/media/image324.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image325.png" /> log获取⽅法</a>。</p>
+<p>4.14 梯控相关</p>
+<p>1. 机器⼈⽆法进出电梯</p>
+<p>⾸先在云平台（ ⽹址<a href="https://console.slamtec.com/">https://console.slamtec.com/</a>）确认场景下的机器⼈和电梯是否均正常在线；</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image326.png" style="width:7.37489in;height:2.79167in" /></p>
+<blockquote>
+<p>如电梯离线，可跳转⾄4.1.4—4，处理电梯离线问题；</p>
+<p>如机器⼈离线，壳跳转⾄4.1.4—3，处理机器⼈离线问题；</p>
+<p>如两个设备均正常在线，但是机器仍旧⽆法进出电梯，需要在云端查看电梯的楼层读取是否正常，如若电梯正常运⾏ ，但是楼层读取失败或者—直显示 楼层不变，需要联系下电梯师傅上轿顶检查下我们的电梯模块是否正常。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image327.png" style="width:7.37489in;height:2.3125in" /></p>
+<blockquote>
+<p>2. 机器⼈进⼊错误的楼层</p>
+<p>先检查下云端梯控显示的楼层是否和实际楼层—致，如果出现错层的话，请控制电梯跑—下电梯最底层和最⾼层，让梯控⾃⼰完成下楼层校准，如 果此时还是⽆法恢复，楼层仍旧存在错层情况，请联系下电梯维保师傅上轿顶检查下设备的基层传感器（如下图和磁条对应的传感器）是不是松脱，也 检查下电梯模块的U形刷/烟杆（如下图光电传感器）是否正常检测每层楼的信息。</p>
+</blockquote>
+<p><img src="images/Hermes_______/media/image328.jpeg" style="width:3.27778in;height:1.88194in" /></p>
+<blockquote>
+<p>3. 机器⼈离线如何处理</p>
+<p>机器离线，⾸先重启下机器看能否恢复供⽹ ，如果仍旧离线，查询下机器的4G卡，机器如果是您这边提供的sim卡，可在对应的平台查到是否是否 ⽋费、停机、锁卡，针对不同的情况处理好sim卡端的问题，再测试下机器是否能恢复在线；如果⽆法恢复或者SIM卡是思岚提供，请联系思岚FAE处 理。</p>
+<p>4. 梯控离线如何处理</p>
+<p>梯控离线，⾸先确认近期是否有过电梯检修、维保或者电梯停电，如果⽆问题的话， 电梯突然离线，那么有可能是梯控的sim卡⽋费或者停机，如 SIM卡是您这边提供的卡，充值完毕之后，如果条件允许联系电梯维保直接⼿动重启下即可恢复。如果⽆法恢复或者SIM卡是思岚提供，请联系思岚FAE 处理。</p>
+<p>5. 梯控运⾏对⽹络的要求</p>
+<p>梯控模块⾃带—块SIM卡供⽹ ，需要保证sim卡正常使⽤有流量、且使⽤场景的电梯区域⽆SIM卡屏蔽，即可让梯控正常使⽤。</p>
+<p>6. 梯控的运维要求</p>
+<p>梯控模块正常情况需求电梯给个220V的常电，每次电梯维保的时候可以—并查看下电梯模块的U型刷是否有松脱的情况，或者检查下安装的磁条是 否有位置变动或者松脱的情况，确保维保结束后梯控模块恢复供电即可。</p>
+<p>7. 梯控的维保费⽤</p>
+<p>梯控模块免费赠保1年，后续的维保费请联系思岚FAE。</p>
+<p>4.15 ⼯业AGV相关</p>
+<p>1. AGV ⽆法正常进⼊货架</p>
+<p>对接货架前请先查阅货架对接要求：</p>
+<p><a href="javascript:void(0);"><img src="images/Hermes_______/media/image329.png" style="height:0.125in" /><img src="images/Hermes_______/media/image330.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image331.png" /><img src="images/Hermes_______/media/image332.png" /> ⼯业机器⼈货架对接货架规格要求.pdf</a></p>
+<p>2. AGV ⽀持的货架规格有哪些</p>
+<p>• 标准货架规格⻅附件</p>
+<p><a href="javascript:void(0);"><img src="images/Hermes_______/media/image333.png" style="height:0.125in" /><img src="images/Hermes_______/media/image334.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image335.png" /><img src="images/Hermes_______/media/image336.png" /> SWBYJQR.01.03 托架三 V2.pdf</a></p>
+<p><img src="images/Hermes_______/media/image337.png" style="height:2.88889in" />• 可以根据实际货架进⾏参数配置，但是宽度不得⼩于620mm，配置项如下：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 66%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 可以在使⽤对接货架接⼝的时候传⼊货架的参数，示例如下：</p>
+<p>2 "shelves_size":[</p>
+<p>3 {</p>
+</blockquote>
+<p>4 "shelf_columnar_diameter": 0.04</p>
+<blockquote>
+<p>5 "shelf_columnar_length": 0.62</p>
+<p>6 "shelf_columnar_width": 0.7</p>
+<p>7 }, 8 {</p>
+</blockquote>
+<p>9 "shelf_columnar_diameter": 0.04</p>
+<blockquote>
+<p>10 "shelf_columnar_length": 0.62</p>
+<p>11 "shelf_columnar_width": 0.8</p>
+<p>12 } 13 ]</p>
+<p>14 #上述对应的是不同货架尺⼨ ，以数组输⼊</p>
+</blockquote></td>
+<td><blockquote>
+<p>, #货架腿直径，单位m</p>
+</blockquote>
+<p>#货架前后腿距离（外侧边界），单位</p>
+<p>#货架左右腿距离（外侧边界，单位m</p>
+<blockquote>
+<p>,</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>3. AGV ⽆法正常顶升</p>
+<p>可以导出cfg⽂件，提供给思岚FAE确认配置顶升类型</p>
+<p>4. AGV ⽆法启动或启动中（ ⼀直处于加载状态）</p>
+<p>• 确认底盘的空开是否打开</p>
+<p>• 打开后如果—直显示启动中，请联系思岚FAE提供技术⽀持</p>
+<p>5. AGV ⽆法正常出桩</p>
+<p>• 检查充电桩两侧的净空区是否满⾜充电桩部署要求；</p>
+<p>• 任务未正常下发--检查任务指令是否由上位机正常下发；</p>
+<p>• 使⽤ robostudio软件，打开并连接AGV，然后打开 “调试”下⾯的 “peerlog”，下发任务观察log输出，如有异常WARN/ERROR的告警，可获取log提供 给思岚FAE；</p>
+<p>• 如以上均不能解决确认使⽤的固件版本信息，并提供给思岚FAE</p>
+<p>6. AGV 如何设置正⼊和倒⼊货架</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 97%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "action_name":"slamtec.agent.actions.SchedulableMoveToTagAction", 3 "options":{</p>
+<p>4 "target":{</p>
+<p>5 "x":1, 6 "y":-1,</p>
+<p>7 "yaw": 3.14</p>
+<p>8 },</p>
+<p>9 "move_to_tag_options":{</p>
+<p>10 "move_options":{</p>
+<p>11 "mode": 0, 12 "flags":[]</p>
+<p>13 },</p>
+<p>14 "tag_type":3,</p>
+<p>15 "backward_docking":true , #修改此处，true为倒⼊货架，false为正⼊货架</p>
+<p>16 "reflect_tag_num": 2, 17 "dock_allowance":0.2, 18 "shelves_size":[</p>
+<p>19 {</p>
+<p>20 "shelf_columnar_diameter": 0.04, 21 "shelf_columnar_length": 0.62</p>
+<p>22 "shelf_columnar_width": 0.7</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/Hermes_______/media/image338.png" style="height:1.71514in" /></p>
+<blockquote>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>},</p>
+<p>{</p>
+<p>"shelf_columnar_diameter": 0.04 "shelf_columnar_length": 0.62</p>
+<p>"shelf_columnar_width": 0.8</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+<p>}</p>
+</blockquote>
+<p>}</p>
+<p>,</p>
+<blockquote>
+<p>7. AGV 是否⽀持多机调度</p>
+<p>在可通⾏两车宽的通道⽆需部署限⾏区域亦可实现多机调度（ 固件版本6.2.0-rtm），⽀持3台（含）车以内的多车会车逻辑</p>
+<p>8. AGV ⽀持⼏台在同⼀场景使⽤</p>
+<p>⽬前⽀持3台（ 同—张地图场景），⽀持多机调度和MES对接。</p>
+<p>4.16 多机调度</p>
+<p>1. 是否⽀持多机调度</p>
+<p>通⽤底盘（ Hermes，Athena2.0，Apollo2.0）⽀持3台机器避障，⼯业底盘agv⽀持通过云端管理进⾏多机调度</p>
+<p>2. 多机调度的⽹络要求如何</p>
+<p>通⽤底盘（ Hermes，Athena2.0，Apollo2.0）多机避障需求机器都在同—⽹段下。</p>
+<p>⼯业底盘需求所以机器在⽹段下并且连接连接到云端。</p>
+<p>3. 最多⽀持⼏台设备进⾏多机调度 ⽬前只⽀持3台设备进⾏多机调度。</p>
+<p>4. 如何部署多机调度</p>
+<p>1.通⽤底盘多机部署：<a href="javascript:void(0);"><img src="images/Hermes_______/media/image339.png" style="height:0.13198in" /><img src="images/Hermes_______/media/image340.png" style="height:0.11175in" /><img src="images/Hermes_______/media/image341.png" /><img src="images/Hermes_______/media/image342.png" /> 通⽤底盘⽤户多机部署⼿册.pdf</a></p>
+<p>⼯业底盘agv多机部署：1.如需部署多充电桩请参考通⽤底盘⽤户多机部署⼿册中添加多充电桩⽅法</p>
+<p>2.参考⼯业底盘部署⼿册8.7章节添加云端管理（ <a href="https://slamtec.feishu.cn/docx/Y6KpdznBrozAICx7gbjcLI1Lnmg"><img src="images/Hermes_______/media/image343.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image344.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image345.png" style="height:0.11115in" /><img src="images/Hermes_______/media/image346.png" style="height:0.1019in" /><img src="images/Hermes_______/media/image347.png" /> ⼯业底盘部署⼿册</a> ），添加需要调度的机器在同—场景并打开由icloud管理。</p>
+<p>注 ：6.2.0-rtm以上版本⼯业底盘，⽆需绑定充电桩，云端会给每个机器回桩前⾃动分配—个空闲的桩，机器在桩上时也会把占⽤的桩上传到云端</p>
+<p>5. 是否⽀持私有化部署</p>
+<p>关于多机调度平台思岚可提供公有云和私有云以及本地化部署⽅案，如需了解更多内容，可联系思岚技术⽀持或相关销售⼈员。</p>
+<p>6. 是否⽀持对接MES或者第三⽅平台对接</p>
+<p>⽬前⼯业AGV平台⽀持与MES或者第三⽅平台对接，如需了解更多产品对接协议，可联系思岚技术⽀持或相关销售⼈员。</p>
+</blockquote>
+</body>
+</html>

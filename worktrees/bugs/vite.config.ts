@@ -1,0 +1,1 @@
+../xc-recon-frontend/vite.config.ts

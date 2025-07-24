@@ -1,0 +1,4836 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR13】13. 扩展轴 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR13】13. 扩展轴 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 13. 扩展轴</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>13.</strong> 扩展轴</p>
+<p><strong>13.1.</strong> 设置<strong>485</strong>扩展轴参数</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image2.png" style="width:4.53125in" /><img src="images/_FR13_13______________________3_8_2___/media/image3.png" style="width:2.4375in" /><img src="images/_FR13_13______________________3_8_2___/media/image4.jpeg" style="height:0.19792in" /> <u>AuxServoSetParam(servoId,servoCompany,servoModel,servoSoftVersion,</u> <u>servoResolution,axisMechTransRatio)</u> <img src="images/_FR13_13______________________3_8_2___/media/image5.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>设置485扩展轴参数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+<p>. servoCompany ：伺服驱动器⼚商，1-戴纳泰克；</p>
+<p>. servoModel ：伺服驱动器型号，1-FD100-750C；</p>
+<p>. servoSoftVersion ：伺服驱动器软件版本，1-V1.0；</p>
+<p>. servoResolution ：编码器分辨率；</p>
+<p>. axisMechTransRatio ：机械传动⽐；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image6.png" style="width:0.11458in" /><img src="images/_FR13_13______________________3_8_2___/media/image7.png" style="width:0.52794in;height:0.87487in" /><strong>13.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 77%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from time import</strong> sleep</p>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>ret = robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret =robot.AuxServoSetParam(1,1,1,1,131072,15.45)<em>#设置485扩展轴参数</em> print("AuxServoSetParam",ret)</p>
+<p>sleep(1)</p>
+<p>ret =robot.AuxServoGetParam(1)<em>#获取485扩展轴配置参数</em> print("AuxServoGetParam",ret)</p>
+<p>sleep(1)</p>
+<p>ret =robot.AuxServoGetStatus(1)<em>#查询状态</em> print("AuxServoGetStatus",ret)</p>
+<p>sleep(1)</p>
+<p>ret =robot.AuxServoClearError(1)<em>#清除错误</em> print("AuxServoClearError",ret)</p>
+<p>sleep(1)</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image8.png" style="width:0.16601in;height:0.18748in" /> latest</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.2.</strong> 获取<strong>485</strong>扩展轴配置参数</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 4%" />
+<col style="width: 2%" />
+<col style="width: 4%" />
+<col style="width: 1%" />
+<col style="width: 2%" />
+<col style="width: 5%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="8"><blockquote>
+<p>AuxServoGetParam(servoId)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="10"><blockquote>
+<p>获取485扩展轴配置参数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="7" rowspan="3"><blockquote>
+<p>：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>servoId</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="10"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="10"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image12.png" /> 错误码 成功-0 失败- errcode;</p>
+<p>. servoCompany ：伺服驱动器⼚商，1-戴纳泰克；</p>
+<p>. servoModel ：伺服驱动器型号，1-FD100-750C； . servoSoftVersion ：伺服驱动器软件版本，1-V1.0；</p>
+<p>. servoResolution ：编码器分辨率；</p>
+<p>. axisMechTransRatio ：机械传动⽐；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.2.1.</strong> 代码示例</p>
+<p>参考设置485扩展轴参数的代码示例</p>
+<blockquote>
+<p><strong>13.3.</strong> 设置<strong>485</strong>扩展轴使能<strong>/</strong>去使能</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 27%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AuxServoEnable(servoId,status)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置485扩展轴使能/去使能</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+<p>. status ：使能状态，0-去使能， 1-使能;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image13.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><strong>13.3.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from time import</strong> sleep</p>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>ret = robot = Robot.RPC( '192.168.58.2')</p>
+<p>ret =robot.AuxServoEnable(1,0)<em>#修改控制模式前需去使能</em> print("AuxServoEnable(0)",ret)</p>
+<p>sleep(3)</p>
+<p>ret =robot.AuxServoSetControlMode(1,0)<em>#设置为位置模式</em> print("AuxServoSetControlMode",ret)</p>
+<p>sleep(3)</p>
+<p>ret =robot.AuxServoEnable(1,1)<em>#修改控制模式后需使能</em> print("AuxServoEnable(1)",ret)</p>
+<p>sleep(3)</p>
+<p>ret =robot.AuxServoHoming(1,1,10,10)<em>#回零</em> print("AuxServoHoming",ret)</p>
+<p>sleep(5)</p>
+<p>ret =robot.AuxServoGetStatus(1)<em>#查询状态</em> print("AuxServoGetStatus",ret)</p>
+<p>sleep(1)</p>
+<p>i=1</p>
+<p><strong>while</strong>(i&lt;5):</p>
+<p>ret =robot.AuxServoSetTargetPos(1,300*i,30)<em>#位置模式运动，</em> <em>速度30</em> print("AuxServoSetTargetPos",ret)</p>
+<p>sleep(11)</p>
+<p>ret =robot.AuxServoGetStatus(1)<em>#查询状态</em></p>
+<p>print("AuxServoGetStatus",ret)</p>
+<p>sleep(1)</p>
+<p>i=i+1</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.4.</strong> 设置<strong>485</strong>扩展轴控制模式</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image14.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 12%" />
+<col style="width: 34%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AuxServoSetControlMode(servoId,mode)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置485扩展轴控制模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+<p>. mode ：控制模式，0-位置模式，1-速度模式;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.4.1.</strong> 代码示例</p>
+<p>参考设置485扩展轴使能/去使能的代码示例</p>
+<p><strong>13.5.</strong> 设置<strong>485</strong>扩展轴⽬标位置<strong>(</strong>位置模式<strong>)</strong></p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 7%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 38%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>AuxServoSetTargetPos(servoId,pos,speed)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>设置485扩展轴⽬标位置(位置模式)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+<p>. pos ： ⽬标位置，mm或° ;</p>
+<p>. speed ： ⽬标速度，mm/s或°/s;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.5.1.</strong> 代码示例</p>
+<p>参考设置485扩展轴使能/去使能的代码示例</p>
+<blockquote>
+<p><strong>13.6.</strong> 设置<strong>485</strong>扩展轴⽬标速度<strong>(</strong>速度模式<strong>)</strong></p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 12%" />
+<col style="width: 36%" />
+<col style="width: 24%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AuxServoSetTargetSpeed(servoId,speed)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置485扩展轴⽬标速度(速度模式)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+<p>. speed ： ⽬标速度，mm/s或°/s;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image18.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><strong>13.6.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from time import</strong> sleep</p>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>ret = robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret =robot.AuxServoEnable(1,0)<em>#修改控制模式前需去使能</em> print("AuxServoEnable(0)",ret)</p>
+<p>sleep(3)</p>
+<p>ret = robot.AuxServoSetControlMode(1, 1) <em># 设置为速度模式</em> print("AuxServoSetControlMode",ret)</p>
+<p>sleep(3)</p>
+<p>ret =robot.AuxServoEnable(1,1)<em>#修改控制模式后需使能</em> print("AuxServoEnable(1)",ret)</p>
+<p>sleep(3)</p>
+<p>ret =robot.AuxServoHoming(1,1,10,10)<em>#回零</em> print("AuxServoHoming",ret)</p>
+<p>sleep(5)</p>
+<p>ret =robot.AuxServoGetStatus(1)<em>#查询状态</em> print("AuxServoGetStatus",ret)</p>
+<p>sleep(1)</p>
+<p>ret = robot.AuxServoSetTargetSpeed(1, 30) <em># 速度模式运动，</em> <em>速度30</em> print("AuxServoSetTargetSpeed", ret)</p>
+<p>sleep(10)</p>
+<p>ret = robot.AuxServoGetStatus(1) <em># 查询状态</em> print("AuxServoGetStatus", ret)</p>
+<p>sleep(1)</p>
+<p>ret = robot.AuxServoSetTargetSpeed(1, 60) <em># 速度模式运动，</em> <em>速度60</em> print("AuxServoSetTargetSpeed", ret)</p>
+<p>sleep(10)</p>
+<p>ret = robot.AuxServoGetStatus(1) <em># 查询状态</em> print("AuxServoGetStatus", ret)</p>
+<p>sleep(1)</p>
+<p>ret = robot.AuxServoSetTargetSpeed(1, 0) <em># 结束速度模式运动前应当把速度设为0</em> print("AuxServoSetTargetSpeed", ret)</p>
+<p>sleep(3)</p>
+<p>ret = robot.AuxServoGetStatus(1) <em># 查询状态</em> print("AuxServoGetStatus", ret)</p>
+<p>sleep(1)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image19.png" style="width:0.34028in;height:0.40449in" /><strong>13.7.</strong> 设置<strong>485</strong>扩展轴⽬标转矩<strong>(</strong>⼒矩模式<strong>)-</strong>暂未开放</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image21.png" style="width:0.11458in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 55%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>AuxServoSetTargetTorque(servoId,torque)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>设置485扩展轴⽬标转矩(⼒矩模式)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+<p>. torque ： ⽬标⼒矩，Nm;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.8.</strong> 设置<strong>485</strong>扩展轴回零</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 6%" />
+<col style="width: 3%" />
+<col style="width: 40%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>AuxServoHoming(servoId,mode,searchVel,latchVel)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置485扩展轴回零</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+<p>. mode ： 回零模式，1-当前位置回零；2-负限位回零；3-正限位回零;</p>
+<p>. searchVel ： 回零速度，mm/s或°/s;</p>
+<p>. latchVel ：箍位速度，mm/s或°/s;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.8.1.</strong> 代码示例</p>
+<p>参考设置485扩展轴使能/去使能的代码示例</p>
+<blockquote>
+<p><strong>13.9.</strong> 清除<strong>485</strong>扩展轴错误信息</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image22.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 23%" />
+<col style="width: 38%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AuxServoClearError(servoId)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>清除485扩展轴错误信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. servoId ：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.9.1.</strong> 代码示例</p>
+<p>参考设置485扩展轴参数的代码示例</p>
+<blockquote>
+<p><strong>13.10.</strong> 获取<strong>485</strong>扩展轴伺服状态</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image26.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image27.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image28.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image29.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image30.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>bit1:0-未运动；1-正在运动; bit2 0-正限位未触发；1-正限位触发；bit3 0-负限位未触发；1-负限位</p>
+</blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image31.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>13.10.1.</strong> 代码示例</p>
+<p>参考设置485扩展轴使能/去使能的代码示例</p>
+<p><strong>13.11.</strong> 设置状态反馈中<strong>485</strong>扩展轴数据轴号<strong>-</strong>暂未开放</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 24%" />
+<col style="width: 36%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AuxServosetStatusID(servoId)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置状态反馈中485扩展轴数据轴号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR13_13______________________3_8_2___/media/image32.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>servoId</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="2"><blockquote>
+<p>：伺服驱动器ID ，范围[1-15],对应从站ID；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.12.</strong> 设置<strong>485</strong>扩展轴运动加减速度</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 34%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AuxServoSetAcc(acc, dec)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置485扩展轴运动加减速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. acc ：485扩展轴运动加速度</p>
+<p>. dec ：485扩展轴运动减速度</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image33.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image34.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR13_13______________________3_8_2___/media/image35.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.13.</strong> 设置<strong>485</strong>扩展轴急停加减速度</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 10%" />
+<col style="width: 64%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image36.png" style="width:2.22917in" /><img src="images/_FR13_13______________________3_8_2___/media/image37.png" style="width:0.33333in" /><img src="images/_FR13_13______________________3_8_2___/media/image38.jpeg" style="height:0.19792in" /> <u>AuxServoSetEmergencyStopAcc(acc,</u> <u>dec)</u> <img src="images/_FR13_13______________________3_8_2___/media/image39.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>设置485扩展轴急停加减速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><p><img src="images/_FR13_13______________________3_8_2___/media/image40.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image41.png" /></p></td>
+<td><blockquote>
+<p>acc ：485扩展轴急停加速度</p>
+</blockquote>
+<p>dec ：485扩展轴急停减速度</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.14.</strong> 获取<strong>485</strong>扩展轴急停加减速度</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 42%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AuxServoGetEmergencyStopAcc()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取485扩展轴急停加减速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image42.png" /> 错误码 成功-0 失败- errcode . acc ：485扩展轴急停加速度</p>
+<p>. dec ：485扩展轴急停减速度</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.15.</strong> 获取<strong>485</strong>扩展轴运动加减速度</p>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image43.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 33%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>AuxServoGetAcc()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>获取485扩展轴运动加减速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image44.png" style="width:0.14023in;height:0.16383in" /> <img src="images/_FR13_13______________________3_8_2___/media/image45.png" style="width:0.16601in;height:0.17707in" /> latest <img src="images/_FR13_13______________________3_8_2___/media/image46.png" style="width:0.11458in" /></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image47.png" /> 错误码 成功-0 失败- errcode . acc ：485扩展轴运动加速度</p>
+<p>. dec ：485扩展轴运动减速度</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.16.</strong> <strong>UDP</strong>扩展轴通讯参数配置</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 4%" />
+<col style="width: 0%" />
+<col style="width: 0%" />
+<col style="width: 1%" />
+<col style="width: 0%" />
+<col style="width: 43%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="10" style="text-align: right;">ExtDevSetUDPComParam(ip, port, period, lossPkgTime, lossPkgNum,</td>
+</tr>
+<tr>
+<td colspan="11"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image48.png" style="width:4.33333in" />disconnectTime, reconnectEnable, reconnectPeriod, reconnectNum)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="12"><blockquote>
+<p>UDP扩展轴通讯参数配置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="12"><blockquote>
+<p>. ip ：PLC IP地址；</p>
+<p>. port ：端⼝号；</p>
+<p>. period ：通讯周期(ms ，暂不开放)；</p>
+<p>. lossPkgTime ：丢包检测时间(ms)；</p>
+<p>. lossPkgNum ：丢包次数；</p>
+<p>. disconnectTime ：通讯断开确认时⻓；</p>
+<p>. reconnectEnable ：通讯断开⾃动重连使能 0-不使能 1-使能；</p>
+<p>. reconnectPeriod ：重连周期间隔(ms)；</p>
+<p>. reconnectNum ：重连次数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="12"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="12"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image49.png" style="width:0.3125in;height:0.3125in" /><img src="images/_FR13_13______________________3_8_2___/media/image50.png" style="width:0.34028in;height:0.35079in" /><strong>13.16.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#UDP扩展轴通讯参数配置</em></p>
+<p>error = robot.ExtDevSetUDPComParam( '192.168.58.88',2021,2,50,5,50,1,2,5)</p>
+<p>print("ExtDevSetUDPComParam return:",error)</p>
+<p><em>#UDP扩展轴通讯参数配置</em></p>
+<p>error = robot.ExtDevGetUDPComParam()</p>
+<p>print("ExtDevGetUDPComParam return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.17.</strong> 获取<strong>UDP</strong>扩展轴通讯参数</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>ExtDevGetUDPComParam()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取UDP扩展轴通讯参数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image53.png" /> 错误码 成功-0 失败- errcode；</p>
+<p>. ip ：PLC IP地址；</p>
+<p>. port ：端⼝号；</p>
+<p>. period ：通讯周期(ms ，暂不开放)；</p>
+<p>. lossPkgTime ：丢包检测时间(ms)；</p>
+<p>. lossPkgNum ：丢包次数；</p>
+<p>. disconnectTime ：通讯断开确认时⻓；</p>
+<p>. reconnectEnable ：通讯断开⾃动重连使能 0-不使能 1-使能；</p>
+<p>. reconnectPeriod ：重连周期间隔(ms)；</p>
+<p>. reconnectNum ：重连次数</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.18.</strong> 加载<strong>UDP</strong>通信</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 46%" />
+<col style="width: 19%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ExtDevLoadUDPDriver()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>加载UDP通信</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image54.png" style="width:0.34028in;height:0.40449in" /><strong>13.18.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#加载UDP通信</em></p>
+<p>error = robot.ExtDevLoadUDPDriver()</p>
+<p>print("ExtDevLoadUDPDriver return:",error)</p>
+<p><em>#卸载UDP通信</em></p>
+<p>error = robot.ExtDevUnloadUDPDriver()</p>
+<p>print("ExtDevUnloadUDPDriver return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.19.</strong> 卸载<strong>UDP</strong>通信</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image55.png" style="width:0.14023in;height:0.17346in" /> <img src="images/_FR13_13______________________3_8_2___/media/image56.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR13_13______________________3_8_2___/media/image57.png" style="width:0.11458in" /></p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 50%" />
+<col style="width: 15%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ExtDevUnloadUDPDriver()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>卸载UDP通信</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.20.</strong> <strong>UDP</strong>扩展轴通信异常断开后恢复连接</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 49%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ExtDevUDPClientComReset()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>UDP扩展轴通信异常断开后恢复连接</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.20.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em>#UDP扩展轴通信异常断开后恢复连接</em></p>
+<p>error = robot.ExtDevUDPClientComReset()</p>
+<p>print("ExtDevUDPClientComReset return:",error)</p>
+<p><em>#UDP扩展轴通信异常断开后关闭通讯</em></p>
+<p>error = robot.ExtDevUDPClientComClose()</p>
+<p>print("ExtDevUDPClientComClose return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.21.</strong> <strong>UDP</strong>扩展轴通信异常断开后关闭通讯</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image59.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR13_13______________________3_8_2___/media/image60.png" style="width:0.11458in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 49%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ExtDevUDPClientComClose()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>UDP扩展轴通信异常断开后关闭通讯</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.22.</strong> 设置扩展机器⼈相对扩展轴位置</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetRobotPosToAxis(installType)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置扩展机器⼈相对扩展轴位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. installType ：0-机器⼈安装在外部轴上，1-机器⼈安装在外部轴外；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.22.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image61.jpeg" style="height:2.10417in" /><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#设置扩展机器⼈相对扩展轴位置</em></p>
+<p>error = robot.SetRobotPosToAxis(1)</p>
+<p>print("SetRobotPosToAxis return:",error)</p>
+<p><em>#设置扩展轴系统DH参数配置</em></p>
+<p>error = robot.SetAxisDHParaConfig(4,128.5,206.4,0,0,0,0,0,0,)</p>
+<p>print("SetAxisDHParaConfig return:",error)</p>
+<p><em>#UDP扩展轴参数配置</em></p>
+<p>error = robot.ExtAxisParamConfig(1,1,0,1000,-1000,1000,1000,1.905,262144,</p>
+<p>200,1,1,0)</p>
+<p>13 <img src="images/_FR13_13______________________3_8_2___/media/image62.png" style="height:0.17212in" /> print("ExtAxisParamConfig return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.23.</strong> 设置扩展轴系统<strong>DH</strong>参数配置</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image63.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image64.png" style="width:6.78125in" /><img src="images/_FR13_13______________________3_8_2___/media/image65.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image66.png" style="width:6.78125in" />扩展轴系统DH参数配置</p>
+<blockquote>
+<p>axisConfig ：外部轴构型，0-单⾃由度直线滑轨，1-两⾃由度L型变位机，2-三⾃由度，3-四⾃由度，4</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image67.png" style="width:0.54687in" /><img src="images/_FR13_13______________________3_8_2___/media/image68.png" style="width:0.54687in" /><img src="images/_FR13_13______________________3_8_2___/media/image69.png" style="width:0.34028in;height:0.40449in" />axisDHd1 ：外部轴DH参数d1 mm；</p>
+<p>axisDHd2 ：外部轴DH参数d2 mm；</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image70.png" style="width:0.55208in;height:0.19792in" />axisDHd3 ：外部轴DH参数d3 mm；</p>
+<p>axisDHd4 ：外部轴DH参数d4 mm；</p>
+<p>axisDHa1 ：外部轴DH参数a1 mm；</p>
+<p>axisDHa2 ：外部轴DH参数a2 mm；</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image71.png" style="width:0.54687in" /><img src="images/_FR13_13______________________3_8_2___/media/image72.png" style="width:0.11458in" />axisDHa3 ：外部轴DH参数a3 mm； <img src="images/_FR13_13______________________3_8_2___/media/image73.png" style="width:0.16601in;height:0.18748in" /> latest</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image74.png" style="width:6.78125in" />axisDHa4 ：外部轴DH参数a4 mm；</p>
+</blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image78.png" style="width:6.78125in" /><img src="images/_FR13_13______________________3_8_2___/media/image79.png" style="width:6.78125in" /></p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>13.24.</strong> <strong>UDP</strong>扩展轴参数配置 <em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>n</p>
+</blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image80.png" style="width:6.78125in" /><img src="images/_FR13_13______________________3_8_2___/media/image81.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image82.png" style="width:6.78125in" /></p>
+<p>移；1-旋转；</p>
+<blockquote>
+<p>-正向；1-反向；</p>
+<p>m；</p>
+<p>m；</p>
+<p>;</p>
+<p>轴偏移量；</p>
+<p>⽲川；2-汇川；3-松下；</p>
+<p>川-SV-XD3EA040L-E ，2-⽲川-SV-X2EA150A-A ，1-汇川-SV620PT5R4I ，1-松下-MADLN15SG ，2 增量；1-绝对值；</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.25.</strong> 设置扩展轴坐标系参考点<strong>-</strong>四点法</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image83.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 18%" />
+<col style="width: 32%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ExtAxisSetRefPoint(pointNum)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置扩展轴坐标系参考点-四点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：点编号[1-4]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>pointNum</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.25.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#设置扩展轴坐标系参考点-四点法</em></p>
+<p>error = robot.ExtAxisSetRefPoint(1)</p>
+<p>print("ExtAxisComputeECoordSys(1) return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.26.</strong> 计算扩展轴坐标系<strong>-</strong>四点法</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 10%" />
+<col style="width: 26%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ExtAxisComputeECoordSys()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>计算扩展轴坐标系-四点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR13_13______________________3_8_2___/media/image84.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image85.png" /></p></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>coord</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：扩展轴坐标系值[x,y,z,rx,ry,rz]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.26.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#计算扩展轴坐标系-四点法</em></p>
+<p>error,coord = robot.ExtAxisComputeECoordSys()</p>
+<p>print("ExtAxisComputeECoordSys() return:",error,coord)</p>
+<p><em>#应⽤扩展轴坐标系</em></p>
+<p>error = robot.ExtAxisActiveECoordSys(1,1,coord,1)</p>
+<p>print("ExtAxisActiveECoordSys() return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image86.png" style="width:0.34028in;height:0.40449in" /><strong>13.27.</strong> 应⽤扩展轴坐标系</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>ExtAxisActiveECoordSys(applyAxisId,axisCoordNum,coord,calibFlag)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image89.jpeg" style="height:0.33333in" />应⽤扩展轴坐标系</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><p>. applyAxisId :扩展轴编号 bit0-bit3对应扩展轴编号1-4 ，如应⽤扩展轴1和3 ，则是 0b 0000 010</p>
+<blockquote>
+<p>. axisCoordNum ：扩展轴坐标系编号；</p>
+<p>. coord ：坐标系值[x,y,z,rx,ry,rz]；</p>
+<p>. calibFlag ：标定标志 0-否，1-是；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.28.</strong> 设置标定参考点在变位机末端坐标系下位姿</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 33%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetRefPointInExAxisEnd(pos)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置标定参考点在变位机末端坐标系下位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：位姿值[x,y,z,rx,ry,rz]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>pos</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.28.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em>#设置标定参考点在变位机末端坐标系下位姿</em></p>
+<p>error = robot.SetRefPointInExAxisEnd(desc_pos)</p>
+<p>print("SetRefPointInExAxisEnd(1) return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.29.</strong> 变位机坐标系参考点设置<strong>-</strong>四点法</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image91.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR13_13______________________3_8_2___/media/image92.png" style="width:0.11458in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 18%" />
+<col style="width: 38%" />
+<col style="width: 4%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>PositionorSetRefPoint(pointNum)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>变位机坐标系参考点设置-四点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：点编号[1-4]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>pointNum</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.29.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#变位机坐标系参考点设置-四点法</em></p>
+<p>error = robot.SetRefPointInExAxisEnd(desc_pos)</p>
+<p>print("SetRefPointInExAxisEnd(1) return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.30.</strong> 变位机坐标系计算<strong>-</strong>四点法</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 30%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>PositionorComputeECoordSys()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>变位机坐标系计算-四点法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image96.png" /> 错误码 成功-0 失败- errcode;</p>
+<p>. coord ：变位机坐标系值[x,y,z,rx,ry,rz]；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.30.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#变位机坐标系计算-四点法</em></p>
+<p>error,coord = robot.PositionorComputeECoordSys()</p>
+<p>print("PositionorComputeECoordSys() return:",error,coord)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.31.</strong> 末端传感器寄存器写⼊</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image97.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image98.png" style="width:4.73958in" /><img src="images/_FR13_13______________________3_8_2___/media/image99.png" style="width:0.73958in" /><img src="images/_FR13_13______________________3_8_2___/media/image100.jpeg" style="height:0.19792in" /> <u>AxleSensorRegWrite(devAddr, regHAddr, regLAddr, regNum, data1, data2,</u> <u>isNoBlock)</u> <img src="images/_FR13_13______________________3_8_2___/media/image101.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>末端传感器寄存器写⼊</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. devAddr ： 设备地址编号 0-255</p>
+<p>. regHAddr ：寄存器地址⾼8位</p>
+<p>. regLAddr ：寄存器地址低8位</p>
+<p>. regNum ：寄存器个数 0-255</p>
+<p>. data1 ：写⼊寄存器数值1</p>
+<p>. data2 ：写⼊寄存器数值2</p>
+<p>. isNoBlock ：0-阻塞；1-⾮阻塞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image105.png" /> 错误码 成功-0 失败- errcode；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.32.</strong> <strong>UDP</strong>扩展轴使能</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 14%" />
+<col style="width: 39%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ExtAxisServoOn(axisID, status)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>UDP扩展轴使能</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="4"><p><img src="images/_FR13_13______________________3_8_2___/media/image106.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image107.png" /></p></td>
+<td></td>
+<td colspan="2" rowspan="4"><blockquote>
+<p>：轴号[1-4]；</p>
+<p>：0-去使能；1-使能；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>axisID</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>status</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image108.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><strong>13.32.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><em>#UDP扩展轴去使能</em></p>
+<p>error = robot.ExtAxisServoOn(1,0)</p>
+<p>print("ExtAxisServoOn return:",error)</p>
+<p><em>#UDP扩展轴使能</em></p>
+<p>error = robot.ExtAxisServoOn(1,1)</p>
+<p>print("ExtAxisServoOn return:",error)</p>
+<p><em>#UDP扩展轴回零</em></p>
+<p>error = robot.ExtAxisSetHoming(1,0,40,40)</p>
+<p>print("ExtAxisSetHoming return:",error)</p>
+<p>time.sleep(1)</p>
+<p><em>#UDP扩展轴点动开始</em></p>
+<p>error = robot.ExtAxisStartJog(1,1,20,20,20)</p>
+<p>print("ExtAxisStartJog return:",error)</p>
+<p>time.sleep(1)</p>
+<p><em>#UDP扩展轴点动停⽌</em></p>
+<p>error = robot.ExtAxisStopJog(1)</p>
+<p>print("ExtAxisStopJog return:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.33.</strong> <strong>UDP</strong>扩展轴回零</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 46%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>ExtAxisSetHoming(axisID, mode, searchVel, latchVel)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>UDP扩展轴回零</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>. axisID ：轴号[1-4]；</p>
+<p>. mode ： 回零⽅式 0当前位置回零，1负限位回零，2-正限位回零；</p>
+<p>. searchVel ：寻零速度(mm/s)；</p>
+<p>. latchVel ：寻零箍位速度(mm/s)；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image109.png" style="width:0.34028in;height:0.40449in" /><strong>13.34.</strong> <strong>UDP</strong>扩展轴点动开始</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image110.png" style="width:0.16601in;height:0.18748in" /><img src="images/_FR13_13______________________3_8_2___/media/image111.png" style="width:0.11458in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image112.png" style="width:3.10417in" /><img src="images/_FR13_13______________________3_8_2___/media/image113.png" style="width:0.875in" /><img src="images/_FR13_13______________________3_8_2___/media/image114.jpeg" style="height:0.19792in" /> <u>ExtAxisStartJog( axisID, direction, vel, acc,</u> <u>maxDistance)</u> <img src="images/_FR13_13______________________3_8_2___/media/image115.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴点动开始</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 74%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. axisID ：轴号[1-4]；</p>
+<p>. direction ：转动⽅向 0-反向；1-正向；</p>
+<p>. vel ：速度(mm/s)；</p>
+<p>. acc ：加速度(mm/s)；</p>
+<p>. maxDistance ：最⼤点动距离；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.35.</strong> <strong>UDP</strong>扩展轴点动停⽌</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 16%" />
+<col style="width: 25%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ExtAxisStopJog(axisID)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>UDP扩展轴点动停⽌</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. axisID ：轴号[1-4]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.36.</strong> 设置扩展<strong>DO</strong></p>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image119.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 39%" />
+<col style="width: 19%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetAuxDO(DONum,bOpen,smooth,block)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置扩展DO</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. DONum ： DO编号；</p>
+<p>. bOpen ：开关 True-开,False-关；</p>
+<p>. smooth ：是否平滑 True -是, False -否；</p>
+<p>. block ：是否阻塞 True -是, False -否；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.36.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p><em>#设置扩展DO</em></p>
+<p>error = robot.SetAuxDO(1,<strong>True</strong>,<strong>False</strong>,<strong>True</strong>)</p>
+<p>print("GetAuxAI",error)</p>
+<p><em>#设置扩展AO</em></p>
+<p>error = robot.SetAuxAO(1,60,<strong>True</strong>)</p>
+<p>print("SetAuxAO",error)</p>
+<p><em>#设置扩展DI输⼊滤波时间</em></p>
+<p>error = robot.SetAuxDIFilterTime(10,<strong>False</strong>)</p>
+<p>print("SetAuxDIFilterTime",error)</p>
+<p><em>#设置扩展AI输⼊滤波时间</em></p>
+<p>error = robot.SetAuxAIFilterTime(10,<strong>True</strong>)</p>
+<p>print("SetAuxAIFilterTime",error)</p>
+<p><em>#等待扩展DI输⼊</em></p>
+<p>error = robot.WaitAuxDI(0,<strong>False</strong>,100,<strong>False</strong>)</p>
+<p>print("WaitAuxDI",error)</p>
+<p><em>#等待扩展AI输⼊</em></p>
+<p>error = robot.WaitAuxAI(0,0,100,500,<strong>False</strong>)</p>
+<p>print("WaitAuxAI",error)</p>
+<p><em>#获取扩展AI值</em></p>
+<p>error = robot.GetAuxAI(0,<strong>False</strong>)</p>
+<p>print("GetAuxAI",error)</p>
+<p><em>#获取扩展DI值</em></p>
+<p>error = robot.GetAuxDI(0,<strong>True</strong>)</p>
+<p>print("GetAuxDI",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.37.</strong> 设置扩展<strong>AO</strong></p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 29%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetAuxAO(AONum,value,block)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置扩展AO</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. AONum ： AO编号；</p>
+<p>. value ：模拟量值[0-4095]；</p>
+<p>. block ：是否阻塞 True -是, False -否；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.38.</strong> 设置扩展<strong>DI</strong>输⼊滤波时间</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 59%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SetAuxDIFilterTime(filterTime)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>设置扩展DI输⼊滤波时间</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image120.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image121.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR13_13______________________3_8_2___/media/image122.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. filterTime ： 滤波时间(ms)；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.39.</strong> 设置扩展<strong>AI</strong>输⼊滤波时间</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 40%" />
+<col style="width: 4%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>SetAuxAIFilterTime(AINum,filterTime)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置扩展AI输⼊滤波时间</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>· AINum ： AI编号；</p>
+<p>. filterTime ： 滤波时间(ms)；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.40.</strong> 等待扩展<strong>DI</strong>输⼊</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 1%" />
+<col style="width: 7%" />
+<col style="width: 35%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>WaitAuxDI(DINum,bOpen,time,errorAlarm)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>等待扩展DI输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="7"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="7"><p><img src="images/_FR13_13______________________3_8_2___/media/image123.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image124.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image125.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image126.png" /></p></td>
+<td colspan="2"></td>
+<td colspan="3" rowspan="3"><blockquote>
+<p>： DI编号；</p>
+<p>：开关 True-开,False-关；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>DINum</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>bOpen</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="4" rowspan="2"><blockquote>
+<p>：最⼤等待时间(ms)；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>time</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>errorAlarm</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：是否继续运动 True-是,False-否</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.41.</strong> 等待扩展<strong>AI</strong>输⼊</p>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image127.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 3%" />
+<col style="width: 66%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>WaitAuxAI(,AINum,sign,value,time,errorAlarm)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>等待扩展AI输⼊</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. AINum ： AI编号；</p>
+<p>. sign ：0-⼤于；1-⼩于；</p>
+<p>. value ：AI值；</p>
+<p>. time ：最⼤等待时间(ms)；</p>
+<p>. errorAlarm ：是否继续运动 True-是,False-否</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.42.</strong> 获取扩展<strong>DI</strong>值</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 9%" />
+<col style="width: 1%" />
+<col style="width: 21%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetAuxDI(DINum,isNoBlock)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取扩展DI值</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. DINum ： DI编号；</p>
+<p>. isNoBlock ：是否阻塞 True-阻塞 false-⾮阻塞；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image128.png" /> 错误码 成功-0 失败- errcode； . isOpen ： 0-关；1-开；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.43.</strong> 获取扩展<strong>AI</strong>值</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 18%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetAuxAI(AINum,isNoBlock)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取扩展AI值</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="5"><p><img src="images/_FR13_13______________________3_8_2___/media/image129.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image130.png" /></p></td>
+<td></td>
+<td colspan="3" rowspan="3"><blockquote>
+<p>： AI编号；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>AINum</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>isNoBlock</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：是否阻塞 True-阻塞 False-⾮阻塞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image131.png" /> 错误码 成功-0 失败- errcode； . value ：输⼊值；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.44.</strong> <strong>UDP</strong>扩展轴运动</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image132.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image133.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR13_13______________________3_8_2___/media/image134.png" style="width:0.11458in" /></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 13%" />
+<col style="width: 24%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ExtAxisMove(pos,ovl)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>UDP扩展轴运动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR13_13______________________3_8_2___/media/image135.png" /></td>
+<td colspan="3"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">pos=</td>
+</tr>
+</tbody>
+</table></td>
+<td rowspan="2"><blockquote>
+<p>： ⽬标位置 轴1位置~轴4位置;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>[exaxis [0],exaxis [1],exaxis [2],exaxis [3]]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>. ovl ：速度百分⽐</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.44.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error,joint_pos = robot.GetActualJointPosDegree()</p>
+<p>print("GetActualJointPosDegree",error,joint_pos)</p>
+<p>e_pos = [-10,0,0,0]</p>
+<p>joint_pos [0] = joint_pos [0]+30</p>
+<p><em>#UDP扩展轴异步运动</em></p>
+<p>error = robot.ExtAxisMove(e_pos,30)</p>
+<p>print("ExtAxisMove",error)</p>
+<p>print("joint_pos",joint_pos)</p>
+<p>error = robot.MoveJ(joint_pos,0,0,exaxis_pos=e_pos)</p>
+<p>print("MoveJ",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.45.</strong> <strong>UDP</strong>扩展轴与机器⼈关节运动同步运动</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image136.png" style="width:0.11458in" /><img src="images/_FR13_13______________________3_8_2___/media/image137.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 0%" />
+<col style="width: 1%" />
+<col style="width: 0%" />
+<col style="width: 53%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="10" style="text-align: right;">ExtAxisSyncMoveJ(joint_pos,desc_pos,tool,user,exaxis_pos, vel=20.0, acc=0.0, ovl= 100.0,</td>
+</tr>
+<tr>
+<td colspan="11"><img src="images/_FR13_13______________________3_8_2___/media/image138.png" /></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="11"><blockquote>
+<p>UDP扩展轴与机器⼈关节运动同步运动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="9"><blockquote>
+<p>选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="9"><p><img src="images/_FR13_13______________________3_8_2___/media/image139.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image140.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image141.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image142.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image143.png" /></p></td>
+<td colspan="5"></td>
+<td colspan="4" rowspan="2"><blockquote>
+<p>： ⽬标关节位置，单位 [°]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>joint_pos</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>desc_pos</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>： ⽬标笛卡尔位姿，单位 [mm][°]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="7" rowspan="4"><blockquote>
+<p>：⼯具号，[0~14]</p>
+<p>：⼯件号，[0~14]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>tool</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>use r</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>exaxis_pos</p>
+</blockquote></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>：外部轴 1 位置 ~ 外部轴 4 位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>认参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="5"><p><img src="images/_FR13_13______________________3_8_2___/media/image144.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image145.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image146.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image147.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image148.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image149.png" /></p></td>
+<td colspan="9"><p><u>vel</u> ： 速度百分⽐ ，[0~100] 默认20.0；</p>
+<p>acc ：加速度百分⽐ ，[0~100] 暂不开放,默认0.0 ；</p>
+<p>ovl ：速度缩放因⼦ ，[0~100] 默认100.0 ；</p>
+<blockquote>
+<p>blendT <img src="images/_FR13_13______________________3_8_2___/media/image150.png" style="height:0.17535in" />：[-1.0]-运动到位 (阻塞) ，[0~500.0]-平滑时间 (⾮阻塞) ，单位 [ms] 默认 1 0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="7"><blockquote>
+<p>offset_flag</p>
+</blockquote></td>
+<td><blockquote>
+<p>：[0]-不偏移，[1]-⼯件/基坐标系下偏移，[2]-⼯具坐</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image151.png" style="width:0.16601in;height:0.18053in" /> latest</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="3" rowspan="3"><blockquote>
+<p>：位姿偏移量，单位 [mm][°] 默认[0.0,0.0,0.0,0.0,0.0,0.0] ；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>offset_pos</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 89%" />
+</colgroup>
+<tbody>
+<tr>
+<td>返回值</td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image152.png" style="width:0.34028in;height:0.40449in" /></p>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image153.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR13_13______________________3_8_2___/media/image154.png" style="width:0.11458in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image155.png" style="width:0.11458in" /><img src="images/_FR13_13______________________3_8_2___/media/image156.png" style="width:0.34028in;height:0.40449in" /><strong>13.45.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR13_13______________________3_8_2___/media/image157.png" style="height:0.17708in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR13_13______________________3_8_2___/media/image158.png" style="height:0.17579in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 3 <img src="images/_FR13_13______________________3_8_2___/media/image159.png" style="height:0.16545in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>4 <img src="images/_FR13_13______________________3_8_2___/media/image160.png" style="height:0.17569in" /> <em>#1.标定并应⽤机器⼈⼯具坐标系，</em> <em>您可以使⽤四点法或六点法进⾏⼯具坐标系的标定和应⽤</em> <em>，</em> <em>涉及⼯具坐标系</em> <em>标定的接⼝如下：</em></p>
+<p>5 <img src="images/_FR13_13______________________3_8_2___/media/image161.png" style="height:0.17708in" /> point_num=1</p>
+<p>6 <img src="images/_FR13_13______________________3_8_2___/media/image162.png" style="height:0.17452in" /> id=1</p>
+<p>7 <img src="images/_FR13_13______________________3_8_2___/media/image163.png" style="height:0.16186in" /> coord= [100,200,300,0,0,0,]</p>
+<p>8 <img src="images/_FR13_13______________________3_8_2___/media/image164.png" style="height:0.17454in" /> type=0</p>
+<p>9 <img src="images/_FR13_13______________________3_8_2___/media/image165.png" style="height:0.17708in" /> install=0</p>
+<p>10 <img src="images/_FR13_13______________________3_8_2___/media/image166.png" style="height:0.1754in" /> <em>#1.设置⼯具坐标系</em></p>
+<p>11 <img src="images/_FR13_13______________________3_8_2___/media/image167.png" style="height:0.17622in" /> <em># robot.SetToolPoint(point_num) #设置⼯具参考点-六点法</em> 12 <img src="images/_FR13_13______________________3_8_2___/media/image168.png" style="height:0.16586in" /> <em># robot.ComputeTool() #计算⼯具坐标系</em></p>
+<p>13 <img src="images/_FR13_13______________________3_8_2___/media/image169.png" style="height:0.17708in" /> <em># robot.SetTcp4RefPoint() #设置⼯具参考点-四点法</em></p>
+<p>14 <img src="images/_FR13_13______________________3_8_2___/media/image170.png" style="height:0.1754in" /> <em># robot.ComputeTcp4() #计算⼯具坐标系-四点法</em></p>
+<p>15 <img src="images/_FR13_13______________________3_8_2___/media/image171.png" style="height:0.17377in" /> <em># robot.SetToolCoord(id, coord,type,install) #设置应⽤⼯具坐标系</em></p>
+<p>16 <img src="images/_FR13_13______________________3_8_2___/media/image172.png" style="height:0.17491in" /> <em># robot.SetToolList(id, coord,type,install) #设置应⽤⼯具坐标系列表</em> 17 <img src="images/_FR13_13______________________3_8_2___/media/image173.png" style="height:0.16463in" /> <em>#2.设置UDP通信参数，</em> <em>并加载UDP通信</em></p>
+<p>18 <img src="images/_FR13_13______________________3_8_2___/media/image174.png" style="height:0.1721in" /> robot.ExtDevSetUDPComParam("192.168.58.88", 2021, 2, 100, 3, 100, 1, 100, 10);</p>
+<p>19 <img src="images/_FR13_13______________________3_8_2___/media/image175.png" style="height:0.17459in" /> robot.ExtDevLoadUDPDriver();</p>
+<p>20 <img src="images/_FR13_13______________________3_8_2___/media/image176.png" style="height:0.17452in" /> <em>#3.设置扩展轴参数，</em> <em>包括扩展轴类型、</em> <em>扩展轴驱动器参数、</em> <em>扩展轴DH参数</em></p>
+<p>21 <img src="images/_FR13_13______________________3_8_2___/media/image177.png" style="height:0.17325in" /> robot.SetAxisDHParaConfig(4, 200, 200, 0, 0, 0, 0, 0, 0)<em>#单轴变位机及DH参数</em> 22 <img src="images/_FR13_13______________________3_8_2___/media/image178.png" style="height:0.16306in" /> robot.SetRobotPosToAxis(1); <em>#扩展轴安装位置</em></p>
+<p>23 <img src="images/_FR13_13______________________3_8_2___/media/image179.png" style="height:0.17527in" /> robot.ExtAxisParamConfig(1, 0, 1, 100, -100, 10, 10, 12, 131072, 0, 1, 0, 0)<em>#伺服</em> <em>驱动器参数，</em> <em>本示例为单轴变位机，</em> <em>因此只需要设置—个驱动器参数，</em> <em>若您选择包含多个轴的扩展轴类型，</em> <em>需要每—个</em> <em>轴设置驱动器参数</em></p>
+<p>24 <img src="images/_FR13_13______________________3_8_2___/media/image180.png" style="height:0.17452in" /> <em>#4.设置所选的轴使能、</em> <em>回零</em></p>
+<p>25 <img src="images/_FR13_13______________________3_8_2___/media/image181.png" style="height:0.15944in" /> robot.ExtAxisServoOn(1, 0);</p>
+<p>26 <img src="images/_FR13_13______________________3_8_2___/media/image182.png" style="height:0.17048in" /> robot.ExtAxisSetHoming(1, 0, 20, 3);</p>
+<p>27 <img src="images/_FR13_13______________________3_8_2___/media/image183.png" style="height:0.17498in" /> <em>#5.进⾏扩展轴坐标系标定及应⽤(注意：变位机和直线滑轨的标定接⼝不同，</em> <em>以下时变位机的标定接⼝)</em> 28 <img src="images/_FR13_13______________________3_8_2___/media/image184.png" style="height:0.17498in" /> pos = [0,0,0,0,0,0] <em>#输⼊您的标定点坐标</em></p>
+<p>29 <img src="images/_FR13_13______________________3_8_2___/media/image185.png" style="height:0.1721in" /> robot.SetRefPointInExAxisEnd(pos)</p>
+<p>30 <img src="images/_FR13_13______________________3_8_2___/media/image186.png" style="height:0.16529in" /> robot.PositionorSetRefPoint(1)<em>#您需要通过四个不同位置的点来标定扩展轴，</em> <em>因此需要调⽤此接⼝4 次才能完成标定</em></p>
+<p>31 <img src="images/_FR13_13______________________3_8_2___/media/image187.png" style="height:0.17459in" /> error,coord = robot.PositionorComputeECoordSys()<em>#计算扩展轴标定结果</em></p>
+<p>32 <img src="images/_FR13_13______________________3_8_2___/media/image188.png" style="height:0.17578in" /> robot.ExtAxisActiveECoordSys(1, 1, coord, 1); <em>#将标定结果应⽤到扩展轴坐标系</em> 33 <img src="images/_FR13_13______________________3_8_2___/media/image189.png" style="height:0.16544in" /> method=1</p>
+<p>34 <img src="images/_FR13_13______________________3_8_2___/media/image190.png" style="height:0.17624in" /> <em>#6.在扩展轴上标定⼯件坐标系，</em> <em>您需要⽤到以下接⼝</em> 35 <img src="images/_FR13_13______________________3_8_2___/media/image191.png" style="height:0.17624in" /> <em># robot.SetWObjCoordPoint( point_num)</em></p>
+<p>36 <img src="images/_FR13_13______________________3_8_2___/media/image192.png" style="height:0.17543in" /> <em># error,coord=robot.ComputeWObjCoord( method)</em></p>
+<p>37 <img src="images/_FR13_13______________________3_8_2___/media/image193.png" style="height:0.17539in" /> <em># robot.SetWObjCoord(id,coord)</em></p>
+<p>38 <img src="images/_FR13_13______________________3_8_2___/media/image194.png" style="height:0.16264in" /> <em># robot.SetWObjList(id, coord)</em></p>
+<p>39 <img src="images/_FR13_13______________________3_8_2___/media/image195.png" style="height:0.17198in" /> <em>#7.记录您的同步关节运动起始点</em></p>
+<p>40 <img src="images/_FR13_13______________________3_8_2___/media/image196.png" style="height:0.17579in" /> startdescPose = [0,0,0,0,0,0]<em>#输⼊您的坐标</em> 41 <img src="images/_FR13_13______________________3_8_2___/media/image197.png" style="height:0.17579in" /> startjointPos = [0,0,0,0,0,0]<em>#输⼊您的坐标</em> 42 <img src="images/_FR13_13______________________3_8_2___/media/image198.png" style="height:0.17579in" /> startexaxisPos = [0,0,0,0,]<em>#输⼊您的坐标</em> 43 <img src="images/_FR13_13______________________3_8_2___/media/image199.png" style="height:0.16545in" /> <em>#8.记录您的同步关节运动终点坐标</em></p>
+<p>44 <img src="images/_FR13_13______________________3_8_2___/media/image200.png" style="height:0.17645in" /> enddescPose = [0,0,0,0,0,0]<em>#输⼊您的坐标</em> 45 <img src="images/_FR13_13______________________3_8_2___/media/image201.png" style="height:0.17645in" /> endjointPos = [0,0,0,0,0,0]<em>#输⼊您的坐标</em> 46 <img src="images/_FR13_13______________________3_8_2___/media/image202.png" style="height:0.17645in" /> endexaxisPos = [0,0,0,0,]<em>#输⼊您的坐标</em> 47 <img src="images/_FR13_13______________________3_8_2___/media/image203.png" style="height:0.17645in" /> <em>#9.编写同步运动程序</em></p>
+<p>48 <img src="images/_FR13_13______________________3_8_2___/media/image204.png" style="height:0.16542in" /> <em>#运动到起始点，</em> <em>假设应⽤的⼯具坐标系、</em> <em>⼯件坐标系都是1</em> 49 <img src="images/_FR13_13______________________3_8_2___/media/image205.png" style="height:0.17576in" /> robot.ExtAxisMove(startexaxisPos, 20);</p>
+<p>50 <img src="images/_FR13_13______________________3_8_2___/media/image206.png" style="height:0.1721in" /> robot.MoveJ(startjointPos, 1, 1,</p>
+<p>desc_pos=startdescPose,exaxis_pos=startexaxisPos); 51 <img src="images/_FR13_13______________________3_8_2___/media/image207.jpeg" style="height:0.1707in" /> <em>#开始同步运动</em></p>
+<p>52 <img src="images/_FR13_13______________________3_8_2___/media/image208.png" style="height:0.15767in" /> robot.ExtAxisSyncMoveJ(endjointPos, enddescPose, 1, 1, endexaxisPos <img src="images/_FR13_13______________________3_8_2___/media/image209.png" style="width:0.16601in;height:0.17736in" /> latest</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.46.</strong> <strong>UDP</strong>扩展轴与机器⼈直线运动同步运动</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 6%" />
+<col style="width: 1%" />
+<col style="width: 3%" />
+<col style="width: 2%" />
+<col style="width: 1%" />
+<col style="width: 0%" />
+<col style="width: 1%" />
+<col style="width: 0%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td colspan="9"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">ExtAxisSyncMoveL(self, joint_pos,desc_pos, tool, user, exaxis_pos, vel=20.0, acc=0.0,</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image210.png" style="width:0.40625in" /><u>ovl=100.0, blendR=-1.0, search=0, offset_flag=0, offset_pos= [0.0, 0.0, 0.0, 0.0, 0.0,</u> <u>0.0])</u> <img src="images/_FR13_13______________________3_8_2___/media/image211.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="9"><blockquote>
+<p>UDP扩展轴与机器⼈直线运动同步运动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>选参数</p>
+</blockquote></td>
+<td colspan="9"><blockquote>
+<p>. joint_pos ： ⽬标关节位置，单位 [°]；</p>
+<p>. desc_pos ： ⽬标笛卡尔位姿，单位 [mm][°]；</p>
+<p>. tool ：⼯具号，[0~14]；</p>
+<p>. user ：⼯件号，[0~14]；</p>
+<p>. exaxis_pos ：外部轴 1 位置 ~ 外部轴 4 位；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="15"><blockquote>
+<p>认参数</p>
+</blockquote></td>
+<td rowspan="15"><p><img src="images/_FR13_13______________________3_8_2___/media/image212.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image213.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image214.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image215.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image216.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image217.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image218.png" /></p></td>
+<td colspan="2"></td>
+<td colspan="6" rowspan="7"><blockquote>
+<p>： 速度百分⽐ ，[0~100] 默认20.0；</p>
+<p>：加速度百分⽐ ，[0~100] 暂不开放,默认0.0； ：速度缩放因⼦ ，[0~100] 默认100.0；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>vel</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>acc</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>ovl</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>blendR</p>
+</blockquote></td>
+<td colspan="5" rowspan="4"><blockquote>
+<p>：[-1.0]-运动到位 (阻塞) ，[0~500.0]-平滑时间 (⾮阻塞) ，单位 [ms] 默认-1.0 ：[0]-不焊丝寻位，[1]-焊丝寻位；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>search</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="7"><blockquote>
+<p>offset_flag</p>
+</blockquote></td>
+<td style="text-align: right;">：[0]-不偏移，[1]-⼯件/基坐标系下偏移，[2]-⼯具坐标系下偏移 默认 0；</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3">：位姿偏移量，单位 [mm][°] 默认[0.0,0.0,0.0,0.0,0.0,0.0] ；</td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>offset_pos</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>返回值</td>
+<td colspan="9"><blockquote>
+<p>错误码 成功-0 失败- errcode；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image219.png" style="width:0.34028in;height:0.40449in" /><strong>13.46.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>robot.Mode(0)</p>
+<p>time.sleep(1)</p>
+<p>e_pos = [-20,0,0,0]</p>
+<p>joint_pos0 = [114.089,-85.740, 119.106,-129.884,-91.655, 79.642]</p>
+<p>desc_pos0= [-87.920,-178.539,-64.513,-175.471,7.664,139.650]</p>
+<p><em>#UDP扩展轴与机器⼈直线运动同步运动</em></p>
+<p>error = robot.ExtAxisSyncMoveL(joint_pos0,desc_pos0,1,1,e_pos)</p>
+<p>print("ExtAxisSyncMoveL",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.47.</strong> <strong>UDP</strong>扩展轴与机器⼈圆弧运动同步运动</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image220.png" /><img src="images/_FR13_13______________________3_8_2___/media/image221.png" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.4</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 12%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>ExtAxisSyncMoveC(joint_pos_p, desc_pos_p, tool_p, user_p,exaxis_pos_p, joint</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image224.png" style="width:6.53125in" />user_t,exaxis_pos_t,vel_p=20.0, acc_p=100.0, offset_flag_p=0, offset_pos_p = [</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image225.png" style="width:0.875in" /><u>0.0], vel_t=20.0, acc_t=100.0, offset_flag_t=0, offset_pos_t= [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], ovl</u>= <u>blendR=-1.0)</u> <img src="images/_FR13_13______________________3_8_2___/media/image226.png" style="height:0.19625in" /></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 1%" />
+<col style="width: 1%" />
+<col style="width: 78%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="7"><blockquote>
+<p>UDP扩展轴与机器⼈圆弧运动同步运动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="14"><p><img src="images/_FR13_13______________________3_8_2___/media/image227.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image228.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image229.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image230.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image231.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image232.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image233.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image234.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image235.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image236.png" /></p></td>
+<td colspan="6"><p>joint_pos_p ： 路径点关节位置，单位 [°] ；</p>
+<blockquote>
+<p>desc_pos_p <img src="images/_FR13_13______________________3_8_2___/media/image237.png" style="height:0.18576in" />：路径点笛卡尔位姿，单位 [mm][°]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>tool_p</p>
+</blockquote></td>
+<td colspan="4" rowspan="4"><blockquote>
+<p>：路径点⼯具号，[0~14]；</p>
+<p>：路径点⼯件号，[0~14]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>user_p</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="6"><p>exaxis_pos_p ：路径点外部轴 1 位置 ~ 外部轴 4 位置 默认[0.0,0.0,0.0,0.0]；</p>
+<p>joint_pos_t ： ⽬标点关节位置，单位 [°] ；</p></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>： ⽬标点笛卡尔位姿，单位 [mm][°]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>desc_pos_t</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td colspan="4" rowspan="4"><blockquote>
+<p>：⼯具号，[0~14]；</p>
+<p>：⼯件号，[0~14]；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>tool_t</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>user_t</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>exaxis_pos_t</p>
+</blockquote></td>
+<td rowspan="2">： ⽬标点外部轴 1 位置 ~ 外部轴 4 位置 默认[0.0,0.0,0.0,0.0]；</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><p><img src="images/_FR13_13______________________3_8_2___/media/image238.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image239.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image240.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image241.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image242.png" /></p></td>
+<td colspan="6"><blockquote>
+<p>vel_p : 路径点速度百分⽐ ，[0~100] 默认20.0；</p>
+<p>acc_p : 路径点加速度百分⽐ ，[0~100] 暂不开放,默认0.0 ；</p>
+</blockquote>
+<p>offset_flag_p : 路径点是否偏移[0]-不偏移，[1]-⼯件/基坐标系下偏移，[2]-⼯具坐标系下偏移</p>
+<p>offset_pos_p : 路径点位姿偏移量，单位 [mm][°] 默认[0.0,0.0,0.0,0.0,0.0,0.0]；</p>
+<blockquote>
+<p>vel_t <img src="images/_FR13_13______________________3_8_2___/media/image243.png" style="height:0.16215in" />: ⽬标点速度百分⽐ ，[0~100] 默认20.0；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><p><img src="images/_FR13_13______________________3_8_2___/media/image244.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image245.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image246.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image247.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image248.png" /></p></td>
+<td colspan="6"><p>acc_t : ⽬标点加速度百分⽐ ，[0~100] 暂不开放 默认0.0；</p>
+<p>offset_flag_t : ⽬标点是否偏移[0]-不偏移，[1]-⼯件/基坐标系下偏移，[2]-⼯具坐标系下偏移</p>
+<p>offset_pos_t : ⽬标点位姿偏移量，单位 [mm][°] 默认[0.0,0.0,0.0,0.0,0.0,0.0]；</p>
+<p><u>ovl : 速</u>度缩放因⼦ ，[0~100] 默认100.0；</p>
+<p>blendR ：[-1.0]-运动到位 (阻塞) ，[0~1000]-平滑半径 (⾮阻塞) ，单位 [mm] 默认-1.0；</p></td>
+</tr>
+<tr>
+<td colspan="7"><blockquote>
+<p>错误码 成功-0 失败- errcode；</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image249.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR13_13______________________3_8_2___/media/image250.png" style="width:0.11458in" /><strong>13.47.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR13_13______________________3_8_2___/media/image251.png" style="height:0.16317in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR13_13______________________3_8_2___/media/image252.png" style="height:0.17391in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 3 <img src="images/_FR13_13______________________3_8_2___/media/image253.png" style="height:0.17391in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>4 <img src="images/_FR13_13______________________3_8_2___/media/image254.png" style="height:0.1721in" /> robot.Mode(0)</p>
+<p>5 <img src="images/_FR13_13______________________3_8_2___/media/image255.png" style="height:0.1721in" /> time.sleep(1)</p>
+<p>6 <img src="images/_FR13_13______________________3_8_2___/media/image256.png" style="height:0.15944in" /> desc_pos_mid = [-131.2748107910156, -60.21242523193359, -22.55266761779785,</p>
+<p>175.9907989501953, 5.92541742324829, 145.5211791992187]</p>
+<p>7 <img src="images/_FR13_13______________________3_8_2___/media/image257.png" style="height:0.17459in" /> desc_pos_end = [-91.3530502319336, -174.5040588378906, -64.93866729736328,</p>
+<p>177.1370544433593, 15.96347618103027, 136.1746368408203]</p>
+<p>8 <img src="images/_FR13_13______________________3_8_2___/media/image258.png" style="height:0.17459in" /> joint_pos_mid = [120.9549040841584, -109.8869943146658, 134.1448068146658,</p>
+<p>-126.2150709699876, -88.6738087871287, 79.6419593131188]</p>
+<p>9 <img src="images/_FR13_13______________________3_8_2___/media/image259.png" style="height:0.16963in" /> joint_pos_end = [110.1896078279703, -89.01601659189356, 125.5532806698638,</p>
+<p>-139.7967831451114, -82.93198387221534, 79.6452225788985]</p>
+<p>10 <img src="images/_FR13_13______________________3_8_2___/media/image260.png" style="height:0.1758in" /> <em># #UDP扩展轴与机器⼈圆弧运动同步运动</em> 11 <img src="images/_FR13_13______________________3_8_2___/media/image261.png" style="height:0.1758in" /> time.sleep(3)</p>
+<p>12 <img src="images/_FR13_13______________________3_8_2___/media/image262.png" style="height:0.15944in" /> error = robot.ExtAxisSyncMoveC(joint_pos_mid,desc_pos_mid,1,1,</p>
+<p>[-10,0,0,0],joint_pos_end,desc_pos_end,1,1,[-20,0,0,0])</p>
+<p>13 <img src="images/_FR13_13______________________3_8_2___/media/image263.png" style="height:0.17708in" /> print("ExtAxisSyncMoveC",error)</p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image264.png" style="width:0.16601in;height:0.16942in" /> latest</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.48.</strong> 可移动装置控制</p>
+</blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5 <strong>13.48.1.</strong> 可移动装置使能</p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 11%" />
+<col style="width: 19%" />
+<col style="width: 36%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>TractorEnable(enable)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>可移动装置使能</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. enable ：使能状态，0-去使能，1-使能</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.48.2.</strong> 可移动装置回零</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 34%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>TractorHoming()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>可移动装置回零</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.48.3.</strong> 可移动装置直线运动</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 27%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>TractorMoveL(distance, vel)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>可移动装置直线运动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. distance ：直线运动距离（ mm）</p>
+<p>. vel ：直线运动速度百分⽐（0-100）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>13.48.4.</strong> 可移动装置圆弧运动</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 37%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>TractorMoveC(radio, angle, vel)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>可移动装置圆弧运动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><p><img src="images/_FR13_13______________________3_8_2___/media/image265.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image266.png" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image267.png" /></p></td>
+<td colspan="3"><blockquote>
+<p>radio ： 圆弧运动半径（ mm）</p>
+<p>angle ： 圆弧运动角度 ( ° )</p>
+<p>vel ： 圆弧运动速度百分⽐（0-100）</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image268.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image269.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR13_13______________________3_8_2___/media/image270.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.48.5.</strong> 可移动装置停⽌运动</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 29%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ProgramStop()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>可移动装置停⽌运动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>13.48.6.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR13_13______________________3_8_2___/media/image274.png" style="height:0.17708in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR13_13______________________3_8_2___/media/image275.png" style="height:0.16542in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 3 <img src="images/_FR13_13______________________3_8_2___/media/image276.png" style="height:0.17576in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>4 <img src="images/_FR13_13______________________3_8_2___/media/image277.png" style="height:0.1721in" /> robot.ExtDevSetUDPComParam("192.168.58.2", 2021, 2, 50, 5, 50, 1, 50, 10)</p>
+<p>5 <img src="images/_FR13_13______________________3_8_2___/media/image278.png" style="height:0.1721in" /> robot.ExtDevLoadUDPDriver()</p>
+<p>6 <img src="images/_FR13_13______________________3_8_2___/media/image279.png" style="height:0.1721in" /> robot.ExtAxisParamConfig(1, 0, 0, 50000, -50000, 1000, 1000, 6.280, 16384, 200,</p>
+<p>0, 0, 0)</p>
+<p>7 <img src="images/_FR13_13______________________3_8_2___/media/image280.png" style="height:0.16963in" /> robot.ExtAxisParamConfig(2, 0, 0, 50000, -50000, 1000, 1000, 6.280, 16384, 200,</p>
+<p>0, 0, 0)</p>
+<p>8 <img src="images/_FR13_13______________________3_8_2___/media/image281.png" style="height:0.17708in" /> robot.SetAxisDHParaConfig(5, 0, 0, 0, 0, 0, 0, 0, 0)</p>
+<p>9 <img src="images/_FR13_13______________________3_8_2___/media/image282.png" style="height:0.17452in" /></p>
+<p>10 <img src="images/_FR13_13______________________3_8_2___/media/image283.png" style="height:0.15944in" /> robot.TractorEnable(<strong>False</strong>)</p>
+<p>11 <img src="images/_FR13_13______________________3_8_2___/media/image284.png" style="height:0.16963in" /> time.sleep(2)</p>
+<p>12 <img src="images/_FR13_13______________________3_8_2___/media/image285.png" style="height:0.1721in" /> robot.TractorEnable(<strong>True</strong>)</p>
+<p>13 <img src="images/_FR13_13______________________3_8_2___/media/image286.png" style="height:0.1721in" /> time.sleep(2)</p>
+<p>14 <img src="images/_FR13_13______________________3_8_2___/media/image287.png" style="height:0.1721in" /> robot.TractorHoming()</p>
+<p>15 <img src="images/_FR13_13______________________3_8_2___/media/image288.png" style="height:0.15944in" /> time.sleep(2)</p>
+<p>16 <img src="images/_FR13_13______________________3_8_2___/media/image289.png" style="height:0.16963in" /> robot.TractorMoveL(100, 20)</p>
+<p>17 <img src="images/_FR13_13______________________3_8_2___/media/image290.png" style="height:0.1721in" /> time.sleep(5)</p>
+<p>18 <img src="images/_FR13_13______________________3_8_2___/media/image291.png" style="height:0.1721in" /> robot.TractorMoveL(-100, 20)</p>
+<p>19 <img src="images/_FR13_13______________________3_8_2___/media/image292.png" style="height:0.1721in" /> time.sleep(5)</p>
+<p>20 <img src="images/_FR13_13______________________3_8_2___/media/image293.png" style="height:0.15944in" /> robot.TractorMoveC(300, 90, 20)</p>
+<p>21 <img src="images/_FR13_13______________________3_8_2___/media/image294.png" style="height:0.16963in" /> time.sleep(4)</p>
+<p>22 <img src="images/_FR13_13______________________3_8_2___/media/image295.png" style="height:0.1721in" /> error = robot.TractorStop()</p>
+<p>23 <img src="images/_FR13_13______________________3_8_2___/media/image296.png" style="height:0.17459in" /> print("TractorStop return ", error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR13_13______________________3_8_2___/media/image297.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

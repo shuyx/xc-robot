@@ -1,0 +1,652 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highcharts@10.3.3/highcharts.js"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#9254DE",
+        "secondary": "#F4F0FF",
+        "locked": "#00A870",
+        "detecting": "#E6A23C",
+        "precision": "#409EFF",
+        "textColor": "#2c3e50",
+        "error": "#F56C6C",
+        "unknown": "#909399"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #E5E7EB;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .card-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #EBEEF5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-body {
+            padding: 16px;
+        }
+        .card-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #EBEEF5;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+        .btn {
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        .btn-primary {
+            background-color: #9254DE;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #8048C8;
+        }
+        .btn-secondary {
+            background-color: #F4F0FF;
+            color: #9254DE;
+            border: 1px solid #9254DE;
+        }
+        .btn-secondary:hover {
+            background-color: #EAE0FF;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .status-success { background-color: #00A870; }
+        .status-warning { background-color: #E6A23C; }
+        .status-error { background-color: #F56C6C; }
+        .status-info { background-color: #409EFF; }
+        .status-unknown { background-color: #909399; }
+    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body>
+    <div id="main-content" class="w-full h-[calc(100vh-100px)] bg-gray-100 p-4 overflow-auto">
+        <!-- Page Header -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-textColor">视觉引导功能测试</h1>
+            <p class="text-gray-600">视觉感知与机器人动作协调测试</p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Video Preview Area -->
+            <div id="video-preview" class="card">
+                <div class="card-header">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-video text-primary mr-2"></i>
+                        <span class="font-medium">视觉预览区</span>
+                    </div>
+                    <div class="flex items-center">
+                        <button class="btn btn-secondary text-sm">
+                            <i class="fa-solid fa-camera mr-1"></i>
+                            TOF相机
+                            <i class="fa-solid fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0 relative">
+                    <div class="bg-secondary h-[280px] w-full relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/bc76d3d038-3f212f6cf5f98fd80eea.png" alt="robotic vision system camera feed showing objects with bounding boxes and detection confidence">
+                        </div>
+                        <!-- Target Box Overlay -->
+                        <div class="absolute left-[25%] top-[30%] w-[150px] h-[120px] border-2 border-primary rounded-md flex flex-col items-center justify-center">
+                            <div class="bg-black bg-opacity-60 text-white px-2 py-1 rounded text-sm">
+                                <i class="fa-solid fa-cube mr-1"></i>
+                                物体A
+                            </div>
+                            <div class="bg-black bg-opacity-60 text-white px-2 py-1 rounded text-sm mt-1">
+                                <i class="fa-solid fa-chart-simple mr-1"></i>
+                                置信度: 85%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary">
+                        <i class="fa-solid fa-camera mr-1"></i>
+                        拍照
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fa-solid fa-record-vinyl mr-1"></i>
+                        录制
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-rotate mr-1"></i>
+                        重新检测
+                    </button>
+                </div>
+            </div>
+
+            <!-- Target Information Area -->
+            <div id="target-info" class="card">
+                <div class="card-header">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-bullseye text-primary mr-2"></i>
+                        <span class="font-medium">引导目标区</span>
+                    </div>
+                </div>
+                <div class="card-body h-[280px] overflow-y-auto">
+                    <h3 class="font-medium mb-3">
+                        <i class="fa-solid fa-bullseye text-primary mr-1"></i>
+                        当前目标
+                    </h3>
+                    
+                    <!-- Target Object A -->
+                    <div class="border border-locked rounded-md p-3 mb-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-medium">
+                                <i class="fa-solid fa-cube mr-1"></i>
+                                物体A
+                            </div>
+                            <div>
+                                <span class="text-sm">
+                                    状态: <span class="status-dot status-success"></span>已锁定
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>位置: (250, 180)</div>
+                            <div>角度: 15°</div>
+                            <div>深度: 0.65m</div>
+                            <div>尺寸: 120×85mm</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Target Object B -->
+                    <div class="border border-detecting rounded-md p-3 mb-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-medium">
+                                <i class="fa-solid fa-cube mr-1"></i>
+                                物体B
+                            </div>
+                            <div>
+                                <span class="text-sm">
+                                    状态: <span class="status-dot status-warning"></span>检测中
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>位置: (380, 220)</div>
+                            <div>角度: -8°</div>
+                            <div>深度: 0.72m</div>
+                            <div>尺寸: 95×70mm</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Target Object C -->
+                    <div class="border border-gray-200 rounded-md p-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-medium">
+                                <i class="fa-solid fa-cube mr-1"></i>
+                                物体C
+                            </div>
+                            <div>
+                                <span class="text-sm">
+                                    状态: <span class="status-dot status-unknown"></span>未检测
+                                </span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>位置: --</div>
+                            <div>角度: --</div>
+                            <div>深度: --</div>
+                            <div>尺寸: --</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary">
+                        <i class="fa-solid fa-list mr-1"></i>
+                        选择目标
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-plus mr-1"></i>
+                        添加目标
+                    </button>
+                </div>
+            </div>
+
+            <!-- Test Items Area -->
+            <div id="test-items" class="card">
+                <div class="card-header">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-flask text-primary mr-2"></i>
+                        <span class="font-medium">测试项目</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="space-y-3">
+                        <!-- Test Item 1 -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-check-circle text-locked mr-2"></i>
+                                <span>手眼标定验证</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm mr-2">状态: 通过</span>
+                                <span class="text-sm text-precision">8.5mm</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Test Item 2 -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-check-circle text-locked mr-2"></i>
+                                <span>目标检测精度</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm mr-2">状态: 通过</span>
+                                <span class="text-sm text-precision">95%</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Test Item 3 -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-sync text-detecting animate-spin mr-2"></i>
+                                <span>定位引导测试</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm mr-2">状态: 进行中</span>
+                                <span class="text-sm text-detecting">3/5</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Test Item 4 -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-hourglass-half text-gray-400 mr-2"></i>
+                                <span>抓取精度验证</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm mr-2">状态: 待测试</span>
+                                <span class="text-sm text-gray-400">--</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Test Item 5 -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-hourglass-half text-gray-400 mr-2"></i>
+                                <span>多目标识别</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm mr-2">状态: 待测试</span>
+                                <span class="text-sm text-gray-400">--</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Test Item 6 -->
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-hourglass-half text-gray-400 mr-2"></i>
+                                <span>光照适应测试</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm mr-2">状态: 待测试</span>
+                                <span class="text-sm text-gray-400">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Robot Status Area -->
+            <div id="robot-status" class="card">
+                <div class="card-header">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-robot text-primary mr-2"></i>
+                        <span class="font-medium">机械臂状态</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-1 gap-4">
+                        <!-- Target Position -->
+                        <div>
+                            <h3 class="font-medium mb-2">
+                                <i class="fa-solid fa-bullseye text-primary mr-1"></i>
+                                目标位置:
+                            </h3>
+                            <div class="grid grid-cols-3 gap-2 text-sm">
+                                <div>X: 250mm</div>
+                                <div>Y: 180mm</div>
+                                <div>Z: 650mm</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Current Position -->
+                        <div>
+                            <h3 class="font-medium mb-2">
+                                <i class="fa-solid fa-robot text-primary mr-1"></i>
+                                当前位置:
+                            </h3>
+                            <div class="grid grid-cols-3 gap-2 text-sm">
+                                <div>X: 248mm</div>
+                                <div>Y: 182mm</div>
+                                <div>Z: 648mm</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Position Error -->
+                        <div>
+                            <h3 class="font-medium mb-2">
+                                <i class="fa-solid fa-ruler-combined text-primary mr-1"></i>
+                                位置误差:
+                            </h3>
+                            <div class="grid grid-cols-3 gap-2 text-sm">
+                                <div>ΔX: -2mm</div>
+                                <div>ΔY: +2mm</div>
+                                <div>ΔZ: -2mm</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Precision -->
+                        <div>
+                            <h3 class="font-medium mb-2">
+                                <i class="fa-solid fa-chart-pie text-primary mr-1"></i>
+                                精度: <span class="text-precision">92%</span>
+                            </h3>
+                            <div class="progress-bar mt-1 mb-3">
+                                <div class="progress-bar-fill bg-precision" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary">
+                        <i class="fa-solid fa-hand-pointer mr-1"></i>
+                        引导移动
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-check mr-1"></i>
+                        验证
+                    </button>
+                </div>
+            </div>
+
+            <!-- Precision Analysis Area -->
+            <div id="precision-analysis" class="card">
+                <div class="card-header">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chart-line text-primary mr-2"></i>
+                        <span class="font-medium">引导精度分析</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="font-medium mb-2">
+                                <i class="fa-solid fa-ruler text-primary mr-1"></i>
+                                定位误差统计
+                            </h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span>X轴误差:</span>
+                                    <span>±2.3mm</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Y轴误差:</span>
+                                    <span>±1.8mm</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Z轴误差:</span>
+                                    <span>±3.1mm</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>角度误差:</span>
+                                    <span>±1.2°</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-2">
+                                <i class="fa-solid fa-chart-bar text-primary mr-1"></i>
+                                平均精度: 87%
+                            </h3>
+                            <div id="precision-chart" class="h-[120px]"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary">
+                        <i class="fa-solid fa-table mr-1"></i>
+                        详细数据
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-file-export mr-1"></i>
+                        导出
+                    </button>
+                </div>
+            </div>
+
+            <!-- Test Results Area -->
+            <div id="test-results" class="card">
+                <div class="card-header">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chart-pie text-primary mr-2"></i>
+                        <span class="font-medium">测试结果</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span>测试通过:</span>
+                                <span class="text-locked">3/6</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>平均精度:</span>
+                                <span class="text-precision">89%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>最佳精度:</span>
+                                <span class="text-precision">96%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>建议:</span>
+                                <span class="text-detecting">光照优化</span>
+                            </div>
+                        </div>
+                        <div id="results-chart" class="h-[120px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Controls Area -->
+            <div id="test-controls" class="card">
+                <div class="card-header">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-gamepad text-primary mr-2"></i>
+                        <span class="font-medium">测试控制</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="btn btn-primary h-12">
+                            <i class="fa-solid fa-play mr-1"></i>
+                            开始引导
+                        </button>
+                        <button class="btn btn-secondary h-12">
+                            <i class="fa-solid fa-rotate mr-1"></i>
+                            重新检测
+                        </button>
+                        <button class="btn btn-secondary h-12">
+                            <i class="fa-solid fa-save mr-1"></i>
+                            保存结果
+                        </button>
+                        <button class="btn btn-secondary h-12">
+                            <i class="fa-solid fa-file-pdf mr-1"></i>
+                            生成报告
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Precision Analysis Chart
+            Highcharts.chart('precision-chart', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: 'transparent',
+                    height: 120
+                },
+                title: {
+                    text: null
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: ['X轴', 'Y轴', 'Z轴', '角度'],
+                    labels: {
+                        style: {
+                            fontSize: '10px'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        enabled: false
+                    },
+                    gridLineWidth: 0
+                },
+                tooltip: {
+                    valueSuffix: '%'
+                },
+                plotOptions: {
+                    column: {
+                        borderRadius: 3,
+                        colorByPoint: true
+                    }
+                },
+                series: [{
+                    name: '精度',
+                    data: [90, 94, 82, 85],
+                    colors: ['#409EFF', '#67C23A', '#E6A23C', '#F56C6C']
+                }]
+            });
+
+            // Test Results Chart
+            Highcharts.chart('results-chart', {
+                chart: {
+                    type: 'pie',
+                    backgroundColor: 'transparent',
+                    height: 120
+                },
+                title: {
+                    text: null
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}',
+                            style: {
+                                fontSize: '10px'
+                            }
+                        },
+                        innerSize: '50%'
+                    }
+                },
+                series: [{
+                    name: '测试结果',
+                    colorByPoint: true,
+                    data: [
+                        { name: '通过', y: 3, color: '#00A870' },
+                        { name: '进行中', y: 1, color: '#E6A23C' },
+                        { name: '待测试', y: 2, color: '#909399' }
+                    ]
+                }]
+            });
+        });
+    </script>
+
+</body></html>

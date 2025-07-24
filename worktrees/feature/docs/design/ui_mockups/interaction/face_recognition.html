@@ -1,0 +1,439 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/element-plus"></script>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "light": "#E8F4FD"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans text-secondary">
+    <div id="app" class="w-full h-[calc(100vh-100px)] bg-gray-50 p-6 overflow-y-auto">
+        <!-- Page Header -->
+        <div id="page-header" class="mb-6">
+            <h1 class="text-2xl font-bold text-secondary">人脸识别系统</h1>
+            <p class="text-sm text-gray-500">基于深度学习的实时人脸识别与分析</p>
+        </div>
+
+        <!-- Main Content -->
+        <div id="main-content" class="grid grid-cols-12 gap-6">
+            <!-- Camera Preview Section -->
+            <div id="camera-preview" class="col-span-12 lg:col-span-7 bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="flex justify-between items-center px-4 py-3 border-b border-gray-100">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-video text-primary mr-2"></i>
+                        <h2 class="font-semibold">相机预览区</h2>
+                    </div>
+                    <div>
+                        <button class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded">
+                            <i class="fa-solid fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-4">
+                    <div class="flex items-center mb-3">
+                        <i class="fa-solid fa-camera text-primary mr-2"></i>
+                        <select class="bg-gray-50 border border-gray-200 text-gray-700 rounded px-3 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary">
+                            <option>前置相机</option>
+                            <option>后置相机</option>
+                            <option>TOF相机</option>
+                        </select>
+                    </div>
+                    
+                    <div id="video-container" class="relative bg-light rounded-lg h-[320px] mb-4 flex items-center justify-center overflow-hidden">
+                        <!-- Video placeholder -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d590cfb88c-7f4867bd1f1f5236957a.png" alt="security camera view with facial recognition box around a person">
+                        </div>
+                        
+                        <!-- Face detection box -->
+                        <div class="absolute left-[30%] top-[25%] w-[160px] h-[180px] border-2 border-success rounded-md flex flex-col items-center justify-between">
+                            <div class="bg-success text-white text-xs px-2 py-0.5 rounded mt-1">
+                                Kevin Yuan
+                            </div>
+                            <div class="bg-success/80 text-white text-xs px-2 py-0.5 rounded mb-1">
+                                95%
+                            </div>
+                        </div>
+                        
+                        <!-- Face detection box for unknown person -->
+                        <div class="absolute right-[20%] top-[40%] w-[140px] h-[160px] border-2 border-warning rounded-md flex flex-col items-center justify-between">
+                            <div class="bg-warning text-white text-xs px-2 py-0.5 rounded mt-1">
+                                未知人员
+                            </div>
+                            <div class="bg-warning/80 text-white text-xs px-2 py-0.5 rounded mb-1">
+                                65%
+                            </div>
+                        </div>
+                        
+                        <!-- Status indicator -->
+                        <div class="absolute top-2 left-2 flex items-center bg-black/30 text-white text-xs px-2 py-1 rounded">
+                            <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                            <span>识别中</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2">
+                        <button class="bg-success hover:bg-success/90 text-white px-4 py-2 rounded text-sm flex items-center">
+                            <i class="fa-solid fa-play mr-1"></i> 开始
+                        </button>
+                        <button class="bg-danger hover:bg-danger/90 text-white px-4 py-2 rounded text-sm flex items-center">
+                            <i class="fa-solid fa-stop mr-1"></i> 停止
+                        </button>
+                        <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded text-sm flex items-center">
+                            <i class="fa-solid fa-camera mr-1"></i> 截图
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recognition Results Section -->
+            <div id="recognition-results" class="col-span-12 lg:col-span-5 bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="flex justify-between items-center px-4 py-3 border-b border-gray-100">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chart-bar text-primary mr-2"></i>
+                        <h2 class="font-semibold">识别结果区</h2>
+                    </div>
+                    <div>
+                        <button class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-4 h-[400px] overflow-y-auto">
+                    <h3 class="flex items-center text-sm font-medium mb-3">
+                        <i class="fa-solid fa-bullseye text-primary mr-2"></i>
+                        实时检测结果
+                    </h3>
+                    
+                    <!-- Result item 1 -->
+                    <div id="result-item-1" class="bg-light border-l-4 border-success rounded-r-lg p-3 mb-3">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-2">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="font-medium">Kevin Yuan</div>
+                            <div class="ml-auto bg-success text-white text-xs px-2 py-0.5 rounded">
+                                已识别
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-chart-pie text-info mr-1"></i>
+                                置信度: <span class="ml-1 font-medium">95%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-calendar text-info mr-1"></i>
+                                年龄: <span class="ml-1 font-medium">~30岁</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-venus-mars text-info mr-1"></i>
+                                性别: <span class="ml-1 font-medium">男性</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-face-smile text-info mr-1"></i>
+                                情绪: <span class="ml-1 font-medium">中性</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Result item 2 -->
+                    <div id="result-item-2" class="bg-light border-l-4 border-warning rounded-r-lg p-3 mb-3">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white mr-2">
+                                <i class="fa-solid fa-question"></i>
+                            </div>
+                            <div class="font-medium">未知人员</div>
+                            <div class="ml-auto bg-warning text-white text-xs px-2 py-0.5 rounded">
+                                未识别
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-chart-pie text-info mr-1"></i>
+                                置信度: <span class="ml-1 font-medium">65%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-calendar text-info mr-1"></i>
+                                年龄: <span class="ml-1 font-medium">~25岁</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-venus-mars text-info mr-1"></i>
+                                性别: <span class="ml-1 font-medium">女性</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-face-smile text-info mr-1"></i>
+                                情绪: <span class="ml-1 font-medium">微笑</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Result item 3 -->
+                    <div id="result-item-3" class="bg-light border-l-4 border-success rounded-r-lg p-3 mb-3">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-2">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div class="font-medium">Sarah Chen</div>
+                            <div class="ml-auto bg-success text-white text-xs px-2 py-0.5 rounded">
+                                已识别
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-chart-pie text-info mr-1"></i>
+                                置信度: <span class="ml-1 font-medium">92%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-calendar text-info mr-1"></i>
+                                年龄: <span class="ml-1 font-medium">~28岁</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-venus-mars text-info mr-1"></i>
+                                性别: <span class="ml-1 font-medium">女性</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-face-smile text-info mr-1"></i>
+                                情绪: <span class="ml-1 font-medium">高兴</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics Section -->
+            <div id="statistics" class="col-span-12 lg:col-span-7 grid grid-cols-4 gap-4">
+                <!-- Stat Card 1 -->
+                <div id="stat-card-1" class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium">今日识别</h3>
+                        <i class="fa-solid fa-users text-primary"></i>
+                    </div>
+                    <div class="text-2xl font-bold">127<span class="text-sm font-normal text-gray-500 ml-1">次</span></div>
+                    <div class="text-xs text-success mt-1">
+                        <i class="fa-solid fa-arrow-up"></i> 12% 较昨日
+                    </div>
+                </div>
+                
+                <!-- Stat Card 2 -->
+                <div id="stat-card-2" class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium">平均置信度</h3>
+                        <i class="fa-solid fa-percent text-primary"></i>
+                    </div>
+                    <div class="text-2xl font-bold">89<span class="text-sm font-normal text-gray-500 ml-1">%</span></div>
+                    <div class="text-xs text-success mt-1">
+                        <i class="fa-solid fa-arrow-up"></i> 3% 较昨日
+                    </div>
+                </div>
+                
+                <!-- Stat Card 3 -->
+                <div id="stat-card-3" class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium">识别人数</h3>
+                        <i class="fa-solid fa-user-check text-primary"></i>
+                    </div>
+                    <div class="text-2xl font-bold">15<span class="text-sm font-normal text-gray-500 ml-1">人</span></div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <i class="fa-solid fa-minus"></i> 与昨日持平
+                    </div>
+                </div>
+                
+                <!-- Stat Card 4 -->
+                <div id="stat-card-4" class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-sm font-medium">平均耗时</h3>
+                        <i class="fa-solid fa-clock text-primary"></i>
+                    </div>
+                    <div class="text-2xl font-bold">150<span class="text-sm font-normal text-gray-500 ml-1">ms</span></div>
+                    <div class="text-xs text-success mt-1">
+                        <i class="fa-solid fa-arrow-down"></i> 5% 较昨日
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Operations Section -->
+            <div id="operations" class="col-span-12 lg:col-span-5 bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="flex justify-between items-center px-4 py-3 border-b border-gray-100">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-sliders text-primary mr-2"></i>
+                        <h2 class="font-semibold">操作区</h2>
+                    </div>
+                </div>
+                
+                <div class="p-4 grid grid-cols-2 gap-3">
+                    <button class="bg-primary hover:bg-primary/90 text-white px-3 py-2 rounded text-sm flex items-center justify-center">
+                        <i class="fa-solid fa-save mr-1"></i> 保存记录
+                    </button>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded text-sm flex items-center justify-center">
+                        <i class="fa-solid fa-broom mr-1"></i> 清空结果
+                    </button>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded text-sm flex items-center justify-center">
+                        <i class="fa-solid fa-file-export mr-1"></i> 导出数据
+                    </button>
+                    <button class="bg-success hover:bg-success/90 text-white px-3 py-2 rounded text-sm flex items-center justify-center">
+                        <i class="fa-solid fa-user-plus mr-1"></i> 添加人员
+                    </button>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded text-sm flex items-center justify-center">
+                        <i class="fa-solid fa-address-card mr-1"></i> 人员管理
+                    </button>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded text-sm flex items-center justify-center">
+                        <i class="fa-solid fa-gear mr-1"></i> 系统设置
+                    </button>
+                </div>
+                
+                <!-- System Status -->
+                <div class="px-4 py-3 border-t border-gray-100">
+                    <h3 class="text-sm font-medium mb-3">系统状态</h3>
+                    <div class="flex flex-col space-y-2">
+                        <div class="flex items-center justify-between text-xs">
+                            <div class="flex items-center">
+                                <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                                <span>人脸检测</span>
+                            </div>
+                            <span class="text-success">正常</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <div class="flex items-center">
+                                <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                                <span>人脸比对</span>
+                            </div>
+                            <span class="text-success">正常</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <div class="flex items-center">
+                                <span class="w-2 h-2 bg-warning rounded-full mr-2"></span>
+                                <span>特征提取</span>
+                            </div>
+                            <span class="text-warning">负载高</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs">
+                            <div class="flex items-center">
+                                <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                                <span>数据存储</span>
+                            </div>
+                            <span class="text-success">正常</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+        
+        createApp({
+            setup() {
+                const activeCamera = ref('前置相机');
+                const isRecognizing = ref(true);
+                const recognitionResults = ref([
+                    {
+                        id: 1,
+                        name: 'Kevin Yuan',
+                        confidence: 95,
+                        age: 30,
+                        gender: '男性',
+                        emotion: '中性',
+                        known: true
+                    },
+                    {
+                        id: 2,
+                        name: '未知人员',
+                        confidence: 65,
+                        age: 25,
+                        gender: '女性',
+                        emotion: '微笑',
+                        known: false
+                    },
+                    {
+                        id: 3,
+                        name: 'Sarah Chen',
+                        confidence: 92,
+                        age: 28,
+                        gender: '女性',
+                        emotion: '高兴',
+                        known: true
+                    }
+                ]);
+                
+                const toggleRecognition = () => {
+                    isRecognizing.value = !isRecognizing.value;
+                };
+                
+                const captureScreenshot = () => {
+                    // Implement screenshot functionality
+                    alert('截图已保存');
+                };
+                
+                const clearResults = () => {
+                    recognitionResults.value = [];
+                };
+                
+                return {
+                    activeCamera,
+                    isRecognizing,
+                    recognitionResults,
+                    toggleRecognition,
+                    captureScreenshot,
+                    clearResults
+                };
+            }
+        }).mount('#app');
+    </script>
+
+</body></html>

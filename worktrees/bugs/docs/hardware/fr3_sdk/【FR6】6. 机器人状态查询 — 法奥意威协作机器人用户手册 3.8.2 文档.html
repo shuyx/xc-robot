@@ -1,0 +1,3888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR6】6. 机器人状态查询 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR6】6. 机器人状态查询 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 6. 机器⼈状态查询</p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>6.</strong> 机器⼈状态查询</p>
+<p><strong>6.1.</strong> 获取机器⼈安装角度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 43%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetRobotInstallAngle()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取机器⼈安装角度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image2.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. [yangle,zangle] ：yangle-倾斜角,zangle-旋转角</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetRobotInstallAngle() print("获取机器⼈安装角度", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.2.</strong> 获取系统变量值</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetSysVarValue(id)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取系统变量值</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"></td>
+<td><blockquote>
+<p>id</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>：系统变量编号，范围[1~20]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image3.png" /> 错误码 成功-0 失败- errcode . var_value ：系统变量值</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image4.png" style="width:0.52794in;height:0.87487in" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image5.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR6_6__________________________3_8_2___/media/image6.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>6.2.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p><strong>for</strong> i <strong>in</strong> range(1,21):</p>
+<p>error = robot.GetSysVarValue(i)</p>
+<p>print("系统变量编号:",i,"值", error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.3.</strong> 获取当前关节位置<strong>(</strong>角度<strong>)</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 7%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualJointPosDegree(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取关节当前位置(角度)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. flag ：0-阻塞，1-⾮阻塞，默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image7.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image8.png" /></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">joint_pos=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image9.png" style="width:1.35417in" /><u>[j1,j2,j3,j4,j5,j6]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image10.jpeg" style="height:0.19792in" />： 当前关节位置(角度)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.3.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualJointPosDegree() print("获取当前关节位置 (角度)", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image12.png" style="width:0.16601in;height:0.18748in" /><img src="images/_FR6_6__________________________3_8_2___/media/image13.png" style="width:0.34028in;height:0.40449in" /><strong>6.4.</strong> 获取当前关节位置<strong>(</strong>弧度<strong>)</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 7%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualJointPosRadian(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取关节当前位置(弧度)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. flag ：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image14.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image15.png" /></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">joint_pos=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image16.png" style="width:1.35417in" /><u>[j1,j2,j3,j4,j5,j6]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image17.jpeg" style="height:0.19792in" />： 当前关节位置(弧度)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.4.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualJointPosRadian() print("获取当前关节位置 (弧度)", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.5.</strong> 获取关节反馈速度<strong>-deg/s</strong></p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 8%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualJointSpeedsDegree (flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取关节反馈速度-deg/s</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. flag ：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>· <u>错误码</u> 成功-0 失败- errcode</p>
+<p>. <img src="images/_FR6_6__________________________3_8_2___/media/image21.png" style="height:0.18472in" /> speed=</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4" style="text-align: right;"><img src="images/_FR6_6__________________________3_8_2___/media/image22.png" style="width:1.35417in" />[j1,j2,j3,j4,j5,j6]</td>
+<td colspan="2"><blockquote>
+<p>：关节反馈速度-deg/s</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualJointSpeedsDegree() print("获取关节反馈速度-deg/s", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image23.png" style="width:0.34028in;height:0.40449in" /><strong>6.6.</strong> 获取<strong>TCP</strong>指令合速度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 18%" />
+<col style="width: 10%" />
+<col style="width: 44%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetTargetTCPCompositeSpeed(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取TCP指令合速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><u>flag</u></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR6_6__________________________3_8_2___/media/image24.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image25.png" /></p></td>
+<td colspan="4">错误码 成功-0 失败- errcode</td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>[tcp_speed,ori_speed]</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：tcp_speed-线性合速度 ori_speed-姿态合速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.6.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetTargetTCPCompositeSpeed() print("获取TCP指令合速度", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.7.</strong> 获取<strong>TCP</strong>反馈合速度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 18%" />
+<col style="width: 10%" />
+<col style="width: 44%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualTCPCompositeSpeed(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取TCP反馈合速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><u>flag</u></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR6_6__________________________3_8_2___/media/image26.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image27.png" /></p></td>
+<td colspan="4">错误码 成功-0 失败- errcode</td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>[tcp_speed,ori_speed]</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：tcp_speed-线性合速度 ori_speed-姿态合速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.7.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualTCPCompositeSpeed() print("获取TCP反馈合速度", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image28.png" style="width:0.34028in;height:0.40449in" /><strong>6.8.</strong> 获取<strong>TCP</strong>指令速度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 9%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetTargetTCPSpeed(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取TCP指令速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image29.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>flag</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="3"><blockquote>
+<p>：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image30.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image31.png" /></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">speed=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image32.png" style="width:1.14583in" /><u>[x,y,z,rx,ry,rz]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image33.jpeg" style="height:0.19792in" />：TCP指令速度，mm/s</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.8.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetTargetTCPSpeed() print("获取TCP指令速度", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.9.</strong> 获取<strong>TCP</strong>反馈速度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 18%" />
+<col style="width: 11%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualTCPSpeed(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取TCP反馈速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><u>flag</u></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR6_6__________________________3_8_2___/media/image34.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image35.png" /></p></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image36.png" style="width:0.46875in" /><img src="images/_FR6_6__________________________3_8_2___/media/image37.png" style="width:0.46875in" />错误码 成功-0 失败- errcode</p>
+<p>speed=</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>[x,y,z,rx,ry,rz]</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：TCP反馈速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.9.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualTCPSpeed() print("获取TCP反馈速度", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image38.png" style="width:0.34028in;height:0.40449in" /><strong>6.10.</strong> 获取当前⼯具位姿</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 9%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualTCPPose(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取当前⼯具位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. flag ：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. <u>错误码 成</u>功-0 失败- errcode</p>
+<p>. <img src="images/_FR6_6__________________________3_8_2___/media/image39.png" style="height:0.18472in" /> tcp_pose=</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4" style="text-align: right;"><img src="images/_FR6_6__________________________3_8_2___/media/image40.png" style="width:1.14583in" />[x,y,z,rx,ry,rz]</td>
+<td colspan="2"><blockquote>
+<p>： 当前⼯具位姿</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.10.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualTCPPose() print("获取当前⼯具位姿", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.11.</strong> 获取当前⼯具坐标系编号</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 22%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualTCPNum(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取当前⼯具坐标系编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. flag ：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image41.png" /> 错误码 成功-0 失败- errcode . tool_id :⼯具坐标系编号</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.11.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualTCPNum()</p>
+<p>print("获取当前⼯具坐标系编号", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image42.png" style="width:0.34028in;height:0.40449in" /><strong>6.12.</strong> 获取当前⼯件坐标系编号</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 24%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetActualWObjNum(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取当前⼯件坐标系编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. flag ：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image43.png" /> 错误码 成功-0 失败- errcode . wobj_id :⼯件坐标系编号</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.12.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualWObjNum()</p>
+<p>print("获取当前⼯件坐标系编号", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.13.</strong> 获取当前末端法兰位姿</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>获取当前末端法兰位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>. flag ：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image47.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image48.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">flange_pose=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image49.png" style="width:1.14583in" /><u>[x,y,z,rx,ry,rz]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image50.jpeg" style="height:0.19792in" />： 当前末端法兰位姿</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.13.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetActualToolFlangePose() print("获取当前末端法兰位姿", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image51.png" style="width:0.34028in;height:0.40449in" /><strong>6.14.</strong> 逆运动学求解</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 19%" />
+<col style="width: 5%" />
+<col style="width: 46%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>GetInverseKin(type,desc_pos,config=-1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>逆运动学，笛卡尔位姿求解关节位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td colspan="8" style="text-align: right;"><p>. type :0-绝对位姿(基坐标系) ，1-相对位姿（ 基坐标系），2-相对位姿（ ⼯具坐标系）</p>
+<blockquote>
+<p>. desc_pose :[x,y,z,rx,ry,rz],⼯具位姿，单位[mm][°]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>. config :关节配置，[-1]-参考当前关节位置求解，[0~7]-依据关节配置求解 默认-1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image52.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：逆运动学解，笛卡尔位姿求解关节位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="2"></td>
+<td colspan="4"><blockquote>
+<p>joint_pos= [j1,j2,j3,j4,j5,j6]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.14.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>J1= [95.442,-101.149,-98.699,-68.347,90.580,-47.174] P1= [75.414,568.526,338.135,-178.348,-0.930,52.611] ret = robot.GetInverseKin(0,P1,config=-1)</p>
+<p>print("逆运动学，笛卡尔位姿求解关节位置", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.15.</strong> 逆运动学求解<strong>-</strong>指定参考位置</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p>GetInverseKinRef(type,desc_pos,joint_pos_ref)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>逆运动学，⼯具位姿求解关节位置，参考指定关节位置求解</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td colspan="8" style="text-align: right;"><p>. type :0-绝对位姿(基坐标系) ，1-相对位姿（ 基坐标系），2-相对位姿（ ⼯具坐标系）</p>
+<blockquote>
+<p>. desc_pos ：[x,y,z,rx,ry,rz]⼯具位姿，单位[mm][°]</p>
+<p>. joint_pos_ref ：[j1,j2,j3,j4,j5,j6] ，关节参考位置，单位[°]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="8"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image53.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. joint_pos= [j1,j2,j3,j4,j5,j6] ：逆运动学解，⼯具位姿求解关节位置</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.15.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>J1= [95.442,-101.149,-98.699,-68.347,90.580,-47.174] P1= [75.414,568.526,338.135,-178.348,-0.930,52.611] ret = robot.GetInverseKinRef(0,P1,J1)</p>
+<p>print("逆运动学，⼯具位姿求解关节位置，参考指定关节位置求解", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image56.png" style="width:0.34028in;height:0.40449in" /><strong>6.16.</strong> 逆运动学求解<strong>-</strong>是否有解</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 36%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p>GetInverseKinHasSolution(type,desc_pos,joint_pos_ref)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>逆运动学，⼯具位姿求解关节位置 是否有解</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>必选参数</td>
+<td colspan="7" style="text-align: right;"><p>. type :0-绝对位姿(基坐标系) ，1-相对位姿（ 基坐标系），2-相对位姿（ ⼯具坐标系）</p>
+<blockquote>
+<p>. desc_pos ：[x,y,z,rx,ry,rz]⼯具位姿，单位[mm][°]</p>
+<p>. joint_pos_ref ：[j1,j2,j3,j4,j5,j6] ，关节参考位置，单位[°]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="7"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 88%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>。 错误码 成功-0 失败- errcode</p>
+<p>. result : “True”-有解， “False”-⽆解</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.16.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>J1= [95.442,-101.149,-98.699,-68.347,90.580,-47.174] P1= [75.414,568.526,338.135,-178.348,-0.930,52.611] ret = robot.GetInverseKinHasSolution(0,P1,J1)</p>
+<p>print("逆运动学，⼯具位姿求解关节位置是否有解", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.17.</strong> 正运动学求解</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetForwardKin(joint_pos)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>正运动学，关节位置求解⼯具位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. joint_pos :[j1,j2,j3,j4,j5,j6]:关节位置，单位[°]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>· <u>错误码 成</u>功-0 失败- errcode</p>
+<p>. <img src="images/_FR6_6__________________________3_8_2___/media/image57.png" style="height:0.18472in" /> desc_pos=</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4" style="text-align: right;"><img src="images/_FR6_6__________________________3_8_2___/media/image58.png" style="width:1.14583in" />[x,y,z,rx,ry,rz]</td>
+<td colspan="2"><blockquote>
+<p>：正运动学解，关节位置求解⼯具位姿</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.17.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>J1= [95.442,-101.149,-98.699,-68.347,90.580,-47.174] ret = robot.GetForwardKin(J1)</p>
+<p>print("正运动学，关节位置求解⼯具位姿", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image61.png" style="width:0.34028in;height:0.40449in" /><strong>6.18.</strong> 获取当前关节转矩</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 8%" />
+<col style="width: 30%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>GetJointTorques(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>获取当前关节转矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>flag ：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 66%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image62.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><img src="images/_FR6_6__________________________3_8_2___/media/image63.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">torques=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image64.png" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.18.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetJointTorques() print("获取当前关节转矩", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.19.</strong> 获取当前负载的重量</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 4%" />
+<col style="width: 10%" />
+<col style="width: 24%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetTargetPayload(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取当前负载的质量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td colspan="2"></td>
+<td colspan="3" rowspan="2"><blockquote>
+<p>：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><u>flag</u></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image65.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. weight ： 当前负载重量，单位 [kg]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.19.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetTargetPayload(0)</p>
+<p>print("获取当前负载的质量", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image68.png" style="width:0.34028in;height:0.40449in" /><strong>6.20.</strong> 获取当前负载的质⼼</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 9%" />
+<col style="width: 27%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetTargetPayloadCog(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取当前负载的质⼼</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>flag</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="3"><blockquote>
+<p>：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image69.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image70.png" /></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">cog=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image71.png" style="width:0.53125in" /><u>[x,y,z]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image72.jpeg" style="height:0.19792in" />: 当前质⼼坐标，单位 [mm]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.20.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetTargetPayloadCog(0)</p>
+<p>print("获取当前负载的质⼼ ", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.21.</strong> 获取当前⼯具坐标系</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 16%" />
+<col style="width: 1%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetTCPOffset(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取当前⼯具坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td></td>
+<td colspan="2"><u>flag</u></td>
+<td colspan="3"><blockquote>
+<p>：0-阻塞，1-⾮阻塞 默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image73.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image74.png" /></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">tcp_offset=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image75.png" style="width:1.13542in" /><u>[x,y,z,rx,ry,rz]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image76.jpeg" style="height:0.19792in" />: 当前⼯具坐标系相对位姿，单位[mm][°]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.21.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetTCPOffset()</p>
+<p>print("获取当前⼯具坐标系", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image77.png" style="width:0.34028in;height:0.40449in" /><strong>6.22.</strong> 获取当前⼯件坐标系</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 2%" />
+<col style="width: 15%" />
+<col style="width: 3%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetWObjOffset(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取当前⼯件坐标系</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>flag ：0-阻塞，1-⾮阻塞，默认1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image78.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image79.png" /></td>
+<td colspan="4"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">wobj_offset=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="6"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image80.png" style="width:1.14583in" /><u>[x,y,z,rx,ry,rz]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image81.jpeg" style="height:0.19792in" />: 当前⼯件坐标系相对位姿，单位[mm][°]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.22.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetWObjOffset() print("获取当前⼯件坐标系", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.23.</strong> 获取关节软限位角度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>GetJointSoftLimitDeg(flag=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>获取关节软限位角度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td></td>
+<td colspan="5">flag ：0-阻塞，1-⾮阻塞 默认1</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><p><img src="images/_FR6_6__________________________3_8_2___/media/image82.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image83.png" /></p></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image84.png" style="width:4.33333in" />错误码 成功-0 失败- errcode</p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image85.png" style="width:4.33333in" />[j1min,j1max,j2min,j2max,j3min,j3max, j4min,j4max,j5min, j5max, <u>j6min,j6max]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image86.jpeg" style="height:0.19792in" />： 轴1~轴6 ，关节负限位与正限位，单位[mm]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.23.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetJointSoftLimitDeg() print("获取关节软限位角度", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image87.png" style="width:0.34028in;height:0.40449in" /><strong>6.24.</strong> 获取系统时间</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 16%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetSystemClock()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取系统时间</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR6_6__________________________3_8_2___/media/image88.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image89.png" /></p></td>
+<td colspan="3">错误码 成功-0 失败- errcode</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>t_ms</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>: 系统时间，单位 [ms]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.24.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetSystemClock() print("获取系统时间", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.25.</strong> 获取机器⼈当前关节配置</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 12%" />
+<col style="width: 23%" />
+<col style="width: 32%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetRobotCurJointsConfig()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取机器⼈当前关节配置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image90.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. config : 机器⼈当前关节配置，范围 [0~7]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.25.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetRobotCurJointsConfig() print("获取机器⼈当前关节配置", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image91.png" style="width:0.34028in;height:0.40449in" /><strong>6.26.</strong> 获取默认速度</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetDefaultTransVel()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取默认速度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><p><img src="images/_FR6_6__________________________3_8_2___/media/image92.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image93.png" /></p></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>vel</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>: 默认速度，单位 [mm/s]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.26.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetDefaultTransVel() print("获取默认速度", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.27.</strong> 查询机器⼈运动是否完成</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 17%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetRobotMotionDone()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>查询机器⼈运动是否完成</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><p><img src="images/_FR6_6__________________________3_8_2___/media/image94.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image95.png" /></p></td>
+<td style="text-align: right;">错误码</td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>成功-0 失败- errcode</p>
+<p>: 机器⼈运动状态，0-未完成，1-完成</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.27.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetRobotMotionDone() print("查询机器⼈运动是否完成", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image96.png" style="width:0.34028in;height:0.40449in" /><strong>6.28.</strong> 查询机器⼈错误码</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td colspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetRobotErrorCode()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>查询机器⼈错误码</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image97.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image98.png" /></td>
+<td colspan="3"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">[maincode</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image99.png" style="width:0.60417in" /><u>subcode]</u> <img src="images/_FR6_6__________________________3_8_2___/media/image100.jpeg" style="height:0.19792in" />：机器⼈错误码，maincode-主错误码，subcode-⼦错误码</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.28.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetRobotErrorCode() print("查询机器⼈错误码", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.29.</strong> 查询机器⼈示教管理点位数据</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 1%" />
+<col style="width: 23%" />
+<col style="width: 55%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetRobotTeachingPoint(name)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>查询机器⼈示教管理点位数据</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td></td>
+<td colspan="4"><blockquote>
+<p>name ：点位名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image101.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. [x,y,z,rx,ry,rz,j1,j2,j3,j4,j5,j6,tool,wobj,speed,acc,e1,e2,e3,e4] ：点位数据</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.29.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetRobotTeachingPoint("11") print("查询机器⼈示教管理点位数据错误码", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image102.png" style="width:0.34028in;height:0.40449in" /><strong>6.30.</strong> 获取<strong>SSH</strong>公钥</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 9%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetSSHKeygen()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取SSH公钥</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image103.png" /> 错误码</p>
+</blockquote></td>
+<td colspan="2" rowspan="2">成功-0 失败- errcode ：公钥</td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.30.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I) ret = robot.GetSSHKeygen() <em>#获取SSH</em> print("获取SSH", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image104.png" style="width:6.78125in" /><img src="images/_FR6_6__________________________3_8_2___/media/image105.png" style="width:6.78125in" /><strong>6.31.</strong> 计算指定路径下⽂件的<strong>MD5</strong>值</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>ComputeFileMD5(file_path)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image106.png" style="width:6.78125in" />计算指定路径下⽂件的MD5值</p>
+<p>. file_path ：⽂件路径包含⽂件名，默认Traj⽂件夹路径为:/fruser/traj/,如/fruser/traj/trajHelix</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image107.png" /> 错误码 成功-0 失败- errcode . md5 ：⽂件MD5值</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.31.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 53%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.ComputeFileMD5("/fruser/201.lua") print("计算指定路径下⽂件的MD5值", ret)</p>
+</blockquote></td>
+<td><blockquote>
+<p><em>#计算指定路径下⽂件的MD5值</em></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.32.</strong> 获取机器⼈版本信息</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 12%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetSoftwareVersion()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取机器⼈版本信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image108.png" /> 错误码 成功-0 失败- errcode . robotModel ：机器⼈模型</p>
+<p>. webVersion ：web版本</p>
+<p>. controllerVersion ：控制器版本</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image109.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image110.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR6_6__________________________3_8_2___/media/image111.png" style="width:0.11458in" /></p>
+<blockquote>
+<p><strong>6.32.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>ret = robot.GetSoftwareVersion()</p>
+<p>print("GetSoftwareVersion()：", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.33.</strong> 获取机器⼈硬件版本信息</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 44%" />
+<col style="width: 3%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetSlaveHardVersion()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>获取机器⼈硬件版本信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image112.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>. ctrlBoxBoardVersion . driver1Version</p>
+<p>. driver2Version</p>
+<p>. driver3Version</p>
+<p>. driver4Version</p>
+<p>. driver5Version</p>
+<p>. driver6Version . endBoardVersion</p>
+</blockquote></td>
+<td><blockquote>
+<p>：控制箱版本</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image113.png" style="width:0.36225in;height:1.79762in" /><strong>6.33.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>ret = robot.GetSlaveHardVersion()</p>
+<p>print("GetSlaveHardVersion()：", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.34.</strong> 获取机器⼈固件版本信息</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 44%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetSlaveFirmVersion()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>获取机器⼈固件版本信息</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 47%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image116.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>. ctrlBoxBoardVersion . driver1Version</p>
+<p>. driver2Version</p>
+<p>. driver3Version</p>
+<p>. driver4Version</p>
+<p>. driver5Version</p>
+<p>. driver6Version . endBoardVersion</p>
+</blockquote></td>
+<td><blockquote>
+<p>：控制箱版本</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.34.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>ret = robot.GetSlaveFirmVersion()</p>
+<p>print("GetSlaveFirmVersion()：", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>6.35.</strong> 获取<strong>DH</strong>补偿参数</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 17%" />
+<col style="width: 32%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td colspan="2" rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>GetDHCompensation()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取DH补偿参数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR6_6__________________________3_8_2___/media/image117.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image118.png" /></p></td>
+<td colspan="2"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image119.png" style="width:1.08333in" /><img src="images/_FR6_6__________________________3_8_2___/media/image120.png" style="width:1.08333in" />错误码 成功-0 失败- errcode</p>
+<p>dhCompensation=</p>
+</blockquote></td>
+<td rowspan="3"><blockquote>
+<p>：机器⼈DH参数补偿值(mm)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>[cmpstD1,cmpstA2,cmpstA3,cmpstD4,cmpstD5,cmpstD6]</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image121.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR6_6__________________________3_8_2___/media/image123.png" style="width:0.11458in" /><strong>6.35.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>import Robot</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.GetDHCompensation()</p>
+<p>print(error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>6.36.</strong> 获取关节驱动器当前扭矩</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 28%" />
+<col style="width: 37%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>GetJointDriverTorque()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>获取关节驱动器当前扭矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR6_6__________________________3_8_2___/media/image127.png" /></p>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image128.png" /></p></td>
+<td colspan="2"><blockquote>
+<p><u>错误码</u> 成功-0 失败- errcode</p>
+<p>data=</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>[j1,j2,j3,j4,j5,j6]</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>：关节驱动器当前扭矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>6.37.</strong> 获取关节驱动器当前温度</p>
+<blockquote>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 28%" />
+<col style="width: 8%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td colspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetJointDriverTemperature()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取关节驱动器当前温度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image129.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/_FR6_6__________________________3_8_2___/media/image130.png" /></td>
+<td colspan="3"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: right;">data=</td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td colspan="5"><img src="images/_FR6_6__________________________3_8_2___/media/image131.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR6_6__________________________3_8_2___/media/image132.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

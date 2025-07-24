@@ -1,0 +1,4254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>赫尔墨斯 Hermes 用户手册</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">赫尔墨斯 Hermes 用户手册</h1>
+</header>
+<p><img src="images/_____Hermes_____/media/image1.png" style="width:1.70167in;height:0.45131in" /></p>
+<blockquote>
+<p><strong>赫尔墨斯</strong> <strong>Hermes</strong></p>
+<p>通 用 机 器 人 平 台</p>
+<p><strong>用户手册</strong></p>
+<p><strong>。</strong> 中小型机器人开发</p>
+<p>2024-06-28 rev 1 8 上海思岚科技有限公司</p>
+<p><strong>。</strong> 灵活适配 扩展性强</p>
+<p><strong>。</strong> 选配功能强大</p>
+<p>进一步了解&gt;&gt;</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image2.png" style="width:4.73646in;height:3.02316in" /></p>
+<blockquote>
+<p>使用前请仔细阅读用户手册</p>
+<p><strong>目录</strong></p>
+<p><a href="#bookmark1"><strong>一、简介</strong> <strong>4</strong></a></p>
+<p><a href="#bookmark2"><strong>二、HERMES</strong> <strong>功能介绍</strong> <strong>5</strong></a></p>
+<p><a href="#bookmark2"><strong>2.1</strong> <strong>自主导航</strong> <strong>5</strong></a></p>
+<p><a href="#bookmark4"><strong>2.2</strong> <strong>协同作业</strong> <strong>5</strong></a></p>
+<p><a href="#bookmark5"><strong>2.3</strong> <strong>多楼层配送</strong> <strong>5</strong></a></p>
+<p><a href="#bookmark6"><strong>2.4</strong> <strong>智能避障</strong> <strong>5</strong></a></p>
+<p><a href="#bookmark7"><strong>2.5360°防护</strong> <strong>5</strong></a></p>
+<p><a href="#bookmark8"><strong>2.6</strong> <strong>自动回充</strong> <strong>5</strong></a></p>
+<p><a href="#bookmark9"><strong>三、HERMES</strong> <strong>结构图</strong> <strong>6</strong></a></p>
+<p><a href="#bookmark9"><strong>四、HERMES</strong> <strong>充电座</strong> <strong>7</strong></a></p>
+<p><a href="#bookmark11"><strong>五、HERMES</strong> <strong>参数</strong> <strong>8</strong></a></p>
+<p><a href="#bookmark12"><strong>六、硬件使用说明 11</strong></a></p>
+<p><a href="#bookmark12"><strong>6.1</strong> <strong>线路说明 11</strong></a></p>
+<p><a href="#bookmark14"><strong>6.2</strong> <strong>RYD3399</strong> <strong>开发板重要接口介绍</strong> <strong>13</strong></a></p>
+<p><a href="#bookmark15-1"><strong>6.3</strong> <strong>硬件设计参考注意事项 14</strong></a></p>
+<p><a href="#bookmark16"><strong>七、结构设计参考 26</strong></a></p>
+<p><a href="#bookmark16"><strong>7.1</strong> <strong>上位机安装接口</strong> <strong>26</strong></a></p>
+<p><a href="#bookmark18"><strong>7.2</strong> <strong>负载限制说明 27</strong></a></p>
+<p><a href="#bookmark19"><strong>7.3</strong> <strong>雷达净空区</strong> <strong>28</strong></a></p>
+<p><a href="#bookmark20"><strong>7.4</strong> <strong>深度摄像头净空区 29</strong></a></p>
+<p><a href="#bookmark21"><strong>7.5</strong> <strong>搬运设计说明</strong> <strong>30</strong></a></p>
+<p><a href="#bookmark22"><strong>八、HERMES</strong> <strong>部署及使用方法</strong> <strong>31</strong></a></p>
+<p><a href="#bookmark22"><strong>8.1</strong> <strong>开箱指导 31</strong></a></p>
+<p><a href="#bookmark24"><strong>8.2</strong> <strong>放置充电座</strong> <strong>31</strong></a></p>
+<p><a href="#bookmark25"><strong>8.3</strong> <strong>开机&amp;关机</strong> <strong>32</strong></a></p>
+<p><a href="#bookmark26"><strong>8.4</strong> <strong>充电 32</strong></a></p>
+<p><a href="#bookmark27"><strong>8.5</strong> <strong>急停&amp;刹车和复位</strong> <strong>32</strong></a></p>
+<p><a href="#bookmark28"><strong>8.6</strong> <strong>建图并保存上传</strong> <strong>33</strong></a></p>
+<p><a href="#bookmark29"><strong>8.7</strong> <strong>上位机完成启动加载地图功能</strong> <strong>36</strong></a></p>
+<p><a href="#bookmark30"><strong>九、连接至电脑</strong> <strong>38</strong></a></p>
+<p><a href="#bookmark31"><strong>十、调试工具 41</strong></a></p>
+<p><a href="#bookmark31"><strong>10.1</strong> <strong>RoboStudio 41</strong></a></p>
+<p><a href="#bookmark33"><strong>10.2</strong> <strong>网页管理后台 41</strong></a></p>
+<p><a href="#bookmark34"><strong>十一、开发者工具 42</strong></a></p>
+<p><a href="#bookmark34"><strong>11.1</strong> <strong>开始使用</strong> <strong>42</strong></a></p>
+<p><a href="#bookmark36"><strong>11.2</strong> <strong>系统间调用框架 42</strong></a></p>
+<p><a href="#bookmark37"><strong>11.3</strong> <strong>各系统功能说明 42</strong></a></p>
+<p><a href="#bookmark38"><strong>11.4</strong> <strong>程序示例</strong> <strong>51</strong></a></p>
+<p><a href="#bookmark39"><strong>11.5</strong> <strong>Robot</strong> <strong>API</strong> <strong>详情列表</strong> <strong>53</strong></a></p>
+<p><a href="#bookmark40"><strong>十二、梯控简介及使用 56</strong></a></p>
+<p><a href="#bookmark40"><strong>12.1</strong> <strong>产品简介 56</strong></a></p>
+<p><a href="#bookmark42"><strong>12.2</strong> <strong>功能介绍 56</strong></a></p>
+<p><a href="#bookmark43"><strong>十三、特别说明</strong> <strong>58</strong></a></p>
+<p><a href="#bookmark43"><strong>13.1</strong> <strong>充电桩部署</strong> <strong>58</strong></a></p>
+<p><a href="#bookmark45"><strong>13.2</strong> <strong>限制使用场景 58</strong></a></p>
+<p><a href="#bookmark46"><strong>13.3</strong> <strong>底盘遇上暂时无法处理的故障</strong> <strong>59</strong></a></p>
+<p><a href="#bookmark47"><strong>13.4</strong> <strong>注意事项 59</strong></a></p>
+<p><a href="#bookmark48"><strong>十四、维护保养</strong> <strong>61</strong></a></p>
+<p><a href="#bookmark49"><strong>十五、常见故障及排除故障</strong> <strong>62</strong></a></p>
+<p><a href="#bookmark50"><strong>十六、产品执行标准与合格证</strong> <strong>63</strong></a></p>
+<p><a href="#bookmark50"><strong>16.1</strong> <strong>产品执行标准 63</strong></a></p>
+<p><span id="bookmark1" class="anchor"></span><a href="#bookmark52"><strong>16.2</strong> <strong>合格证</strong> <strong>63</strong></a></p>
+<p><strong>一、简介</strong></p>
+<p>Hermes 是一款由 SLAMTEC 研发的中小型可扩展、低成本机器人平台，可满足中小型机器人 应用开发的需求。 如智能巡检机器人，货柜运送机器人、酒店配送机器人、餐厅送餐机器人等。</p>
+<p><strong>自主导航定位</strong></p>
+<p>Hermes 内置的高性能 SLAMCUBE 自主导航定位系统套件使其具备路径规划与定位导航功能， 真正解决了解决机器人“我在哪里”、“我要到哪里去”以及“我该如何过去”这三大问题，从而 能搭载不同应用在各种商用环境中工作。</p>
+<p><strong>多传感器数据融合</strong></p>
+<p>Hermes 采用多传感器数据融合技术，使机器人不确定的环境中具备有高度的自治能力和对环 境的感知能力，而多传感器数据融合技术正是提高机器人系统感知能力的有效方法。 Hermes 包含 激光雷达、磁传感器、深度摄像头、碰撞传感器等，能在复杂多变的商业环境中应变自如，成功完 成自主建图，定位与导航。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image3.png" style="width:4.92943in;height:3.13136in" /></p>
+<blockquote>
+<p><span id="bookmark2" class="anchor"></span><strong>二、</strong> <strong>Hermes</strong> <strong>功能介绍</strong></p>
+<p><strong>2.1</strong> <strong>自主导航</strong></p>
+<p>Hermes 内置的高性能 SLAMCUBE 自主导航定位系统套件使其具备路径规划与定位导航功能， 真正解决了解决机器人“我在哪里”、“我要到哪里去”以及“我该如何过去”这三大问题，从而 能搭载不同应用在各种商用环境中工作。 Hermes 可根据任务目标点， 自动定位， 自动路径规划， 实现自主移动。</p>
+<p><span id="bookmark4" class="anchor"></span><strong>2.2</strong> <strong>协同作业</strong></p>
+<p>Hermes 支持多机协同作业， 以满足运行工作环境相对复杂，高峰期任务多的需求。 Hermes 支持局域网协同作业、云平台管理协同作业两种模式，可以根据环境，动态调整机身速度和配送路 径，实现高效、安全、可靠的多点配送。</p>
+<p><span id="bookmark5" class="anchor"></span><strong>2.3</strong> <strong>多楼层配送</strong></p>
+<p>智能梯控4.0 能够提供对电梯状态的精准检测、程序控制呼梯、控梯，结合酒店机器人，助力 机器人的自主乘梯、出梯，为机器人的多楼层运行场景提供了可行且可靠的解决方案。智能梯控 3.0 不止搭载酒店机器人，作为相对独立的一套解决方案，通过我们提供的 API 接口，智能梯控同样可 以与其他的智能设备或者第三方应用进行交互，以满足客户差异化的定制需求。</p>
+<p><span id="bookmark6" class="anchor"></span><strong>2.4</strong> <strong>智能避障</strong></p>
+<p>Hermes 采用多传感器融合的方式，能快速准确识别周边动态交互环境，实现智能避障，极大 的降低安全事故发生的概率。</p>
+<p><span id="bookmark7" class="anchor"></span><strong>2.5360°防护</strong></p>
+<p>Hermes 采用双深度摄像头，碰撞传感器，双激光雷达等多传感器融合的方式，精确的识别出 动态、静态障碍物并避障。同时支持防跌、防撞保护以及紧急制动功能，使得配送过程可以 360°防 护，安全行走。</p>
+<p><span id="bookmark8" class="anchor"></span><strong>2.6</strong> <strong>自动回充</strong></p>
+<p>Hermes 使用时保证充足的电量以顺利完成指派任务。当电池电量低于设定阈值时， Hermes 自动返回充电装置充电。</p>
+<p><strong>特别说明</strong>： Hermes 底盘单独运行时， 自动回充功能无法触发，需要开启配送或消毒插件才能 使用。定制机型和搭配整机使用则有自动回充功能。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image4.png" style="width:8.27in;height:0.50668in" /></p>
+<blockquote>
+<p><span id="bookmark9" class="anchor"></span><strong>三、</strong> <strong>Hermes</strong> <strong>结构图</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image5.png" style="width:6.24153in;height:3.87833in" /></p>
+<p><img src="images/_____Hermes_____/media/image6.jpeg" /></p>
+<blockquote>
+<p><strong>四、</strong> <strong>Hermes</strong> <strong>充电座</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image7.jpeg" style="width:6.55694in;height:4.21764in" /></p>
+<p><img src="images/_____Hermes_____/media/image8.png" style="width:8.27in;height:0.50668in" /></p>
+<blockquote>
+<p><span id="bookmark11" class="anchor"></span><strong>五、</strong> <strong>Hermes</strong> <strong>参数</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 22%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="4"><blockquote>
+<p><strong>主机</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>机器名</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><strong>赫尔墨斯</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>核心功能</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><strong>SLAMWARE™定位导航</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>项目</p>
+</blockquote></td>
+<td><blockquote>
+<p>指标</p>
+</blockquote></td>
+<td><blockquote>
+<p>值</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="5"><blockquote>
+<p>质量与体积</p>
+</blockquote></td>
+<td><blockquote>
+<p>长*宽度</p>
+</blockquote></td>
+<td><blockquote>
+<p>465mm&amp;545mm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>高度</p>
+</blockquote></td>
+<td><blockquote>
+<p>276mm（不含中控）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>净重</p>
+</blockquote></td>
+<td><blockquote>
+<p>40kg（不含中控）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>额定负重</p>
+</blockquote></td>
+<td><blockquote>
+<p>50kg</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最大负重</p>
+<p>（平行水泥路面）</p>
+</blockquote></td>
+<td><blockquote>
+<p>80kg</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>型号</p>
+</blockquote></td>
+<td><blockquote>
+<p>RPLIDAR S2（Dtof 原理）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="14"><blockquote>
+<p>传感器性能参数</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>激光雷达传感器</p>
+</blockquote></td>
+<td><blockquote>
+<p>扫描半径</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.05-30m（90%反射率，白色物体）</p>
+<p>0.05-10m（10%反射率，黑色物体）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>测距精度</p>
+</blockquote></td>
+<td><blockquote>
+<p>全量程±30mm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>深度摄像头传感 器</p>
+</blockquote></td>
+<td><blockquote>
+<p>数量</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 个</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>探测距离</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3m - 2m</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>视场（FOV）</p>
+</blockquote></td>
+<td><blockquote>
+<p>H:117±3°; V:70±3°</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>低矮障碍物识别 传感器</p>
+</blockquote></td>
+<td><blockquote>
+<p>数量</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 个</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最低障碍物识别高度</p>
+</blockquote></td>
+<td><blockquote>
+<p>&gt;3cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>精准对接摄像头</p>
+</blockquote></td>
+<td><blockquote>
+<p>对接精度</p>
+</blockquote></td>
+<td><blockquote>
+<p>±1.5cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>对接角度</p>
+</blockquote></td>
+<td><blockquote>
+<p>±1.0°</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>物理磁传感器</p>
+</blockquote></td>
+<td><blockquote>
+<p>数量</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 个</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最大探测距离</p>
+</blockquote></td>
+<td><blockquote>
+<p>3.5cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>物理碰撞传感器</p>
+</blockquote></td>
+<td><blockquote>
+<p>数量</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 个</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>触发方式</p>
+</blockquote></td>
+<td><blockquote>
+<p>物理碰撞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>触发距离</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.3-0.5cm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image9.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 22%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>触发力值</p>
+</blockquote></td>
+<td><blockquote>
+<p>8N</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="3"><blockquote>
+<p>建图性能</p>
+</blockquote></td>
+<td><blockquote>
+<p>地图分辨率</p>
+</blockquote></td>
+<td><blockquote>
+<p>5cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>单次最大建图面积</p>
+</blockquote></td>
+<td><blockquote>
+<p>300mx300m（5cm 地图分辨率）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最大运行面积</p>
+</blockquote></td>
+<td><blockquote>
+<p>100,000 ㎡（5cm 地图分辨率）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="14"><blockquote>
+<p>运动参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>最大行走速度</p>
+</blockquote></td>
+<td><blockquote>
+<p>1.2m/s</p>
+<p>（可定制 1.5m/s）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认行走速度</p>
+</blockquote></td>
+<td><blockquote>
+<p>0.7m/s</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>最大跨越坡度</p>
+</blockquote></td>
+<td><blockquote>
+<p>10° 坡道：底盘最大坡角度 10°</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>坡度为 18%坡道</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>整机质心高度 18cm 以内安全坡道 10°</p>
+<p>以内</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>坡度 100%是指 45°坡道， 100m 的长度</p>
+<p>高度差是 101m</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>垂直过坎高度</p>
+</blockquote></td>
+<td><blockquote>
+<p>2cm（满负重）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>水平过坎宽度</p>
+</blockquote></td>
+<td><blockquote>
+<p>4cm（满负重）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最小通过窄道距离</p>
+</blockquote></td>
+<td><blockquote>
+<p>75cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>到点精度（AVG）</p>
+</blockquote></td>
+<td><blockquote>
+<p>±5cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>到点精度（MAX）</p>
+</blockquote></td>
+<td><blockquote>
+<p>±8cm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>最小到点角度</p>
+</blockquote></td>
+<td><blockquote>
+<p>±3.0°</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>多机避障</p>
+</blockquote></td>
+<td><blockquote>
+<p>最大支持 3 台机器人同场景使用</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>LORA 模块（标配）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="2"><blockquote>
+<p>电机</p>
+</blockquote></td>
+<td rowspan="2"><blockquote>
+<p>轮对</p>
+</blockquote></td>
+<td><blockquote>
+<p>7NM 6.5 寸轮毂电机*2</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2.5 寸工业万向轮*2；3 寸工业万向轮*2</p>
+<p>（前）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>用户接口</p>
+</blockquote></td>
+<td rowspan="4"><blockquote>
+<p>硬件接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>电源接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>电源接口：DC 24V 10A；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4G</p>
+</blockquote></td>
+<td><blockquote>
+<p>支持 4G 模块（付费定制）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>HDMI</p>
+</blockquote></td>
+<td><blockquote>
+<p>1*HDMI</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>音频</p>
+</blockquote></td>
+<td><blockquote>
+<p>1*3.5mm MIC_IN 耳麦插座； 1*LINE_OUT 音频插座</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image10.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 17%" />
+<col style="width: 22%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"></td>
+<td rowspan="2"><blockquote>
+<p>网络接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>以太网</p>
+</blockquote></td>
+<td><blockquote>
+<p>以太网：1*RJ45 千兆网口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>WIFI 频段</p>
+</blockquote></td>
+<td><blockquote>
+<p>2.4GHz/5GHz</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>软件接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>SLAMWARE™</p>
+</blockquote></td>
+<td><blockquote>
+<p>SDK2.0 <a href="http">http</a> 协议 API 接口，可支持不</p>
+<p>同开发语言和开发平台，如</p>
+<p>Windows/iOS/Android/Linux</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="2"><blockquote>
+<p>网络</p>
+</blockquote></td>
+<td><blockquote>
+<p>WIFI</p>
+</blockquote></td>
+<td><blockquote>
+<p>无需验证的网络环境</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4G</p>
+</blockquote></td>
+<td><blockquote>
+<p>国内外运营商 4G 卡（根据需求付费定</p>
+<p>制）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="5"><blockquote>
+<p>电池及续航能力</p>
+</blockquote></td>
+<td><blockquote>
+<p>容量规格</p>
+</blockquote></td>
+<td><blockquote>
+<p>24V 20AH 磷酸铁锂</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>空载持续运行时间</p>
+</blockquote></td>
+<td><blockquote>
+<p>&gt;10H（空载、常温环境）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>满载持续运行时间</p>
+</blockquote></td>
+<td><blockquote>
+<p>8H（80KG、常温环境）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>充电时间</p>
+</blockquote></td>
+<td><blockquote>
+<p>3~3.5 h（快充充电桩）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>电池寿命</p>
+</blockquote></td>
+<td><blockquote>
+<p>2000 次充放电循环下降到初始容量的</p>
+<p>80%</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="3"><blockquote>
+<p>功耗</p>
+</blockquote></td>
+<td><blockquote>
+<p>待机额定功耗</p>
+</blockquote></td>
+<td><blockquote>
+<p>32w（空载）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>满负重运行额定功耗</p>
+<p>（满负重 80kg）</p>
+</blockquote></td>
+<td><blockquote>
+<p>62w（满载）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>外接负载最大功耗</p>
+</blockquote></td>
+<td><blockquote>
+<p>240W</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>噪音</p>
+</blockquote></td>
+<td><blockquote>
+<p>工作噪音</p>
+</blockquote></td>
+<td><blockquote>
+<p>≤60dB</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2" rowspan="4"><blockquote>
+<p>工作环境</p>
+</blockquote></td>
+<td><blockquote>
+<p>工作温度</p>
+</blockquote></td>
+<td><blockquote>
+<p>0℃~ 40℃</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>运输储存条件</p>
+</blockquote></td>
+<td><blockquote>
+<p>-25-+55℃</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>工作湿度</p>
+</blockquote></td>
+<td><blockquote>
+<p>20～ 90％rh</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>使用海拔</p>
+</blockquote></td>
+<td><blockquote>
+<p>≤2000m</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image11.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="2"><blockquote>
+<p><strong>充电桩</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>名称</p>
+</blockquote></td>
+<td><blockquote>
+<p>参数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>外形尺寸</p>
+</blockquote></td>
+<td><blockquote>
+<p>360mm*150mm*320mm</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>颜色</p>
+</blockquote></td>
+<td><blockquote>
+<p>白色</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>额定输入</p>
+</blockquote></td>
+<td><blockquote>
+<p>100-240V 50/60Hz 3A MAX</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>额定输出</p>
+</blockquote></td>
+<td><blockquote>
+<p>DC 25.5V 6A</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>额定输入频率</p>
+</blockquote></td>
+<td><blockquote>
+<p>50/60Hz</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>认证</p>
+</blockquote></td>
+<td><blockquote>
+<p>CR</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span id="bookmark12" class="anchor"></span><strong>六、硬件使用说明</strong></p>
+<p><strong>6.1</strong> <strong>线路说明</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 21%" />
+<col style="width: 16%" />
+<col style="width: 22%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>接口名称</p>
+</blockquote></td>
+<td><blockquote>
+<p>图片</p>
+</blockquote></td>
+<td><blockquote>
+<p>规格参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>作用描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>备注</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>开机按键</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image12.jpeg" style="width:1.25556in;height:1.22014in" /></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>此开关为整个系统的电 源开关，短按至指示灯 亮起 power-on，长按 至 指 示 灯 灭 power- off。</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>急停按键</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image13.jpeg" style="width:1.23386in;height:1.28125in" /></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>用于在紧急状况下 对 Hermes 进行有效的控 制，按下后 Hermes 将 马上停止运动。</p>
+</blockquote></td>
+<td><blockquote>
+<p>此开关为硬性规定 必须设计的开关。 如若急停开关未设 计， Hermes 将拒 绝运行。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>刹车按键</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image14.jpeg" style="width:1.12708in;height:1.22671in" /></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>机器在通电状态下，按 下此开关，会进行刹车 释放，可自由推动 机 器； 再按一次，则进行 刹车制动， 此时机器将 无法自由推动</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器在未开机状态 下， 此刹车开关无 效。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image15.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 21%" />
+<col style="width: 16%" />
+<col style="width: 22%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>24V 电源</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image16.jpeg" style="width:1.29426in;height:1.26111in" /></td>
+<td><blockquote>
+<p>额定电压 24V</p>
+<p>最大电流 10A</p>
+</blockquote></td>
+<td><blockquote>
+<p>可 输 出 最 大 功 率 为 240W， 可用以外接设 备供电</p>
+</blockquote></td>
+<td><blockquote>
+<p>不可超负荷使用</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12V RK3399 供电线</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image17.jpeg" style="width:1.19653in;height:1.71236in" /></td>
+<td><blockquote>
+<p>额定电压 12V 最大电流 2A</p>
+</blockquote></td>
+<td><blockquote>
+<p>Cube2R 给 RK3399 开 发板供电。</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>深度摄像头接口</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image18.jpeg" style="width:1.00139in;height:1.56681in" /></td>
+<td><blockquote>
+<p>USB3.0</p>
+</blockquote></td>
+<td><blockquote>
+<p>此线束通过 USB3.0 连 接到 RK3399 开发版， 获取深度信息。</p>
+</blockquote></td>
+<td><blockquote>
+<p>开发使用需关注左 右顺序。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>对接摄像头</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image19.jpeg" style="width:1.38958in;height:0.39444in" /></td>
+<td><blockquote>
+<p>USB2.0</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>此线束通过 USB2.0 连 接到 RK3399，获取摄 像头信息</p>
+</blockquote></td>
+<td><blockquote>
+<p>辅助精准对接</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12V -DISP</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image20.jpeg" style="width:1.19028in;height:1.60167in" /></td>
+<td><blockquote>
+<p>额定电压 12V (设计图纸 见下 图)</p>
+</blockquote></td>
+<td><blockquote>
+<p>此线束是 Cube2R 给外 接人机交互的显示屏提 供 12V 的工作电源。</p>
+</blockquote></td>
+<td><blockquote>
+<p>Max 电流 2A</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>USB-BASE 线</p>
+</blockquote></td>
+<td><img src="images/_____Hermes_____/media/image21.jpeg" style="width:1.21458in;height:1.61875in" /></td>
+<td><blockquote>
+<p>USB2.0</p>
+</blockquote></td>
+<td><blockquote>
+<p>此 线 束 用 于 3399 和 Cube2R 进行通信。</p>
+</blockquote></td>
+<td><blockquote>
+<p>对接到 Hub3.0 上</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>12V -DISP 端子设计图</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image22.png" style="width:5.76806in;height:4.02097in" /></p>
+<blockquote>
+<p><span id="bookmark14" class="anchor"></span><strong>6.2</strong> <strong>RK3399</strong> <strong>开发板重要接口介绍</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image23.jpeg" style="width:5.74167in;height:5.33056in" /></p>
+<blockquote>
+<p><strong>6.3</strong> <strong>硬件设计参考</strong> <span id="bookmark15-1" class="anchor"></span>注意事项</p>
+<p>使用前，请详细阅读说明书，避免误操作导致产品损坏；</p>
+<p>主板工作环境温度为 0~40℃、湿度为 30~70%RH 的环境下，以免因过冷/热或受潮导致产品 损坏；</p>
+<p>（1） 勿将此产品做强烈的机械运动，以及在没有作好静电防护之前对此产品操作；</p>
+<p>（2） 在安装任何外接卡或模组之前，請先关闭电源；</p>
+<p>（3） 请确保外接入电源为 DC 12V，以免造成主板损坏；</p>
+<p><strong>6.3.1</strong> <strong>产品概述</strong></p>
+<p>RK3399安卓系统主板，采用Rockchip RK3399主控方案。主板规格为标准3.5寸结构，尺寸 为146*100mm。</p>
+<p>主板处理核心RK3399基于双Cortex-A72+四Cortex-A53 大小核CPU结构。采用性能强劲的 Mali-T864 GPU图形显示核心，支持VP9、 H.265/H264硬件解码以及4K超清输出。板载4GB</p>
+<p>DDR3内存以及32GB存储。显示接口有： 1*HDMI、 1*eDP，支持双屏显示，可满足灵活多样的点 屏应用需求。板载有1个3.5mm耳麦插座和以及1个双声道3W功放喇叭接口，能满足音频类应用的 需求。主板集成1个千兆网口，此外还集成了WIFI/Bluetooth模块，支持多样的网络接入方式。板 载Mini-PCIe扩展插槽，支持4G上网卡模块扩展。主板有8路USB接口，4路串口，7路GPIO扩展 口， 1路ADC扩展口以及2路I2C扩展口。此外主板板载丰富的功能扩展插针接口。主板采用宽电压 输入，支持12V-36V输入，直流适配器供电。</p>
+<p>主板特点：</p>
+<p>★基于瑞芯微 RK3399 ARM 处理器方案；</p>
+<p>★显示接口拥有 eDP/HDMI OUT/HDMI IN/LVDS/；</p>
+<p>★硬件解码 H.265 高清视频，支持 4K 超高清输出；</p>
+<p>★功能丰富，板载 8*USB/2*COM/7*GPIO；</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image24.png" style="width:8.27in;height:0.50668in" /></p>
+<p><img src="images/_____Hermes_____/media/image25.png" style="width:7.26736in;height:4.02in" /></p>
+<blockquote>
+<p>图 6-1 RK3399 主板基本应用框图</p>
+<p><strong>6.3.2</strong> <strong>产品规格</strong></p>
+<p>（1）硬件规格表</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>处理器</p>
+</blockquote></td>
+<td><blockquote>
+<p>Rockchip RK3399 ①</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>内存</p>
+</blockquote></td>
+<td><blockquote>
+<p>4GB DDR3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>显示</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 路 HDMI2.0(Type-A)接口，支持 4K/60fps 输出</p>
+<p>2 路 MIPI 接口（可选），支持 1920*1080@60fps 输出</p>
+<p>1 路 eDP1.3 接口,支持 2K@60fps 输出</p>
+<p>1 路 双 LVDS 接口, 支持高达 1920×1200 24-位的像素分辨率</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>网络</p>
+</blockquote></td>
+<td><blockquote>
+<p>1*RJ45 千兆网口</p>
+<p>1*WIFI+Bluetooth ③</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>音频</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 路 HDMI 输出</p>
+<p>1 路 SpSpeakeker，喇叭立体声输出，支持 3W/8 欧 x2</p>
+<p>1 路耳麦，用于音频输入输出</p>
+<p>1 路麦克风，板载音频输入；支持 usb 声卡（可选）</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image26.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>存储</p>
+</blockquote></td>
+<td><blockquote>
+<p>32GB eMMC</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>USB</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 路 USB3.0 OTG(Type-A)接口(双层 USB3.0 插座，下面为 OTG 口)</p>
+<p>1 路 USB2.0 Host(Type-A)接口</p>
+<p>5 路 USB2.0 Host 接口(板内接口）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SIM</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 路 SIM 卡座，用于配合 MiNi PCIe 接口扩展 LTE 模块</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>MIPI CSI</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 路 MIPI-CSI 摄像头接口（最高支持单 13Mpixel 或双 8M8Mpixel）;(可选)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>PCI-E 接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 路 MiNi PCIe 接口，用于 LTE，可外接 3G/4G 模块；</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>电容触摸</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 路 I2C 触屏接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>RTC</p>
+</blockquote></td>
+<td><blockquote>
+<p>支持，带板上电池座</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>按键</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 个 Reset 按键；</p>
+<p>1 个 Recovery 按键；</p>
+<p>支持 PowerON 及 Reset 可插座引出</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>COM</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 路 TTL 调试串口</p>
+<p>2 路 RS232 功能串口，2 路 TTL 串口；</p>
+<p>1 路 TTL 转 RS485 串口（可选为 TTL 串口）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>扩展接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>7 路 GPIO 接口</p>
+<p>1 路 ADC 接口</p>
+<p>2 路 I2C 接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>电源接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>DC2.5*5.5 插座/PH2.54-4pin ，12V 直流输入</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>主板规格</p>
+</blockquote></td>
+<td><blockquote>
+<p>146*100*1.6mm ， 绿色</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>操作系统</p>
+</blockquote></td>
+<td><blockquote>
+<p>Android 7.1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>工作环境</p>
+</blockquote></td>
+<td><blockquote>
+<p>温度：0~40℃</p>
+<p>湿度： 30~70%RH</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>（2）主板尺寸</p>
+<p>单位:mm</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image27.jpeg" style="width:7.26111in;height:4.32083in" /></p>
+<blockquote>
+<p><strong>6.3.3</strong> <strong>实物接口介绍</strong></p>
+<p>（1）主板正面图</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image28.jpeg" style="width:6.64861in;height:4.4625in" /></p>
+<blockquote>
+<p>（2）主板前 IO 图</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image29.png" style="width:5.35in;height:1.34915in" /></p>
+<blockquote>
+<p>（3）主板背面图</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image30.png" style="width:5.79083in;height:3.77833in" /></p>
+<blockquote>
+<p>注意：主板上插针中的起始针第 1PIN 识别方式为： 1 主板背面看到的针脚为方孔。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image31.png" style="width:1.69792in;height:1.041in" /></p>
+<blockquote>
+<p><strong>6.3.4</strong> <strong>插针功能定义</strong></p>
+<p>（1）插针接口分布</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image32.png" style="width:8.27in;height:0.50668in" /></p>
+<p><img src="images/_____Hermes_____/media/image33.png" style="width:7.26111in;height:4.68667in" /></p>
+<blockquote>
+<p>（2）丝印描述</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>丝印</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>描述</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>12V</p>
+</blockquote></td>
+<td><blockquote>
+<p>+12V 直流输入接口(φ2.5mm 座子)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN19</p>
+</blockquote></td>
+<td><blockquote>
+<p>XH2.54-4PIN 电源输入端子</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN16</p>
+</blockquote></td>
+<td><blockquote>
+<p>4PIN-PH2.0 USB2.0 扩展插针 1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN15</p>
+</blockquote></td>
+<td><blockquote>
+<p>4PIN-PH2.0 USB2.0 扩展插针 1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN14</p>
+</blockquote></td>
+<td><blockquote>
+<p>4PIN-PH2.0 USB2.0 扩展插针</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN13</p>
+</blockquote></td>
+<td><blockquote>
+<p>4PIN-PH2.0 USB2.0 扩展插针 1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN17</p>
+</blockquote></td>
+<td><blockquote>
+<p>4PIN-PH2.0 USB2.0 扩展插针 1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN51</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-4PIN WK0-RS232 模式插针接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN18</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-4PIN COM1 TTL 电平模式插针（DEBUG 调试串口）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN53</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-4PIN WK2-RS232 模式插针接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN27</p>
+</blockquote></td>
+<td><blockquote>
+<p>4-PIN PH2.0 功放喇叭插针（3W/8Ω)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ANT2</p>
+</blockquote></td>
+<td><blockquote>
+<p>WIFI/蓝牙 IPEX 天线接头</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN32</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-4PIN WK3-RS485 模式插针</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN35</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-2P MIC 插针接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN3</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-6PIN 预留 GPIO 口插针</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN30</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-6PIN UART-WK3 串口座子</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN10</p>
+</blockquote></td>
+<td><blockquote>
+<p>触摸屏接口座子</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>20</strong> / <strong>63</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image34.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>CN28</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-6PIN UART4 串口座子</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN4</p>
+</blockquote></td>
+<td><blockquote>
+<p>PH2.0-6PIN 预留 GPIO 口插针</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN8</p>
+</blockquote></td>
+<td><blockquote>
+<p>LVDS 背光插座</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN7</p>
+</blockquote></td>
+<td><blockquote>
+<p>eDP 背光插座</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN6</p>
+</blockquote></td>
+<td><blockquote>
+<p>I2C7 接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN39</p>
+</blockquote></td>
+<td><blockquote>
+<p>LVDS 电源选择跳针（用跳线帽选择，从上到下，依次为 3.3V/5V/12V）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN21</p>
+</blockquote></td>
+<td><blockquote>
+<p>Dual LVDS 显示接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN20</p>
+</blockquote></td>
+<td><blockquote>
+<p>eDP 高清数字显示接口<strong>[</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN5</p>
+</blockquote></td>
+<td><blockquote>
+<p>3PIN-PH2.0 开机、复位插针</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>J5</p>
+</blockquote></td>
+<td><blockquote>
+<p>RTC 时钟 3.3V 电池插头</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP8</p>
+</blockquote></td>
+<td><blockquote>
+<p>3.5mm 耳机座子</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP17</p>
+</blockquote></td>
+<td><blockquote>
+<p>RJ45 千兆网口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP5</p>
+</blockquote></td>
+<td><blockquote>
+<p>标准 HDMI 接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SD1</p>
+</blockquote></td>
+<td><blockquote>
+<p>SD 卡槽</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN25</p>
+</blockquote></td>
+<td><blockquote>
+<p>标准 USB2.0 接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>CN8850</p>
+</blockquote></td>
+<td><blockquote>
+<p>2 个标准 USB3.0 接口（双层），下层 USB 复用为OTG 接口</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SW1</p>
+</blockquote></td>
+<td><blockquote>
+<p>Uboot 强制下载按键</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>K1</p>
+</blockquote></td>
+<td><blockquote>
+<p>复位按键</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP6</p>
+</blockquote></td>
+<td><blockquote>
+<p>PCI-E 标准接口（支持多种 3G/4G 模块）</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>SIM2</p>
+</blockquote></td>
+<td><blockquote>
+<p>SIM 卡槽</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>（3）接口插针与选择跳针定义</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>CN19</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>DC_IN</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>DC_IN</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>CN13/CN1</p>
+<p>4/CN15/C</p>
+<p>N16/CN17</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>DP</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>DN</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image35.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>CN51/CN5</p>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>RS232-TX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>RS232-RX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>CN18</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>TTL-TX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>TTL-RX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>CN5</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>RESET</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>ON</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p>CN27</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>OUTP-L</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>OUTN-L</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>OUTN-R</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>OUTP-R</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>CN32</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="5"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>485B</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>485A</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC3V3</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>JP/CN</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>pin#</p>
+</blockquote></td>
+<td><blockquote>
+<p>Signal</p>
+</blockquote></td>
+<td><blockquote>
+<p>Remark</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>CN35</p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>MIC_N</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>MIC_P</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>主板插针、跳线定义续</strong> <strong>1</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p><strong>CN3</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>GPIO-2A1</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>GPIO-2A0</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>ADC3</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>GPIO-1A0</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image36.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC-303V</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="6"><blockquote>
+<p><strong>CN30</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>RTX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>CTX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>UART-TX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>UART-RX</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="6"><blockquote>
+<p><strong>CN10</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>RST</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>INT</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>SDA4</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>SCL4</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="6"><blockquote>
+<p><strong>CN4</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>GPIO-2A5</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>GPIO-2A4</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>TGPIO-2A3</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>GPIO-2A2</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC-3.3V</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>主板插针、跳线定义续</strong> <strong>2</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 17%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="6"><blockquote>
+<p><strong>CN8/CN7</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="6"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>PWM</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>BL_EN</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC_BL</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC_BL</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p><strong>CN20</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>VDD_EDP</p>
+</blockquote></td>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>VDD_EDP</p>
+</blockquote></td>
+<td rowspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image37.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 17%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="8"></td>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX0N</p>
+</blockquote></td>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX0P</p>
+</blockquote></td>
+<td rowspan="8"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX1N</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX1P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX2N</p>
+</blockquote></td>
+<td><blockquote>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX2P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>11</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX3N</p>
+</blockquote></td>
+<td><blockquote>
+<p>12</p>
+</blockquote></td>
+<td><blockquote>
+<p>TX3P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>13</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td><blockquote>
+<p>14</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>15</p>
+</blockquote></td>
+<td><blockquote>
+<p>AUXN</p>
+</blockquote></td>
+<td><blockquote>
+<p>16</p>
+</blockquote></td>
+<td><blockquote>
+<p>AUXP</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>17</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td><blockquote>
+<p>18</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>19</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td><blockquote>
+<p>20</p>
+</blockquote></td>
+<td><blockquote>
+<p>HPD</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>主板插针、跳线定义续</strong> <strong>3</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 14%" />
+<col style="width: 19%" />
+<col style="width: 8%" />
+<col style="width: 19%" />
+<col style="width: 24%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin</strong></p>
+<p><strong>#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"><blockquote>
+<p><strong>CN6</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>SDA7</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>SCL7</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>VCC</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="2"></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin</strong></p>
+<p><strong>#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="4"></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>+12V</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td rowspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>Flash_ON</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>FLASH_PWM</p>
+</blockquote></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>JP/CN</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>pin</strong></p>
+<p><strong>#</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Signal</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>Remark</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="9"><blockquote>
+<p><strong>CN21</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>1</p>
+</blockquote></td>
+<td><blockquote>
+<p>PVCC</p>
+</blockquote></td>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td><blockquote>
+<p>PVCC</p>
+</blockquote></td>
+<td rowspan="9"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p>PVCC</p>
+</blockquote></td>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p>D0N</p>
+</blockquote></td>
+<td><blockquote>
+<p>8</p>
+</blockquote></td>
+<td><blockquote>
+<p>D0P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>9</p>
+</blockquote></td>
+<td><blockquote>
+<p>D1N</p>
+</blockquote></td>
+<td><blockquote>
+<p>10</p>
+</blockquote></td>
+<td><blockquote>
+<p>D1P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>11</p>
+</blockquote></td>
+<td><blockquote>
+<p>D2N</p>
+</blockquote></td>
+<td><blockquote>
+<p>12</p>
+</blockquote></td>
+<td><blockquote>
+<p>D2P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>13</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td><blockquote>
+<p>14</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>15</p>
+</blockquote></td>
+<td><blockquote>
+<p>CLK0N</p>
+</blockquote></td>
+<td><blockquote>
+<p>16</p>
+</blockquote></td>
+<td><blockquote>
+<p>CLK0P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>17</p>
+</blockquote></td>
+<td><blockquote>
+<p>D3N</p>
+</blockquote></td>
+<td><blockquote>
+<p>18</p>
+</blockquote></td>
+<td><blockquote>
+<p>D3P</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 31%" />
+<col style="width: 13%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>19</p>
+</blockquote></td>
+<td><blockquote>
+<p>D5N</p>
+</blockquote></td>
+<td><blockquote>
+<p>20</p>
+</blockquote></td>
+<td><blockquote>
+<p>D5P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>21</p>
+</blockquote></td>
+<td><blockquote>
+<p>D6N</p>
+</blockquote></td>
+<td><blockquote>
+<p>22</p>
+</blockquote></td>
+<td><blockquote>
+<p>D6P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>23</p>
+</blockquote></td>
+<td><blockquote>
+<p>D7N</p>
+</blockquote></td>
+<td><blockquote>
+<p>24</p>
+</blockquote></td>
+<td><blockquote>
+<p>D7P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>25</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+<td><blockquote>
+<p>26</p>
+</blockquote></td>
+<td><blockquote>
+<p>GND</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>27</p>
+</blockquote></td>
+<td><blockquote>
+<p>CLK1N</p>
+</blockquote></td>
+<td><blockquote>
+<p>28</p>
+</blockquote></td>
+<td><blockquote>
+<p>CLK1P</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>29</p>
+</blockquote></td>
+<td><blockquote>
+<p>D8N</p>
+</blockquote></td>
+<td><blockquote>
+<p>30</p>
+</blockquote></td>
+<td><blockquote>
+<p>D8P</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span id="bookmark16" class="anchor"></span><strong>七、结构设计参考</strong></p>
+<p><strong>7.1</strong> <strong>上位机安装接口</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image38.png" style="width:5.88542in;height:7.21806in" /></p>
+<p><img src="images/_____Hermes_____/media/image39.jpeg" style="width:5.88333in;height:5.92708in" /></p>
+<blockquote>
+<p>（1） 如上图所示， 11 个 M3 贯通螺纹孔和 10 个 M4 贯通螺纹孔以供上位机的安装固定。</p>
+<p>（2） 建议使用带弹垫和防松蓝胶的 M3 螺丝。</p>
+<p><span id="bookmark18" class="anchor"></span><strong>7.2</strong> <strong>负载限制说明</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image40.jpeg" style="width:6.41458in;height:5.5118in" /></p>
+<blockquote>
+<p>（1） 最大支持上位机负载 80kg，额定负载约 50kg。</p>
+<p>（2） *建议安装时，整机重心位置离地不高于 300mm。</p>
+<p>i. *底盘重心为思岚提供的 Hermes 底盘的重心，其高度为 103mm；</p>
+<p>ii. *整机重心为底盘加上位机的机器人整体重心；</p>
+<p>iii. *如果整机重心超过 300mm可能会有爬坡越障性能的衰减。</p>
+<p><span id="bookmark19" class="anchor"></span><strong>7.3</strong> <strong>雷达净空区</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image41.jpeg" style="width:6.75208in;height:4.16875in" /></p>
+<blockquote>
+<p>（1） 底盘本体和上位机之间有激光雷达，其需要一定的净空区以避免被遮蔽或者干扰；</p>
+<p>（2） 上位机边界不能超过如图上位机下边界线。</p>
+<p><span id="bookmark20" class="anchor"></span><strong>7.4</strong> <strong>深度摄像头净空区</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image42.jpeg" style="width:6.73611in;height:4.30556in" /></p>
+<p><img src="images/_____Hermes_____/media/image43.jpeg" style="width:6.79305in;height:4.35208in" /></p>
+<blockquote>
+<p>（1） 底盘上有深度摄像头，其需要一定的净空区以避免被遮蔽或者干扰。</p>
+<p>（2） 上位机不能超过如图净空区，由于双摄像头呈夹角布局，叠加后的净空区大于单个FOV。</p>
+<p><span id="bookmark22" class="anchor"></span><strong>八、</strong> <strong>Hermes</strong> <strong>部署及使用方法</strong></p>
+<p><strong>8.1</strong> <strong>开箱指导</strong></p>
+<p>1. 收到 Hermes 机器后，请检查包装箱是否完好如左图所示，以及外箱 Hermes 样右侧的选框 内是否打钩，确认包装完整且箱内为 Hermes 后，用打包钳将打包带剪断，移除所有打包带及纸护 角后如右图所示。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image44.png" style="width:5.97562in;height:2.53055in" /></p>
+<blockquote>
+<p>图表 8-1 Hermes 开箱示意图</p>
+<p><span id="bookmark24" class="anchor"></span><strong>8.2</strong> <strong>放置充电座</strong></p>
+<p>Hermes 可以通过自动返回充电座充电， 因此充电座放置的位置将影响 Hermes 的自动返回充 电功能。 Hermes 返回充电上桩时，会产生推动力， 因此充电座最好背靠墙壁放置，墙壁需满足以 下条件：</p>
+<p>a. 充电座需与墙壁贴合，中间无障碍物，尽量避免有踢脚线的墙壁等</p>
+<p>b. 墙壁材料不能为高透材料，如镜面或者玻璃</p>
+<p>c. 墙壁宽度至少需要宽于三倍的充电座宽度</p>
+<p>d. 墙壁需为笔直墙面，不能是有弧度的墙面</p>
+<p>充电座需要连接至 220V 电源，充电座外部电源线长度为 1.5m，因此需要确保充电座所靠墙壁 上 1.5m 范围内有 220 电源接口以供使用（不推荐使用拖线板等提供电源，以免地面线束杂乱造成 不必要的麻烦）。</p>
+<p>充电座前方地面需满足如下条件:</p>
+<p>a. 开阔，以充电座为圆心的前方 2m 半径范围内无障碍物</p>
+<p>b. 水平，不能存在坡度</p>
+<p>c. 地面不能铺有导致 Hermes 下陷 2cm 以上的柔软地毯</p>
+<p>为确保 Hermes 自动返回充电功能正常，需确保 Hermes 总是从充电座上开始启动。</p>
+<p><strong>备注：</strong>如果中途更换充电座位置，需要在加载地图时根据需要放置的位置对应设置，详细操作 见 SDK 对应接口操作文档。</p>
+<p><span id="bookmark25" class="anchor"></span><strong>8.3</strong> <strong>开机&amp;关机</strong></p>
+<p>开机：若机器不在充电桩位置，而是在其他任意位置，那么长按电源开关， 直到电源开关指示 灯亮起后松开，机器系统进入开机流程，机器前部灯带亮起，轮毂在刹车状态下，表示开机完成。</p>
+<p>若机器在充电桩位置，那么短按电源开关，直到电源开关指示灯亮起后松开，机器系统进入开 机流程，机器前部灯带亮起，轮毂在刹车状态下，表示开机完成。</p>
+<p>关机：长按电源开关，直到电源开关指示灯熄灭后松开，机器进入关机流程，机器前部灯带熄 灭，机器可任意推动，表示关机完成。</p>
+<p><span id="bookmark26" class="anchor"></span><strong>8.4</strong> <strong>充电</strong></p>
+<p>如下图，让机器充电片对准充电桩充电电极，等待 10 秒后，机器人前部灯带亮起，轮毂进入刹 车状态，充电桩呼吸灯闪烁，表示已开始充电。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image45.jpeg" style="width:7.0125in;height:3.12569in" /></p>
+<blockquote>
+<p>图表 8-2 Hermes 充电示意图</p>
+<p><span id="bookmark27" class="anchor"></span><strong>8.5</strong> <strong>急停&amp;刹车和复位</strong></p>
+<p>（1）急停键描述</p>
+<p>按下“急停键“，机器会立即停止，中止且不再响应任何运动控制命令，人为推动受阻。 释放“急停键”，机器可恢复正常工作状态。</p>
+<p>（2）刹车键描述</p>
+<p>按下“刹车键“，机器会立即停止， 中止且不再响应任何运动控制命令。人为可推动机器， 如将其推到充电桩。</p>
+<p>释放“刹车键”，机器可恢复正常工作状态，人为推动受阻。</p>
+<p><span id="bookmark28" class="anchor"></span><strong>8.6</strong> <strong>建图并保存上传</strong></p>
+<p>从思岚官方网站 <a href="http://www.slamtec.com/cn/RoboStudio"><u>http://www.slamtec.com/cn/RoboStudio</u></a>下载并安装机器人图形化控制管 理工具 Robo Studio 用于调试和使用 Hermes，注册账号并登录。在菜单-工具栏区域依次点击 “文件-机器人”，工作区左侧会出现一个名为机器人的停靠窗口，如下图所示。用户通过该窗口进 行连接/断开机器人的操作。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image46.jpeg" style="width:1.99722in;height:2.58431in" /><img src="images/_____Hermes_____/media/image47.jpeg" style="width:4.03806in;height:2.62986in" /></p>
+<blockquote>
+<p>图表 8-3 RoboStudio 机器人界面</p>
+<p>右键单击机器人列表空白处，在弹出的菜单中点击“手动连接机器人”，弹出连接机器人对话 框（如下图所示），输入上述 Hermes 机器人的 IP 地址和端口号并点击连接按钮即可进行连接（该 连接方法适用于已通过 Web portal 管理后台分配好 IP 地址的机器）。在电脑已通过网络适配器连 接至上述 Hermes 机器人的 SSID（SSID 可在机器标签上查看） 的情况下， 默认输入 IP 地址 <a href="192.168.11.1">192.168.11.1</a>（注意您的无线网络适配器 IP 地址应当设定成使用 DHCP 自动获取）。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image48.jpeg" style="width:4.28125in;height:3.29722in" /></p>
+<blockquote>
+<p>图表 8-4 RoboStudio 机器人连接界面</p>
+<p>成功连接后，工作区会显示机器人、地图信息和状态信息。机器人窗口中会发现连接设备名变 为绿色，状态为“已连接”，如下图所示。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image49.png" style="width:7.26389in;height:3.90014in" /></p>
+<blockquote>
+<p>图表 8-5 RoboStudio 机器人连接界面</p>
+<p>左键单击需建图区域内的点，让 Hermes 建图。建图完成后，请将需要隔离的地方使用虚拟墙 或禁区功能隔离。然后依次点击“文件-地图编辑器”，选择保存文件或上传至固件来保存地图。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image50.jpeg" style="width:5.32847in;height:4.25833in" /></p>
+<blockquote>
+<p>图表 8-6 RoboStudio 机器人地图编辑器窗口</p>
+<p>禁区和虚拟墙的功能是有区别的。</p>
+<p>禁区：当人为不小心把 Hermes 推进禁区时，在 RoboStudio 中随意给一个定点， Hermes 机器 能够自动从禁区中脱困出来。</p>
+<p>虚拟墙：当人为不小心把 Hermes 推进虚拟墙时，在 RoboStudio 中随意给一个定点， Hermes 机器不能自动从虚拟墙中脱困出来，需要人将其推出来。</p>
+<p>禁行区域管理功能依赖于 Slamware Forbidden Area 插件。 Slamware Forbidden Area 是公 共插件， 电脑与外网连接， 登陆 RoboStudio 后， 点击工具-&gt;插件-&gt;商店-&gt;所有-&gt;Slamware Forbidden Area-&gt;获取-&gt;下载-&gt;重启 RoboStudio。</p>
+<p>（公共插件链接：<a href="https://wiki.slamtec.com/pages/viewpage.action?pageId=56164379"><u>https://wiki.slamtec.com/pages/viewpage.action?pageId=56164379</u>）</a></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image51.jpeg" style="width:6.36055in;height:3.42361in" /></p>
+<blockquote>
+<p>图表 8-7 RoboStudio 公共插件</p>
+<p>插件正常运行后，连接上机器，可以在菜单栏看到 “禁行区域”工具栏。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image52.png" style="width:6.48347in;height:1.1156in" /></p>
+<blockquote>
+<p>图表 8-8 RoboStudio 禁行区域</p>
+<p><span id="bookmark29" class="anchor"></span><strong>8.7</strong> <strong>上位机完成启动加载地图功能</strong></p>
+<p>以下是如何在上位机使用 SDK 完成启动加载特定地图的参考示例 PUT api/core/slam/v1/maps/stcm 设置地图</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image53.jpeg" style="width:6.76222in;height:3.92014in" /></p>
+<blockquote>
+<p><span id="bookmark30" class="anchor"></span><strong>九、连接至电脑</strong></p>
+<p>【步骤 1】电脑连接底盘热点</p>
+<p>Hermes 的热点是默认开机自启，热点格式为： SLAMWARE-XXXXXX。 热点识别方法：底盘标签中的 SSID 后六位。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image54.jpeg" style="width:3.475in;height:2.59792in" /><img src="images/_____Hermes_____/media/image55.jpeg" style="width:3.48097in;height:2.61181in" /></p>
+<blockquote>
+<p>图 9-1底盘标签 SSID</p>
+<p>如，标签 SSID ： Robot-E2A29E，那这台底盘的热点就是 SLAMWARE- E2A29E 【步骤 2】从思岚官网下载并安装 Slamtec RoboStudio</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image56.png" style="width:4.32653in;height:2.31556in" /></p>
+<blockquote>
+<p>图 9-2 思岚官网 Slamtec RoboStudio</p>
+<p>【步骤 3】假如您下载的是 Slamtec RoboStudio ， 运行“robostudio.exe”，进入 Slamtec Robostudio 界面，输入 IP 地址和端口, 点击 “连接” ，RS 登录成功。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image57.png" style="width:5.19139in;height:1.81278in" /></p>
+<blockquote>
+<p>图 9-3 Robo studio 登录界面</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image58.png" style="width:7.27014in;height:3.85556in" /></p>
+<blockquote>
+<p>图 9-4 Robo studio 界面</p>
+<p>注意：IP 地址查询方法是 按下快捷键，Windows+R, 敲入代码 ipconfig即可。复制默认网关的 IP ，粘 贴到 Slamtec robostudio 的 IP 地址框中，点击连接，即可进入 Slamtec robostudio 中了。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image59.png" style="width:4.035in;height:1.75417in" /></p>
+<p><img src="images/_____Hermes_____/media/image60.jpeg" style="width:4.09375in;height:3.59556in" /></p>
+<blockquote>
+<p>图 9-5 IP 地址获取方法</p>
+<p><span id="bookmark31" class="anchor"></span><strong>十、调试工具</strong></p>
+<p><strong>10.1</strong> <strong>RoboStudio</strong></p>
+<p>RoboStudio 图形化工具用于调试和使用 Hermes，请从我们的官方网站下载并安装：</p>
+<p><a href="http://www.slamtec.com/cn/RoboStudio"><u>http://www.slamtec.com/cn/RoboStudio</u></a>， 同时配有工具说明书对该工具用法进行介绍。</p>
+<p><span id="bookmark33" class="anchor"></span><strong>10.2</strong> <strong>网页管理后台</strong></p>
+<p>在开发，调试及使用 SLAMWARE 设备的过程中，可通过网页管理后台对设备进行各种操作， 如查看基本信息，更新版本，配置 WiFi 等。（默认用户名： admin，默认密码：admin111）</p>
+<p>网页管理后台目前支持如下功能：</p>
+<p>1. 查看设备信息</p>
+<p>2. 重启模块</p>
+<p>3. 更新固件</p>
+<p>Slamtec 将定期提供 Hermes 的固件更新与升级。您可以通过管理后台方便地为 Hermes 升级 固件。最新固件请从销售或技术支持人员获取。更新过程将持续 5~ 10 分钟。 Hermes 在更新过程 中蜂鸣器会持续发声，更新结束后 Hermes 会自动重启。在此之前，请确保 Hermes 的电量充足。</p>
+<p>4. WiFi 配置</p>
+<p>5. 开启 SLAMWARE Core 诊断模式</p>
+<p>6. 修改管理员密码</p>
+<p>具体使用方法请参考：</p>
+<p><a href="https://wiki.slamtec.com/display/SD/SQ001+SLAMWARE+Web+Portal+Function+Overview"><u>https://wiki.slamtec.com/display/SD/SQ001+SLAMWARE+Web+Portal+Function+Overvie</u></a> <a href="https://wiki.slamtec.com/display/SD/SQ001+SLAMWARE+Web+Portal+Function+Overview"><u>w</u></a></p>
+<p><span id="bookmark34" class="anchor"></span><strong>十一、开发者工具</strong></p>
+<p><strong>11.1</strong> <strong>开始使用</strong></p>
+<p>Hermes 底盘的Agent SDK 基于 C++语言开发的，以降低用户接入成本并提升 SDK 的健壮性 为主， 同时兼容性强， 支持 Java 、 C++ 、 C 、 Kotlin 等多种语言。下文为大家详细介绍基于 Hermes 底盘的Agent SDK 调用的相关示例及使用指南。</p>
+<p><span id="bookmark36" class="anchor"></span><strong>11.2</strong> <strong>系统间调用框架</strong></p>
+<p>Robot App 通过通信对机器人定位、移动、回桩进行控制；同时 Robot App 根据各种业务场 景向机器人发送指令，Robot Agent 将提供数据接口、任务操作接口、业务服务给 Robot App。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image61.png" style="width:7.26042in;height:5.09347in" /></p>
+<blockquote>
+<p>图 11-1 Hermes 各系统间的通信</p>
+<p><span id="bookmark37" class="anchor"></span><strong>11.3</strong> <strong>各系统功能说明</strong></p>
+<p><strong>11.3.1</strong> <strong>Robot</strong> <strong>Agent</strong></p>
+<p>Robot Agent 为运行在 Hermes 底盘上的一个服务程序，云端、梯控端均是通过其与梯控设备 通信。在 Robot 系统内部， Robot Agent 向上与 Robot App 进行通信，接收来自 Robot App 的 指令对 Robot 进行控制、同时发送 Robot 状态。</p>
+<p>Robot Agent 核心功能为：</p>
+<p><img src="images/_____Hermes_____/media/image62.png" style="width:0.10948in;height:0.10028in" /> 向上与 Robo Cloud ，Robot APP 进行通信，上报机器人状态、接收控制指令</p>
+<p><strong>11.3.2</strong> <strong>Elevator</strong> <strong>Agent</strong></p>
+<p>Elevator Agent 为运行在梯控主控盒 Linux 系统上的一个服务程序，云端、机器人端均是通过 其与梯控设备通信。在梯控系统内部， Elevator Agent 向下与 Elevator Controller 通过 UDP 进行 通信，发送控梯指令、获取电梯状态。</p>
+<p>Elevator Agent 的核心功能为：</p>
+<p><img src="images/_____Hermes_____/media/image63.png" style="width:0.119in;height:0.109in" /> 向上与 Robo Cloud ，Robot APP 进行通信，上报电梯状态、接收控梯指令</p>
+<p><img src="images/_____Hermes_____/media/image64.png" style="width:0.10948in;height:0.10028in" /> 向下与 Elevator Controller 通信，获取电梯状态、下发控梯指令</p>
+<p><strong>11.3.3</strong> <strong>Robot</strong> <strong>Cloud</strong></p>
+<p>Robo Cloud 是一组为了实现机器人远程管理，调度，控制而提供的服务，运行在云端，一头 同机器人通信，一头与梯控设备通信，因此梯控是其中的一部分功能。 Robo Cloud 通过 MQTT 协 议与运行在梯控主控盒上的 Elevator Agent 进行通信。</p>
+<p>其核心功能包含：</p>
+<p><img src="images/_____Hermes_____/media/image65.png" style="width:0.119in;height:0.109in" /> 下发指令，控制电梯去指定的楼层</p>
+<p><img src="images/_____Hermes_____/media/image66.png" style="width:0.119in;height:0.109in" /> 下发指定，控制电梯开门</p>
+<p><img src="images/_____Hermes_____/media/image67.png" style="width:0.119in;height:0.109in" /> 下发指定，控制电梯关门</p>
+<p><img src="images/_____Hermes_____/media/image68.png" style="width:0.119in;height:0.109in" /> 获取电梯上下行状态</p>
+<p><img src="images/_____Hermes_____/media/image69.png" style="width:0.119in;height:0.109in" /> 获取电梯当前所在楼层</p>
+<p><strong>11.3.4</strong> <strong>Robot</strong> <strong>App</strong></p>
+<p>开源应用-餐厅送餐 App</p>
+<p>餐厅送餐 App 为运行在机器人上的服务程序，应用场景为餐厅，它通过 RoboStudio 图形化工 具绘制地图加载到机器人本地，通用应用人机交互，实现多点任务配送。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image70.jpeg" style="width:6.99931in;height:7.14167in" /></p>
+<blockquote>
+<p>图表 11-2 餐厅送餐业务流程图</p>
+<p><strong>其核心功能包括：</strong></p>
+<p><img src="images/_____Hermes_____/media/image71.png" style="width:0.119in;height:0.109in" /> 获取设备电量</p>
+<p><img src="images/_____Hermes_____/media/image72.png" style="width:0.119in;height:0.109in" /> 获取设备健康状态信息</p>
+<p><img src="images/_____Hermes_____/media/image73.png" style="width:0.119in;height:0.109in" /> 获取 POI 信息</p>
+<p><img src="images/_____Hermes_____/media/image74.png" style="width:0.119in;height:0.109in" /> 获取操作密码</p>
+<p><img src="images/_____Hermes_____/media/image75.png" style="width:0.119in;height:0.109in" /> 创建新的运动行为</p>
+<p><img src="images/_____Hermes_____/media/image76.png" style="width:0.119in;height:0.109in" /> 获取当前行为</p>
+<p><img src="images/_____Hermes_____/media/image77.png" style="width:0.119in;height:0.109in" /> 终止当前行为</p>
+<p><img src="images/_____Hermes_____/media/image78.png" style="width:0.119in;height:0.109in" /> 关闭或重启机器人</p>
+<p><strong>11.3.5</strong> <strong>Robot</strong> <strong>App</strong> <strong>设计参考</strong></p>
+<p><strong>story1</strong> <strong>服务员对机器人下达送餐指令</strong></p>
+<p>（1）服务员点击我要送餐</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image79.jpeg" style="width:5.56944in;height:3.25694in" /></p>
+<blockquote>
+<p>(2）服务员将菜品放入托盘(1L、 2L、 3L、4L）,在屏幕上选中相应的托盘选择餐桌号;</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image80.jpeg" style="width:5.58333in;height:3.27083in" /></p>
+<blockquote>
+<p>（3）做完以上操作点击“小岚出发吧”，机器人开始执行送餐任务。</p>
+<p>（4）机器人收到送餐指令，回应笑脸及语音播报“使命毕达”，开始执行送餐任务</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image81.jpeg" style="width:4.51389in;height:2.63889in" /></p>
+<blockquote>
+<p>（5）到达送餐点后，提示“已到达餐点”，并语音播报，顾客拿走餐盘，点击“已取餐，谢谢小 岚”，小岚继续下一个送餐任务</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image82.jpeg" style="width:4.53472in;height:2.65972in" /></p>
+<blockquote>
+<p>(6) 小岚执行完成有任务，回到取餐点，并语音播报</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image83.jpeg" style="width:4.5625in;height:2.67361in" /></p>
+<blockquote>
+<p><strong>story2</strong> <strong>服务员对机器人下达直达指令</strong></p>
+<p>（1）服务员设置目标点，点击“小岚出发吧”，</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image84.jpeg" style="width:4.77778in;height:2.8125in" /></p>
+<blockquote>
+<p>（2）机器人收到直达指令，回应笑脸及语音播报“使命毕达”</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image85.jpeg" style="width:4.78472in;height:2.80555in" /></p>
+<blockquote>
+<p>（3）到达任务点后，提示“已到达”，并语音播报</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image86.png" style="width:4.79167in;height:2.80554in" /></p>
+<blockquote>
+<p><strong>Story3</strong> <strong>服务员对机器人下达返航指令</strong></p>
+<p>（1）服务员点击快速返航</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image87.jpeg" style="width:4.49306in;height:2.63194in" /></p>
+<blockquote>
+<p>（2）机器人收到返航指令，回应笑脸及语音播报“使命毕达”，执行返航任务</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image88.png" style="width:4.46528in;height:2.62444in" /></p>
+<blockquote>
+<p>-</p>
+<p>（3）机器人到达取餐点，并进行语音播报</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image89.png" style="width:4.47917in;height:2.63125in" /></p>
+<blockquote>
+<p><strong>story4</strong> <strong>服务员对机器人进行设置</strong></p>
+<p>(1)点击设备</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image90.jpeg" style="width:4.63889in;height:2.72917in" /></p>
+<blockquote>
+<p>（2）查看设备信息</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image91.jpeg" style="width:4.68056in;height:2.74306in" /></p>
+<blockquote>
+<p>（3）对机器人下达回桩指令</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image92.jpeg" style="width:4.61806in;height:2.70139in" /></p>
+<blockquote>
+<p>（4）对速度进行设置</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image93.jpeg" style="width:4.76389in;height:2.79167in" /></p>
+<blockquote>
+<p>（1） 设置 wi-fi</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image94.png" style="width:4.69444in;height:5.59319in" /></p>
+<blockquote>
+<p>（2） 关机</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image95.jpeg" style="width:4.71528in;height:2.76389in" /></p>
+<blockquote>
+<p><span id="bookmark38" class="anchor"></span><strong>11.4</strong> <strong>程序示例</strong></p>
+<p>1.以下是 Robot APP 调用 Robot Agent 接口查询电池状态示例 GET <a href="http://127.0.0.1:1448/api/core/system/v1/power/status">http://127.0.0.1:1448/api/core/system/v1/power/status</a> 返回的数据格式为 application/json</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image96.jpeg" style="width:7.27361in;height:6.72014in" /></p>
+<blockquote>
+<p>2.以下是 Robt App 调用 Robot Agent 接口使机器人跨楼层移动 POST <a href="http://127.0.0.1:1448/api/core/motion/v1/actions">http://127.0.0.1:1448/api/core/motion/v1/actions</a></p>
+<p>请求报文格式为 application/json</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image97.png" style="width:6.96528in;height:1.93625in" /></p>
+<p><img src="images/_____Hermes_____/media/image98.png" style="width:8.27in;height:0.50668in" /></p>
+<blockquote>
+<p><span id="bookmark39" class="anchor"></span><strong>11.5</strong> <strong>Robot</strong> <strong>API</strong> <strong>详情列表</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>功能模块</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>API</strong> <strong>列表</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="11"><blockquote>
+<p>SLAM /定位、建图相关功能</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取机器人位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>设置机器人位姿</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取定位质量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>是否支持定位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>开启/暂停定位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>是否开启建图</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>开启/暂停建图</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取充电桩位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>设置充电桩位置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取当前地图</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>清除当前地图</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="11"><blockquote>
+<p>Artifact / 人工标记地图元素</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取所有虚拟线段</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>添加虚拟线段</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>修改虚拟线段</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>清空虚拟线段</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>删除虚拟线段</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取当前地图中的所有 POI</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>添加 POI</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>清空 POI</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>根据 ID 查找 POI</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>修改 POI</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>删除 POI</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_____Hermes_____/media/image99.png" style="width:8.27in;height:0.50668in" /></p>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="5"><blockquote>
+<p>Motion / 机器人运动控制</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取所有支持的 Action</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取当前行为</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>终止当前行为</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>创建新的运动行为</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>查询 Action 状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>固件升级</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取取固件升级进度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>安卓应用程序管理</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取所有自定义安装的 APP</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>安装 APP</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>卸载一个 APP</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="9"><blockquote>
+<p>Multi-floor / 多楼层地图和 POI 管理，乘电梯等 功能</p>
+</blockquote></td>
+<td><blockquote>
+<p>跨楼层移动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>跨楼层回桩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取所有楼层信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取机器人所在楼层信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>设置机器人所在楼层信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取 POI 信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>上传地图到机器人</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>持久化保存当前地图</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>重新加载地图</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="5"><blockquote>
+<p>Delivery / 配送服务相关接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取操作密码</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>设置操作密码</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取机器配置信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取配送相关的设置信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>查询任务信息</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="9"></td>
+<td><blockquote>
+<p>创建任务</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>取消所有任务</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>取消某个任务</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取当前任务状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>暂停/继续执行任务</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>开始取物</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>结束取物</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取事物信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>注：配送业务相关请向市场部咨询</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="8"><blockquote>
+<p>餐厅送餐服务相关接口</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取设备电量</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取设备健康状态信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取 POI 信息</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取操作密码</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>创建新的运动行为</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>获取当前行为</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>终止当前行为</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>关闭或重启机器人</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>详情 API 地址 <a href="https://docs.slamtec.com/">https://docs.slamtec.com/</a></p>
+<p><span id="bookmark40" class="anchor"></span><strong>十二、梯控简介及使用</strong></p>
+<p><strong>12.1</strong> <strong>产品简介</strong></p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image100.jpeg" style="width:4.34167in;height:3.14167in" /></p>
+<blockquote>
+<p>图 12-1思岚科技研发的智能梯控</p>
+<p>智能梯控， 由上海思岚科技有限公司自主研发，它能够提供对电梯状态的精准检测、程序控制 呼梯、控梯，助力机器人的自主乘梯、出梯，为机器人的多楼层运行场景提供了可靠的解决方案。 产品除与酒店机器人协同工作外，可作为独立的一套解决方案，通过我们提供的 API 接口，本产品 也可以与其他的智能设备或第三方产品进行交互，以满足客户差异化的定制需求。同时产品也可以 和 Hermes 底盘无缝连接，从而为实现更多其他场景下的特定需求做好技术服务支持。</p>
+<p><span id="bookmark42" class="anchor"></span><strong>12.2</strong> <strong>功能介绍</strong></p>
+<p><strong>12.2.1</strong> <strong>智能控梯</strong></p>
+<p>本产品的核心功能为帮助机器人等智能设备进行控梯，如呼叫电梯，去指定的楼层，控制电梯 开门关门等。此功能大大提升了机器人的业务场景，打破了以前机器人只能在同一个楼层进行工作 的局限。</p>
+<p><strong>12.2.2</strong> <strong>智能状态检测</strong></p>
+<p>通过内置的传感器以及自适应算法，本产品可以准确检测出电梯轿厢当前所在的楼层、上下行 状态，实时性到了毫秒级，精确度达到 96%以上，为机器人能够正确的进出电梯、完成工作任务提 供了非常关键的基础。</p>
+<p><strong>12.2.3</strong> <strong>电梯多样性适应</strong></p>
+<p>主控盒研发了多种优化后的滤波算法，从而使得本产品适用于多种不同类型的电梯，如单开门 电梯、 双开门电梯、前后开门电梯等。由于覆盖了尽可能多的场景，所以本产品可以在目前绝大多 数电梯中使用。用户只需要在安装完设备之后，通过我们提供的 APP 简单进行标定与校准即可。</p>
+<p><strong>12.2.4</strong> <strong>多级网络适配</strong></p>
+<p>鉴于电梯网络的局限性，如何保障数据互联与程序互通是一项非常关键的因素，相对而言，也 是一个难点。经过不断的优化迭代，我们最终找到一种方式来解决这个问题。本产品提供了 4G， WIFI, BLE 等多级网络通信方式与机器人等智能设备进行交互，保证通信链路的可靠性。</p>
+<p><strong>12.2.5</strong> <strong>OTA</strong> <strong>远程升级</strong></p>
+<p>支持 OTA 远程升级软件与固件，并批量部署。同时，提供了对 VPN 的支持，可以远程登录到 本产品的 Linux 系统中，进行升级等操作。通过 OTA 功能，能够做实时更新、升级与优化。</p>
+<p><strong>12.2.6</strong> <strong>接口支持</strong></p>
+<p>智能梯控，对外提供了一致性的 API 接口，支持蓝牙、MQTT、 <a href="HTTP">HTTP</a> 通信协议，客户可以通 过编写自己的程序调用接口来对电梯进行控制与交互。同时，支持二次开发，满足客户差异化的定 制需求。</p>
+<p><strong>12.2.7</strong> <strong>刷卡绕过</strong></p>
+<p>针对某些需要刷卡才可以乘坐的电梯，本产品也可以轻松支持，只需要在设备安装时，安装上 我们指定的设备，然后在 APP 中开启刷卡绕过即可。这样即使有刷卡器的存在，也可以轻松绕过， 自由出入电梯。</p>
+<p><strong>12.2.8</strong> <strong>统一管理</strong></p>
+<p>思岚科技提供的云平台，能够对所有部署的产品状态进行实时监控、批量升级，通过线上管</p>
+<p>理、信息统计、设备监控等，对数据进一步挖掘，为酒店或商务楼提供专属的精准数据模型，指导 其提升整体运营能力及服务质量。</p>
+<p>了解梯控详细解决方案可向市场部获取 <u>梯控用户手册</u>- &gt;&gt;</p>
+<p>注意：此梯控仅可在中国使用，对于国外客户而言，则需研发评估和定制。</p>
+<p><span id="bookmark43" class="anchor"></span><strong>十三、特别说明</strong></p>
+<p><strong>13.1</strong> <strong>充电桩部署</strong></p>
+<p>充电桩位置选择注意事项：</p>
+<p>（1） 充电桩贴墙放置，两侧需留有 0.35 米以上、前方有 1 米以上空间；</p>
+<p>（2） 充电桩需要靠墙，不要放置在镜面墙、背面镂空等区域；</p>
+<p>（3） 充电桩位置需不能放置在地毯等软性的地面上，否则会产生高度差，无法充电；</p>
+<p>（4） 场景中充电桩位置需要做标记，防止挪动后恢复不正确。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image101.png" style="width:6.31625in;height:4.01903in" /></p>
+<blockquote>
+<p><span id="bookmark45" class="anchor"></span><strong>13.2</strong> <strong>限制使用场景</strong></p>
+<p>请避免在以下场景下使用 Hermes 底盘，以避免底盘故障或损坏。</p>
+<p>（1）超限/重运输</p>
+<p>请勿放入超过最大称重参数值的物品，避免影响 Hermes 正常使用。最大承重参数值请参考产 品参数表内信息。</p>
+<p>（2）过坎高度</p>
+<p>请保证 Hermes 前方无超过 20mm 障碍物，Hermes 过坎高度最高为 20mm。 Hermes 行驶 过程中，请尽量避免经过凸凹不平的地面或其他高度差较大的环境。</p>
+<p>（3）人为撞击</p>
+<p>请勿在 Hermes 正常使用的情况下，强行推动或撞击 Hermes 机身。</p>
+<p>（4）温度/湿度</p>
+<p>请勿将 Hermes 放置于高温、高湿度或者有水渍的地方。</p>
+<p>（5）地面障碍物</p>
+<p>Hermes 行驶途中经过的路线，请保证地面整洁，无线状障碍物及杂物。</p>
+<p>（6）防跌落功能需部署磁条，搭配磁传感器使能；</p>
+<p>（7）室外</p>
+<p>请勿在室外使用机器。</p>
+<p>（8）限海拔 2000m 以下安全使用。</p>
+<p><span id="bookmark46" class="anchor"></span><strong>13.3</strong> <strong>底盘遇上暂时无法处理的故障</strong></p>
+<p>（1）请按下刹车键；</p>
+<p>（2）将底盘推回充电桩；</p>
+<p>（3）底盘在上电后的任意状态下均可强制开关机。</p>
+<p>*仅限于紧急情况下使用。</p>
+<p><span id="bookmark47" class="anchor"></span><strong>13.4</strong> <strong>注意事项</strong></p>
+<p>贮存:</p>
+<p>1. 由于 Hermes 内含电池，因此应放置在阴凉干燥的环境下贮存；</p>
+<p>2. 长期存放时（超过 3 个月），建议置于室温为 10-25度且干燥无腐蚀性气体的环境中；</p>
+<p>3. Hermes 在长期贮存过程中应每 6 个月充电一次，以保证每个电池单体的电压在 3.6V-3.9V 的 范围内。</p>
+<p>包装：</p>
+<p>1. 包装材质具有一定的强度与韧性，可承受运轻微震动，挤压，摩擦，以及冲撞；</p>
+<p>2. 包装四周应当有衬垫，能够起到良好的缓冲作用。</p>
+<p>运输、装卸:</p>
+<p>1. 轻拿轻放，防止摔落，碰撞，拖拉，倒置；</p>
+<p>2. 堆放需要搭建稳固紧凑，稳固，堆齐。</p>
+<p>其他注意事项:</p>
+<p>1. 请勿暴力对待 Hermes 底盘（比如踢，猛推，拉拽）；</p>
+<p>2. 请勿将液体洒在机器上；</p>
+<p>3. 请勿在下陷大于 2cm 的柔软地毯上使用自动回充功能；</p>
+<p>4. 建议在充电座上启动设备；</p>
+<p>5. 请勿擅自对机器内部进行更改；</p>
+<p>6. 请确保负重负载在参数规定范围内；</p>
+<p>7. 高透材料较多的环境下，请使用辅助保护功能，如虚拟墙等。</p>
+</blockquote>
+<p><img src="images/_____Hermes_____/media/image102.png" style="width:8.27in;height:0.50668in" /></p>
+<blockquote>
+<p><span id="bookmark48" class="anchor"></span><strong>十四、维护保养</strong></p>
+<p>1.一般维护与保养</p>
+<p>（1）雷达清理：在机器关机不工作时，检查雷达四周确保无遮挡物。</p>
+<p>（2）万向轮清理：在机器关机不工作时，轻轻抬起底盘，用柔软干布擦拭万向轮，并清除周围 异物。</p>
+<p>（3）深度摄像头清理：请在机器断电状态下用柔软干布擦拭 2 个深度摄像头的镜片。</p>
+<p>（4）充电桩清理：请在断电状态下用柔软干布擦拭充电桩及充电电极。</p>
+<p>（5）碰撞条清理：请在断电状态下用柔软干布擦拭碰撞条，并确保防撞条上无丝线、纸屑等异 物卡住。</p>
+<p>2.维护与保养周期</p>
+<p>对于主机维护保养，主要是深度摄像头镜片检查、碰撞条检查、雷达周围净空检查、驱动轮和 万向轮周围异物检查以及充电桩检查等。维护周期的时间间隔可根据机器使用的环境、频率、强度 和温度而适当调整。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 22%" />
+<col style="width: 26%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="3"><blockquote>
+<p><strong>Hermes</strong> <strong>维护保养时间表</strong></p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p><strong>时间间隔</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>序号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>设备</p>
+</blockquote></td>
+<td><blockquote>
+<p>维护级别</p>
+</blockquote></td>
+<td><blockquote>
+<p>年</p>
+</blockquote></td>
+<td><blockquote>
+<p>月</p>
+</blockquote></td>
+<td><blockquote>
+<p>周</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>1</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>深度摄像头镜片</p>
+</blockquote></td>
+<td><blockquote>
+<p>擦拭</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 次</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>2</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞条</p>
+</blockquote></td>
+<td><blockquote>
+<p>清洁</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 次</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>3</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>雷达周围</p>
+</blockquote></td>
+<td><blockquote>
+<p>净空</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 次</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>4</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>万向轮</p>
+</blockquote></td>
+<td><blockquote>
+<p>清理</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 次</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>5</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>驱动轮</p>
+</blockquote></td>
+<td><blockquote>
+<p>清理</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 次</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>6</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>充电桩</p>
+</blockquote></td>
+<td><blockquote>
+<p>擦拭</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 次</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>7</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>机器本体</p>
+</blockquote></td>
+<td><blockquote>
+<p>检修</p>
+</blockquote></td>
+<td><blockquote>
+<p>1 次</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+<td><blockquote>
+<p>--</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>图表 14-1Hermes 维护保养时间表</p>
+<p><span id="bookmark49" class="anchor"></span><strong>十五、常见故障及排除故障</strong></p>
+<p>当 Hermes 运行中出现异常时，请参阅以下表格或页面提示以解决故障：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 17%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><strong>序号</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>故障提示</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>解决方法</strong></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>1</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞条异常</p>
+</blockquote></td>
+<td><blockquote>
+<p>请检查碰撞条是否被卡住，并多次轻拍防撞条，以使防撞条归位。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>2</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>Hermes 电量低</p>
+</blockquote></td>
+<td><blockquote>
+<p>请按压刹车释放按键，并将机器人推回充电桩充电。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>3</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>充电桩无法充电</p>
+</blockquote></td>
+<td><blockquote>
+<p>请检查充电桩电源线插头是否插入插座，充电桩指示灯是否正常亮起。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>4</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>无法开机</p>
+</blockquote></td>
+<td><blockquote>
+<p>请检查充电桩是否连接电源，充电桩和 Hermes 连接正常后，如果无法解决，请联 系售后。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>5</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>Hermes 无法上 桩充电</p>
+</blockquote></td>
+<td><blockquote>
+<p>请重新上桩尝试，如果无法解决，请联系售后。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>6</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>无法回桩</p>
+</blockquote></td>
+<td><blockquote>
+<p>1.请确认充电桩位置是否被挪动，如位置挪动，请联系售后。</p>
+<p>2.请确认充电桩位置是否处有坡度，如有坡度，请联系售后。</p>
+<p>3.请将 Hermes 推回充电桩，并尝试重新启动 Hermes。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>7</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>无法进/出电梯</p>
+</blockquote></td>
+<td><blockquote>
+<p>1.请确认电梯内是否有障碍物。</p>
+<p>2.请确认电梯附近网络信号情况。</p>
+<p>3.请将 Hermes 推回充电桩，并尝试重新启动 Hermes。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>8</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>万向轮间断性转 动</p>
+</blockquote></td>
+<td><blockquote>
+<p>请检查万向轮和驱动轮四周是否有丝线、卡片等异物卡住，如有异物，请清理异 物。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>9</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>机器无法行走</p>
+</blockquote></td>
+<td><blockquote>
+<p>请检查驱动器连接线是否正常连接，如果无法解决，请联系售后。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p><strong>10</strong></p>
+</blockquote></td>
+<td><blockquote>
+<p>机器灯带不亮</p>
+</blockquote></td>
+<td><blockquote>
+<p>请检查灯带的连接线是否正常连接，如果无法解决，请联系售后。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span id="bookmark50" class="anchor"></span><strong>十六、产品执行标准与合格证</strong></p>
+<p><strong>16.1</strong> <strong>产品执行标准</strong></p>
+<p>GB 4943.1</p>
+<p>GB/T 15706</p>
+<p>GB/T 16855.1</p>
+<p>GB/T 37283</p>
+<p>GB/T 37284</p>
+<p>*请勿超出说明书内容限制使用该产品，避免或导致 Hermes 损坏。</p>
+<p>*请以实物为准，我司保留产品更新的权利，如有变更，恕不另行通知。</p>
+<p>*用户手册版本 V1.0。</p>
+<p><span id="bookmark52" class="anchor"></span><strong>16.2</strong> <strong>合格证</strong></p>
+<p>公司名称：上海思岚科技有限公司</p>
+<p>公司地址：中国（上海）自由贸易试验区盛夏路 666 号盛银大厦 E 幢 2 层 01单元</p>
+<p>联系方式：(+86) 021 68581569</p>
+</blockquote>
+</body>
+</html>

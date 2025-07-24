@@ -1,0 +1,597 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/element-plus"></script>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "processing": "#722ED1",
+        "bgLight": "#F0F9F5"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans text-secondary">
+    <div id="app" class="w-full h-[calc(100vh-100px)] overflow-hidden">
+        <div class="px-4 py-3 border-b border-gray-200">
+            <h1 class="text-2xl font-bold text-secondary">图像处理工作台</h1>
+            <p class="text-sm text-gray-500">图像采集、处理、分析与标注工具</p>
+        </div>
+        
+        <div class="flex h-[calc(100%-64px)]">
+            <!-- 左侧图像管理 -->
+            <div id="image-management" class="w-1/4 border-r border-gray-200 h-full flex flex-col">
+                <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+                    <h2 class="font-semibold flex items-center">
+                        <i class="fa-solid fa-folder-open mr-2 text-primary"></i>
+                        图像管理
+                    </h2>
+                    <button class="text-gray-500 hover:text-primary p-1 rounded">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
+                
+                <div class="p-3 border-b border-gray-200">
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <div class="flex items-center p-2 hover:bg-gray-50 cursor-pointer">
+                            <i class="fa-solid fa-camera text-primary mr-2"></i>
+                            <span>实时采集</span>
+                            <span class="ml-auto bg-gray-100 text-xs px-1.5 py-0.5 rounded-full">24</span>
+                        </div>
+                        <div class="flex items-center p-2 bg-blue-50 hover:bg-blue-100 cursor-pointer">
+                            <i class="fa-solid fa-folder text-primary mr-2"></i>
+                            <span>历史图像</span>
+                            <span class="ml-auto bg-primary text-white text-xs px-1.5 py-0.5 rounded-full">156</span>
+                        </div>
+                        <div class="flex items-center p-2 hover:bg-gray-50 cursor-pointer">
+                            <i class="fa-solid fa-tag text-warning mr-2"></i>
+                            <span>已标注</span>
+                            <span class="ml-auto bg-gray-100 text-xs px-1.5 py-0.5 rounded-full">89</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-3 border-b border-gray-200">
+                    <div class="relative mb-2">
+                        <input type="text" placeholder="搜索图像..." class="w-full pl-8 pr-3 py-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                        <i class="fa-solid fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </div>
+                    
+                    <div class="flex gap-2 mb-2">
+                        <div class="w-1/2">
+                            <label class="text-xs text-gray-500 block mb-1">时间</label>
+                            <select class="w-full border border-gray-300 rounded-md text-sm p-1.5 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                                <option>今天</option>
+                                <option>昨天</option>
+                                <option>本周</option>
+                                <option>本月</option>
+                                <option>全部</option>
+                            </select>
+                        </div>
+                        <div class="w-1/2">
+                            <label class="text-xs text-gray-500 block mb-1">状态</label>
+                            <select class="w-full border border-gray-300 rounded-md text-sm p-1.5 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                                <option>全部</option>
+                                <option>已处理</option>
+                                <option>未处理</option>
+                                <option>已标注</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto">
+                    <div class="p-3 grid grid-cols-2 gap-2">
+                        <div class="border border-gray-200 rounded-md overflow-hidden bg-white hover:shadow-md cursor-pointer">
+                            <div class="h-20 bg-bgLight relative">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/73943f24dc-b7bd6592a5f4b965dc41.png" alt="camera surveillance image with cars and pedestrians">
+                                <div class="absolute top-1 right-1 bg-success text-white text-xs px-1 py-0.5 rounded">
+                                    <i class="fa-solid fa-check-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-1.5">
+                                <div class="text-xs font-medium truncate">camera_01.jpg</div>
+                                <div class="text-xs text-gray-500">1920×1080</div>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-md overflow-hidden bg-white hover:shadow-md cursor-pointer">
+                            <div class="h-20 bg-bgLight relative">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5f7d3a6f75-c7c2c2196f9816e41749.png" alt="street traffic camera view">
+                                <div class="absolute top-1 right-1 bg-warning text-white text-xs px-1 py-0.5 rounded">
+                                    <i class="fa-solid fa-tag"></i>
+                                </div>
+                            </div>
+                            <div class="p-1.5">
+                                <div class="text-xs font-medium truncate">camera_02.jpg</div>
+                                <div class="text-xs text-gray-500">1920×1080</div>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-md overflow-hidden bg-white hover:shadow-md cursor-pointer">
+                            <div class="h-20 bg-bgLight relative">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/72fcd97259-202b9297af5446e85056.png" alt="urban traffic intersection camera view">
+                            </div>
+                            <div class="p-1.5">
+                                <div class="text-xs font-medium truncate">camera_03.jpg</div>
+                                <div class="text-xs text-gray-500">1920×1080</div>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-md overflow-hidden bg-white hover:shadow-md cursor-pointer">
+                            <div class="h-20 bg-bgLight relative">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/c06657f8a2-d5d2b4386cfe2188f8d4.png" alt="highway surveillance camera view">
+                            </div>
+                            <div class="p-1.5">
+                                <div class="text-xs font-medium truncate">camera_04.jpg</div>
+                                <div class="text-xs text-gray-500">1920×1080</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 中间区域 -->
+            <div id="main-content" class="flex-1 flex flex-col h-full">
+                <!-- 工具栏 -->
+                <div id="tools-section" class="p-3 border-b border-gray-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="font-semibold flex items-center">
+                            <i class="fa-solid fa-toolbox mr-2 text-primary"></i>
+                            处理工具栏
+                        </h2>
+                        <div>
+                            <button class="text-xs border border-gray-300 rounded px-2 py-1 hover:bg-gray-50">
+                                <i class="fa-solid fa-arrows-rotate mr-1"></i>刷新
+                            </button>
+                            <button class="text-xs bg-primary text-white rounded px-2 py-1 ml-2 hover:bg-blue-600">
+                                <i class="fa-solid fa-floppy-disk mr-1"></i>保存
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="border border-gray-200 rounded-md p-2 hover:bg-gray-50 cursor-pointer flex flex-col items-center">
+                            <i class="fa-solid fa-camera text-2xl text-primary mb-1"></i>
+                            <span class="text-sm">采集</span>
+                        </div>
+                        <div class="border border-gray-200 rounded-md p-2 hover:bg-gray-50 cursor-pointer flex flex-col items-center">
+                            <i class="fa-solid fa-paint-brush text-2xl text-success mb-1"></i>
+                            <span class="text-sm">预处理</span>
+                        </div>
+                        <div class="border border-gray-200 rounded-md p-2 hover:bg-gray-50 cursor-pointer flex flex-col items-center">
+                            <i class="fa-solid fa-magnifying-glass text-2xl text-processing mb-1"></i>
+                            <span class="text-sm">检测</span>
+                        </div>
+                        <div class="border border-gray-200 rounded-md p-2 hover:bg-gray-50 cursor-pointer flex flex-col items-center">
+                            <i class="fa-solid fa-bullseye text-2xl text-primary mb-1"></i>
+                            <span class="text-sm">识别</span>
+                        </div>
+                        <div class="border border-gray-200 rounded-md p-2 bg-blue-50 hover:bg-blue-100 cursor-pointer flex flex-col items-center">
+                            <i class="fa-solid fa-tag text-2xl text-warning mb-1"></i>
+                            <span class="text-sm">标注</span>
+                        </div>
+                        <div class="border border-gray-200 rounded-md p-2 hover:bg-gray-50 cursor-pointer flex flex-col items-center">
+                            <i class="fa-solid fa-bolt text-2xl text-danger mb-1"></i>
+                            <span class="text-sm">批处理</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 图像显示区域 -->
+                <div id="image-display" class="flex-1 overflow-hidden flex flex-col">
+                    <div class="p-3 border-b border-gray-200 flex justify-between">
+                        <div>
+                            <span class="text-sm font-medium">当前图像: </span>
+                            <span class="text-sm">camera_01.jpg</span>
+                            <span class="text-xs text-gray-500 ml-3">1920×1080 | JPEG</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                            </button>
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <i class="fa-solid fa-magnifying-glass-minus"></i>
+                            </button>
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <i class="fa-solid fa-rotate"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 relative bg-bgLight overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="relative w-full max-w-3xl">
+                                <img class="w-full rounded shadow-md" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/f9ce2e0127-4d3808be42e1fd7f40a3.png" alt="traffic camera view with bounding boxes around cars and pedestrians, computer vision analysis">
+                                
+                                <!-- 示例标注框 -->
+                                <div class="absolute border-2 border-primary rounded-sm left-[10%] top-[20%] w-[15%] h-[20%]">
+                                    <div class="absolute -top-6 left-0 bg-primary text-white text-xs px-1 py-0.5 rounded">
+                                        🚗 车辆 (94%)
+                                    </div>
+                                </div>
+                                
+                                <div class="absolute border-2 border-primary rounded-sm right-[30%] top-[40%] w-[12%] h-[25%]">
+                                    <div class="absolute -top-6 left-0 bg-primary text-white text-xs px-1 py-0.5 rounded">
+                                        🚗 车辆 (92%)
+                                    </div>
+                                </div>
+                                
+                                <div class="absolute border-2 border-warning rounded-sm left-[40%] bottom-[20%] w-[8%] h-[18%]">
+                                    <div class="absolute -top-6 left-0 bg-warning text-white text-xs px-1 py-0.5 rounded">
+                                        👤 行人 (87%)
+                                    </div>
+                                </div>
+                                
+                                <!-- 多边形标注 -->
+                                <svg class="absolute inset-0 w-full h-full pointer-events-none">
+                                    <polygon points="750,100 800,120 820,180 780,210 730,190" fill="rgba(114, 46, 209, 0.2)" stroke="#722ED1" stroke-width="2"></polygon>
+                                </svg>
+                                
+                                <!-- 关键点标注 -->
+                                <div class="absolute left-[45%] top-[35%] w-3 h-3 bg-processing rounded-full border-2 border-white"></div>
+                                <div class="absolute left-[47%] top-[38%] w-3 h-3 bg-processing rounded-full border-2 border-white"></div>
+                                <div class="absolute left-[43%] top-[40%] w-3 h-3 bg-processing rounded-full border-2 border-white"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 处理结果 -->
+                    <div id="processing-results" class="h-36 border-t border-gray-200 p-3 flex">
+                        <div class="w-1/2 pr-2">
+                            <h3 class="text-sm font-medium mb-2 flex items-center">
+                                <i class="fa-solid fa-bullseye text-primary mr-1"></i>
+                                检测结果:
+                            </h3>
+                            <div class="text-sm space-y-1">
+                                <div class="flex items-center">
+                                    <span class="inline-block w-3 h-3 bg-success rounded-full mr-1"></span>
+                                    <span>🚗 车辆: 3个 (94%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="inline-block w-3 h-3 bg-warning rounded-full mr-1"></span>
+                                    <span>👤 行人: 2个 (87%)</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="inline-block w-3 h-3 bg-danger rounded-full mr-1"></span>
+                                    <span>🛑 标志: 1个 (92%)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-2">
+                                <h3 class="text-sm font-medium mb-1 flex items-center">
+                                    <i class="fa-solid fa-tag text-warning mr-1"></i>
+                                    标注信息:
+                                </h3>
+                                <div class="text-sm space-y-1">
+                                    <div>• 边界框: 6个</div>
+                                    <div>• 关键点: 12个</div>
+                                    <div>• 多边形: 2个</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="w-1/2 pl-2 border-l border-gray-200">
+                            <div class="flex justify-between mb-2">
+                                <button class="text-xs border border-gray-300 rounded px-2 py-1 hover:bg-gray-50">
+                                    <i class="fa-solid fa-file-export mr-1"></i>导出结果
+                                </button>
+                                <button class="text-xs bg-success text-white rounded px-2 py-1 hover:bg-green-600">
+                                    <i class="fa-solid fa-bolt mr-1"></i>批量应用
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded p-2 text-xs">
+                                <div class="mb-1 font-medium">处理日志:</div>
+                                <div class="text-gray-600">
+                                    [14:32:15] 加载图像 camera_01.jpg<br>
+                                    [14:32:16] 应用预处理: 亮度(50%), 对比度(80%)<br>
+                                    [14:32:17] 执行目标检测: YOLOv5<br>
+                                    [14:32:18] 检测完成: 6个目标, 置信度&gt;85%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧参数配置区 -->
+            <div id="parameter-config" class="w-1/4 border-l border-gray-200 h-full flex flex-col">
+                <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+                    <h2 class="font-semibold flex items-center">
+                        <i class="fa-solid fa-sliders mr-2 text-primary"></i>
+                        参数配置区
+                    </h2>
+                    <button class="text-gray-500 hover:text-primary p-1 rounded">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto">
+                    <!-- 预处理参数 -->
+                    <div class="p-3 border-b border-gray-200">
+                        <h3 class="text-sm font-medium mb-3 flex items-center">
+                            <i class="fa-solid fa-paint-brush text-success mr-1"></i>
+                            预处理参数:
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>亮度:</span>
+                                    <span>50%</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-success rounded" style="width: 50%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-success rounded-full top-1/2 transform -translate-y-1/2" style="left: 50%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>对比度:</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-success rounded" style="width: 80%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-success rounded-full top-1/2 transform -translate-y-1/2" style="left: 80%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>饱和度:</span>
+                                    <span>70%</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-success rounded" style="width: 70%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-success rounded-full top-1/2 transform -translate-y-1/2" style="left: 70%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>锐化:</span>
+                                    <span>60%</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-success rounded" style="width: 60%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-success rounded-full top-1/2 transform -translate-y-1/2" style="left: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 检测参数 -->
+                    <div class="p-3 border-b border-gray-200">
+                        <h3 class="text-sm font-medium mb-3 flex items-center">
+                            <i class="fa-solid fa-magnifying-glass text-processing mr-1"></i>
+                            检测参数:
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-xs block mb-1">算法:</label>
+                                <select class="w-full border border-gray-300 rounded-md text-sm p-1.5 focus:outline-none focus:ring-1 focus:ring-processing focus:border-processing">
+                                    <option>Canny</option>
+                                    <option>Sobel</option>
+                                    <option>Laplacian</option>
+                                    <option>SIFT</option>
+                                    <option>SURF</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>阈值1:</span>
+                                    <span>50</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-processing rounded" style="width: 30%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-processing rounded-full top-1/2 transform -translate-y-1/2" style="left: 30%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>阈值2:</span>
+                                    <span>150</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-processing rounded" style="width: 70%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-processing rounded-full top-1/2 transform -translate-y-1/2" style="left: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 识别参数 -->
+                    <div class="p-3 border-b border-gray-200">
+                        <h3 class="text-sm font-medium mb-3 flex items-center">
+                            <i class="fa-solid fa-bullseye text-primary mr-1"></i>
+                            识别参数:
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-xs block mb-1">模型:</label>
+                                <select class="w-full border border-gray-300 rounded-md text-sm p-1.5 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                                    <option>YOLOv5</option>
+                                    <option>Faster R-CNN</option>
+                                    <option>SSD</option>
+                                    <option>EfficientDet</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>置信度阈值:</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-primary rounded" style="width: 85%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-primary rounded-full top-1/2 transform -translate-y-1/2" style="left: 85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>IOU阈值:</span>
+                                    <span>0.45</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded relative">
+                                    <div class="absolute h-full bg-primary rounded" style="width: 45%"></div>
+                                    <div class="absolute w-3 h-3 bg-white border border-primary rounded-full top-1/2 transform -translate-y-1/2" style="left: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 处理统计 -->
+                    <div class="p-3">
+                        <h3 class="text-sm font-medium mb-3 flex items-center">
+                            <i class="fa-solid fa-chart-line text-primary mr-1"></i>
+                            处理统计:
+                        </h3>
+                        
+                        <div class="bg-gray-50 rounded-md p-2 space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="flex items-center">
+                                    <i class="fa-regular fa-clock mr-1 text-gray-500"></i>
+                                    处理时间:
+                                </span>
+                                <span class="font-medium">0.8秒</span>
+                            </div>
+                            
+                            <div class="flex justify-between text-xs">
+                                <span class="flex items-center">
+                                    <i class="fa-solid fa-microchip mr-1 text-gray-500"></i>
+                                    GPU使用:
+                                </span>
+                                <span class="font-medium">78%</span>
+                            </div>
+                            
+                            <div class="flex justify-between text-xs">
+                                <span class="flex items-center">
+                                    <i class="fa-solid fa-memory mr-1 text-gray-500"></i>
+                                    内存:
+                                </span>
+                                <span class="font-medium">1.2GB</span>
+                            </div>
+                            
+                            <div class="flex justify-between text-xs">
+                                <span class="flex items-center">
+                                    <i class="fa-solid fa-chart-simple mr-1 text-gray-500"></i>
+                                    精度:
+                                </span>
+                                <span class="font-medium">91.2%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 flex gap-2">
+                            <button class="text-xs flex-1 border border-gray-300 rounded px-2 py-1.5 hover:bg-gray-50">
+                                <i class="fa-solid fa-gauge-high mr-1"></i>性能监控
+                            </button>
+                            <button class="text-xs flex-1 border border-gray-300 rounded px-2 py-1.5 hover:bg-gray-50">
+                                <i class="fa-solid fa-bolt mr-1"></i>优化
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button class="text-xs flex-1 bg-white border border-success text-success rounded-md py-1.5 hover:bg-success hover:text-white">
+                                重置
+                            </button>
+                            <button class="text-xs flex-1 bg-success text-white rounded-md py-1.5 hover:bg-green-700">
+                                应用
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const { createApp, ref } = Vue;
+        
+        createApp({
+            setup() {
+                const brightness = ref(50);
+                const contrast = ref(80);
+                const saturation = ref(70);
+                const sharpness = ref(60);
+                const threshold1 = ref(50);
+                const threshold2 = ref(150);
+                const confidenceThreshold = ref(85);
+                const iouThreshold = ref(45);
+                
+                return {
+                    brightness,
+                    contrast,
+                    saturation,
+                    sharpness,
+                    threshold1,
+                    threshold2,
+                    confidenceThreshold,
+                    iouThreshold
+                };
+            }
+        }).use(ElementPlus).mount('#app');
+    </script>
+
+</body></html>

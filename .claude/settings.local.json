@@ -7,7 +7,23 @@
       "mcp__zen__thinkdeep",
       "Bash(git restore:*)",
       "mcp__zen__chat",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(pkill:*)",
+      "Bash(ls:*)",
+      "Bash(alembic init:*)",
+      "Bash(alembic revision:*)",
+      "Bash(python:*)",
+      "Bash(find:*)",
+      "Bash(claude settings)",
+      "Bash(./run-server.sh:*)",
+      "Bash(npx:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm install:*)",
+      "Bash(node:*)",
+      "mcp__zen__version",
+      "mcp__zen__listmodels"
     ],
     "deny": []
   }

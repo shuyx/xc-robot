@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR15】15. 状态反馈信息 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR15】15. 状态反馈信息 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 15. 状态反馈信息</p>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>15.</strong> 状态反馈信息</p>
+<p><strong>15.1.</strong> 状态反馈信息对照表</p>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image4.png" style="width:0.52794in;height:0.87487in" /><em>在</em> <em>Python</em> <em>版本发⽣变更:</em> SDK-v2.0.8-3.7.8</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 61%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>变量</p>
+</blockquote></td>
+<td><blockquote>
+<p>含义</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>program_state</p>
+</blockquote></td>
+<td><blockquote>
+<p>程序运⾏状态，1-停⽌； 2-运⾏； 3-暂停</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>robot_state</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈运动状态，1-停⽌； 2-运⾏； 3-暂停；4-拖动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>main_code</p>
+</blockquote></td>
+<td><blockquote>
+<p>主故障码</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>sub_code</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼦故障码”</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>robot_mode</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈模式，0-⾃动模式；1-⼿动模式</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>jt_cur_pos[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>关节当前位置,单位deg,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tl_cur_pos[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼯具当前位姿,单位deg&amp;mm,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ﬂange_cur_pos[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>末端法兰当前位姿,单位deg&amp;mm,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>actual_qd[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈当前关节速度,单位deg/s^2,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>actual_qdd[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈当前关节加速度,单位mm/s,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>target_TCP_CmpSpeed[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈TCP合成指令速度,单位mm/s&amp;deg/s,i:0~1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>target_TCP_Speed[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈TCP指令速度,单位mm/s&amp;deg/s,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>actual_TCP_CmpSpeed[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈TCP合成实际速度,单位mm/s&amp;deg/s,i:0~1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>actual_TCP_Speed[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈TCP实际速度,单位mm/s&amp;deg/s,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>jt_cur_tor[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>当前扭矩,单位N ·m ,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tool</p>
+</blockquote></td>
+<td><blockquote>
+<p>应⽤的⼯具坐标系编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>user</p>
+</blockquote></td>
+<td><blockquote>
+<p>应⽤的⼯件坐标系编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>cl_dgt_output_h</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数字量IO输出15-8</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>cl_dgt_output_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数字量IO输出7-0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tl_dgt_output_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼯具数字量IO输出7-0 ，仅bit0-bit1有效</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>dgt_input_h</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数字量IO输⼊15-8</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>cl_dgt_input_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱数字量IO输⼊7-0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tl_dgt_input_l</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼯具数字量IO输⼊7-0 ，仅bit0-bit1有效</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 61%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image7.png" style="width:0.34028in;height:0.40449in" />变量</p>
+</blockquote></td>
+<td><blockquote>
+<p>含义</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>cl_analog_input[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱模拟量输⼊ ,i:0~2</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tl_anglog_input</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼯具模拟量输⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ft_sensor_raw_data</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼒矩传感器原始数据,单位N&amp;Nm,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ft_sensor_data</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼒矩传感器数据,单位N&amp;Nm,i:0~5</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ft_sensor_active</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼒矩传感器激活状态，0-复位，1-激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>EmergencyStop</p>
+</blockquote></td>
+<td><blockquote>
+<p>急停标志,0-急停未按下,1-急停按下</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>motion_done</p>
+</blockquote></td>
+<td><blockquote>
+<p>运动到位信号,1-到位，0-未到位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_motiondone</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖运动完成信号,1-完成，0-未完成</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>mc_queue_len</p>
+</blockquote></td>
+<td><blockquote>
+<p>运动指令队列⻓度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>collisionState</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞检测,1-碰撞，0-⽆碰撞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>trajectory_pnum</p>
+</blockquote></td>
+<td><blockquote>
+<p>轨迹点编号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>safety_stop0_state</p>
+</blockquote></td>
+<td><blockquote>
+<p>安全停⽌信号SI0</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>safety_stop1_state</p>
+</blockquote></td>
+<td><blockquote>
+<p>安全停⽌信号SI1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_fault_id</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误夹⽖号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_fault</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖故障</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_active</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖激活状态，0-未激活，1-激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_position</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖位置(百分⽐)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_speed</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖速度(百分⽐)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_current</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖电流(百分⽐)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_tmp</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖温度,单位℃</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripper_voltage</p>
+</blockquote></td>
+<td><blockquote>
+<p>夹⽖电压,单位V</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>auxState.servoId</p>
+</blockquote></td>
+<td><blockquote>
+<p>485扩展轴,伺服驱动器ID号,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>auxState.servoErrCode</p>
+</blockquote></td>
+<td><blockquote>
+<p>485扩展轴,伺服驱动器故障码,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>auxState.servoState</p>
+</blockquote></td>
+<td><blockquote>
+<p>485扩展轴,伺服驱动器状态,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>auxState.servoPos</p>
+</blockquote></td>
+<td><blockquote>
+<p>485扩展轴,伺服当前位置,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>auxState.servoVel</p>
+</blockquote></td>
+<td><blockquote>
+<p>485扩展轴,伺服当前速度,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>auxState.servoTorque</p>
+</blockquote></td>
+<td><blockquote>
+<p>485扩展轴,伺服当前转矩,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].pos</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,位置,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].vel</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,速度,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].errorCode</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,故障码,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].ready</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,伺服准备好,i:0~3</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 61%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image10.png" style="width:0.34028in;height:0.40449in" />变量</p>
+</blockquote></td>
+<td><blockquote>
+<p>含义</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].inPos</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,伺服到位,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].alarm</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,伺服报警,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].ﬁerr</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,跟随误差,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].nlimit</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,到负限位,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].pLimit</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,到正限位,i:0~3</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].mdbsOﬀLine</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,驱动器485总线掉线</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].mdbsTimeout</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,控制卡与控制箱485通信超时</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAxisStatus[i].homingStatus</p>
+</blockquote></td>
+<td><blockquote>
+<p>UDP扩展轴,回零状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extDIState</p>
+</blockquote></td>
+<td><blockquote>
+<p>扩展数字输⼊状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extDOState</p>
+</blockquote></td>
+<td><blockquote>
+<p>扩展数字输出状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAIState</p>
+</blockquote></td>
+<td><blockquote>
+<p>扩展模拟输⼊状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>extAOState</p>
+</blockquote></td>
+<td><blockquote>
+<p>扩展模拟输出状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>rbtEnableState</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈使能状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>jointDriverTorque</p>
+</blockquote></td>
+<td><blockquote>
+<p>关节驱动器当前扭矩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>jointDriverTemperature</p>
+</blockquote></td>
+<td><blockquote>
+<p>关节驱动器当前温度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>year</p>
+</blockquote></td>
+<td><blockquote>
+<p>年</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>mouth</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽉</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>day</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽇</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>hour</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼩时</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>minute</p>
+</blockquote></td>
+<td><blockquote>
+<p>分</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>second</p>
+</blockquote></td>
+<td><blockquote>
+<p>秒</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>millisecond</p>
+</blockquote></td>
+<td><blockquote>
+<p>毫秒</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>softwareUpgradeState</p>
+</blockquote></td>
+<td><blockquote>
+<p>机器⼈软件升级状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>cl_analog_output[i]</p>
+</blockquote></td>
+<td><blockquote>
+<p>控制箱模拟量输出,i:0~1</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tl_analog_output</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼯具模拟量输出</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripperRotNum</p>
+</blockquote></td>
+<td><blockquote>
+<p>旋转夹⽖当前旋转圈数</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripperRotSpeed</p>
+</blockquote></td>
+<td><blockquote>
+<p>旋转夹⽖当前旋转速度百分⽐</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>gripperRotTorque</p>
+</blockquote></td>
+<td><blockquote>
+<p>旋转夹⽖当前旋转⼒矩百分⽐</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>endLuaErrCode</p>
+</blockquote></td>
+<td><blockquote>
+<p>末端LUA运⾏状态</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image11.png" style="width:0.11458in" /><img src="images/_FR15_15_________________________3_8_2___/media/image12.png" style="width:0.34028in;height:0.40449in" /><strong>15.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 80%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="2"><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p>
+<p>37</p>
+<p>38</p>
+<p>39</p>
+<p>40</p>
+<p>41</p>
+<p>42</p>
+<p>43</p>
+<p>44</p>
+<p>45</p>
+<p>46</p>
+<p>47</p>
+<p>48</p>
+<p>49</p>
+<p>50</p>
+<p>51</p>
+<p>52</p>
+<p>53</p>
+<p>54</p>
+<p>55</p>
+<p>56</p>
+<p>57</p>
+<p>58</p>
+<p>59</p>
+<p>60</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>print("program_state:", robot.robot_state_pkg.program_state)</p>
+<p>print("robot_state:", robot.robot_state_pkg.robot_state)</p>
+<p>print("main_code:", robot.robot_state_pkg.main_code)</p>
+<p>print("sub_code:", robot.robot_state_pkg.sub_code)</p>
+<p>print("robot_mode:", robot.robot_state_pkg.robot_mode)</p>
+<p>print("jt_cur_pos0:", robot.robot_state_pkg.jt_cur_pos [0])</p>
+<p>print("jt_cur_pos1:", robot.robot_state_pkg.jt_cur_pos [1])</p>
+<p>print("jt_cur_pos2:", robot.robot_state_pkg.jt_cur_pos [2])</p>
+<p>print("jt_cur_pos3:", robot.robot_state_pkg.jt_cur_pos [3])</p>
+<p>print("jt_cur_pos4:", robot.robot_state_pkg.jt_cur_pos [4])</p>
+<p>print("jt_cur_pos5:", robot.robot_state_pkg.jt_cur_pos [5])</p>
+<p>print("tl_cur_pos0:", robot.robot_state_pkg.tl_cur_pos [0])</p>
+<p>print("tl_cur_pos1:", robot.robot_state_pkg.tl_cur_pos [1])</p>
+<p>print("tl_cur_pos2:", robot.robot_state_pkg.tl_cur_pos [2])</p>
+<p>print("tl_cur_pos3:", robot.robot_state_pkg.tl_cur_pos [3])</p>
+<p>print("tl_cur_pos4:", robot.robot_state_pkg.tl_cur_pos [4])</p>
+<p>print("tl_cur_pos5:", robot.robot_state_pkg.tl_cur_pos [5])</p>
+<p>print("flange_cur_pos0:", robot.robot_state_pkg.flange_cur_pos [0])</p>
+<p>print("flange_cur_pos1:", robot.robot_state_pkg.flange_cur_pos [1])</p>
+<p>print("flange_cur_pos2:", robot.robot_state_pkg.flange_cur_pos [2])</p>
+<p>print("flange_cur_pos3:", robot.robot_state_pkg.flange_cur_pos [3])</p>
+<p>print("flange_cur_pos4:", robot.robot_state_pkg.flange_cur_pos [4])</p>
+<p>print("flange_cur_pos5:", robot.robot_state_pkg.flange_cur_pos [5])</p>
+<p>print("actual_qd0:", robot.robot_state_pkg.actual_qd [0])</p>
+<p>print("actual_qd1:", robot.robot_state_pkg.actual_qd [1])</p>
+<p>print("actual_qd2:", robot.robot_state_pkg.actual_qd [2])</p>
+<p>print("actual_qd3:", robot.robot_state_pkg.actual_qd [3])</p>
+<p>print("actual_qd4:", robot.robot_state_pkg.actual_qd [4])</p>
+<p>print("actual_qd5:", robot.robot_state_pkg.actual_qd [5])</p>
+<p>print("actual_qdd0:", robot.robot_state_pkg.actual_qdd [0])</p>
+<p>print("actual_qdd1:", robot.robot_state_pkg.actual_qdd [1])</p>
+<p>print("actual_qdd2:", robot.robot_state_pkg.actual_qdd [2])</p>
+<p>print("actual_qdd3:", robot.robot_state_pkg.actual_qdd [3])</p>
+<p>print("actual_qdd4:", robot.robot_state_pkg.actual_qdd [4])</p>
+<p>print("actual_qdd5:", robot.robot_state_pkg.actual_qdd [5])</p>
+<p>print("target_TCP_CmpSpeed0:", robot.robot_state_pkg.target_TCP_CmpSpeed [0])</p>
+<p>print("target_TCP_CmpSpeed1:", robot.robot_state_pkg.target_TCP_CmpSpeed [1])</p>
+<p>print("target_TCP_Speed0:", robot.robot_state_pkg.target_TCP_Speed [0])</p>
+<p>print("target_TCP_Speed1:", robot.robot_state_pkg.target_TCP_Speed [1])</p>
+<p>print("target_TCP_Speed2:", robot.robot_state_pkg.target_TCP_Speed [2])</p>
+<p>print("target_TCP_Speed3:", robot.robot_state_pkg.target_TCP_Speed [3])</p>
+<p>print("target_TCP_Speed4:", robot.robot_state_pkg.target_TCP_Speed [4])</p>
+<p>print("target_TCP_Speed5:", robot.robot_state_pkg.target_TCP_Speed [5])</p>
+<p>print("actual_TCP_CmpSpeed0:", robot.robot_state_pkg.actual_TCP_CmpSpeed [0])</p>
+<p>print("actual_TCP_CmpSpeed1:", robot.robot_state_pkg.actual_TCP_CmpSpeed [1])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td style="text-align: right;"><p>print("actual_TCP_Speed0:", robot.robot_state_pkg.actual_TCP_Speed [0])</p>
+<p>print("actual_TCP_Speed1:", robot.robot_state_pkg.actual_TCP_Speed [1])</p>
+<p>print("actual_TCP_Speed2:", robot.robot_state_pkg.actual_TCP_Speed [2])</p>
+<p>print("actual_TCP_Speed3:", robot.robot_state_pkg.actual_TCP_Speed [3])</p>
+<p>print("actual_TCP_Speed4:", robot.robot_state_pkg.actual_TCP_Speed [4])</p>
+<p>print("actual_TCP_Speed5:", robot.robot_state_pkg.actual_TCP_Speed [5])</p>
+<blockquote>
+<p>print("jt_cur_tor0:", robot.robot_state_pkg.jt_cur_tor [0])</p>
+<p>print("jt_cur_tor1:", robot.robot_state_pkg.jt_cur_tor [1])</p>
+<p>print("jt_cur_tor2:", robot.robot_state_pkg.jt_cur_tor [2])</p>
+<p>print("jt_cur_tor3:", robot.robot_state_pkg.jt_cur_tor [3])</p>
+<p>print("jt_cur_tor4:", robot.robot_state_pkg.jt_cur_tor [4])</p>
+<p>print("jt_cur_tor5:", robot.robot_state_pkg.jt_cur_tor [5])</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image13.png" style="width:0.16601in;height:0.18748in" /> latest</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 64%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image14.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR15_15_________________________3_8_2___/media/image15.png" style="width:0.11458in" />61</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("tool:", robot.robot_state_pkg.tool)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>62</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("user:", robot.robot_state_pkg.user)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>63</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("cl_dgt_output_h:", robot.robot_state_pkg.cl_dgt_output_h)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>64</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("cl_dgt_output_l:", robot.robot_state_pkg.cl_dgt_output_l)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>65</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("tl_dgt_output_l:", robot.robot_state_pkg.tl_dgt_output_l)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>66</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("cl_dgt_input_h:", robot.robot_state_pkg.cl_dgt_input_h)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>67</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("cl_dgt_input_l:", robot.robot_state_pkg.cl_dgt_input_l)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>68</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("tl_dgt_input_l:", robot.robot_state_pkg.tl_dgt_input_l)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>69</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("cl_analog_input0:", robot.robot_state_pkg.cl_analog_input [0])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>70</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("cl_analog_input1:", robot.robot_state_pkg.cl_analog_input [1])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>71</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("tl_anglog_input:", robot.robot_state_pkg.tl_anglog_input)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>72</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_raw_data0:", robot.robot_state_pkg.ft_sensor_raw_data [0])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>73</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_raw_data1:", robot.robot_state_pkg.ft_sensor_raw_data [1])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>74</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_raw_data2:", robot.robot_state_pkg.ft_sensor_raw_data [2])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>75</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_raw_data3:", robot.robot_state_pkg.ft_sensor_raw_data [3])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>76</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_raw_data4:", robot.robot_state_pkg.ft_sensor_raw_data [4])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>77</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_raw_data5:", robot.robot_state_pkg.ft_sensor_raw_data [5])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>78</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_data0:", robot.robot_state_pkg.ft_sensor_data [0])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>79</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_data1:", robot.robot_state_pkg.ft_sensor_data [1])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>80</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_data2:", robot.robot_state_pkg.ft_sensor_data [2])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>81</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_data3:", robot.robot_state_pkg.ft_sensor_data [3])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>82</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_data4:", robot.robot_state_pkg.ft_sensor_data [4])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>83</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_data5:", robot.robot_state_pkg.ft_sensor_data [5])</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>84</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("ft_sensor_active:", robot.robot_state_pkg.ft_sensor_active)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>85</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("EmergencyStop:", robot.robot_state_pkg.EmergencyStop)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>86</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("motion_done:", robot.robot_state_pkg.motion_done)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>87</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_motiondone:", robot.robot_state_pkg.gripper_motiondone)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>88</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("mc_queue_len:", robot.robot_state_pkg.mc_queue_len)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>89</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("collisionState:", robot.robot_state_pkg.collisionState)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>90</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("trajectory_pnum:", robot.robot_state_pkg.trajectory_pnum)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>91</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("safety_stop0_state:", robot.robot_state_pkg.safety_stop0_state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>92</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("safety_stop1_state:", robot.robot_state_pkg.safety_stop1_state)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>93</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_fault_id:", robot.robot_state_pkg.gripper_fault_id)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>94</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_fault:", robot.robot_state_pkg.gripper_fault)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>95</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_active:", robot.robot_state_pkg.gripper_active)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>96</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_position:", robot.robot_state_pkg.gripper_position)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>97</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_speed:", robot.robot_state_pkg.gripper_speed)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>98</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_current:", robot.robot_state_pkg.gripper_current)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>99</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_tmp:", robot.robot_state_pkg.gripper_tmp)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>100</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("gripper_voltage:", robot.robot_state_pkg.gripper_voltage)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>101</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("auxState.servoId:", robot.robot_state_pkg.auxState.servoId)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>102</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("auxState.servoErrCode:", robot.robot_state_pkg.auxState.servoErrCode)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>103</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("auxState.servoState:", robot.robot_state_pkg.auxState.servoState)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>104</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("auxState.servoPos:", robot.robot_state_pkg.auxState.servoPos)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>105</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("auxState.servoVel:", robot.robot_state_pkg.auxState.servoVel)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>106</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("auxState.servoTorque:", robot.robot_state_pkg.auxState.servoTorque)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>107</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p><strong>for</strong> i <strong>in</strong> range(4):</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>108</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("extAxisStatus.pos:", i,robot.robot_state_pkg.extAxisStatus [i].pos)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>109</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("extAxisStatus.vel:", i,robot.robot_state_pkg.extAxisStatus [i].vel)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>110 print("extAxisStatus.errorCode:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].errorCode)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>111 <img src="images/_FR15_15_________________________3_8_2___/media/image16.png" style="height:0.15859in" /> print("extAxisStatus.ready:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].ready)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>112 <img src="images/_FR15_15_________________________3_8_2___/media/image17.png" style="height:0.17122in" /> print("extAxisStatus.inPos:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].inPos)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>113</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>print("extAxisStatus.alarm:",</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].alarm)</p>
+<p>114 <img src="images/_FR15_15_________________________3_8_2___/media/image18.png" style="height:0.16963in" /> print("extAxisStatus.flerr:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].flerr)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>115 <img src="images/_FR15_15_________________________3_8_2___/media/image19.png" style="height:0.17122in" /> print("extAxisStatus.nlimit:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].nlimit)</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image20.png" style="width:0.16601in;height:0.18748in" /> latest</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>116 <img src="images/_FR15_15_________________________3_8_2___/media/image21.png" style="height:0.15859in" /> print("extAxisStatus.pLimit:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].pLimit)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>117 <img src="images/_FR15_15_________________________3_8_2___/media/image22.png" style="height:0.17371in" /> print("extAxisStatus.mdbsOffLine:",</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].mdbsOffLine)</p>
+<p>118 <img src="images/_FR15_15_________________________3_8_2___/media/image26.png" style="height:0.17459in" /> print("extAxisStatus.mdbsTimeout:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].mdbsTimeout)</p>
+<p>119 <img src="images/_FR15_15_________________________3_8_2___/media/image27.png" style="height:0.16963in" /> print("extAxisStatus.homingStatus:",</p>
+<p>i,robot.robot_state_pkg.extAxisStatus [i].homingStatus)</p>
+<p>120 <img src="images/_FR15_15_________________________3_8_2___/media/image28.png" style="height:0.17459in" /> <strong>for</strong> i <strong>in</strong> range(8):</p>
+<p>121 <img src="images/_FR15_15_________________________3_8_2___/media/image29.png" style="height:0.1721in" /> print("extDIState:",i, robot.robot_state_pkg.extDIState [i])</p>
+<p>122 <img src="images/_FR15_15_________________________3_8_2___/media/image30.png" style="height:0.15944in" /> print("extDOState:", i,robot.robot_state_pkg.extDOState [i])</p>
+<p>123 <img src="images/_FR15_15_________________________3_8_2___/media/image31.png" style="height:0.16963in" /> <strong>for</strong> i <strong>in</strong> range(4):</p>
+<p>124 <img src="images/_FR15_15_________________________3_8_2___/media/image32.png" style="height:0.1721in" /> print("extAIState:", i,robot.robot_state_pkg.extAIState [i])</p>
+<p>125 <img src="images/_FR15_15_________________________3_8_2___/media/image33.png" style="height:0.1721in" /> print("extAOState:", robot.robot_state_pkg.extAOState [i])</p>
+<p>126 <img src="images/_FR15_15_________________________3_8_2___/media/image34.png" style="height:0.1721in" /> print("rbtEnableState:", robot.robot_state_pkg.rbtEnableState)</p>
+<p>127 <img src="images/_FR15_15_________________________3_8_2___/media/image35.png" style="height:0.15944in" /> print("jointDriverTorque0:", robot.robot_state_pkg.jointDriverTorque[0])</p>
+<p>128 <img src="images/_FR15_15_________________________3_8_2___/media/image36.png" style="height:0.16963in" /> print("jointDriverTorque1:", robot.robot_state_pkg.jointDriverTorque[1])</p>
+<p>129 <img src="images/_FR15_15_________________________3_8_2___/media/image37.png" style="height:0.1721in" /> print("jointDriverTorque2:", robot.robot_state_pkg.jointDriverTorque[2])</p>
+<p>130 <img src="images/_FR15_15_________________________3_8_2___/media/image38.png" style="height:0.1721in" /> print("jointDriverTorque3:", robot.robot_state_pkg.jointDriverTorque[3])</p>
+<p>131 <img src="images/_FR15_15_________________________3_8_2___/media/image39.png" style="height:0.1721in" /> print("jointDriverTorque4:", robot.robot_state_pkg.jointDriverTorque[4])</p>
+<p>132 <img src="images/_FR15_15_________________________3_8_2___/media/image40.png" style="height:0.15944in" /> print("jointDriverTorque5:", robot.robot_state_pkg.jointDriverTorque[5])</p>
+<p>133 <img src="images/_FR15_15_________________________3_8_2___/media/image41.png" style="height:0.16963in" /> print("jointDriverTemperature:",</p>
+<p>robot.robot_state_pkg.jointDriverTemperature[0])</p>
+<p>134 <img src="images/_FR15_15_________________________3_8_2___/media/image42.png" style="height:0.17459in" /> print("jointDriverTemperature:",</p>
+<p>robot.robot_state_pkg.jointDriverTemperature[1])</p>
+<p>135 <img src="images/_FR15_15_________________________3_8_2___/media/image43.png" style="height:0.16186in" /> print("jointDriverTemperature:",</p>
+<p>robot.robot_state_pkg.jointDriverTemperature[2])</p>
+<p>136 <img src="images/_FR15_15_________________________3_8_2___/media/image44.png" style="height:0.17459in" /> print("jointDriverTemperature:",</p>
+<p>robot.robot_state_pkg.jointDriverTemperature[3])</p>
+<p>137 <img src="images/_FR15_15_________________________3_8_2___/media/image45.png" style="height:0.17459in" /> print("jointDriverTemperature:",</p>
+<p>robot.robot_state_pkg.jointDriverTemperature[4])</p>
+<p>138 <img src="images/_FR15_15_________________________3_8_2___/media/image46.png" style="height:0.16963in" /> print("jointDriverTemperature:",</p>
+<p>robot.robot_state_pkg.jointDriverTemperature[5])</p>
+<p>139 <img src="images/_FR15_15_________________________3_8_2___/media/image47.png" style="height:0.17459in" /> print("year:", robot.robot_state_pkg.year)</p>
+<p>140 <img src="images/_FR15_15_________________________3_8_2___/media/image48.png" style="height:0.1721in" /> print("mouth:", robot.robot_state_pkg.mouth)</p>
+<p>141 <img src="images/_FR15_15_________________________3_8_2___/media/image49.png" style="height:0.15944in" /> print("day:", robot.robot_state_pkg.day)</p>
+<p>142 <img src="images/_FR15_15_________________________3_8_2___/media/image50.png" style="height:0.16963in" /> print("hour:", robot.robot_state_pkg.hour)</p>
+<p>143 <img src="images/_FR15_15_________________________3_8_2___/media/image51.png" style="height:0.1721in" /> print("minute:", robot.robot_state_pkg.minute)</p>
+<p>144 <img src="images/_FR15_15_________________________3_8_2___/media/image52.png" style="height:0.1721in" /> print("second:", robot.robot_state_pkg.second)</p>
+<p>145 <img src="images/_FR15_15_________________________3_8_2___/media/image53.png" style="height:0.15944in" /> print("millisecond:", robot.robot_state_pkg.millisecond)</p>
+<p>146 <img src="images/_FR15_15_________________________3_8_2___/media/image54.png" style="height:0.16963in" /> print("softwareUpgradeState:", robot.robot_state_pkg.softwareUpgradeState)</p>
+<p>147 <img src="images/_FR15_15_________________________3_8_2___/media/image55.png" style="height:0.1721in" /> print("cl_analog_output[0]:",robot.robot_state_pkg.cl_analog_output [0])</p>
+<p>148 <img src="images/_FR15_15_________________________3_8_2___/media/image56.png" style="height:0.1721in" /> print("cl_analog_output[1]:",robot.robot_state_pkg.cl_analog_output [1])</p>
+<p>149 <img src="images/_FR15_15_________________________3_8_2___/media/image57.png" style="height:0.1721in" /> print("tl_analog_output:",robot.robot_state_pkg.tl_analog_output)</p>
+<p>150 <img src="images/_FR15_15_________________________3_8_2___/media/image58.png" style="height:0.15944in" /> print("gripperRotNum:",robot.robot_state_pkg.gripperRotNum)</p>
+<p>151 <img src="images/_FR15_15_________________________3_8_2___/media/image59.png" style="height:0.16963in" /> print("gripperRotSpeed:",robot.robot_state_pkg.gripperRotSpeed)</p>
+<p>152 <img src="images/_FR15_15_________________________3_8_2___/media/image60.png" style="height:0.1721in" /> print("gripperRotTorque:",robot.robot_state_pkg.gripperRotTorque)</p>
+<p>153 <img src="images/_FR15_15_________________________3_8_2___/media/image61.png" style="height:0.17459in" /> print("endLuaE rrCode:", robot.robot_state_pkg.endLuaE rrCode)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR15_15_________________________3_8_2___/media/image62.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

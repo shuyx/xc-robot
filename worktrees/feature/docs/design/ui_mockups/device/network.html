@@ -1,0 +1,631 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/highcharts@10.3.3/highcharts.js"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#FF9500",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "light": "#FFF3E0",
+        "connected": "#67C23A",
+        "offline": "#F56C6C",
+        "config": "#409EFF"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans text-secondary bg-gray-50">
+    <div id="network-config-page" class="p-6 w-full h-[calc(100vh-100px)] overflow-y-auto">
+        <!-- Page Header -->
+        <div id="page-header" class="mb-6">
+            <h1 class="text-2xl font-bold text-secondary">网络配置管理</h1>
+            <p class="text-gray-600">机器人网络参数配置与连接管理</p>
+        </div>
+
+        <!-- Host Network Configuration -->
+        <div id="host-network-section" class="mb-6">
+            <div class="flex items-center mb-3">
+                <i class="fa-solid fa-desktop text-primary mr-2"></i>
+                <h2 class="text-xl font-semibold">主机网络配置</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Basic Network Settings -->
+                <div id="basic-network-card" class="bg-white rounded-lg shadow-sm">
+                    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-wrench text-primary mr-2"></i>
+                            <h3 class="font-medium">基础网络设置</h3>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-primary">
+                                <i class="fa-solid fa-sync"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">IP地址:</span>
+                                <span class="font-medium">192.168.1.100</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">子网掩码:</span>
+                                <span class="font-medium">255.255.255.0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">网关:</span>
+                                <span class="font-medium">192.168.1.1</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">DNS:</span>
+                                <span class="font-medium">8.8.8.8</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-gray-100 flex justify-end space-x-2">
+                        <button class="px-3 py-1.5 border border-gray-300 text-gray-700 rounded-md text-sm hover:bg-gray-50">重置</button>
+                        <button class="px-3 py-1.5 bg-primary text-white rounded-md text-sm hover:bg-blue-500">修改</button>
+                    </div>
+                </div>
+
+                <!-- WiFi Settings -->
+                <div id="wifi-settings-card" class="bg-white rounded-lg shadow-sm">
+                    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-wifi text-primary mr-2"></i>
+                            <h3 class="font-medium">WiFi设置</h3>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-primary">
+                                <i class="fa-solid fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">网络名:</span>
+                                <span class="font-medium">XC-Robot-5G</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">状态:</span>
+                                <span class="flex items-center">
+                                    <span class="h-2.5 w-2.5 rounded-full bg-connected mr-2"></span>
+                                    <span class="font-medium">已连接</span>
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">信号强度:</span>
+                                <div class="w-24 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-connected h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">带宽:</span>
+                                <span class="font-medium">867 Mbps</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-gray-100 flex justify-end space-x-2">
+                        <button class="px-3 py-1.5 border border-gray-300 text-gray-700 rounded-md text-sm hover:bg-gray-50">断开</button>
+                        <button class="px-3 py-1.5 bg-primary text-white rounded-md text-sm hover:bg-blue-500">重连</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Device Network Configuration -->
+        <div id="device-network-section" class="mb-6">
+            <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-robot text-primary mr-2"></i>
+                    <h2 class="text-xl font-semibold">设备网络配置</h2>
+                </div>
+                <button class="px-3 py-1.5 bg-warning text-white rounded-md text-sm hover:bg-orange-500 flex items-center">
+                    <i class="fa-solid fa-plus mr-1"></i>
+                    添加设备
+                </button>
+            </div>
+            <div id="device-table-card" class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 text-gray-600 text-sm">
+                            <tr>
+                                <th class="py-3 px-4 text-left font-medium">设备名称</th>
+                                <th class="py-3 px-4 text-left font-medium">IP地址</th>
+                                <th class="py-3 px-4 text-left font-medium">端口</th>
+                                <th class="py-3 px-4 text-left font-medium">状态</th>
+                                <th class="py-3 px-4 text-left font-medium">延迟</th>
+                                <th class="py-3 px-4 text-right font-medium">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50 cursor-pointer">
+                                <td class="py-3 px-4">FR3右臂</td>
+                                <td class="py-3 px-4">192.168.58.2</td>
+                                <td class="py-3 px-4">502</td>
+                                <td class="py-3 px-4">
+                                    <span class="flex items-center">
+                                        <span class="h-2.5 w-2.5 rounded-full bg-connected mr-2"></span>
+                                        <span>正常</span>
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4">5ms</td>
+                                <td class="py-3 px-4 text-right">
+                                    <button class="px-2 py-1 bg-config text-white rounded text-xs hover:bg-blue-500">配置</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 cursor-pointer">
+                                <td class="py-3 px-4">FR3左臂</td>
+                                <td class="py-3 px-4">192.168.58.3</td>
+                                <td class="py-3 px-4">502</td>
+                                <td class="py-3 px-4">
+                                    <span class="flex items-center">
+                                        <span class="h-2.5 w-2.5 rounded-full bg-connected mr-2"></span>
+                                        <span>正常</span>
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4">6ms</td>
+                                <td class="py-3 px-4 text-right">
+                                    <button class="px-2 py-1 bg-config text-white rounded text-xs hover:bg-blue-500">配置</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 cursor-pointer">
+                                <td class="py-3 px-4">Hermes底盘</td>
+                                <td class="py-3 px-4">192.168.31.211</td>
+                                <td class="py-3 px-4">1448</td>
+                                <td class="py-3 px-4">
+                                    <span class="flex items-center">
+                                        <span class="h-2.5 w-2.5 rounded-full bg-connected mr-2"></span>
+                                        <span>正常</span>
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4">8ms</td>
+                                <td class="py-3 px-4 text-right">
+                                    <button class="px-2 py-1 bg-config text-white rounded text-xs hover:bg-blue-500">配置</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 cursor-pointer">
+                                <td class="py-3 px-4">TOF相机</td>
+                                <td class="py-3 px-4">192.168.58.100</td>
+                                <td class="py-3 px-4">8080</td>
+                                <td class="py-3 px-4">
+                                    <span class="flex items-center">
+                                        <span class="h-2.5 w-2.5 rounded-full bg-connected mr-2"></span>
+                                        <span>正常</span>
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4">12ms</td>
+                                <td class="py-3 px-4 text-right">
+                                    <button class="px-2 py-1 bg-config text-white rounded text-xs hover:bg-blue-500">配置</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 cursor-pointer">
+                                <td class="py-3 px-4">2D相机1</td>
+                                <td class="py-3 px-4">192.168.58.101</td>
+                                <td class="py-3 px-4">8080</td>
+                                <td class="py-3 px-4">
+                                    <span class="flex items-center">
+                                        <span class="h-2.5 w-2.5 rounded-full bg-offline mr-2"></span>
+                                        <span>离线</span>
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4">--</td>
+                                <td class="py-3 px-4 text-right">
+                                    <button class="px-2 py-1 bg-config text-white rounded text-xs hover:bg-blue-500">配置</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 cursor-pointer">
+                                <td class="py-3 px-4">鱼眼相机</td>
+                                <td class="py-3 px-4">192.168.58.102</td>
+                                <td class="py-3 px-4">8080</td>
+                                <td class="py-3 px-4">
+                                    <span class="flex items-center">
+                                        <span class="h-2.5 w-2.5 rounded-full bg-offline mr-2"></span>
+                                        <span>离线</span>
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4">--</td>
+                                <td class="py-3 px-4 text-right">
+                                    <button class="px-2 py-1 bg-config text-white rounded text-xs hover:bg-blue-500">配置</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Topology and Tools -->
+        <div id="network-topology-tools-section" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Network Topology -->
+            <div id="network-topology-card" class="bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-project-diagram text-primary mr-2"></i>
+                        <h3 class="font-medium">网络拓扑图</h3>
+                    </div>
+                    <div>
+                        <button class="text-gray-400 hover:text-primary">
+                            <i class="fa-solid fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4 h-[250px] flex items-center justify-center">
+                    <div id="network-topology" class="w-full h-full relative">
+                        <!-- Network Topology SVG -->
+                        <svg width="100%" height="100%" viewBox="0 0 400 200">
+                            <!-- Router -->
+                            <g class="cursor-pointer">
+                                <rect x="175" y="10" width="50" height="30" rx="5" fill="#FFF3E0" stroke="#FF9500" stroke-width="2"></rect>
+                                <text x="200" y="30" text-anchor="middle" font-size="12" fill="#2c3e50">路由器</text>
+                                <!-- Connection Line -->
+                                <line x1="200" y1="40" x2="200" y2="60" stroke="#409EFF" stroke-width="2"></line>
+                            </g>
+
+                            <!-- Switch -->
+                            <g class="cursor-pointer">
+                                <rect x="175" y="60" width="50" height="30" rx="5" fill="#FFF3E0" stroke="#FF9500" stroke-width="2"></rect>
+                                <text x="200" y="80" text-anchor="middle" font-size="12" fill="#2c3e50">交换机</text>
+                                <!-- Connection Lines -->
+                                <line x1="175" y1="90" x2="90" y2="120" stroke="#409EFF" stroke-width="2"></line>
+                                <line x1="200" y1="90" x2="200" y2="120" stroke="#409EFF" stroke-width="2"></line>
+                                <line x1="225" y1="90" x2="310" y2="120" stroke="#409EFF" stroke-width="2"></line>
+                            </g>
+
+                            <!-- Host -->
+                            <g class="cursor-pointer">
+                                <rect x="70" y="120" width="40" height="30" rx="5" fill="#FFF3E0" stroke="#FF9500" stroke-width="2"></rect>
+                                <text x="90" y="140" text-anchor="middle" font-size="11" fill="#2c3e50">主机</text>
+                                <!-- Connection Line -->
+                                <line x1="90" y1="150" x2="90" y2="170" stroke="#409EFF" stroke-width="2"></line>
+                            </g>
+
+                            <!-- FR3 Right -->
+                            <g class="cursor-pointer">
+                                <rect x="180" y="120" width="40" height="30" rx="5" fill="#FFF3E0" stroke="#FF9500" stroke-width="2"></rect>
+                                <text x="200" y="140" text-anchor="middle" font-size="11" fill="#2c3e50">FR3右</text>
+                            </g>
+
+                            <!-- FR3 Left -->
+                            <g class="cursor-pointer">
+                                <rect x="290" y="120" width="40" height="30" rx="5" fill="#FFF3E0" stroke="#FF9500" stroke-width="2"></rect>
+                                <text x="310" y="140" text-anchor="middle" font-size="11" fill="#2c3e50">FR3左</text>
+                            </g>
+
+                            <!-- Camera -->
+                            <g class="cursor-pointer">
+                                <rect x="70" y="170" width="40" height="30" rx="5" fill="#FFF3E0" stroke="#F56C6C" stroke-width="2"></rect>
+                                <text x="90" y="190" text-anchor="middle" font-size="11" fill="#2c3e50">相机</text>
+                            </g>
+
+                            <!-- Chassis -->
+                            <g class="cursor-pointer">
+                                <rect x="130" y="170" width="40" height="30" rx="5" fill="#FFF3E0" stroke="#FF9500" stroke-width="2"></rect>
+                                <text x="150" y="190" text-anchor="middle" font-size="11" fill="#2c3e50">底盘</text>
+                            </g>
+
+                            <!-- Status Legend -->
+                            <g transform="translate(330, 180)">
+                                <circle cx="0" cy="-30" r="5" fill="#67C23A"></circle>
+                                <text x="10" y="-28" font-size="10" fill="#2c3e50">正常</text>
+                                <circle cx="0" cy="-15" r="5" fill="#F56C6C"></circle>
+                                <text x="10" y="-13" font-size="10" fill="#2c3e50">故障</text>
+                                <circle cx="0" cy="0" r="5" fill="#E0E0E0"></circle>
+                                <text x="10" y="2" font-size="10" fill="#2c3e50">离线</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Tools -->
+            <div id="network-tools-card" class="bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-tools text-primary mr-2"></i>
+                        <h3 class="font-medium">网络工具</h3>
+                    </div>
+                </div>
+                <div class="p-4 space-y-4">
+                    <!-- Network Scanner -->
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-search text-primary mr-2"></i>
+                            <h4 class="font-medium">网络扫描</h4>
+                        </div>
+                        <div class="mb-2">
+                            <label class="text-sm text-gray-600 block mb-1">扫描范围:</label>
+                            <input type="text" value="192.168.1.1-254" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <button class="w-full px-3 py-2 bg-warning text-white rounded-md text-sm hover:bg-orange-500">开始扫描</button>
+                    </div>
+
+                    <!-- Port Detection -->
+                    <div class="pt-3 border-t border-gray-100">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-exclamation-triangle text-primary mr-2"></i>
+                            <h4 class="font-medium">端口检测</h4>
+                        </div>
+                        <div class="mb-2">
+                            <label class="text-sm text-gray-600 block mb-1">目标IP:</label>
+                            <input type="text" value="192.168.58.2" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div class="mb-2">
+                            <label class="text-sm text-gray-600 block mb-1">端口:</label>
+                            <input type="text" value="502" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <button class="w-full px-3 py-2 bg-warning text-white rounded-md text-sm hover:bg-orange-500">开始检测</button>
+                    </div>
+
+                    <!-- Connection Log -->
+                    <div class="pt-3 border-t border-gray-100">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-clipboard-list text-primary mr-2"></i>
+                            <h4 class="font-medium">连接日志</h4>
+                        </div>
+                        <button class="w-full px-3 py-2 border border-gray-300 text-gray-700 rounded-md text-sm hover:bg-gray-50">查看详细日志</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Statistics -->
+        <div id="network-statistics-section" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Network Stats -->
+            <div id="network-stats-card" class="bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chart-bar text-primary mr-2"></i>
+                        <h3 class="font-medium">网络统计</h3>
+                    </div>
+                    <div>
+                        <button class="text-gray-400 hover:text-primary">
+                            <i class="fa-solid fa-sync"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div id="network-chart" class="h-[180px] mb-4"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-sm text-gray-500">数据包发送</div>
+                            <div class="font-semibold">1,234,567</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">数据包接收</div>
+                            <div class="font-semibold">1,230,145</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">丢包率</div>
+                            <div class="font-semibold">0.36%</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">平均延迟</div>
+                            <div class="font-semibold">8.5ms</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-gray-100 flex justify-end">
+                    <button class="px-3 py-1.5 border border-gray-300 text-gray-700 rounded-md text-sm hover:bg-gray-50">详细统计</button>
+                </div>
+            </div>
+
+            <!-- Bandwidth Usage -->
+            <div id="bandwidth-usage-card" class="bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-tachometer-alt text-primary mr-2"></i>
+                        <h3 class="font-medium">带宽使用</h3>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <select class="text-xs border border-gray-300 rounded px-2 py-1">
+                            <option>最近1小时</option>
+                            <option>最近24小时</option>
+                            <option>最近7天</option>
+                        </select>
+                        <button class="text-gray-400 hover:text-primary">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div id="bandwidth-chart" class="h-[180px] mb-4"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-sm text-gray-500">当前下载</div>
+                            <div class="font-semibold">1.2 MB/s</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">当前上传</div>
+                            <div class="font-semibold">0.3 MB/s</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">峰值下载</div>
+                            <div class="font-semibold">8.7 MB/s</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">峰值上传</div>
+                            <div class="font-semibold">2.1 MB/s</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-gray-100 flex justify-end">
+                    <button class="px-3 py-1.5 border border-gray-300 text-gray-700 rounded-md text-sm hover:bg-gray-50">历史数据</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Network Chart
+        Highcharts.chart('network-chart', {
+            chart: {
+                type: 'area',
+                height: 180,
+                marginTop: 10,
+                marginBottom: 20,
+                marginLeft: 40,
+                marginRight: 10,
+                style: {
+                    fontFamily: 'Inter, sans-serif'
+                }
+            },
+            title: {
+                text: null
+            },
+            xAxis: {
+                categories: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00'],
+                labels: {
+                    style: {
+                        fontSize: '10px'
+                    }
+                },
+                tickLength: 0
+            },
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    style: {
+                        fontSize: '10px'
+                    }
+                },
+                gridLineColor: '#f0f0f0'
+            },
+            legend: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                area: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            series: [{
+                name: '数据包',
+                color: '#409EFF',
+                data: [120, 132, 101, 134, 90, 230, 210]
+            }]
+        });
+
+        // Bandwidth Chart
+        Highcharts.chart('bandwidth-chart', {
+            chart: {
+                type: 'areaspline',
+                height: 180,
+                marginTop: 10,
+                marginBottom: 20,
+                marginLeft: 40,
+                marginRight: 10,
+                style: {
+                    fontFamily: 'Inter, sans-serif'
+                }
+            },
+            title: {
+                text: null
+            },
+            xAxis: {
+                categories: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00'],
+                labels: {
+                    style: {
+                        fontSize: '10px'
+                    }
+                },
+                tickLength: 0
+            },
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    style: {
+                        fontSize: '10px'
+                    }
+                },
+                gridLineColor: '#f0f0f0'
+            },
+            legend: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                areaspline: {
+                    marker: {
+                        enabled: false
+                    },
+                    fillOpacity: 0.3
+                }
+            },
+            series: [{
+                name: '下载',
+                color: '#67C23A',
+                data: [3.5, 2.1, 4.8, 3.9, 5.2, 3.1, 1.2]
+            }, {
+                name: '上传',
+                color: '#FF9500',
+                data: [1.1, 0.8, 1.9, 1.2, 0.9, 1.7, 0.3]
+            }]
+        });
+    </script>
+
+</body></html>

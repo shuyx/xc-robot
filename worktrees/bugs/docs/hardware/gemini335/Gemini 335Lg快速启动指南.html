@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Gemini 335Lg快速启动指南</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gemini 335Lg快速启动指南</h1>
+</header>
+<p><img src="images/Gemini_335Lg______/media/image1.jpeg" style="width:0.3611in;height:0.27774in" />RB 首页 核心技术 产品中心 解决方案 客户案例 新闻中心 关于奥比 投资者关系</p>
+<blockquote>
+<p>首页 &gt; 产 品 中 心 &gt; Orbbec Gemini 330</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image2.png" style="width:7.09025in" /></p>
+<blockquote>
+<p><strong>Gemini 335Lg快速启动指南</strong></p>
+<p>1.盒装相机开箱</p>
+<p>a) 撕开或剪断盒子两侧的透明胶带；</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image3.jpeg" style="width:6.72915in;height:3.77087in" /></p>
+<blockquote>
+<p>b) 撕掉相机玻璃盖板上用于保护的白色薄膜；</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image4.jpeg" style="width:6.88894in;height:2.64587in" /></p>
+<blockquote>
+<p>c) 使用提供的FAKRA-Z 线材连接相机和解串板；</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image5.jpeg" style="width:6.95833in;height:3.13891in" /></p>
+<blockquote>
+<p>d) 将解串板和英伟达AGX Orin开发者套件装好；</p>
+<p>注意：目前仅对Jetpack 6.0版本的AGX Orin进行了适配；</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image6.jpeg" style="width:4.18058in;height:4.68059in" /></p>
+<blockquote>
+<p>e) 为AGX Orin开发套件和解串板上电；</p>
+<p>i. 示例解串板的供电需求为直流24V 2A以上；</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image7.jpeg" style="width:6.93054in;height:3.13891in" /></p>
+<p>2.加载预编译驱动</p>
+<blockquote>
+<p>a) 获取预编译驱动</p>
+<p>i. 从奥比Github下载或技术支持人员处获取预编译驱动；</p>
+<p>b) 切换到预编译驱动路径</p>
+<p>i. 示例命令：终端运行 cd ./驱动所在的路径</p>
+<p>c) 授予“copy_to_target.sh”脚本执行权限</p>
+<p>i. 示例命令：chmod+x copy_to_target.sh</p>
+<p>orbbecaubuntu: ～/Desktop/gnsl workspace/gnsl-drtvers chnod+x Copy to target.sh d) 执行脚本</p>
+<p>i. 示例命令：sudo ./copy_to_target.sh</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image8.jpeg" /></p>
+<p>3.开始使用</p>
+<blockquote>
+<p>a) 检查驱动版本</p>
+<p>i. 示例命令：cat /sys/module/g2xx/version</p>
+<p>#驱动版本号需要与奥比Githu中提供的版本号一致，推荐在下载后进行哈希码校验；</p>
+</blockquote>
+<p><img src="images/Gemini_335Lg______/media/image13.jpeg" /></p>
+<blockquote>
+<p>b) 检查视频节点数量</p>
+<p>i. 示例命令：Is/sys/video* #1台Gemini 335Lg相机将会有8个视频节点；</p>
+<p><img src="images/Gemini_335Lg______/media/image14.jpeg" style="width:4.77773in;height:0.47222in" />orbbec@ubuntu:~/Desktop/gmsL_workspace/gnsL-drtver s ls <em>/dev/video*</em></p>
+<p><strong>/dev/videoe /dev/video11</strong> /dev/video14 /dev/video3 <strong>/dev/video6</strong></p>
+<p>/dev/v <strong>ideo1 /dev/video12</strong> /dev/video15 /dev/video4 <strong>/dev/video7</strong></p>
+<p>/dev/v <strong>ideo10 /dev/video13 <em>/dev/vi </em></strong><em>deo2</em> /dev/video5 <em>/dev/video8</em></p>
+<p>示例代码：cd /viewer path &amp;&amp;sudo./Orbbecviewer</p>
+</blockquote>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highcharts@10.3.3/highcharts.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/element-plus"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#67C23A",
+        "warning": "#FF9500",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "tertiary": "#00A870",
+        "warning-light": "#FFF3E0"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+        }
+        .el-progress-bar__inner {
+            background-color: #FF9500 !important;
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body>
+    <div id="app" class="w-full h-[calc(100vh-100px)] overflow-auto bg-gray-100 p-4">
+        <!-- Page Header -->
+        <div id="page-header" class="mb-4">
+            <h1 class="text-2xl font-bold text-secondary">设备连接测试</h1>
+            <p class="text-gray-600">硬件设备连接状态检测与功能验证</p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Quick Test Section -->
+            <div id="quick-test-section" class="bg-white rounded-lg shadow p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-bullseye text-warning mr-2"></i>
+                        <h2 class="text-lg font-semibold">快速测试</h2>
+                    </div>
+                    <div>
+                        <el-tooltip content="刷新设备列表">
+                            <button class="text-gray-500 hover:text-primary p-1">
+                                <i class="fa-solid fa-sync-alt"></i>
+                            </button>
+                        </el-tooltip>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-robot text-primary mr-2"></i>
+                            <h3 class="font-medium">机械臂系统</h3>
+                        </div>
+                        <div class="ml-6 space-y-2">
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-success mr-2"></span>
+                                <span>左臂 FR3-L</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-success mr-2"></span>
+                                <span>右臂 FR3-R</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-truck text-primary mr-2"></i>
+                            <h3 class="font-medium">底盘系统</h3>
+                        </div>
+                        <div class="ml-6 space-y-2">
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-success mr-2"></span>
+                                <span>Hermes底盘</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-warning mr-2"></span>
+                                <span>激光雷达</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-eye text-primary mr-2"></i>
+                            <h3 class="font-medium">视觉系统</h3>
+                        </div>
+                        <div class="ml-6 space-y-2">
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-success mr-2"></span>
+                                <span>相机1 (正面)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-danger mr-2"></span>
+                                <span>相机2 (侧面)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="inline-block w-3 h-3 rounded-full bg-success mr-2"></span>
+                                <span>深度相机</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2 mt-4">
+                        <button class="bg-warning text-white px-4 py-2 rounded-md hover:bg-opacity-90">
+                            <i class="fa-solid fa-play mr-1"></i> 全部测试
+                        </button>
+                        <button class="border border-warning text-warning px-4 py-2 rounded-md hover:bg-warning-light">
+                            <i class="fa-solid fa-list-check mr-1"></i> 选择测试
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Test Results Section -->
+            <div id="test-results-section" class="bg-white rounded-lg shadow p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chart-bar text-primary mr-2"></i>
+                        <h2 class="text-lg font-semibold">测试结果</h2>
+                    </div>
+                    <div>
+                        <el-tooltip content="导出结果">
+                            <button class="text-gray-500 hover:text-primary p-1">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                        </el-tooltip>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 h-[calc(100%-3rem)]">
+                    <div class="mb-4 pb-3 border-b border-gray-200">
+                        <div class="flex items-start mb-1">
+                            <span class="inline-block w-5 h-5 rounded-full bg-success flex items-center justify-center text-white text-xs mr-2">✓</span>
+                            <div>
+                                <span class="font-medium">机械臂: 连接正常</span>
+                                <div class="text-sm text-gray-600 mt-1 ml-1">
+                                    <div>响应时间: <span class="font-medium">12ms</span></div>
+                                    <div>精度测试: <span class="font-medium">0.02mm</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4 pb-3 border-b border-gray-200">
+                        <div class="flex items-start mb-1">
+                            <span class="inline-block w-5 h-5 rounded-full bg-success flex items-center justify-center text-white text-xs mr-2">✓</span>
+                            <div>
+                                <span class="font-medium">底盘: 连接正常</span>
+                                <div class="text-sm text-gray-600 mt-1 ml-1">
+                                    <div>响应时间: <span class="font-medium">8ms</span></div>
+                                    <div>定位精度: <span class="font-medium">±2cm</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-start mb-1">
+                            <span class="inline-block w-5 h-5 rounded-full bg-warning flex items-center justify-center text-white text-xs mr-2">⚠</span>
+                            <div>
+                                <span class="font-medium">视觉: 部分异常</span>
+                                <div class="text-sm text-gray-600 mt-1 ml-1">
+                                    <div>相机1: <span class="text-success">正常</span></div>
+                                    <div>相机2: <span class="text-danger">连接失败</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2 mt-6">
+                        <button class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-blue-50">
+                            <i class="fa-solid fa-file-alt mr-1"></i> 详细报告
+                        </button>
+                        <button class="bg-primary text-white px-4 py-2 rounded-md hover:bg-opacity-90">
+                            <i class="fa-solid fa-redo mr-1"></i> 重新测试
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Test Section -->
+            <div id="detailed-test-section" class="bg-white rounded-lg shadow p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-wrench text-primary mr-2"></i>
+                        <h2 class="text-lg font-semibold">详细测试</h2>
+                    </div>
+                    <div>
+                        <el-tooltip content="测试设置">
+                            <button class="text-gray-500 hover:text-primary p-1">
+                                <i class="fa-solid fa-cog"></i>
+                            </button>
+                        </el-tooltip>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-medium">当前测试: 机械臂精度</span>
+                            <span class="text-xs text-gray-500">开始于: 14:25:32</span>
+                        </div>
+                        <div class="mb-2">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm">进度:</span>
+                                <span class="text-sm">85%</span>
+                            </div>
+                            <el-progress :percentage="85" :show-text="false"></el-progress>
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            预计剩余: 2分钟
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-chart-line text-primary mr-2"></i>
+                            <span class="font-medium">实时数据:</span>
+                        </div>
+                        <div class="ml-6 text-sm grid grid-cols-2 gap-2">
+                            <div>CPU: <span class="font-medium">45%</span></div>
+                            <div>内存: <span class="font-medium">2.1GB</span></div>
+                            <div>网络: <span class="font-medium">156ms RTT</span></div>
+                            <div>温度: <span class="font-medium">42°C</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-exclamation-triangle text-danger mr-2"></i>
+                            <span class="font-medium">错误信息:</span>
+                        </div>
+                        <div class="ml-6 p-2 bg-red-50 border border-red-100 rounded-md">
+                            <div class="text-danger font-medium">相机2连接超时 (5.2秒)</div>
+                            <div class="text-sm mt-1">建议: 检查USB连接</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2 mt-4">
+                        <button class="bg-danger text-white px-4 py-2 rounded-md hover:bg-opacity-90">
+                            <i class="fa-solid fa-stop mr-1"></i> 停止测试
+                        </button>
+                        <button class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-blue-50">
+                            <i class="fa-solid fa-file-alt mr-1"></i> 查看日志
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Test History Section -->
+            <div id="test-history-section" class="bg-white rounded-lg shadow p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-clipboard-list text-primary mr-2"></i>
+                        <h2 class="text-lg font-semibold">测试历史</h2>
+                    </div>
+                    <div>
+                        <el-tooltip content="筛选">
+                            <button class="text-gray-500 hover:text-primary p-1">
+                                <i class="fa-solid fa-filter"></i>
+                            </button>
+                        </el-tooltip>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 h-[calc(100%-3rem)] overflow-auto">
+                    <div class="mb-3 pb-3 border-b border-gray-200">
+                        <div class="flex items-center mb-1">
+                            <i class="fa-regular fa-calendar text-gray-500 mr-2"></i>
+                            <span class="font-medium">2025-07-19 14:30</span>
+                        </div>
+                        <div class="ml-6 text-sm">
+                            <div class="flex items-center">
+                                <span class="inline-block w-2 h-2 rounded-full bg-success mr-2"></span>
+                                <span>状态: 全部通过</span>
+                            </div>
+                            <div>用时: 4分38秒</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 pb-3 border-b border-gray-200">
+                        <div class="flex items-center mb-1">
+                            <i class="fa-regular fa-calendar text-gray-500 mr-2"></i>
+                            <span class="font-medium">2025-07-19 10:15</span>
+                        </div>
+                        <div class="ml-6 text-sm">
+                            <div class="flex items-center">
+                                <span class="inline-block w-2 h-2 rounded-full bg-danger mr-2"></span>
+                                <span>状态: 1项失败</span>
+                            </div>
+                            <div>用时: 5分12秒</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 pb-3 border-b border-gray-200">
+                        <div class="flex items-center mb-1">
+                            <i class="fa-regular fa-calendar text-gray-500 mr-2"></i>
+                            <span class="font-medium">2025-07-18 16:20</span>
+                        </div>
+                        <div class="ml-6 text-sm">
+                            <div class="flex items-center">
+                                <span class="inline-block w-2 h-2 rounded-full bg-success mr-2"></span>
+                                <span>状态: 全部通过</span>
+                            </div>
+                            <div>用时: 3分45秒</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2 mt-4">
+                        <button class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-blue-50">
+                            <i class="fa-solid fa-list mr-1"></i> 查看全部
+                        </button>
+                        <button class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-blue-50">
+                            <i class="fa-solid fa-file-export mr-1"></i> 导出
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Test Config Section -->
+            <div id="test-config-section" class="bg-white rounded-lg shadow p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-cogs text-primary mr-2"></i>
+                        <h2 class="text-lg font-semibold">测试配置</h2>
+                    </div>
+                    <div>
+                        <el-tooltip content="高级设置">
+                            <button class="text-gray-500 hover:text-primary p-1">
+                                <i class="fa-solid fa-sliders-h"></i>
+                            </button>
+                        </el-tooltip>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="mb-4">
+                        <div class="font-medium mb-2">测试类型:</div>
+                        <div class="ml-4 space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="connection-test" class="form-checkbox h-4 w-4 text-warning rounded" checked="">
+                                <label for="connection-test" class="ml-2">连接测试</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="function-test" class="form-checkbox h-4 w-4 text-warning rounded" checked="">
+                                <label for="function-test" class="ml-2">功能测试</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="performance-test" class="form-checkbox h-4 w-4 text-warning rounded" checked="">
+                                <label for="performance-test" class="ml-2">性能测试</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="stress-test" class="form-checkbox h-4 w-4 text-warning rounded">
+                                <label for="stress-test" class="ml-2">压力测试</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="font-medium mb-2">超时设置:</div>
+                        <div class="grid grid-cols-2 gap-3 ml-4">
+                            <div>
+                                <label class="text-sm text-gray-600">连接:</label>
+                                <div class="flex items-center">
+                                    <input type="number" value="5" class="w-16 h-8 border border-gray-300 rounded px-2 text-center">
+                                    <span class="ml-1">秒</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-sm text-gray-600">功能:</label>
+                                <div class="flex items-center">
+                                    <input type="number" value="30" class="w-16 h-8 border border-gray-300 rounded px-2 text-center">
+                                    <span class="ml-1">秒</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2 mt-6">
+                        <button class="bg-warning text-white px-4 py-2 rounded-md hover:bg-opacity-90">
+                            <i class="fa-solid fa-save mr-1"></i> 保存配置
+                        </button>
+                        <button class="border border-gray-300 text-gray-600 px-4 py-2 rounded-md hover:bg-gray-100">
+                            <i class="fa-solid fa-undo mr-1"></i> 重置
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Comparison Section -->
+            <div id="performance-comparison-section" class="bg-white rounded-lg shadow p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chart-bar text-primary mr-2"></i>
+                        <h2 class="text-lg font-semibold">性能对比</h2>
+                    </div>
+                    <div>
+                        <el-tooltip content="更多图表">
+                            <button class="text-gray-500 hover:text-primary p-1">
+                                <i class="fa-solid fa-expand"></i>
+                            </button>
+                        </el-tooltip>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 h-[calc(100%-3rem)]">
+                    <div class="mb-3">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-chart-line text-primary mr-2"></i>
+                            <span class="font-medium">响应时间趋势:</span>
+                        </div>
+                        <div id="performance-chart" class="h-32 w-full"></div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fa-solid fa-bullseye text-warning mr-2"></i>
+                            <span class="font-medium">性能基准:</span>
+                        </div>
+                        <div class="ml-6 space-y-1 text-sm">
+                            <div class="flex justify-between">
+                                <span>机械臂:</span>
+                                <span class="font-medium">&lt;20ms</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>底盘:</span>
+                                <span class="font-medium">&lt;15ms</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>视觉:</span>
+                                <span class="font-medium">&lt;100ms</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2 mt-4">
+                        <button class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-blue-50">
+                            <i class="fa-solid fa-file-alt mr-1"></i> 性能报告
+                        </button>
+                        <button class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-blue-50">
+                            <i class="fa-solid fa-exchange-alt mr-1"></i> 对比
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+        
+        createApp({
+            setup() {
+                return {};
+            },
+            mounted() {
+                this.initPerformanceChart();
+            },
+            methods: {
+                initPerformanceChart() {
+                    Highcharts.chart('performance-chart', {
+                        chart: {
+                            type: 'spline',
+                            backgroundColor: 'transparent',
+                            style: {
+                                fontFamily: 'Inter, sans-serif'
+                            }
+                        },
+                        title: {
+                            text: null
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            categories: ['7/15', '7/16', '7/17', '7/18', '7/19'],
+                            labels: {
+                                style: {
+                                    color: '#2c3e50',
+                                    fontSize: '10px'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: null
+                            },
+                            labels: {
+                                style: {
+                                    color: '#2c3e50',
+                                    fontSize: '10px'
+                                }
+                            },
+                            gridLineColor: '#f0f0f0'
+                        },
+                        tooltip: {
+                            shared: true,
+                            crosshairs: true
+                        },
+                        legend: {
+                            enabled: true,
+                            itemStyle: {
+                                fontSize: '10px',
+                                color: '#2c3e50'
+                            }
+                        },
+                        series: [{
+                            name: '机械臂',
+                            color: '#409EFF',
+                            data: [18, 15, 14, 13, 12]
+                        }, {
+                            name: '底盘',
+                            color: '#67C23A',
+                            data: [12, 10, 9, 8, 8]
+                        }, {
+                            name: '视觉',
+                            color: '#FF9500',
+                            data: [95, 90, 85, 88, 92]
+                        }]
+                    });
+                }
+            }
+        }).use(ElementPlus).mount('#app');
+    </script>
+
+</body></html>

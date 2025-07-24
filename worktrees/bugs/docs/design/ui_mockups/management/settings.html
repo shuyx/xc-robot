@@ -1,0 +1,432 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "light-bg": "#F8F9FA",
+        "dark-bg": "#2c3e50",
+        "setting-bg": "#909399"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans text-secondary">
+    <div id="settings-page" class="w-full h-[calc(100vh-100px)] bg-light-bg">
+        <div class="p-6">
+            <!-- Page Header -->
+            <div id="settings-header" class="mb-6">
+                <h1 class="text-2xl font-bold text-secondary">系统配置管理</h1>
+                <p class="text-sm text-gray-500">机器人系统参数配置与管理</p>
+            </div>
+            
+            <!-- Settings Container -->
+            <div id="settings-container" class="flex gap-6 h-[calc(100vh-220px)]">
+                <!-- Settings Categories -->
+                <div id="settings-categories" class="w-64 bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="p-3 bg-info text-white font-medium">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>设置分类</span>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div id="category-basic" class="flex items-center gap-2 p-3 rounded-md bg-primary bg-opacity-10 text-primary cursor-pointer mb-1">
+                            <i class="fa-solid fa-globe"></i>
+                            <span>基础设置</span>
+                        </div>
+                        <div id="category-device" class="flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 cursor-pointer mb-1">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>设备配置</span>
+                        </div>
+                        <div id="category-security" class="flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 cursor-pointer mb-1">
+                            <i class="fa-solid fa-lock"></i>
+                            <span>安全设置</span>
+                        </div>
+                        <div id="category-maintenance" class="flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 cursor-pointer mb-1">
+                            <i class="fa-solid fa-wrench"></i>
+                            <span>系统维护</span>
+                        </div>
+                        <div id="category-performance" class="flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 cursor-pointer mb-1">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>性能调优</span>
+                        </div>
+                        <div id="category-theme" class="flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 cursor-pointer mb-1">
+                            <i class="fa-solid fa-palette"></i>
+                            <span>界面主题</span>
+                        </div>
+                        <div id="category-network" class="flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 cursor-pointer mb-1">
+                            <i class="fa-solid fa-wifi"></i>
+                            <span>网络设置</span>
+                        </div>
+                        <div id="category-notification" class="flex items-center gap-2 p-3 rounded-md hover:bg-gray-100 cursor-pointer">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>通知设置</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Content -->
+                <div id="settings-content" class="flex-1">
+                    <!-- Basic Settings Panel -->
+                    <div id="basic-settings-panel" class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-globe text-primary text-xl"></i>
+                                <h2 class="text-xl font-bold">基础设置</h2>
+                            </div>
+                            <button class="text-primary hover:text-blue-600">
+                                <i class="fa-solid fa-rotate-right"></i> 重置
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <!-- Language Setting -->
+                            <div id="language-setting" class="flex flex-col">
+                                <label class="text-sm font-medium mb-2">语言设置:</label>
+                                <div class="relative w-64">
+                                    <select class="w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option selected="">中文(简体)</option>
+                                        <option>English</option>
+                                        <option>日本語</option>
+                                        <option>한국어</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                        <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Timezone Setting -->
+                            <div id="timezone-setting" class="flex flex-col">
+                                <label class="text-sm font-medium mb-2">时区设置:</label>
+                                <div class="relative w-64">
+                                    <select class="w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option selected="">GMT+8:00 北京时间</option>
+                                        <option>GMT+0:00 格林威治时间</option>
+                                        <option>GMT-5:00 东部标准时间</option>
+                                        <option>GMT-8:00 太平洋标准时间</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                        <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Theme Setting -->
+                            <div id="theme-setting" class="flex flex-col">
+                                <label class="text-sm font-medium mb-2">界面主题:</label>
+                                <div class="flex gap-6">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="theme" class="w-4 h-4 text-primary focus:ring-primary" checked="">
+                                        <i class="fa-regular fa-sun"></i>
+                                        <span>浅色</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="theme" class="w-4 h-4 text-primary focus:ring-primary">
+                                        <i class="fa-regular fa-moon"></i>
+                                        <span>深色</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="theme" class="w-4 h-4 text-primary focus:ring-primary">
+                                        <i class="fa-solid fa-circle-half-stroke"></i>
+                                        <span>自动</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Auto Save Setting -->
+                            <div id="autosave-setting" class="flex flex-col">
+                                <label class="text-sm font-medium mb-2">自动保存:</label>
+                                <div class="flex items-center gap-4">
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="w-4 h-4 text-primary focus:ring-primary" checked="">
+                                        <span class="ml-2">启用</span>
+                                    </label>
+                                    <div class="flex items-center gap-2">
+                                        <span>间隔:</span>
+                                        <input type="number" value="5" min="1" max="60" class="w-16 p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <span>分钟</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Auto Start Setting -->
+                            <div id="autostart-setting" class="flex flex-col">
+                                <label class="text-sm font-medium mb-2">开机自启:</label>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-primary focus:ring-primary" checked="">
+                                    <span class="ml-2">启用</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Log Level Setting -->
+                            <div id="loglevel-setting" class="flex flex-col">
+                                <label class="text-sm font-medium mb-2">日志级别:</label>
+                                <div class="relative w-64">
+                                    <select class="w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option>DEBUG</option>
+                                        <option selected="">INFO</option>
+                                        <option>WARN</option>
+                                        <option>ERROR</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                        <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Device Settings Panel (Hidden by default) -->
+                    <div id="device-settings-panel" class="hidden bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-robot text-primary text-xl"></i>
+                                <h2 class="text-xl font-bold">设备配置</h2>
+                            </div>
+                            <button class="text-primary hover:text-blue-600">
+                                <i class="fa-solid fa-rotate-right"></i> 重置
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-8">
+                            <!-- FR3 Robot Arm Settings -->
+                            <div id="robot-arm-settings" class="border border-gray-200 rounded-lg p-4">
+                                <h3 class="text-lg font-medium mb-4">FR3机械臂配置:</h3>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">最大速度 (m/s):</label>
+                                        <input type="number" value="2.0" min="0.1" max="5.0" step="0.1" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">最大加速度 (m/s²):</label>
+                                        <input type="number" value="2.0" min="0.1" max="10.0" step="0.1" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">碰撞检测:</label>
+                                        <label class="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" class="w-4 h-4 text-primary focus:ring-primary" checked="">
+                                            <span class="ml-2">启用</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">力控阈值 (N):</label>
+                                        <input type="number" value="10.0" min="1.0" max="50.0" step="0.5" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Hermes Base Settings -->
+                            <div id="base-settings" class="border border-gray-200 rounded-lg p-4">
+                                <h3 class="text-lg font-medium mb-4">Hermes底盘配置:</h3>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">最大线速度 (m/s):</label>
+                                        <input type="number" value="1.0" min="0.1" max="3.0" step="0.1" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">最大角速度 (rad/s):</label>
+                                        <input type="number" value="1.0" min="0.1" max="3.0" step="0.1" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">安全距离 (m):</label>
+                                        <input type="number" value="0.3" min="0.1" max="1.0" step="0.05" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">避障敏感度:</label>
+                                        <div class="relative">
+                                            <select class="w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary">
+                                                <option>低</option>
+                                                <option selected="">中等</option>
+                                                <option>高</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                                <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Camera Settings -->
+                            <div id="camera-settings" class="border border-gray-200 rounded-lg p-4">
+                                <h3 class="text-lg font-medium mb-4">相机系统配置:</h3>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">2D相机分辨率:</label>
+                                        <div class="relative">
+                                            <select class="w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary">
+                                                <option>1280x720</option>
+                                                <option selected="">1920x1080</option>
+                                                <option>2560x1440</option>
+                                                <option>3840x2160</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                                <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">帧率 (fps):</label>
+                                        <input type="number" value="30" min="15" max="120" step="1" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">TOF相机深度范围 (m):</label>
+                                        <div class="flex items-center gap-2">
+                                            <input type="number" value="0.2" min="0.1" max="1.0" step="0.1" class="w-20 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                            <span>-</span>
+                                            <input type="number" value="10.0" min="1.0" max="20.0" step="0.5" class="w-20 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label class="text-sm font-medium mb-2">精度:</label>
+                                        <div class="relative">
+                                            <select class="w-full p-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary">
+                                                <option>低</option>
+                                                <option>中</option>
+                                                <option selected="">高</option>
+                                            </select>
+                                            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                                <i class="fa-solid fa-chevron-down text-gray-400"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div id="action-buttons" class="mt-6 grid grid-cols-6 gap-4">
+                <button class="flex items-center justify-center gap-2 bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors">
+                    <i class="fa-solid fa-check"></i> 应用设置
+                </button>
+                <button class="flex items-center justify-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">
+                    <i class="fa-solid fa-rotate-left"></i> 恢复默认
+                </button>
+                <button class="flex items-center justify-center gap-2 bg-warning text-white py-2 px-4 rounded-md hover:bg-yellow-600 transition-colors">
+                    <i class="fa-solid fa-power-off"></i> 重启系统
+                </button>
+                <button class="flex items-center justify-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">
+                    <i class="fa-solid fa-file-import"></i> 导入配置
+                </button>
+                <button class="flex items-center justify-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">
+                    <i class="fa-solid fa-file-export"></i> 导出配置
+                </button>
+                <button class="flex items-center justify-center gap-2 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors">
+                    <i class="fa-solid fa-database"></i> 备份系统
+                </button>
+            </div>
+            
+            <!-- Status Indicators -->
+            <div id="status-indicators" class="mt-4 flex items-center gap-6 text-sm text-gray-600">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-success"></span>
+                    <span>系统状态: 正常</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-success"></span>
+                    <span>网络连接: 已连接</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-info"></span>
+                    <span>上次更新: 2023-07-20 14:30:45</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between settings panels
+        document.getElementById('category-basic').addEventListener('click', function() {
+            document.getElementById('basic-settings-panel').classList.remove('hidden');
+            document.getElementById('device-settings-panel').classList.add('hidden');
+            
+            // Update active category
+            document.querySelectorAll('#settings-categories > div > div').forEach(el => {
+                el.classList.remove('bg-primary', 'bg-opacity-10', 'text-primary');
+                el.classList.add('hover:bg-gray-100', 'text-secondary');
+            });
+            this.classList.add('bg-primary', 'bg-opacity-10', 'text-primary');
+            this.classList.remove('hover:bg-gray-100', 'text-secondary');
+        });
+        
+        document.getElementById('category-device').addEventListener('click', function() {
+            document.getElementById('basic-settings-panel').classList.add('hidden');
+            document.getElementById('device-settings-panel').classList.remove('hidden');
+            
+            // Update active category
+            document.querySelectorAll('#settings-categories > div > div').forEach(el => {
+                el.classList.remove('bg-primary', 'bg-opacity-10', 'text-primary');
+                el.classList.add('hover:bg-gray-100', 'text-secondary');
+            });
+            this.classList.add('bg-primary', 'bg-opacity-10', 'text-primary');
+            this.classList.remove('hover:bg-gray-100', 'text-secondary');
+        });
+        
+        // Confirmation dialog for restart
+        document.querySelector('button:contains("重启系统")').addEventListener('click', function() {
+            if (confirm('确定要重启系统吗？这将中断所有正在进行的操作。')) {
+                alert('系统正在重启，请稍候...');
+            }
+        });
+        
+        // Confirmation dialog for restore defaults
+        document.querySelector('button:contains("恢复默认")').addEventListener('click', function() {
+            if (confirm('确定要恢复默认设置吗？这将覆盖所有当前配置。')) {
+                alert('设置已恢复为默认值');
+            }
+        });
+    </script>
+
+</body></html>

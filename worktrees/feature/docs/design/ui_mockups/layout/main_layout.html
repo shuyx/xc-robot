@@ -1,0 +1,631 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    
+    <title>XC-OS v3.0 主界面布局</title>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "unknown": "#DCDFE6"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans bg-gray-100 text-secondary">
+    <div id="app" class="flex h-screen overflow-hidden">
+        <!-- 侧边栏导航 -->
+        <aside id="sidebar" class="bg-secondary text-white w-64 flex-shrink-0 transition-all duration-300 ease-in-out z-20" :class="{'w-20': isCollapsed}">
+            <!-- 侧边栏头部 -->
+            <div class="h-16 flex items-center px-4 border-b border-gray-700">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-building-columns text-2xl text-primary"></i>
+                    <span class="text-xl font-semibold transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">XC-OS v3.0</span>
+                </div>
+            </div>
+            
+            <!-- 侧边栏菜单 -->
+            <nav class="py-4">
+                <ul class="space-y-1">
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-house text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">首页</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">首页</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white bg-primary/20 hover:bg-primary/30 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-bolt text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">智能交互</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">智能交互</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-plug text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">系统连接</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">系统连接</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-robot text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">智能设备</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">智能设备</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-flask text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">实验功能</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">实验功能</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-bullseye text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">目标管理</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">目标管理</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-eye text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">视觉识别</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">视觉识别</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-handshake text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">协作管理</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">协作管理</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-chart-line text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">数据分析</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">数据分析</div>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="flex items-center px-4 py-3 text-white hover:bg-primary/20 transition-colors relative group cursor-pointer">
+                            <i class="fa-solid fa-gear text-xl w-7"></i>
+                            <span class="ml-3 transition-opacity duration-200" :class="{'opacity-0': isCollapsed}">系统设置</span>
+                            <div class="absolute left-20 bg-secondary text-white px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap" :class="{'hidden': !isCollapsed}">系统设置</div>
+                        </span>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <div id="main-content" class="flex-1 flex flex-col overflow-hidden">
+            <!-- 顶部导航栏 -->
+            <header id="header" class="bg-white h-16 flex items-center justify-between px-4 border-b border-gray-200 shadow-sm z-10">
+                <div class="flex items-center">
+                    <button id="toggle-sidebar" class="p-2 rounded-md text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    
+                    <!-- 搜索框 -->
+                    <div class="relative ml-4">
+                        <div class="flex items-center bg-gray-100 rounded-md px-3 py-2">
+                            <i class="fa-solid fa-search text-gray-400"></i>
+                            <input type="text" placeholder="全局搜索..." class="bg-transparent border-none focus:outline-none ml-2 w-60">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- 语言切换 -->
+                    <div class="flex items-center cursor-pointer px-2 py-1 hover:bg-gray-100 rounded">
+                        <i class="fa-solid fa-globe text-gray-600"></i>
+                        <span class="ml-1 text-sm">中文</span>
+                        <i class="fa-solid fa-chevron-down text-xs ml-1 text-gray-500"></i>
+                    </div>
+                    
+                    <!-- 系统状态 -->
+                    <div class="relative">
+                        <div class="flex items-center cursor-pointer px-2 py-1 hover:bg-gray-100 rounded">
+                            <div class="relative">
+                                <i class="fa-solid fa-circle-dot text-success"></i>
+                                <div class="absolute top-1 right-1 w-2 h-2 bg-success rounded-full"></div>
+                            </div>
+                            <span class="ml-1 text-sm">系统正常</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 通知 -->
+                    <div class="relative">
+                        <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full focus:outline-none">
+                            <i class="fa-solid fa-bell"></i>
+                            <div class="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></div>
+                        </button>
+                    </div>
+                    
+                    <!-- 用户信息 -->
+                    <div class="relative">
+                        <div class="flex items-center cursor-pointer">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" class="w-8 h-8 rounded-full object-cover">
+                            <span class="ml-2 text-sm font-medium">张工程师</span>
+                            <i class="fa-solid fa-chevron-down text-xs ml-1 text-gray-500"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- 设置按钮 -->
+                    <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-full focus:outline-none">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- 面包屑导航 -->
+            <div id="breadcrumb" class="bg-white px-6 py-3 flex items-center border-b border-gray-200">
+                <i class="fa-solid fa-location-dot text-primary mr-2"></i>
+                <nav class="text-sm">
+                    <ol class="flex items-center space-x-2">
+                        <li>
+                            <span class="text-gray-500 hover:text-primary cursor-pointer">首页</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                            <span class="text-gray-500 hover:text-primary cursor-pointer">智能交互</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                            <span class="text-primary font-medium">人脸识别</span>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            
+            <!-- 主内容区 -->
+            <main id="content" class="flex-1 overflow-auto p-6 bg-gray-100">
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h2 class="text-xl font-semibold mb-4">人脸识别系统</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- 状态卡片 -->
+                        <div id="status-card" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-medium">系统状态</h3>
+                                <span class="px-2 py-1 bg-success/20 text-success text-xs rounded-full flex items-center">
+                                    <i class="fa-solid fa-circle-check mr-1"></i>正常运行
+                                </span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 text-sm">CPU 使用率</span>
+                                    <span class="text-sm font-medium">32%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-primary h-2 rounded-full" style="width: 32%"></div>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 text-sm">内存使用率</span>
+                                    <span class="text-sm font-medium">45%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600 text-sm">存储空间</span>
+                                    <span class="text-sm font-medium">78%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-warning h-2 rounded-full" style="width: 78%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 识别统计 -->
+                        <div id="recognition-stats" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <h3 class="font-medium mb-4">识别统计</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                    <div class="text-sm text-gray-600">今日识别</div>
+                                    <div class="text-2xl font-semibold mt-1">2,458</div>
+                                    <div class="text-xs text-success flex items-center mt-1">
+                                        <i class="fa-solid fa-arrow-up mr-1"></i>
+                                        12% 较昨日
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                    <div class="text-sm text-gray-600">识别准确率</div>
+                                    <div class="text-2xl font-semibold mt-1">98.7%</div>
+                                    <div class="text-xs text-success flex items-center mt-1">
+                                        <i class="fa-solid fa-arrow-up mr-1"></i>
+                                        0.5% 较昨日
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                    <div class="text-sm text-gray-600">平均响应时间</div>
+                                    <div class="text-2xl font-semibold mt-1">0.3s</div>
+                                    <div class="text-xs text-success flex items-center mt-1">
+                                        <i class="fa-solid fa-arrow-down mr-1"></i>
+                                        0.1s 较昨日
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                    <div class="text-sm text-gray-600">异常报警</div>
+                                    <div class="text-2xl font-semibold mt-1">3</div>
+                                    <div class="text-xs text-danger flex items-center mt-1">
+                                        <i class="fa-solid fa-arrow-up mr-1"></i>
+                                        2 较昨日
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 快速操作 -->
+                        <div id="quick-actions" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <h3 class="font-medium mb-4">快速操作</h3>
+                            <div class="space-y-3">
+                                <button class="w-full flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary/5 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-video text-primary"></i>
+                                        <span class="ml-3">启动监控</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                                </button>
+                                <button class="w-full flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary/5 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-database text-primary"></i>
+                                        <span class="ml-3">数据库管理</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                                </button>
+                                <button class="w-full flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary/5 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-user-plus text-primary"></i>
+                                        <span class="ml-3">添加人员</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                                </button>
+                                <button class="w-full flex items-center justify-between bg-white p-3 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary/5 transition-colors">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-sliders text-primary"></i>
+                                        <span class="ml-3">系统配置</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-gray-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 识别记录 -->
+                <div id="recognition-records" class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold">最近识别记录</h2>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                                <i class="fa-solid fa-filter mr-1"></i>筛选
+                            </button>
+                            <button class="px-3 py-1.5 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                                <i class="fa-solid fa-download mr-1"></i>导出
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">人员信息</th>
+                                    <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">位置</th>
+                                    <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">时间</th>
+                                    <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">置信度</th>
+                                    <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th class="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">#FR-2023-07-19-001</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" class="h-8 w-8 rounded-full mr-3">
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">李明</div>
+                                                <div class="text-xs text-gray-500">研发部</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">主入口</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">2023-07-19 08:45:12</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">99.8%</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-success/20 text-success">
+                                            <i class="fa-solid fa-circle-check mr-1"></i>通过
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                        <button class="text-primary hover:text-primary/80">查看详情</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">#FR-2023-07-19-002</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" class="h-8 w-8 rounded-full mr-3">
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">王芳</div>
+                                                <div class="text-xs text-gray-500">人事部</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">会议室A</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">2023-07-19 09:15:33</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">98.5%</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-success/20 text-success">
+                                            <i class="fa-solid fa-circle-check mr-1"></i>通过
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                        <button class="text-primary hover:text-primary/80">查看详情</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">#FR-2023-07-19-003</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="h-8 w-8 rounded-full mr-3 bg-gray-200 flex items-center justify-center">
+                                                <i class="fa-solid fa-user text-gray-500"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">未知人员</div>
+                                                <div class="text-xs text-gray-500">-</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">侧门</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">2023-07-19 10:22:45</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">45.2%</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-danger/20 text-danger">
+                                            <i class="fa-solid fa-circle-xmark mr-1"></i>拒绝
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                        <button class="text-primary hover:text-primary/80">查看详情</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">#FR-2023-07-19-004</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" class="h-8 w-8 rounded-full mr-3">
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">张伟</div>
+                                                <div class="text-xs text-gray-500">市场部</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">主入口</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">2023-07-19 11:05:18</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">97.3%</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-success/20 text-success">
+                                            <i class="fa-solid fa-circle-check mr-1"></i>通过
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                        <button class="text-primary hover:text-primary/80">查看详情</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">#FR-2023-07-19-005</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" class="h-8 w-8 rounded-full mr-3">
+                                            <div>
+                                                <div class="text-sm font-medium text-gray-900">刘静</div>
+                                                <div class="text-xs text-gray-500">财务部</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">会议室B</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">2023-07-19 13:45:56</td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">99.1%</td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-success/20 text-success">
+                                            <i class="fa-solid fa-circle-check mr-1"></i>通过
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
+                                        <button class="text-primary hover:text-primary/80">查看详情</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="text-sm text-gray-500">显示 1-5 条，共 125 条</div>
+                        <div class="flex space-x-1">
+                            <button class="px-3 py-1 border border-gray-300 rounded text-sm bg-gray-50 text-gray-400">上一页</button>
+                            <button class="px-3 py-1 border border-primary bg-primary text-white rounded text-sm">1</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">3</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">...</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">25</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">下一页</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 系统信息 -->
+                <div id="system-info" class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-semibold mb-4">系统信息</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-medium mb-3 text-gray-700">基本信息</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">系统版本</span>
+                                    <span class="font-medium">XC-OS v3.0.1</span>
+                                </div>
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">最后更新</span>
+                                    <span class="font-medium">2023-07-15 09:30:45</span>
+                                </div>
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">许可证状态</span>
+                                    <span class="font-medium text-success">有效</span>
+                                </div>
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">许可证到期</span>
+                                    <span class="font-medium">2024-07-19</span>
+                                </div>
+                                <div class="flex justify-between pb-2">
+                                    <span class="text-gray-600">API版本</span>
+                                    <span class="font-medium">v2.5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-3 text-gray-700">硬件信息</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">处理器</span>
+                                    <span class="font-medium">Intel Xeon E5-2680 v4</span>
+                                </div>
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">内存</span>
+                                    <span class="font-medium">64GB DDR4</span>
+                                </div>
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">存储</span>
+                                    <span class="font-medium">2TB SSD</span>
+                                </div>
+                                <div class="flex justify-between border-b pb-2">
+                                    <span class="text-gray-600">GPU</span>
+                                    <span class="font-medium">NVIDIA Tesla V100</span>
+                                </div>
+                                <div class="flex justify-between pb-2">
+                                    <span class="text-gray-600">操作系统</span>
+                                    <span class="font-medium">Linux CentOS 8.4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- 移动端遮罩层 -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 hidden md:hidden"></div>
+
+    <script>
+        // 侧边栏折叠功能
+        let isCollapsed = false;
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const toggleButton = document.getElementById('toggle-sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        // 切换侧边栏状态
+        function toggleSidebar() {
+            isCollapsed = !isCollapsed;
+            
+            if (isCollapsed) {
+                sidebar.classList.remove('w-64');
+                sidebar.classList.add('w-20');
+            } else {
+                sidebar.classList.remove('w-20');
+                sidebar.classList.add('w-64');
+            }
+            
+            // 移动端处理
+            if (window.innerWidth < 768) {
+                if (!isCollapsed) {
+                    sidebarOverlay.classList.remove('hidden');
+                } else {
+                    sidebarOverlay.classList.add('hidden');
+                }
+            }
+        }
+
+        // 点击切换按钮
+        toggleButton.addEventListener('click', toggleSidebar);
+        
+        // 点击遮罩层关闭侧边栏
+        sidebarOverlay.addEventListener('click', () => {
+            if (!isCollapsed) {
+                toggleSidebar();
+            }
+        });
+
+        // 响应式处理
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 768) {
+                if (!isCollapsed) {
+                    isCollapsed = true;
+                    sidebar.classList.remove('w-64');
+                    sidebar.classList.add('w-20');
+                }
+            }
+        });
+
+        // 初始化移动端视图
+        if (window.innerWidth < 768 && !isCollapsed) {
+            isCollapsed = true;
+            sidebar.classList.remove('w-64');
+            sidebar.classList.add('w-20');
+        }
+    </script>
+
+</body></html>

@@ -1,0 +1,518 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/element-plus"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "light": "#F0F9F5"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        body { font-family: 'Inter', sans-serif;
+        }
+        .robot-icon {
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .control-btn {
+            transition: all 0.2s;
+        }
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+        .map-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .map-grid {
+            background-size: 20px 20px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 168, 112, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 168, 112, 0.1) 1px, transparent 1px);
+        }
+        .robot-marker {
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .target-marker {
+            position: absolute;
+            top: 30%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+        .start-marker {
+            position: absolute;
+            bottom: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+        .building-marker {
+            position: absolute;
+            z-index: 3;
+        }
+        .building-marker:nth-child(1) {
+            top: 20%;
+            left: 20%;
+        }
+        .building-marker:nth-child(2) {
+            top: 20%;
+            right: 20%;
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body>
+    <div id="app" class="w-full h-full bg-gray-50">
+        <div id="main-content" class="p-4">
+            <!-- Header -->
+            <div id="page-header" class="mb-4">
+                <h1 class="text-2xl font-bold text-secondary">Hermes移动底盘控制</h1>
+                <p class="text-gray-600">移动机器人导航与运动控制</p>
+            </div>
+            
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Navigation Map Area -->
+                <div id="map-section" class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-bold text-secondary flex items-center">
+                            <i class="fa-solid fa-map-location-dot mr-2 text-success"></i>导航地图区
+                        </h2>
+                        <div>
+                            <button class="text-xs bg-success text-white px-2 py-1 rounded-md mr-1">
+                                <i class="fa-solid fa-expand mr-1"></i>全屏
+                            </button>
+                            <button class="text-xs bg-gray-200 text-secondary px-2 py-1 rounded-md">
+                                <i class="fa-solid fa-refresh mr-1"></i>刷新
+                            </button>
+                        </div>
+                    </div>
+                    <div class="map-container h-[300px] bg-light rounded-lg border border-gray-200">
+                        <div class="map-grid h-full w-full relative">
+                            <!-- Building markers -->
+                            <div class="building-marker">
+                                <i class="fa-solid fa-house text-gray-600 text-xl"></i>
+                            </div>
+                            <div class="building-marker">
+                                <i class="fa-solid fa-house text-gray-600 text-xl"></i>
+                            </div>
+                            
+                            <!-- Robot position -->
+                            <div class="robot-marker">
+                                <div class="robot-icon">
+                                    <i class="fa-solid fa-robot text-primary text-2xl"></i>
+                                </div>
+                                <div class="text-xs text-center mt-1 text-secondary font-medium">
+                                    当前位置
+                                </div>
+                            </div>
+                            
+                            <!-- Target position -->
+                            <div class="target-marker">
+                                <i class="fa-solid fa-location-crosshairs text-warning text-xl"></i>
+                                <div class="text-xs text-center mt-1 text-secondary">
+                                    目标点
+                                </div>
+                            </div>
+                            
+                            <!-- Start position -->
+                            <div class="start-marker">
+                                <i class="fa-solid fa-map-pin text-danger text-xl"></i>
+                                <div class="text-xs text-center mt-1 text-secondary">
+                                    起点
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Manual Control Area -->
+                <div id="control-section" class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-bold text-secondary flex items-center">
+                            <i class="fa-solid fa-gamepad mr-2 text-primary"></i>手动控制区
+                        </h2>
+                        <div class="text-xs text-gray-500">
+                            <i class="fa-solid fa-keyboard mr-1"></i>WASD键控制
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center justify-center h-[300px]">
+                        <!-- Forward button -->
+                        <button id="forward-btn" class="control-btn w-20 h-14 bg-success text-white rounded-t-lg mb-2 hover:bg-opacity-90">
+                            <i class="fa-solid fa-chevron-up text-xl"></i>
+                            <div class="text-xs">前进</div>
+                        </button>
+                        
+                        <!-- Middle row buttons -->
+                        <div class="flex justify-center items-center space-x-2">
+                            <button id="left-btn" class="control-btn w-14 h-14 bg-success text-white rounded-l-lg hover:bg-opacity-90">
+                                <i class="fa-solid fa-chevron-left text-xl"></i>
+                                <div class="text-xs">左转</div>
+                            </button>
+                            
+                            <button id="stop-btn" class="control-btn w-14 h-14 bg-danger text-white rounded-lg hover:bg-opacity-90">
+                                <i class="fa-solid fa-stop text-xl"></i>
+                                <div class="text-xs">停止</div>
+                            </button>
+                            
+                            <button id="right-btn" class="control-btn w-14 h-14 bg-success text-white rounded-r-lg hover:bg-opacity-90">
+                                <i class="fa-solid fa-chevron-right text-xl"></i>
+                                <div class="text-xs">右转</div>
+                            </button>
+                        </div>
+                        
+                        <!-- Backward button -->
+                        <button id="backward-btn" class="control-btn w-20 h-14 bg-success text-white rounded-b-lg mt-2 hover:bg-opacity-90">
+                            <i class="fa-solid fa-chevron-down text-xl"></i>
+                            <div class="text-xs">后退</div>
+                        </button>
+                        
+                        <!-- Speed controls -->
+                        <div class="mt-6 w-full">
+                            <div class="mb-2">
+                                <div class="flex justify-between items-center">
+                                    <label class="text-sm text-secondary">速度:</label>
+                                    <span class="text-xs text-gray-600">50%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-success h-2.5 rounded-full" style="width: 50%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between text-sm">
+                                <div class="text-secondary">
+                                    <i class="fa-solid fa-gauge-high mr-1 text-primary"></i>线速度: <span class="font-medium">0.5 m/s</span>
+                                </div>
+                                <div class="text-secondary">
+                                    <i class="fa-solid fa-rotate mr-1 text-warning"></i>角速度: <span class="font-medium">0.3 rad/s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chassis Status -->
+                <div id="status-section" class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-bold text-secondary flex items-center">
+                            <i class="fa-solid fa-chart-simple mr-2 text-primary"></i>底盘状态
+                        </h2>
+                        <span class="text-xs px-2 py-1 bg-green-100 text-success rounded-full">
+                            <i class="fa-solid fa-circle-check mr-1"></i>正常运行中
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-location-dot text-xl text-warning mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500">位置</div>
+                                <div class="font-medium text-secondary">(2.5, 1.8)</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-compass text-xl text-warning mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500">朝向</div>
+                                <div class="font-medium text-secondary">45°</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-person-running text-xl text-primary mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500">速度</div>
+                                <div class="font-medium text-secondary">0.5 m/s</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-sync text-xl text-primary mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500">角速度</div>
+                                <div class="font-medium text-secondary">0.0 rad/s</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center col-span-2">
+                            <i class="fa-solid fa-wifi text-xl text-success mr-3"></i>
+                            <div>
+                                <div class="text-xs text-gray-500">连接状态</div>
+                                <div class="font-medium text-success">
+                                    <i class="fa-solid fa-circle text-xs mr-1"></i>正常
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sensor Status -->
+                <div id="sensor-section" class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-bold text-secondary flex items-center">
+                            <i class="fa-solid fa-battery-three-quarters mr-2 text-success"></i>传感器状态
+                        </h2>
+                        <button class="text-xs bg-gray-200 text-secondary px-2 py-1 rounded-md">
+                            <i class="fa-solid fa-rotate mr-1"></i>刷新
+                        </button>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-circle text-success mr-2"></i>
+                                <span class="text-secondary">激光雷达</span>
+                            </div>
+                            <span class="text-success font-medium">正常</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-circle text-success mr-2"></i>
+                                <span class="text-secondary">IMU</span>
+                            </div>
+                            <span class="text-success font-medium">已校准</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-circle text-success mr-2"></i>
+                                <span class="text-secondary">里程计</span>
+                            </div>
+                            <span class="text-success font-medium">正常</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-battery-three-quarters text-success mr-2"></i>
+                                <span class="text-secondary">电池</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                    <div class="bg-success h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                                <span class="text-success font-medium">85%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-temperature-half text-warning mr-2"></i>
+                                <span class="text-secondary">温度</span>
+                            </div>
+                            <span class="text-warning font-medium">35°C</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Control -->
+                <div id="navigation-section" class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-bold text-secondary flex items-center">
+                            <i class="fa-solid fa-location-crosshairs mr-2 text-warning"></i>导航控制
+                        </h2>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="bg-white border border-success text-success rounded-md py-2 hover:bg-success hover:text-white transition-colors">
+                            <i class="fa-solid fa-map-pin mr-1"></i>设置目标点
+                        </button>
+                        <button class="bg-success text-white rounded-md py-2 hover:bg-opacity-90 transition-colors">
+                            <i class="fa-solid fa-play mr-1"></i>开始导航
+                        </button>
+                        <button class="bg-white border border-primary text-primary rounded-md py-2 hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa-solid fa-floppy-disk mr-1"></i>保存地图
+                        </button>
+                        <button class="bg-white border border-primary text-primary rounded-md py-2 hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa-solid fa-folder-open mr-1"></i>加载地图
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-sm font-medium text-secondary">导航参数</h3>
+                            <button class="text-xs text-primary">
+                                <i class="fa-solid fa-sliders mr-1"></i>高级设置
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div class="flex items-center">
+                                <span class="text-gray-600 mr-2">最大速度:</span>
+                                <span class="text-secondary font-medium">0.8 m/s</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-gray-600 mr-2">最小避障距离:</span>
+                                <span class="text-secondary font-medium">0.5 m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Motion Record -->
+                <div id="record-section" class="bg-white rounded-lg shadow-md p-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="font-bold text-secondary flex items-center">
+                            <i class="fa-solid fa-chart-line mr-2 text-primary"></i>运动记录
+                        </h2>
+                        <button class="text-xs bg-gray-200 text-secondary px-2 py-1 rounded-md">
+                            <i class="fa-solid fa-download mr-1"></i>导出
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-road text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500">总里程</div>
+                                <div class="font-medium text-secondary text-lg">125.6 km</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                <i class="fa-regular fa-clock text-success text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500">运行时间</div>
+                                <div class="font-medium text-secondary text-lg">8.5 h</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-triangle-exclamation text-warning text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500">避障次数</div>
+                                <div class="font-medium text-secondary text-lg">15 次</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-gauge-high text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500">平均速度</div>
+                                <div class="font-medium text-secondary text-lg">0.4 m/s</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue
+        
+        createApp({
+            setup() {
+                const linearSpeed = ref(0.5)
+                const angularSpeed = ref(0.3)
+                const robotPosition = ref({ x: 2.5, y: 1.8 })
+                const robotOrientation = ref(45)
+                const batteryLevel = ref(85)
+                const isConnected = ref(true)
+                
+                // Control functions
+                const moveForward = () => {
+                    console.log('Moving forward')
+                    // Implementation would update robot position
+                }
+                
+                const moveBackward = () => {
+                    console.log('Moving backward')
+                    // Implementation would update robot position
+                }
+                
+                const turnLeft = () => {
+                    console.log('Turning left')
+                    // Implementation would update robot orientation
+                }
+                
+                const turnRight = () => {
+                    console.log('Turning right')
+                    // Implementation would update robot orientation
+                }
+                
+                const stop = () => {
+                    console.log('Stopping')
+                    // Implementation would stop the robot
+                }
+                
+                // Keyboard control
+                const handleKeyDown = (event) => {
+                    switch(event.key.toLowerCase()) {
+                        case 'w': moveForward(); break;
+                        case 's': moveBackward(); break;
+                        case 'a': turnLeft(); break;
+                        case 'd': turnRight(); break;
+                        case ' ': stop(); break;
+                    }
+                }
+                
+                // Add keyboard event listeners
+                window.addEventListener('keydown', handleKeyDown)
+                
+                // Setup button event listeners when mounted
+                setTimeout(() => {
+                    document.getElementById('forward-btn').addEventListener('click', moveForward)
+                    document.getElementById('backward-btn').addEventListener('click', moveBackward)
+                    document.getElementById('left-btn').addEventListener('click', turnLeft)
+                    document.getElementById('right-btn').addEventListener('click', turnRight)
+                    document.getElementById('stop-btn').addEventListener('click', stop)
+                }, 100)
+                
+                return {
+                    linearSpeed,
+                    angularSpeed,
+                    robotPosition,
+                    robotOrientation,
+                    batteryLevel,
+                    isConnected
+                }
+            }
+        }).mount('#app')
+    </script>
+
+</body></html>

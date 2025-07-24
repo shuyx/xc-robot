@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XC-RECON-V2 Vue3界面预览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 配色系统 */
+            --color-primary: #409EFF;
+            --color-primary-light: #79BBFF;
+            --color-secondary: #2c3e50;
+            --color-accent: #00A870;
+            
+            /* 状态色 */
+            --color-success: #67C23A;
+            --color-warning: #E6A23C;
+            --color-danger: #F56C6C;
+            --color-info: #909399;
+            
+            /* 背景色 */
+            --color-bg-primary: #ffffff;
+            --color-bg-secondary: #f8f8f8;
+            --color-bg-tertiary: #f2f2f2;
+            
+            /* 文本色 */
+            --color-text-primary: #2c3e50;
+            --color-text-secondary: rgba(60,60,60,0.66);
+            --color-text-placeholder: #C0C4CC;
+            
+            /* 边框色 */
+            --color-border-light: #EBEEF5;
+            --color-border-base: #DCDFE6;
+            
+            /* 阴影 */
+            --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+            --shadow-base: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--color-bg-tertiary);
+            color: var(--color-text-primary);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 主布局 */
+        .main-layout {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* 头部 */
+        .main-header {
+            height: 60px;
+            background: var(--color-bg-primary);
+            border-bottom: 1px solid var(--color-border-light);
+            box-shadow: var(--shadow-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--color-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--color-border-base);
+            border-radius: 6px;
+            background: var(--color-bg-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .header-btn.primary {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        /* 主容器 */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 侧边栏 */
+        .main-sidebar {
+            width: 250px;
+            background: var(--color-bg-secondary);
+            border-right: 1px solid var(--color-border-light);
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+        }
+
+        .main-sidebar.collapsed {
+            width: 64px;
+        }
+
+        .sidebar-header {
+            height: 60px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .collapse-btn {
+            padding: 8px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 4px;
+            color: var(--color-text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .collapse-btn:hover {
+            background: var(--color-bg-tertiary);
+        }
+
+        /* 菜单 */
+        .sidebar-menu {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .menu-group {
+            margin-bottom: 8px;
+        }
+
+        .menu-group-header {
+            padding: 12px 16px;
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--color-border-light);
+            margin-bottom: 4px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            margin: 2px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: var(--color-bg-tertiary);
+        }
+
+        .menu-item.active {
+            background: rgba(64, 158, 255, 0.1);
+            color: var(--color-primary);
+        }
+
+        .menu-item.has-children::after {
+            content: '▶';
+            position: absolute;
+            right: 16px;
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item.expanded::after {
+            transform: rotate(90deg);
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .sub-menu {
+            padding-left: 44px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .sub-menu.expanded {
+            max-height: 300px;
+        }
+
+        .sub-menu-item {
+            padding: 8px 16px;
+            margin: 2px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .sub-menu-item:hover {
+            background: var(--color-bg-tertiary);
+        }
+
+        .sub-menu-item.active {
+            background: rgba(64, 158, 255, 0.1);
+            color: var(--color-primary);
+        }
+
+        .favorite-btn {
+            padding: 4px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 3px;
+            color: var(--color-text-placeholder);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover .favorite-btn,
+        .menu-item.favorited .favorite-btn {
+            opacity: 1;
+        }
+
+        .menu-item.favorited .favorite-btn {
+            color: var(--color-warning);
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 面包屑 */
+        .breadcrumb {
+            padding: 16px 20px;
+            background: var(--color-bg-primary);
+            border-bottom: 1px solid var(--color-border-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .breadcrumb-item {
+            color: var(--color-text-secondary);
+        }
+
+        .breadcrumb-item:last-child {
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+
+        .breadcrumb-separator {
+            color: var(--color-text-placeholder);
+        }
+
+        /* 页面内容 */
+        .page-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* 卡片组件 */
+        .card {
+            background: var(--color-bg-primary);
+            border-radius: 8px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--color-border-light);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--color-border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* 按钮 */
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid var(--color-border-base);
+            border-radius: 6px;
+            background: var(--color-bg-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-base);
+        }
+
+        .btn.primary {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .btn.success {
+            background: var(--color-success);
+            color: white;
+            border-color: var(--color-success);
+        }
+
+        .btn.warning {
+            background: var(--color-warning);
+            color: white;
+            border-color: var(--color-warning);
+        }
+
+        /* 网格布局 */
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .main-sidebar {
+                width: 64px;
+            }
+            
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 状态指示器 */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-indicator.online {
+            background: rgba(103, 194, 58, 0.1);
+            color: var(--color-success);
+        }
+
+        .status-indicator.offline {
+            background: rgba(144, 147, 153, 0.1);
+            color: var(--color-info);
+        }
+
+        .status-indicator.error {
+            background: rgba(245, 108, 108, 0.1);
+            color: var(--color-danger);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* 智能交互页面样式 */
+        .demo-content {
+            height: 100%;
+        }
+
+        .camera-container {
+            height: 300px;
+            background: var(--color-bg-tertiary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            border: 2px dashed var(--color-border-base);
+        }
+
+        .results-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--color-border-light);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            background: var(--color-bg-primary);
+        }
+
+        .result-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .result-info {
+            flex: 1;
+        }
+
+        .result-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .result-confidence {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--color-bg-secondary);
+            border-radius: 6px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-layout">
+        <!-- 头部 -->
+        <header class="main-header">
+            <div class="header-left">
+                <div class="logo">
+                    <div class="logo-icon">XC</div>
+                    <span>XC-RECON-V2</span>
+                </div>
+                <span style="font-size: 14px; color: var(--color-text-secondary);">双臂类人形机器人控制系统</span>
+            </div>
+            <div class="header-right">
+                <button class="header-btn">🔍</button>
+                <button class="header-btn">🔔</button>
+                <button class="header-btn">🌙</button>
+                <button class="header-btn">⚙️</button>
+                <button class="header-btn primary">Kevin Yuan</button>
+            </div>
+        </header>
+
+        <!-- 主容器 -->
+        <div class="main-container">
+            <!-- 侧边栏 -->
+            <aside class="main-sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <button class="collapse-btn" onclick="toggleSidebar()">☰</button>
+                </div>
+                
+                <nav class="sidebar-menu">
+                    <!-- 快速启动 -->
+                    <div class="menu-group">
+                        <div class="menu-item has-children" onclick="toggleMenu(this)">
+                            <span class="menu-icon">⚡</span>
+                            <span>快速启动</span>
+                            <button class="favorite-btn">⭐</button>
+                        </div>
+                        <div class="sub-menu">
+                            <div class="sub-menu-item">
+                                <span class="menu-icon">⭐</span>
+                                <span>收藏夹</span>
+                            </div>
+                            <div class="sub-menu-item">
+                                <span class="menu-icon">📜</span>
+                                <span>最近使用</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 设备连接 -->
+                    <div class="menu-group">
+                        <div class="menu-item has-children" onclick="toggleMenu(this)">
+                            <span class="menu-icon">📡</span>
+                            <span>设备连接</span>
+                            <button class="favorite-btn">⭐</button>
+                        </div>
+                        <div class="sub-menu">
+                            <div class="sub-menu-item active">
+                                <span class="menu-icon">🔗</span>
+                                <span>连接测试</span>
+                            </div>
+                            <div class="sub-menu-item">
+                                <span class="menu-icon">🌐</span>
+                                <span>网络配置</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 机器人控制 -->
+                    <div class="menu-group">
+                        <div class="menu-item has-children" onclick="toggleMenu(this)">
+                            <span class="menu-icon">🤖</span>
+                            <span>机器人控制</span>
+                            <button class="favorite-btn">⭐</button>
+                        </div>
+                        <div class="sub-menu">
+                            <div class="sub-menu-item">
+                                <span class="menu-icon">🦾</span>
+                                <span>机械臂控制</span>
+                            </div>
+                            <div class="sub-menu-item">
+                                <span class="menu-icon">🚛</span>
+                                <span>底盘控制</span>
+                            </div>
+                            <div class="sub-menu-item">
+                                <span class="menu-icon">🔄</span>
+                                <span>联动控制</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 智能交互 -->
+                    <div class="menu-group">
+                        <div class="menu-item has-children expanded" onclick="toggleMenu(this)">
+                            <span class="menu-icon">🤝</span>
+                            <span>智能交互</span>
+                            <button class="favorite-btn favorited">⭐</button>
+                        </div>
+                        <div class="sub-menu expanded">
+                            <div class="sub-menu-item active" onclick="showFaceRecognition()">
+                                <span class="menu-icon">👤</span>
+                                <span>人脸识别</span>
+                            </div>
+                            <div class="sub-menu-item" onclick="showConversation()">
+                                <span class="menu-icon">🎤</span>
+                                <span>智能交互</span>
+                            </div>
+                            <div class="sub-menu-item" onclick="showElevator()">
+                                <span class="menu-icon">🏢</span>
+                                <span>梯控系统</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 其他菜单组 -->
+                    <div class="menu-group">
+                        <div class="menu-item">
+                            <span class="menu-icon">🧪</span>
+                            <span>场景测试</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-group">
+                        <div class="menu-item">
+                            <span class="menu-icon">🎯</span>
+                            <span>仿真规划</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-group">
+                        <div class="menu-item">
+                            <span class="menu-icon">👁️</span>
+                            <span>视觉感知</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-group">
+                        <div class="menu-item">
+                            <span class="menu-icon">📊</span>
+                            <span>数据监控</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-group">
+                        <div class="menu-item">
+                            <span class="menu-icon">⚙️</span>
+                            <span>系统管理</span>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- 主内容区 -->
+            <main class="main-content">
+                <!-- 面包屑 -->
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item">智能交互</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item">人脸识别</span>
+                </div>
+
+                <!-- 页面内容 -->
+                <div class="page-content">
+                    <div id="pageContent" class="demo-content">
+                        <!-- 人脸识别页面 -->
+                        <div id="faceRecognitionPage">
+                            <div class="grid grid-2">
+                                <!-- 相机预览区 -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <span>📷</span>
+                                            <span>实时预览</span>
+                                        </div>
+                                        <div>
+                                            <button class="btn primary">开始识别</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="camera-container">
+                                            <div style="text-align: center;">
+                                                <div style="font-size: 48px; margin-bottom: 10px;">📷</div>
+                                                <p>点击"开始识别"启动相机</p>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 16px; text-align: center;">
+                                            <button class="btn">📸 拍照</button>
+                                            <button class="btn">💾 保存记录</button>
+                                            <button class="btn">🗑️ 清空结果</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 识别结果区 -->
+                                <div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <span>👤</span>
+                                                <span>识别结果</span>
+                                                <span class="status-indicator online">
+                                                    <span class="status-dot"></span>
+                                                    2条记录
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="results-list">
+                                                <div class="result-item">
+                                                    <div class="result-avatar">👨</div>
+                                                    <div class="result-info">
+                                                        <div class="result-name">Kevin Yuan</div>
+                                                        <div class="result-confidence">置信度: 95%</div>
+                                                    </div>
+                                                    <button class="btn">详情</button>
+                                                </div>
+                                                <div class="result-item">
+                                                    <div class="result-avatar">❓</div>
+                                                    <div class="result-info">
+                                                        <div class="result-name">未知人员</div>
+                                                        <div class="result-confidence">置信度: 65%</div>
+                                                    </div>
+                                                    <button class="btn">详情</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 统计信息 -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <span>📊</span>
+                                                <span>统计信息</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="stats-grid">
+                                                <div class="stat-item">
+                                                    <div class="stat-value">12</div>
+                                                    <div class="stat-label">今日识别</div>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <div class="stat-value">87%</div>
+                                                    <div class="stat-label">平均置信度</div>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <div class="stat-value">3</div>
+                                                    <div class="stat-label">识别人数</div>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <div class="stat-value">150ms</div>
+                                                    <div class="stat-label">平均耗时</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 智能对话页面（隐藏） -->
+                        <div id="conversationPage" style="display: none;">
+                            <div class="grid grid-2">
+                                <div class="card" style="grid-column: 1 / -1;">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <span>🎤</span>
+                                            <span>智能对话系统</span>
+                                        </div>
+                                        <div>
+                                            <span class="status-indicator online">
+                                                <span class="status-dot"></span>
+                                                在线
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div style="height: 300px; border: 1px solid var(--color-border-light); border-radius: 6px; padding: 16px; background: var(--color-bg-secondary); overflow-y: auto;">
+                                            <div style="margin-bottom: 16px;">
+                                                <div style="background: white; padding: 12px; border-radius: 12px; margin-bottom: 8px; max-width: 70%;">
+                                                    <strong>用户:</strong> 请移动机械臂到指定位置
+                                                </div>
+                                                <div style="background: var(--color-primary); color: white; padding: 12px; border-radius: 12px; margin-left: 30%; max-width: 70%;">
+                                                    <strong>助手:</strong> 收到指令，正在规划机械臂运动路径...
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 16px; display: flex; gap: 8px;">
+                                            <input type="text" placeholder="请输入指令或问题..." style="flex: 1; padding: 8px 12px; border: 1px solid var(--color-border-base); border-radius: 6px;">
+                                            <button class="btn primary">发送</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 梯控系统页面（隐藏） -->
+                        <div id="elevatorPage" style="display: none;">
+                            <div class="grid grid-2">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <span>🏢</span>
+                                            <span>电梯控制</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div style="text-align: center; margin-bottom: 20px;">
+                                            <div style="font-size: 48px; margin-bottom: 10px;">3F</div>
+                                            <span class="status-indicator online">
+                                                <span class="status-dot"></span>
+                                                停止
+                                            </span>
+                                        </div>
+                                        <div class="grid grid-3" style="gap: 8px;">
+                                            <button class="btn" onclick="callElevator(1)">1F</button>
+                                            <button class="btn" onclick="callElevator(2)">2F</button>
+                                            <button class="btn primary" onclick="callElevator(3)">3F</button>
+                                            <button class="btn" onclick="callElevator(4)">4F</button>
+                                            <button class="btn" onclick="callElevator(5)">5F</button>
+                                            <button class="btn" onclick="callElevator(6)">6F</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <span>📋</span>
+                                            <span>操作记录</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="results-list">
+                                            <div class="result-item">
+                                                <div class="result-info">
+                                                    <div class="result-name">呼叫电梯 - 3F</div>
+                                                    <div class="result-confidence">14:30:00</div>
+                                                </div>
+                                                <span class="status-indicator online">完成</span>
+                                            </div>
+                                            <div class="result-item">
+                                                <div class="result-info">
+                                                    <div class="result-name">呼叫电梯 - 1F</div>
+                                                    <div class="result-confidence">14:25:00</div>
+                                                </div>
+                                                <span class="status-indicator online">完成</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // 侧边栏折叠
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // 菜单展开/折叠
+        function toggleMenu(element) {
+            element.classList.toggle('expanded');
+            const subMenu = element.nextElementSibling;
+            if (subMenu) {
+                subMenu.classList.toggle('expanded');
+            }
+        }
+
+        // 页面切换
+        function showPage(pageId) {
+            // 隐藏所有页面
+            const pages = ['faceRecognitionPage', 'conversationPage', 'elevatorPage'];
+            pages.forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            
+            // 显示目标页面
+            document.getElementById(pageId).style.display = 'block';
+            
+            // 更新菜单状态
+            document.querySelectorAll('.sub-menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function showFaceRecognition() {
+            showPage('faceRecognitionPage');
+            event.target.classList.add('active');
+            updateBreadcrumb('智能交互', '人脸识别');
+        }
+
+        function showConversation() {
+            showPage('conversationPage');
+            event.target.classList.add('active');
+            updateBreadcrumb('智能交互', '智能交互');
+        }
+
+        function showElevator() {
+            showPage('elevatorPage');
+            event.target.classList.add('active');
+            updateBreadcrumb('智能交互', '梯控系统');
+        }
+
+        // 更新面包屑
+        function updateBreadcrumb(group, page) {
+            const breadcrumb = document.querySelector('.breadcrumb');
+            breadcrumb.innerHTML = `
+                <span class="breadcrumb-item">${group}</span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">${page}</span>
+            `;
+        }
+
+        // 电梯控制
+        function callElevator(floor) {
+            // 更新所有按钮状态
+            document.querySelectorAll('.grid-3 .btn').forEach(btn => {
+                btn.classList.remove('primary');
+            });
+            event.target.classList.add('primary');
+            
+            // 更新当前楼层显示
+            document.querySelector('[style*="font-size: 48px"]').textContent = floor + 'F';
+            
+            // 模拟电梯运行
+            const statusIndicator = document.querySelector('.status-indicator');
+            statusIndicator.innerHTML = '<span class="status-dot"></span>运行中';
+            statusIndicator.className = 'status-indicator warning';
+            
+            setTimeout(() => {
+                statusIndicator.innerHTML = '<span class="status-dot"></span>停止';
+                statusIndicator.className = 'status-indicator online';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

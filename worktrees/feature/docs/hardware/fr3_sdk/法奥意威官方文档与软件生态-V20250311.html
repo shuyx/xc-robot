@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>法奥意威官方文档与软件生态-V20250311</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">法奥意威官方文档与软件生态-V20250311</h1>
+</header>
+<blockquote>
+<p><img src="images/______________V20250311/media/image1.png" style="width:6.20833in" /><span id="bookmark1" class="anchor"></span><strong>§</strong> <strong>2.1</strong> 法奥官⽅⽂档与软件⽣态</p>
+<p><img src="images/______________V20250311/media/image2.png" style="width:6.20833in" /><strong>0.</strong> 概要</p>
+<p>本⽂系统整理了法奥机械臂相关的教程⽂档与软件开发资料。</p>
+<p><a href="#bookmark1"><strong>§</strong> <strong>2.1</strong> 法奥官⽅⽂档与软件⽣态</a></p>
+<p><a href="#bookmark1">0. 概要</a></p>
+<p><a href="#bookmark2">1. 资料下载</a></p>
+<p><a href="#bookmark3">2. 产品规格书</a></p>
+<p><a href="#bookmark4">3. 机械臂使⽤说明</a></p>
+<p><a href="#bookmark5">3.1 教学视频</a></p>
+<p><a href="#bookmark6">3.2 使⽤⽂档</a></p>
+<p><a href="#bookmark7">4. ⽰教器编程</a></p>
+<p><a href="#bookmark8">5. 机械臂仿真机</a></p>
+<p><a href="#bookmark9">6. Web插件开发FRCAP</a></p>
+<p><a href="#bookmark10">5. ⼆次开发</a></p>
+<p><a href="#bookmark11">5.1 代码仓库主页</a></p>
+<p><a href="#bookmark12">5.2 C++</a></p>
+<p><a href="#bookmark13">5.3 Python</a></p>
+<p><a href="#bookmark14">5.4 C#</a></p>
+<p><a href="#bookmark15">5.5 JAVA</a></p>
+<p><a href="#bookmark16">5.6 RoboDK</a></p>
+<p><a href="#bookmark17">5.7 ROS1 &amp; ROS2</a></p>
+<p><a href="#bookmark18">6. 联系阿凯</a></p>
+<p>作者: 阿凯爱玩机器⼈ | 微信: xingshunkai | 淘宝店铺: "阿凯爱玩机器⼈ "</p>
+<p>. 法奥机械臂购买链接: <a href="https://item.taobao.com/item.htm?id=730461065093"><u>法奥意威六轴协作⼯业机器⼈机械臂FR5焊接上下料搬运码垛机械⼿</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://item.taobao.com/item.htm?id=730461065093">https://item.taobao.com/item.htm?id=730461065093</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>. B站有基于法奥开发的案例视频, 阿凯的B站主页: <a href="https://space.bilibili.com/40344504"><u>https://space.bilibili.com/40344504</u></a></p>
+</blockquote>
+<p><img src="images/______________V20250311/media/image3.jpeg" style="width:5.625in;height:5.84375in" /></p>
+<blockquote>
+<p>⽂档更新时间: 2025-01-05</p>
+<p><img src="images/______________V20250311/media/image4.png" style="width:6.20833in" /><span id="bookmark2" class="anchor"></span><strong>1.</strong> 资料下载</p>
+<p>法奥把所有跟机械臂相关的⽂件都贴⼼的整理到了一起了， 在这⾥可以下载最新版本。</p>
+<p><a href="https://fr-documentation.readthedocs.io/zh-cn/latest/download.html#id2"><u>法奥资料下载页</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/">https://fairino-doc-zhs.readthedocs.io/latest/</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/______________V20250311/media/image5.png" style="width:6.20833in;height:4.875in" /></p>
+<blockquote>
+<p>可下载的内容包括:</p>
+<p><img src="images/______________V20250311/media/image6.png" /> 产品⼿册</p>
+<p><img src="images/______________V20250311/media/image7.png" /> 图纸下载页⾯</p>
+<p>. 机械臂3D模型(STEP格式)</p>
+<p>. 认证证书(CE / CR) <img src="images/______________V20250311/media/image8.png" /> SDK下载页⾯</p>
+<p><span id="bookmark3" class="anchor"></span><u><strong>2.</strong> 产品规格书</u></p>
+<p>如果你想知道法奥协作机械臂具体的规格参数， ⽐如臂展、 负载、 重复定位精度等信息，可以下载这个 产品规格数。</p>
+<p>常规机型有 FR3 、 FR5 、 FR10 。 FR 代表法奥， 后⾯的数字代表负载数。</p>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/_downloads/35f014b3f99770061c7d3c98f87a75dd/FAIRINO%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C.pdf"><u>产品规格书下载地址</u></a></p>
+</blockquote>
+<p><img src="images/______________V20250311/media/image9.jpeg" style="width:6.20833in;height:3.35417in" /></p>
+<blockquote>
+<p>需要注意的是FR3跟FR5的重复定位精度是0.02mm,绝对定位精度为1mm。 负载越⼤/臂展越⼤ ， 对应的 它的误差就要更⼤一些。 默认机械臂是不做⾼精度激光标定的， ⾼精度激光标定可以对关节零点以及连 杆的尺⼨做矫正， 标定后绝对定位精度在0.5-0.8mm之间。</p>
+<p>此外规格数⾥⾯还有每款机型的尺⼨图， 包括连杆尺⼨ ，底部固定孔位， 末端法兰尺⼨等信息。</p>
+</blockquote>
+<p><img src="images/______________V20250311/media/image10.jpeg" style="width:6.20833in;height:3.69792in" /></p>
+<blockquote>
+<p><span id="bookmark4" class="anchor"></span><u><strong>3.</strong> 机械臂使⽤说明</u></p>
+<p><span id="bookmark5" class="anchor"></span><strong>3.1</strong> 教学视频</p>
+<p>B站视频主要侧重，上位机使⽤与⽰教相关的介绍。 教学步骤都⽐较详细， ⼊⻔相对⽐较容易。 在购买机械臂之前，你也可以先通过这些视频了解法奥协作机械臂是如何使⽤的。</p>
+<p><a href="https://space.bilibili.com/403938280"><u>B站-法奥学院</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://space.bilibili.com/403938280">https://space.bilibili.com/403938280</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/______________V20250311/media/image11.jpeg" style="width:6.20833in;height:5.71875in" /></p>
+<blockquote>
+<p>⼊⻔的时候不需要把所有的视频看过⼀遍， 先看最基础的。 这⾥先就把常⽤的必要的视频列出来:</p>
+<p>1. <a href="https://www.bilibili.com/video/BV1rnknYMEMN//"><u>机器⼈开箱</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1rnknYMEMN/"><u>https://www.bilibili.com/video/BV1rnknYMEMN/</u></a></p>
+<p>。 箱内配件介绍</p>
+<p>。 机械臂运动控制器接线说明</p>
+<p>。 ⽹口接线说明</p>
+<p>。 ⽹络配置教程</p>
+<p>。 机械臂激活流程</p>
+<p>。 末端LED灯</p>
+<p><img src="images/______________V20250311/media/image12.jpeg" style="height:0.21875in" /> 注意事项: 初次使⽤的时候， 记得要松开机械臂的急停开关。</p>
+<p>2. <a href="https://www.bilibili.com/video/BV1BYzBYGE2M/"><u>FR机器⼈快速开始使⽤说明</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1BYzBYGE2M/"><u>https://www.bilibili.com/video/BV1BYzBYGE2M/</u></a></p>
+<p>。 机械臂基座安装平台规格要求</p>
+<p>。 机械臂安装⽅式配置</p>
+<p>。 负载配置</p>
+<p>。 ⼯具坐标系配置</p>
+<p>。 拖动⽰教⽅法</p>
+<p>。 机械臂遥控界⾯点动</p>
+<p>。 ⽰教点保存</p>
+<p>。 ⽰教点管理界⾯</p>
+<p>。 ⽰教编程 PTP指令</p>
+<p>编辑并运⾏⽰教程序</p>
+<p>3. <a href="https://www.bilibili.com/video/BV1gpzvYpEVq/"><u>FR机器⼈介绍</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1gpzvYpEVq/"><u>https://www.bilibili.com/video/BV1gpzvYpEVq/</u></a></p>
+<p>。 各个轴的名称</p>
+<p>。 机械臂末端M12航空插孔介绍</p>
+<p>。 末端LED灯 颜⾊所代表含义</p>
+<p>。 末端按钮⽤途介绍</p>
+<p>o Web APP坐标系可视化介绍</p>
+<p>o Web APP 机械臂遥控界⾯</p>
+</blockquote>
+<p>4. <a href="https://www.bilibili.com/video/BV18pzvYpEye/"><u>FR机器⼈按钮盒使⽤教程</u></a></p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV18pzvYpEye/"><u>https://www.bilibili.com/video/BV18pzvYpEye/</u></a></p>
+<p>。 ⽹口按钮</p>
+<p>。 拖动按钮</p>
+<p>。 记点按钮</p>
+<p>。 运⾏模式切换按钮</p>
+<p>。 开始停⽌按钮</p>
+<p>。 恢复Web APP出⼚IP按钮</p>
+<p>5. <a href="https://www.bilibili.com/video/BV1cLUGYwEVP/"><u>FR机器⼈系统初始界⾯介绍</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1cLUGYwEVP/"><u>https://www.bilibili.com/video/BV1cLUGYwEVP/</u></a></p>
+<p>。 Web APP 界⾯介绍， 对每个菜单项都做了简要说明。 。 介绍了机械臂编程的⼏种⽅式：</p>
+<p><img src="images/______________V20250311/media/image13.png" /> 程序编程</p>
+<p><img src="images/______________V20250311/media/image14.png" /> 图形化编程(代码积木)</p>
+<p><img src="images/______________V20250311/media/image15.png" /> 节点图编程</p>
+<p>6. <a href="https://www.bilibili.com/video/BV1uWzvYQEap"><u>FR机器⼈⼯具坐标系标定教程</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1uWzvYQEap"><u>https://www.bilibili.com/video/BV1uWzvYQEap</u></a></p>
+<p>机械臂末端如果对精度要求⽐较⾼ ， 例如焊枪的场景。</p>
+<p>在使⽤前需要做机械臂TCP标定， 视频讲解了如何⽤六点法来做TCP标定。</p>
+<p><img src="images/______________V20250311/media/image16.jpeg" style="height:0.21875in" /> 注: 像夹⽖这种对精度要求没那么⾼的， 可以直接⼿动设置TCP， 不需要做TCP标定。</p>
+<p>7. <a href="https://www.bilibili.com/video/BV1NTUGYqEzr"><u>FR机器⼈-三维模拟机器⼈区域介绍</u></a></p>
+<p>对Web APP中三维模拟机器⼈区域做了更加详细新的介绍</p>
+<p>。 轨迹可视化</p>
+<p>。 导⼊⼯具模型⽂件（ ⽀持STL跟DAE格式）</p>
+<p>。 在机械臂基坐标系下遥控</p>
+<p>。 在⼯具坐标系下遥控</p>
+<p>。 遥控机械臂关节</p>
+<p>。 添加⽰教点， 可以配置关联IO</p>
+<p>。 外部轴配置</p>
+<p>。 ⼒传感器坐标系</p>
+<p>o RCM远⼼不动点功能</p>
+<p>。 其他模块的功能介绍</p>
+<p>8. <a href="https://www.bilibili.com/video/BV1cjUGYhEEZ/"><u>FR机器⼈-运动指令-点到点命令、直线命令使⽤介绍</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1cjUGYhEEZ/"><u>https://www.bilibili.com/video/BV1cjUGYhEEZ/</u></a></p>
+<p>9. <a href="https://www.bilibili.com/video/BV1wVUGYYECk/"><u>FR机器⼈运动指令</u> <u>圆弧命令、整圆命令使⽤介绍</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1wVUGYYECk/"><u>https://www.bilibili.com/video/BV1wVUGYYECk/</u></a></p>
+<p>10. <a href="https://www.bilibili.com/video/BV1DpzvYpEJV/"><u>FR机器⼈控制箱接口使⽤说明</u></a></p>
+<p><a href="https://www.bilibili.com/video/BV1DpzvYpEJV/"><u>https://www.bilibili.com/video/BV1DpzvYpEJV/</u></a></p>
+<p>。 运动控制器 端口详细介绍</p>
+<p>o RS485接口</p>
+<p>。 传送带编码器接口</p>
+<p>。 模拟量接口</p>
+<p>。 数字IO接口</p>
+<p>11. <a href="https://www.bilibili.com/video/BV1NKUGYMEYE"><u>FR机器⼈-控制箱IO-使⽤教程</u></a></p>
+<p>。 按钮输⼊</p>
+<p>。 点亮LED</p>
+<p>。 编写⼀个简单的LUA脚本</p>
+<p>其他更多功能的探索， 就等着你⾃学视频教程跟使⽤⼿册啦。</p>
+<p><span id="bookmark6" class="anchor"></span><strong>3.2</strong> 使⽤⽂档</p>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/CobotsManual/intro.html#id4"><u>法奥机械臂使⽤⼿册(中⽂版)</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/CobotsManual/intro.html#id4">https://fairino-doc-zhs.readthedocs.io/latest/CobotsManual/intro.html#id4</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⼿册⾥⾯介绍了机械臂对固定基座铝板厚度等要求， 硬件接线，运动控制器上的IO接口, 以及Web APP ⽰教功能使⽤ ，指令讲解等。</p>
+<p>使⽤机械臂之前，⼀定要阅读⼀下使⽤⼿册⾥⾯相关的注意事项，尤其是安全相关的。 你也可以下载离线版本<a href="https://pan.baidu.com/s/10T-VdQ4P6WcTDqAZMxuQKw?pwd=f38v"><u>中⽂⼿册PDF下载地址</u></a>。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://pan.baidu.com/s/10T-VdQ4P6WcTDqAZMxuQKw?pwd=f38v">https://pan.baidu.com/s/10T-VdQ4P6WcTDqAZMxuQKw?pwd=f38v</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>通过阅读⼿册， 你就会发现法奥的运动控制指令是⾮常丰富的， ⽀持关节伺服、 笛卡尔伺服、 螺旋线、 样条曲线等⾼阶运动控制模式， 同时也针对众多的细分应⽤领域做了对应的控制指令。 例如焊接、 喷 涂、 打磨等。 法奥还内置了⼒控相关的运动控制指令， 不过需要加装额外的六维⼒传感器。</p>
+<p><img src="images/______________V20250311/media/image17.png" style="width:6.20833in" /><span id="bookmark7" class="anchor"></span><strong>4.</strong> ⽰教器编程</p>
+<p>法奥⽰教器上采⽤的编程语⾔为LUA， 跟Python类似LUA也是⼀种脚本语⾔ 。 通过Web⽰教器界⾯的功 能模块的拖拽可以⾃动⽣成LUA脚本， 对于简单的逻辑这也够了。 但是⼤多数情况下， 我们会需要添加 逻辑判断、 循环等操作。 复杂⼀些的应⽤场景实现需要⼿动编写LUA脚本。 法奥有对应的LUA脚本⼊⻔ 以及机械臂编程⽤⼾⼿册。</p>
+<p>LUA脚本存放在机械臂运动控制器内部， 可以配置开机⾃启动。 我们⼤部分⼯业⽤⼾都是⽤这种开发⽅ 式进⾏部署的。</p>
+<p>LUA编程⼊⻔可以看菜鸟教程: <a href="https://www.runoob.com/lua/lua-tutorial.html"><u>lua tutorial</u></a> <a href="https://fairino-doc-zhs.readthedocs.io/latest/_downloads/5b18b273bf4ed872185f15f7862b8511/FRLua%E7%BC%96%E7%A8%8B%E8%84%9A%E6%9C%AC%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-V1.0.pdf"><u>法奥LUA编程⼿册下载</u></a></p>
+<p><img src="images/______________V20250311/media/image18.png" style="width:6.17594in" /><a href="https://fairino-doc-zhs.readthedocs.io/latest/_downloads/5b18b273bf4ed872185f15f7862b8511/FRLua%E7%BC%96%E7%A8%8B%E8%84%9A%E6%9C%AC%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-V1.0.pdf"><u>https://fairino-doc-zhs.readthedocs.io/latest/_downloads/5b18b273bf4ed872185f15f7862b8511/F</u></a> <a href="https://fairino-doc-zhs.readthedocs.io/latest/_downloads/5b18b273bf4ed872185f15f7862b8511/FRLua%E7%BC%96%E7%A8%8B%E8%84%9A%E6%9C%AC%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-V1.0.pdf">RLua%E7%BC%96%E7%A8%8B%E8%84%9A%E6%9C%AC%E7%94%A8%E6%88%B7%E6%89%8B%E</a></p>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/_downloads/5b18b273bf4ed872185f15f7862b8511/FRLua%E7%BC%96%E7%A8%8B%E8%84%9A%E6%9C%AC%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C-V1.0.pdf"><u>5%86%8C-V1.0.pdf</u></a></p>
+<p><img src="images/______________V20250311/media/image19.png" style="width:6.20833in" /><span id="bookmark8" class="anchor"></span><strong>5.</strong> 机械臂仿真机</p>
+<p>在虚拟机⾥⾯运⾏机械臂的仿真软件， 真机跟仿真机接口⼀致。 没有实物也可以访问Web APP软件。</p>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/VMMachine/vm_intro.html"><u>使⽤⼿册 - FAIRINO SimMachine</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/VMMachine/vm_intro.html">https://fairino-doc-zhs.readthedocs.io/latest/VMMachine/vm_intro.html</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/download.html#fairino-simmachine"><u>FAIRINO SimMachine 下载链接</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/download.html#fairino-simmachine">https://fairino-doc-zhs.readthedocs.io/latest/download.html#fairino-simmachine</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/______________V20250311/media/image20.png" style="width:6.20833in" /><span id="bookmark9" class="anchor"></span><strong>6.</strong> <strong>Web</strong>插件开发<strong>FRCAP</strong></p>
+<p>FRCap是⼀个基于Web的插件，可集成到协作机器⼈WebApp中。 FRCap通过基于Node.js和Vue3的</p>
+<p>Element plus，frcap-ui和frcap-api等模块构建⼀个协作机器⼈WebApp配置页⾯或者应⽤来扩展机器⼈ 功能及应⽤场景。</p>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/FRCap/frcap_intro.html#frcap"><u>⽤户⼿册 - FRCap插件系统</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/FRCap/frcap_intro.html#frcap">https://fairino-doc-zhs.readthedocs.io/latest/FRCap/frcap_intro.html#frcap</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/download.html#frcap"><u>FRCap下载链接</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/download.html#frcap">https://fairino-doc-zhs.readthedocs.io/latest/download.html#frcap</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/______________V20250311/media/image21.png" style="width:6.20833in" /><span id="bookmark10" class="anchor"></span><strong>5.</strong> ⼆次开发</p>
+<p>除了LUA以外， 你还可以选择⽤其他编程语⾔进⾏编程， 当然需要你额外配⼀台PC/⼯控机， 机械臂跟 电脑之间通过有线进⾏连接。 建议使⽤电脑⾃动的有线⽹卡， 不推荐使⽤USB转⽹口或者通过路由器桥 接。</p>
+<p>法奥在软件开发⽣态⽅⾯做的⾮常完善， ⽬前⽀持了C++/ C# / Python / ROS1 / ROS2多种语⾔/开发平 台。 而且代码易⽤性⽅⾯ ， 已经有了⾮常⼤的改进， 同时⽂档也写的⾮常详细了。</p>
+<p><span id="bookmark11" class="anchor"></span><strong>5.1</strong> 代码仓库主页</p>
+<p>. Gitee: <a href="https://gitee.com/fair-innovation"><u>https://gitee.com/fair-innovation</u></a></p>
+<p>. Github: <a href="https://github.com/fair-innovation"><u>https://github.com/fair-innovation</u></a></p>
+</blockquote>
+<p><img src="images/______________V20250311/media/image22.jpeg" style="width:6.20833in;height:3.32292in" /></p>
+<blockquote>
+<p><span id="bookmark12" class="anchor"></span><strong>5.2</strong> <strong>C++</strong></p>
+</blockquote>
+<p>法奥的C++ SDK是动态链接库的形式提供的， 不开放底层源码， example ⽂件夹下有提供C++ ⽰例代 码。 根据你的开发平台下载对应 linux 或 windows 的动态链接库。</p>
+<blockquote>
+<p><img src="images/______________V20250311/media/image23.png" /> 代码仓库:</p>
+<p><img src="images/______________V20250311/media/image24.png" /> Gitee: <a href="https://gitee.com/fair-innovation/fairino-cpp-sdk"><u>https://gitee.com/fair-innovation/fairino-cpp-sdk</u></a></p>
+<p><img src="images/______________V20250311/media/image25.png" /> Github: <a href="https://github.com/FAIR-INNOVATION/frcobot_cpp_sdk/"><u>https://github.com/FAIR-INNOVATION/frcobot_cpp_sdk/</u></a></p>
+<p>. <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/cpp_intro.html"><u>C++ SDK编程⼿册</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/cpp_intro.html">https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/cpp_intro.html</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/______________V20250311/media/image26.jpeg" style="width:5.89583in;height:5.17708in" /></p>
+<blockquote>
+<p><span id="bookmark13" class="anchor"></span><strong>5.3</strong> <strong>Python</strong></p>
+<p>法奥的Python SDK也是动态链接库的版本， 在使⽤之前需要将动态链接库所在的路径添加的Python PATH中。</p>
+<p><img src="images/______________V20250311/media/image27.png" /> 代码仓库</p>
+<p><img src="images/______________V20250311/media/image28.png" /> Gitee: <a href="https://gitee.com/fair-innovation/fairino-python-sdk"><u>https://gitee.com/fair-innovation/fairino-python-sdk</u></a></p>
+<p><img src="images/______________V20250311/media/image29.png" /> Github: <a href="https://github.com/FAIR-INNOVATION/fairino-python-sdk"><u>https://github.com/FAIR-INNOVATION/fairino-python-sdk</u></a></p>
+<p>. <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html"><u>Python SDK 开发⽂档</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>注意事项</p>
+<blockquote>
+<p>1. 如果执⾏SDK发现API调不通，⼤概率是因为需要升级机械臂控制系统的固件了。</p>
+<p>2. Python动态链接库只⽀持 x64架构的CPU，适配Windows跟Ubuntu。 ⽬前适配的的Python版本 包括:</p>
+<p>。 Python 3.8</p>
+<p>。 Python 3.10</p>
+<p>。 Python 3.11</p>
+<p>3. Python SDK有V1版本跟V2版本， 直接看V2版本就好。 V2版本⽤起来更加简单⼀些。 V1传参太冗 余了。</p>
+<p>4. 开发⽂档⾥⾯库导⼊相关的写法都是错的, ⽤的时候注意。</p>
+<p>应该是</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>import os</p>
+<p>import sys</p>
+<p># 法奥动态链接库路径</p>
+<p>if os .name == 'nt ' :</p>
+<p># Windows操作系统</p>
+<p>fairino_path = " ./lib/fr/windows/"</p>
+<p>elif os .name == 'posix ' :</p>
+<p># Ubuntu操作系统</p>
+<p>fairino_path = " ./lib/fr/linux/"</p>
+<p>sys .path .append(fairino_path)</p>
+<p># 导⼊法奥机器⼈ 动态链接库</p>
+<p>import Robot</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>另外，为了⽅便客户⼊⻔ ， 我们也编写了⼀些法奥Python SDK的教学案例, 可以联系阿凯获取。</p>
+</blockquote>
+<p><img src="images/______________V20250311/media/image30.png" style="width:6.04204in;height:3.52115in" /></p>
+<blockquote>
+<p><span id="bookmark14" class="anchor"></span><strong>5.4</strong> <strong>C#</strong></p>
+</blockquote>
+<p>做⼯业⾃动化软件的客户应该会⽐较喜欢C#， 另外Unity的玩家也可以⽤这个。 <img src="images/______________V20250311/media/image31.png" /> 代码仓库:</p>
+<blockquote>
+<p><img src="images/______________V20250311/media/image32.png" /> Gitee: <a href="https://gitee.com/fair-innovation/fairino-csharp-sdk"><u>https://gitee.com/fair-innovation/fairino-csharp-sdk</u></a></p>
+<p><img src="images/______________V20250311/media/image33.png" /> Github: <a href="https://github.com/FAIR-INNOVATION/fairino-csharp-sdk"><u>https://github.com/FAIR-INNOVATION/fairino-csharp-sdk</u></a></p>
+<p>. <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/c%23_intro.html"><u>C# SDK编程⼿册</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/c%23_intro.html">https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/c%23_intro.html</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span id="bookmark15" class="anchor"></span><strong>5.5</strong> <strong>JAVA</strong></p>
+<p><img src="images/______________V20250311/media/image34.png" /> 代码仓库:</p>
+<p><img src="images/______________V20250311/media/image35.png" /> Gitee: <a href="https://gitee.com/fair-innovation/fairino-java-sdk"><u>https://gitee.com/fair-innovation/fairino-java-sdk</u></a></p>
+<p>. <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/java_intro.html"><u>JAVA SDK 编程⼿册</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/java_intro.html">https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/java_intro.html</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><span id="bookmark16" class="anchor"></span><strong>5.6</strong> <strong>RoboDK</strong></p>
+<p>RoboDK适配法奥机械臂的后处理器</p>
+<p><a href="https://gitee.com/fair-innovation/robo-dk-post-processor"><u>https://gitee.com/fair-innovation/robo-dk-post-processor</u></a></p>
+<p><span id="bookmark17" class="anchor"></span><strong>5.7</strong> <strong>ROS1</strong> <strong>&amp;</strong> <strong>ROS2</strong></p>
+<p><img src="images/______________V20250311/media/image36.png" /> ROS1代码仓库</p>
+<p><img src="images/______________V20250311/media/image37.jpeg" style="height:0.20833in" /> 法奥官⽅的ROS1包已经停⽌更新维护了, 跟机械臂最新的固件已经不兼容了。 <img src="images/______________V20250311/media/image38.png" /> Gitee: <a href="https://gitee.com/fair-innovation/frcobot_ros"><u>https://gitee.com/fair-innovation/frcobot_ ros</u></a></p>
+<p><img src="images/______________V20250311/media/image39.png" /> Github: <a href="https://github.com/FAIR-INNOVATION/frcobot_ros/"><u>https://github.com/FAIR-INNOVATION/frcobot_ ros/</u></a> <img src="images/______________V20250311/media/image40.png" /> ROS2代码仓库</p>
+<p><img src="images/______________V20250311/media/image41.jpeg" style="height:0.21875in" /> ROS2的⽣态还不那么完善， ⽬前阿凯建议使⽤ROS1 Neotic。</p>
+<p><img src="images/______________V20250311/media/image42.png" /> Gitee: <a href="https://gitee.com/fair-innovation/frcobot_ros2"><u>https://gitee.com/fair-innovation/frcobot_ros2</u></a></p>
+<p><img src="images/______________V20250311/media/image43.png" /> Github: <a href="https://github.com/FAIR-INNOVATION/frcobot_ros2"><u>https://github.com/FAIR-INNOVATION/frcobot_ros2</u></a></p>
+<p><img src="images/______________V20250311/media/image44.png" /> 编程⼿册</p>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html"><u>frcobot ros 编程⼿册</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html">https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html#frcobot-ros2"><u>frcobot_ros2 编程⼿册</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html#frcobot">https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html#frcobot</a>-</p>
+<p>ros2</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⼿册主要侧重 开发环境搭建与编译过程。 ⽂档部分还没有做的很详细。</p>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html#moveit2"><u>MoveIt2插件应⽤⼿册</u></a></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html#moveit2">https://fairino-doc-zhs.readthedocs.io/latest/ROSGuide/index.html#moveit2</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p>注意事项</p>
+<blockquote>
+<p>. 法奥旧版的机械臂是V5.0系列， 新版是V6.0系列。 他们的连杆尺⼨不相同，对应的URDF模型也不 ⼀样。 因此在⽤ROS包的时候， 注意版本是否匹配。 新出货的都是V6.0版本。</p>
+<p>. 机械臂URDF模型推荐使⽤ROS2包 fairino_description ⽂件夹下的URDF模型。</p>
+<p>. 法奥官⽅的ROS1跟ROS2包都是基于ROS Control架构适配的驱动层， MoveIt轨迹执⾏的时候， 不 是那么平滑。 同时， 也没有提供Python⽰例代码。</p>
+<p>. ⽬前阿凯⾃研的法奥ROS包适配的是ROS1 Neotic (Ubuntu 20.04), 兼容最新固件， 做了轨迹优化 ⽅⾯的⼯作， 也提供基于Python的⼊⻔学习案例。 阿凯⾃研的法奥案例包是单独销售的， 详情请 咨询阿凯（微信: xingshunkai）。</p>
+<p><span id="bookmark18" class="anchor"></span><u><strong>6.</strong> 联系阿凯</u></p>
+</blockquote>
+<p><img src="images/______________V20250311/media/image45.jpeg" style="width:5.66667in;height:3.4375in" /></p>
+<p>如果你有协作机械臂相关的应⽤需求， 可以找我们来做项⽬评估， 我们也可以协助做一些验证⼯作。</p>
+</body>
+</html>

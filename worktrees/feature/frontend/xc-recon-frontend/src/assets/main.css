@@ -1,0 +1,61 @@
+@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+  font-weight: normal;
+  width: 100%;
+  height: 100vh;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+/* FontAwesome 图标样式修复 */
+.fa, .fas, .far, .fal, .fab, .fa-solid, .fa-regular, .fa-light, .fa-brands {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  display: inline-block !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto !important;
+  line-height: 1 !important;
+}
+
+.fa-regular {
+  font-weight: 400 !important;
+}
+
+.fa-light {
+  font-weight: 300 !important;
+}
+
+.fa-brands {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+}
+
+/* 确保图标不会被其他样式覆盖 */
+i[class*="fa-"] {
+  speak: never;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 移除可能影响布局的样式 */

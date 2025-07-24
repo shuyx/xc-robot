@@ -1,0 +1,310 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script><script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/element-plus"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #409EFF;
+            --secondary-color: #2c3e50;
+            --success-color: #00A870;
+            --warning-color: #E6A23C;
+            --danger-color: #F56C6C;
+            --info-color: #909399;
+        }
+        
+        body { font-family: 'Inter', sans-serif;
+        }
+        
+        .status-normal {
+            color: var(--success-color);
+        }
+        
+        .status-warning {
+            color: var(--warning-color);
+        }
+        
+        .status-error {
+            color: var(--danger-color);
+        }
+        
+        .status-unknown {
+            color: var(--info-color);
+        }
+        
+        .status-info {
+            color: var(--primary-color);
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body>
+    <div id="app">
+        <header id="header" class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+            <div class="flex items-center justify-between h-16 px-4">
+                <!-- Brand Logo Area -->
+                <div id="brand-area" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-md bg-gradient-to-r from-[#409EFF] to-[#00A870] flex items-center justify-center text-white font-bold">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <span class="font-bold text-[#2c3e50] text-lg">XC-OS <span class="text-xs text-[#409EFF]">v3.0</span></span>
+                </div>
+
+                <!-- Search Area -->
+                <div id="search-area" class="relative flex-1 max-w-lg mx-8">
+                    <div class="relative">
+                        <input type="text" class="w-full pl-10 pr-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#409EFF] focus:border-transparent" placeholder="搜索功能模块..." @focus="showSearchSuggestions = true" @blur="setTimeout(() =&gt; showSearchSuggestions = false, 200)">
+                        <div class="absolute left-3 top-2.5 text-gray-400">
+                            <i class="fa-solid fa-search"></i>
+                        </div>
+                        <div class="absolute right-3 top-2.5 text-gray-400 text-xs bg-gray-100 px-1.5 py-0.5 rounded">
+                            Ctrl+K
+                        </div>
+                    </div>
+                    
+                    <!-- Search Suggestions -->
+                    <div v-if="showSearchSuggestions" class="absolute top-full left-0 right-0 mt-1 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                        <div class="p-2">
+                            <div class="py-1.5 px-3 hover:bg-gray-100 rounded flex items-center space-x-2 cursor-pointer">
+                                <i class="fa-solid fa-comments text-[#409EFF]"></i>
+                                <span>智能对话</span>
+                            </div>
+                            <div class="py-1.5 px-3 hover:bg-gray-100 rounded flex items-center space-x-2 cursor-pointer">
+                                <i class="fa-solid fa-user-check text-[#409EFF]"></i>
+                                <span>人脸识别</span>
+                            </div>
+                            <div class="py-1.5 px-3 hover:bg-gray-100 rounded flex items-center space-x-2 cursor-pointer">
+                                <i class="fa-solid fa-robot text-[#409EFF]"></i>
+                                <span>机械臂控制</span>
+                            </div>
+                            <div class="py-1.5 px-3 hover:bg-gray-100 rounded flex items-center space-x-2 cursor-pointer">
+                                <i class="fa-solid fa-plug-circle-check text-[#409EFF]"></i>
+                                <span>设备连接</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Area -->
+                <div id="right-area" class="flex items-center space-x-4">
+                    <!-- Language Switcher -->
+                    <div id="language-switcher" class="relative">
+                        <button class="flex items-center space-x-1 px-2 py-1 rounded-md hover:bg-gray-100">
+                            <i class="fa-solid fa-globe text-[#409EFF]"></i>
+                            <span class="text-[#2c3e50] font-medium">中</span>
+                            <span class="text-gray-400">/</span>
+                            <span class="text-gray-400">EN</span>
+                        </button>
+                    </div>
+
+                    <!-- System Status Area -->
+                    <div id="status-area" class="flex items-center space-x-4 px-4 border-x border-gray-200">
+                        <!-- Connection Status -->
+                        <div class="relative group">
+                            <button class="flex items-center space-x-1">
+                                <i class="fa-solid fa-circle text-xs status-normal"></i>
+                                <span class="text-sm text-gray-600">连接</span>
+                            </button>
+                            <div class="absolute hidden group-hover:block top-full right-0 mt-1 bg-white rounded-md shadow-lg border border-gray-200 p-2 w-48 z-50">
+                                <div class="text-sm font-medium mb-1">连接状态</div>
+                                <div class="text-xs text-gray-500">所有设备连接正常</div>
+                                <div class="mt-2 text-xs">
+                                    <div class="flex justify-between">
+                                        <span>主服务器</span>
+                                        <span class="status-normal">已连接</span>
+                                    </div>
+                                    <div class="flex justify-between mt-1">
+                                        <span>备用服务器</span>
+                                        <span class="status-normal">已连接</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Running Status -->
+                        <div class="relative group">
+                            <button class="flex items-center space-x-1">
+                                <i class="fa-solid fa-bolt text-xs text-[#409EFF]"></i>
+                                <span class="text-sm text-gray-600">运行</span>
+                            </button>
+                            <div class="absolute hidden group-hover:block top-full right-0 mt-1 bg-white rounded-md shadow-lg border border-gray-200 p-2 w-48 z-50">
+                                <div class="text-sm font-medium mb-1">系统运行状态</div>
+                                <div class="text-xs text-gray-500">系统正常运行中</div>
+                                <div class="mt-2 text-xs">
+                                    <div class="flex justify-between">
+                                        <span>CPU使用率</span>
+                                        <span>32%</span>
+                                    </div>
+                                    <div class="flex justify-between mt-1">
+                                        <span>内存使用率</span>
+                                        <span>45%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notifications -->
+                        <div class="relative group">
+                            <button class="flex items-center space-x-1 relative">
+                                <i class="fa-solid fa-bell text-xs text-gray-600"></i>
+                                <span class="text-sm text-gray-600">告警</span>
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                            </button>
+                            <div class="absolute hidden group-hover:block top-full right-0 mt-1 bg-white rounded-md shadow-lg border border-gray-200 p-2 w-64 z-50">
+                                <div class="flex justify-between items-center mb-2">
+                                    <div class="text-sm font-medium">通知</div>
+                                    <button class="text-xs text-[#409EFF]">全部标为已读</button>
+                                </div>
+                                <div class="max-h-48 overflow-y-auto">
+                                    <div class="py-2 border-b border-gray-100">
+                                        <div class="flex items-start">
+                                            <div class="mr-2 mt-0.5">
+                                                <i class="fa-solid fa-circle-exclamation text-[#E6A23C]"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs font-medium">温度告警</div>
+                                                <div class="text-xs text-gray-500">设备A温度超过阈值</div>
+                                                <div class="text-xs text-gray-400 mt-1">10分钟前</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="py-2 border-b border-gray-100">
+                                        <div class="flex items-start">
+                                            <div class="mr-2 mt-0.5">
+                                                <i class="fa-solid fa-triangle-exclamation text-[#F56C6C]"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs font-medium">存储空间不足</div>
+                                                <div class="text-xs text-gray-500">存储空间低于10%</div>
+                                                <div class="text-xs text-gray-400 mt-1">30分钟前</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="py-2">
+                                        <div class="flex items-start">
+                                            <div class="mr-2 mt-0.5">
+                                                <i class="fa-solid fa-circle-info text-[#409EFF]"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs font-medium">系统更新</div>
+                                                <div class="text-xs text-gray-500">新版本V3.1可用</div>
+                                                <div class="text-xs text-gray-400 mt-1">1小时前</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-2 pt-2 border-t border-gray-100">
+                                    <button class="w-full text-center text-xs text-[#409EFF]">查看全部通知</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Area -->
+                    <div id="user-area" class="relative group">
+                        <button class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#409EFF] flex items-center justify-center text-white">
+                                <span class="text-sm font-medium">K</span>
+                            </div>
+                            <span class="text-sm font-medium text-[#2c3e50]">Kevin</span>
+                            <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <div class="absolute hidden group-hover:block top-full right-0 mt-1 bg-white rounded-md shadow-lg border border-gray-200 p-2 w-48 z-50">
+                            <div class="py-2 px-2 flex items-center space-x-2 border-b border-gray-100">
+                                <div class="w-8 h-8 rounded-full bg-[#409EFF] flex items-center justify-center text-white">
+                                    <span class="text-sm font-medium">K</span>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium">Kevin Zhang</div>
+                                    <div class="text-xs text-gray-500">管理员</div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <span class="block py-1.5 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md cursor-pointer">
+                                    <i class="fa-solid fa-user mr-2 text-gray-400"></i>个人设置
+                                </span>
+                                <span class="block py-1.5 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md cursor-pointer">
+                                    <i class="fa-solid fa-gear mr-2 text-gray-400"></i>系统设置
+                                </span>
+                                <span class="block py-1.5 px-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md cursor-pointer">
+                                    <i class="fa-solid fa-circle-question mr-2 text-gray-400"></i>帮助文档
+                                </span>
+                                <div class="border-t border-gray-100 my-1 pt-1">
+                                    <span class="block py-1.5 px-2 text-sm text-red-600 hover:bg-gray-100 rounded-md cursor-pointer">
+                                        <i class="fa-solid fa-right-from-bracket mr-2"></i>退出登录
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content placeholder to demonstrate the fixed header -->
+        <div class="pt-16 p-4">
+            <div class="bg-gray-100 p-4 rounded-md">
+                <h1 class="text-lg font-medium text-[#2c3e50]">页面内容区域</h1>
+                <p class="text-gray-600 mt-2">这里是页面的主要内容区域，头部导航栏固定在顶部。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+        
+        createApp({
+            setup() {
+                const showSearchSuggestions = ref(false);
+                
+                // 监听Ctrl+K快捷键
+                window.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                        e.preventDefault();
+                        document.querySelector('input[type="text"]').focus();
+                    }
+                });
+                
+                return {
+                    showSearchSuggestions
+                };
+            }
+        }).mount('#app');
+    </script>
+
+</body></html>

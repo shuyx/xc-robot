@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR14】14. 其他接口 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR14】14. 其他接口 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 14. 其他接⼝</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>14.</strong> 其他接⼝</p>
+<p><strong>14.1.</strong> 下载点位表数据库</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 19%" />
+<col style="width: 2%" />
+<col style="width: 42%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>PointTableDownLoad(point_table_name, save_file_path)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>下载点位表数据库</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. point_table_name ：要下载的点位表名称 pointTable1.db;</p>
+<p>. save_file_path :下载点位表的存储路径 C://test/;</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.1.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR14_14_______________________3_8_2___/media/image2.png" style="height:0.17708in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR14_14_______________________3_8_2___/media/image3.png" style="height:0.16667in" /></p>
+<p>3 <img src="images/_FR14_14_______________________3_8_2___/media/image4.png" style="height:0.17708in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR14_14_______________________3_8_2___/media/image5.png" style="height:0.17708in" /> robot = Robot.RPC( '192.168.58.2')</p>
+<p>5 <img src="images/_FR14_14_______________________3_8_2___/media/image6.png" style="height:0.17452in" /> error =</p>
+<p>robot.PointTableDownLoad("point_table_a.db","D://Desktop/testPoint/download/") 6 <img src="images/_FR14_14_______________________3_8_2___/media/image7.png" style="height:0.16546in" /> print("PointTableDownLoad错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.2.</strong> 上传点位表数据库</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image9.png" style="width:0.52794in;height:0.87487in" /><img src="images/_FR14_14_______________________3_8_2___/media/image10.png" style="width:0.11458in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 42%" />
+<col style="width: 39%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>PointTableUpLoad(point_table_file_path)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>上传点位表数据库</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>. point_table_file_path ：上传点位表的全路径名 C://test/pointTable1.db</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.2.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.PointTableUpLoad("D://Desktop/testPoint/point_table_a.db") print("PointTableUpLoad错误码:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.3.</strong> 点位表切换</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image11.png" style="width:6.78125in" /><img src="images/_FR14_14_______________________3_8_2___/media/image12.png" style="width:6.78125in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td>ableSwitch(point_table_name)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image13.png" style="width:6.78125in" /><img src="images/_FR14_14_______________________3_8_2___/media/image14.png" style="width:0.97917in;height:0.19792in" />切换</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image15.png" style="width:6.78125in" />int_table_name ：要切换的点位表名称 pointTable1.db, 当点位表为空，即 ” 时，表示将lua程序更新为未应</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="2"><blockquote>
+<p>成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><strong>14.3.1.</strong> 代码示例</td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>1 <strong>from fairino import</strong> Robot</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>2</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>3</p>
+</blockquote></td>
+<td><blockquote>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p>error = robot.PointTableSwitch("point_table_a.db")</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p>print("PointTableSwitch:",error)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><strong>14.4.</strong> 点位表更新<strong>lua</strong>⽂件 <em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.1</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image16.png" style="width:6.78125in" /><img src="images/_FR14_14_______________________3_8_2___/media/image17.png" style="width:0.34028in;height:0.32216in" /><img src="images/_FR14_14_______________________3_8_2___/media/image18.png" style="width:0.3125in;height:0.39925in" /><img src="images/_FR14_14_______________________3_8_2___/media/image19.png" /></p>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image20.png" style="width:6.78125in" />更新lua⽂件</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image21.png" style="width:0.79167in;height:0.19792in" />int_table_name ：要切换的点位表名称pointTable1.db, 当点位表为空，即 ” 时，表示将lua程序更新为未应</p>
+<p>a_file_name : 要更新的lua⽂件名称 testPointTable.lua</p>
+</blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image22.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image23.png" style="width:6.78125in" />成功-0 失败- errcode <img src="images/_FR14_14_______________________3_8_2___/media/image24.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR14_14_______________________3_8_2___/media/image25.png" style="width:0.11458in" /></p>
+<p><strong>14.4.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>error = robot.PointTableUpdateLua("point_table_a.db","testpoint.lua")</p>
+<p>print("PointTableUpdateLua:",error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.5.</strong> 初始化⽇志参数</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.2</p>
+</blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image26.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image27.png" style="width:6.78125in" /><img src="images/_FR14_14_______________________3_8_2___/media/image28.png" /></p>
+<p>志</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image29.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image30.png" style="width:6.78125in" /></p>
+<blockquote>
+<p>接输出；1-缓冲输出；2-异步输出，默认1;</p>
+<p>e</p>
+</blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image31.png" style="width:6.78125in" /></p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image32.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>14.5.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>robot.LoggerInit(output_model=0,file_path="D://Desktop/fairino.log",file_num=3)</p>
+<p>robot.SetLoggerLevel(3)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.6.</strong> 设置⽇志过滤等级</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image35.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.2</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 14%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetLoggerLevel(lvl=1)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置⽇志过滤等级</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>参数</td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>参数</td>
+<td colspan="5" style="text-align: right;">. lvl ：过滤等级值，值越⼩输出⽇志越少, 1-error, 2-warnning, 3-inform, 4-debug,默认</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.6.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>robot.LoggerInit(output_model=0,file_path="D://Desktop/fairino.log",file_num=3)</p>
+<p>robot.SetLoggerLevel(3)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.7.</strong> 设置机器⼈外设协议</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 9%" />
+<col style="width: 14%" />
+<col style="width: 64%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetExDevProtocol(protocol)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="5"><blockquote>
+<p>设置机器⼈外设协议</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR14_14_______________________3_8_2___/media/image36.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>protocol</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="2" style="text-align: right;">：机器⼈外设协议号 4096-扩展轴控制卡；4097-ModbusSlave；4098-Modbus</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>值</td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.7.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>ret =robot.SetExDevProtocol(4098)</p>
+<p>print("SetExDevProtocol",ret)</p>
+<p>ret =robot.GetExDevProtocol()</p>
+<p>print("GetExDevProtocol",ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.8.</strong> 获取机器⼈外设协议</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image39.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.3</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 2%" />
+<col style="width: 3%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+<col style="width: 72%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetExDevProtocol()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="5"><blockquote>
+<p>获取机器⼈外设协议</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2">值</td>
+<td colspan="2" rowspan="2"><p><img src="images/_FR14_14_______________________3_8_2___/media/image40.png" /></p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image41.png" /></p></td>
+<td style="text-align: right;">错误码 成</td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>功-0 失败- errcode;</p>
+<p>: 机器⼈外设协议号 4096-扩展轴控制卡；4097-ModbusSlav</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>protocol</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.9.</strong> 末端传感器配置</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 11%" />
+<col style="width: 46%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AxleSensorConfig(idCompany, idDevice, idSoftware, idBus)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>末端传感器配置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. idCompany : ⼚商，18-JUNKONG；25-HUIDE</p>
+<p>. idDevice : 类型，0-JUNKONG/RYR6T.V1.0</p>
+<p>. idSoftware : 软件版本，0-J1.0/HuiDe1.0(暂未开放)</p>
+<p>. idBus : 挂载位置，1-末端1号⼝ ；2-末端2号⼝ …8-末端8号⼝(暂未开放)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.9.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 93%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><strong>import time</strong></p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( '192.168.58.2')</p>
+<p>error = robot.AxleSensorConfig(18,0,0,0)</p>
+<p>print("AxleSensorConfig return:", error)</p>
+<p>error = robot.AxleSensorConfigGet()</p>
+<p>print("AxleSensorConfigGet return:", error)</p>
+<p>error = robot.AxleSensorActivate(0)</p>
+<p>print("AxleSensorActivate return:", error)</p>
+<p>time.sleep(1)</p>
+<p>error = robot.AxleSensorActivate(1)</p>
+<p>print("AxleSensorActivate return:", error)</p>
+<p><strong>while</strong>(1):</p>
+<p>error = robot.AxleSensorRegWrite(1, 4, 6, 1, 0, 0, 0)</p>
+<p>print("AxleSensorRegWrite return:", error)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.10.</strong> 获取末端传感器配置</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image42.png" style="width:0.16601in;height:0.18748in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 3%" />
+<col style="width: 33%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>AxleSensorConfigGet()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>获取末端传感器配置</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image44.png" style="width:0.34028in;height:0.40449in" /></p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image45.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. idCompany : ⼚商，18-JUNKONG；25-HUIDE . idDevice : 类型，0-JUNKONG/RYR6T.V1.0</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.11.</strong> 末端传感器激活</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 15%" />
+<col style="width: 38%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>AxleSensorActivate(actFlag)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>末端传感器激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>： 0-复位；1-激活</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>actFlag</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image46.png" /> 错误码 成功-0 失败- errcode . coord : 坐标系值[x,y,z,rx,ry,rz]</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.12.</strong> 末端传感器寄存器写⼊</p>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image47.png" style="width:4.73958in" /><img src="images/_FR14_14_______________________3_8_2___/media/image48.png" style="width:0.73958in" /><img src="images/_FR14_14_______________________3_8_2___/media/image49.jpeg" style="height:0.19792in" /> <u>AxleSensorRegWrite(devAddr, regHAddr, regLAddr, regNum, data1, data2,</u> <u>isNoBlock)</u> <img src="images/_FR14_14_______________________3_8_2___/media/image50.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>末端传感器寄存器写⼊</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. devAddr ：设备地址编号 0-255</p>
+<p>. regHAddr ：寄存器地址⾼8位</p>
+<p>. regLAddr ：寄存器地址低8位</p>
+<p>. regNum ：寄存器个数 0-255</p>
+<p>. data1 ：写⼊寄存器数值1</p>
+<p>. data2 ：写⼊寄存器数值2</p>
+<p>. isNoBlock ：是否阻塞 0-阻塞；1-⾮阻塞</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.13.</strong> 设置<strong>SmartTool</strong>停⽌<strong>/</strong>暂停后输出是否复位</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image51.png" style="width:0.16601in;height:0.18748in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 61%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetOutputResetSmartToolDO(resetFlag)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>设置SmartTool停⽌/暂停后输出是否复位</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image53.png" style="width:0.34028in;height:0.40449in" /></p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 78%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. resetFlag ：是否复位，0-不复位，1-复位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>14.14.</strong> 获取末端通讯参数</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image54.png" style="width:6.78125in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetAxleCommunicationParam()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td>获取末端通讯参数</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image55.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. baudRate ：波特率:⽀持1-9600 ，2-14400 ，3-19200 ，4-38400 ，5-56000 ，6-67600 ，7-1152</p>
+<p>. dataBit ：数据位:数据位⽀持（8,9）， ⽬前常⽤为 8</p>
+<p>. stopBit ：停⽌位:1-1 ，2-0.5 ，3-2 ，4-1.5 ， ⽬前常⽤为 1</p>
+<p>. verify ：校验位:0-None ，1-Odd ，2-Even, ⽬前常⽤为 0</p>
+<p>. timeout ：超时时间:1~1000ms ，此值需要结合外设搭配设置合理的时间参数</p>
+<p>. timeoutTimes ：超时次数:1~10 ，主要进⾏超时重发，减少偶发异常提⾼⽤户体验</p>
+<p>. period ：周期性指令时间间隔:1~1000ms ，主要⽤于周期性指令每次下发的时间间隔</p>
+</blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image56.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>14.15.</strong> 设置末端通讯参数</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image57.png" style="width:6.78125in" /><img src="images/_FR14_14_______________________3_8_2___/media/image58.png" style="width:6.78125in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>SetAxleCommunicationParam(baudRate, dataBit, stopBit, verify, timeout, timeoutTimes, period)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image59.png" style="width:6.78125in" />设置末端通讯参数</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image60.png" />baudRate ：波特率:⽀持1-9600 ，2-14400 ，3-19200 ，4-38400 ，5-56000 ，6-67600 ，7-1152</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image61.png" /> dataBit ：数据位:数据位⽀持（8,9）， ⽬前常⽤为 8</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image62.png" />stopBit ：停⽌位:1-1 ，2-0.5 ，3-2 ，4-1.5 ， ⽬前常⽤为 1</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image63.png" /> verify ：校验位:0-None ，1-Odd ，2-Even, ⽬前常⽤为 0</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image64.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR14_14_______________________3_8_2___/media/image65.png" />timeout ：超时时间:1~1000ms ，此值需要结合外设搭配设置合理的时间参数</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image66.png" />timeoutTimes ：超时次数:1~10 ，主要进⾏超时重发，减少偶发异常提⾼⽤户体验</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image67.png" style="width:6.78125in" /><img src="images/_FR14_14_______________________3_8_2___/media/image68.png" /> period ：周期性指令时间间隔:1~1000ms ，主要⽤于周期性指令每次下发的时间间隔</p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image69.png" style="width:6.78125in" />⽆</p>
+</blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image71.png" style="width:0.16601in;height:0.18748in" /> l</p>
+</blockquote>
+<p><strong>14.16.</strong> 设置末端⽂件传输类型</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 9%" />
+<col style="width: 23%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetAxleFileType(type)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置末端⽂件传输类型</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="2"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"></td>
+<td></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>：1-MCU升级⽂件,2-LUA⽂件</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>type</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.17.</strong> 设置启⽤末端<strong>LUA</strong>执⾏</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 16%" />
+<col style="width: 28%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetAxleLuaEnable(enable)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>设置启⽤末端LUA执⾏</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. enable ：0-不启⽤ ；1-启⽤</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.18.</strong> 末端<strong>LUA</strong>⽂件异常错误恢复</p>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image72.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 36%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>SetRecoverAxleLuaErr(enable)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>末端LUA⽂件异常错误恢复</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. status ：0-不恢复；1-恢复</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.19.</strong> 获取末端<strong>LUA</strong>执⾏使能状态</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetAxleLuaEnableStatus()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取末端LUA执⾏使能状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image75.png" /> 错误码 成功-0 失败- errcode . enable ：0-不启⽤ ；1-启⽤</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.20.</strong> 设置末端<strong>LUA</strong>末端设备启⽤类型</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image76.png" style="width:4.125in" /><img src="images/_FR14_14_______________________3_8_2___/media/image77.png" style="width:0.67708in" /><img src="images/_FR14_14_______________________3_8_2___/media/image78.jpeg" style="height:0.19792in" /> <u>SetAxleLuaEnableDeviceType(forceSensorEnable, gripperEnable,</u> <u>IOEnable)</u> <img src="images/_FR14_14_______________________3_8_2___/media/image79.jpeg" style="height:0.19792in" /></p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>设置末端LUA末端设备启⽤类型</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>. forceSensorEnable ：⼒传感器启⽤状态，0-不启⽤ ；1-启⽤</p>
+<p>. gripperEnable ：夹⽖启⽤状态，0-不启⽤ ；1-启⽤</p>
+<p>. IOEnable ： IO设备启⽤状态，0-不启⽤ ；1-启⽤</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.21.</strong> 获取末端<strong>LUA</strong>末端设备启⽤类型</p>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image80.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 32%" />
+<col style="width: 43%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>GetAxleLuaEnableDeviceType()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>获取末端LUA末端设备启⽤类型</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="4"><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image81.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. forceSensorEnable ：⼒传感器启⽤状态，0-不启⽤ ；1-启⽤ . gripperEnable ：夹⽖启⽤状态，0-不启⽤ ；1-启⽤</p>
+<p>. IOEnable ： IO设备启⽤状态，0-不启⽤ ；1-启⽤</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.22.</strong> 获取当前配置的末端设备</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.0.5</p>
+</blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image82.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR14_14_______________________3_8_2___/media/image83.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>GetAxleLuaEnableDevice()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>获取当前配置的末端设备</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image84.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. forceSensorEnable [8] ：⼒传感器启⽤状态，0-不启⽤ ；1-启⽤ . gripperEnable[8] ：夹⽖启⽤状态，0-不启⽤ ；1-启⽤</p>
+<p>. IOEnable [8] ： IO设备启⽤状态，0-不启⽤ ；1-启⽤</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.23.</strong> 控制器⽇志下载</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.1.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>RbLogDownload(savePath)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>控制器⽇志下载</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. savePath ：保存⽂件路径D://zDown/</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.24.</strong> 所有数据源下载</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.1.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 15%" />
+<col style="width: 33%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>AllDataSourceDownload(savePath)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>所有数据源下载</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：保存⽂件路径D://zDown/</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>savePath</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.25.</strong> 数据备份包下载</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.1.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 55%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>DataPackageDownload(savePath)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>数据备份包下载</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>. savePath ：保存⽂件路径D://zDown/</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="2"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image85.png" style="width:0.34028in;height:0.40449in" /></p>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image86.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR14_14_______________________3_8_2___/media/image87.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.26.</strong> 获取机器⼈状态</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.1.1</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 28%" />
+<col style="width: 7%" />
+<col style="width: 30%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetRobotRealTimeState()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取机器⼈状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image91.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. robot_state_pkg ：机器⼈状态结构体</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.27.</strong> 获取控制箱<strong>SN</strong>码</p>
+<blockquote>
+<p><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.1.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 14%" />
+<col style="width: 5%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetRobotSN()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取控制箱SN码</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image92.png" /> 错误码 成功-0 失败- errcode . SNCode ：控制箱SN码</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><strong>14.28.</strong> 关闭机器⼈操作系统</p>
+<blockquote>
+<p><img src="images/_FR14_14_______________________3_8_2___/media/image93.png" style="width:0.34028in;height:0.40449in" /><em>在</em> <em>python</em> <em>版本加⼊:</em> SDK-v2.1.1</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 38%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ShutDownRobotOS()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>关闭机器⼈操作系统</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

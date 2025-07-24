@@ -1,0 +1,487 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#06B6D4",
+        "light": "#E0F8FF"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+    <style>
+        .card {
+            @apply bg-white rounded-lg shadow-md overflow-hidden;
+        }
+        .card-header {
+            @apply flex items-center justify-between p-4 border-b border-gray-200;
+        }
+        .card-body {
+            @apply p-4;
+        }
+        .card-footer {
+            @apply flex justify-end p-4 border-t border-gray-200;
+        }
+        .btn-primary {
+            @apply bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors;
+        }
+        .btn-success {
+            @apply bg-success text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors;
+        }
+        .btn-warning {
+            @apply bg-warning text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors;
+        }
+        .btn-danger {
+            @apply bg-danger text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors;
+        }
+        .btn-info {
+            @apply bg-info text-white px-4 py-2 rounded-md hover:bg-cyan-600 transition-colors;
+        }
+        .btn-outline {
+            @apply border border-gray-300 text-secondary px-4 py-2 rounded-md hover:bg-gray-100 transition-colors;
+        }
+        .input-control {
+            @apply border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary;
+        }
+        .select-control {
+            @apply border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary;
+        }
+        .slider {
+            @apply w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer;
+        }
+        .slider::-webkit-slider-thumb {
+            @apply appearance-none w-4 h-4 rounded-full bg-primary cursor-pointer;
+        }
+    </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans bg-gray-50 text-secondary">
+    <div id="robot-simulation" class="w-full h-[calc(100vh-100px)] p-4">
+        <!-- Page Header -->
+        <div class="mb-4">
+            <h1 class="text-2xl font-bold text-secondary">机器人仿真系统</h1>
+            <p class="text-gray-600">3D虚拟环境下的机器人建模与仿真</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-3 gap-4 h-[calc(100%-4rem)]">
+            <!-- Left Column: 3D View + Target Setup -->
+            <div class="col-span-2 flex flex-col gap-4">
+                <!-- 3D Simulation Window -->
+                <div id="simulation-window" class="card h-[60%]">
+                    <div class="card-header bg-info bg-opacity-10">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-cube text-info mr-2"></i>
+                            <h2 class="text-lg font-semibold">3D仿真视窗</h2>
+                        </div>
+                        <div>
+                            <button class="btn-outline text-sm py-1 px-2">
+                                <i class="fa-solid fa-expand mr-1"></i>全屏
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 relative h-[calc(100%-4rem)]">
+                        <div id="3d-container" class="w-full h-full bg-light">
+                            <img class="w-full h-full object-cover opacity-80" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/05f6c87c0f-1e9055fd717f4718ba8e.png" alt="3D rendering of robotic arm in simulation environment with grid floor, blue background, showing joint positions and coordinate system">
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-white bg-opacity-80 p-2 rounded-lg shadow-sm">
+                            <div class="text-sm font-medium mb-1">📐 视角控制:</div>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1 rounded text-xs">
+                                    <i class="fa-solid fa-rotate mr-1"></i>旋转
+                                </button>
+                                <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1 rounded text-xs">
+                                    <i class="fa-solid fa-magnifying-glass-plus mr-1"></i>缩放
+                                </button>
+                                <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1 rounded text-xs">
+                                    <i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>平移
+                                </button>
+                                <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1 rounded text-xs">
+                                    <i class="fa-solid fa-arrow-down mr-1"></i>俯视
+                                </button>
+                                <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1 rounded text-xs">
+                                    <i class="fa-solid fa-arrow-right mr-1"></i>侧视
+                                </button>
+                                <button class="bg-gray-200 hover:bg-gray-300 text-secondary px-3 py-1 rounded text-xs">
+                                    <i class="fa-solid fa-arrow-up mr-1"></i>正视
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Target Setup -->
+                <div id="target-setup" class="card h-[18%]">
+                    <div class="card-header">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-bullseye text-warning mr-2"></i>
+                            <h2 class="text-lg font-semibold">目标设置</h2>
+                        </div>
+                    </div>
+                    <div class="card-body grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="mb-2 text-sm font-medium">🎯 目标位置 (mm):</div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <label class="text-xs text-gray-600">X:</label>
+                                    <input type="number" value="400" class="input-control">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-600">Y:</label>
+                                    <input type="number" value="0" class="input-control">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-600">Z:</label>
+                                    <input type="number" value="300" class="input-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-2 text-sm font-medium">📐 目标姿态 (度):</div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <label class="text-xs text-gray-600">RX:</label>
+                                    <input type="number" value="0" class="input-control">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-600">RY:</label>
+                                    <input type="number" value="0" class="input-control">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-600">RZ:</label>
+                                    <input type="number" value="0" class="input-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-primary mr-2">
+                            <i class="fa-solid fa-crosshairs mr-1"></i>设置目标
+                        </button>
+                        <button class="btn-outline">
+                            <i class="fa-solid fa-eraser mr-1"></i>清除
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Simulation Monitoring -->
+                <div id="simulation-monitoring" class="card h-[22%]">
+                    <div class="card-header">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chart-line text-primary mr-2"></i>
+                            <h2 class="text-lg font-semibold">仿真监控</h2>
+                        </div>
+                    </div>
+                    <div class="card-body grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="mb-1 flex items-center">
+                                <i class="fa-regular fa-clock text-gray-500 mr-1"></i>
+                                <span class="text-sm font-medium">仿真时间: </span>
+                                <span class="ml-1 text-sm">45.6秒</span>
+                            </div>
+                            <div class="mb-1">
+                                <div class="text-sm font-medium mb-1">
+                                    <i class="fa-solid fa-rotate text-gray-500 mr-1"></i>关节角度:
+                                </div>
+                                <div class="grid grid-cols-3 gap-1 text-xs text-gray-600">
+                                    <div>J1: 15°</div>
+                                    <div>J2: -30°</div>
+                                    <div>J3: 45°</div>
+                                    <div>J4: 0°</div>
+                                    <div>J5: 60°</div>
+                                    <div>J6: 0°</div>
+                                </div>
+                            </div>
+                            <div class="mb-1 flex items-center">
+                                <i class="fa-solid fa-location-dot text-gray-500 mr-1"></i>
+                                <span class="text-sm font-medium">TCP位置: </span>
+                                <span class="ml-1 text-sm">(400, 0, 300)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-ban text-gray-500 mr-1"></i>
+                                <span class="text-sm font-medium">碰撞状态: </span>
+                                <span class="ml-1 text-sm flex items-center">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-success mr-1"></span>无碰撞
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="w-24 h-24 mx-auto mb-2 relative">
+                                    <div class="absolute inset-0 rounded-full border-4 border-gray-200"></div>
+                                    <div class="absolute inset-0 rounded-full border-4 border-primary border-t-transparent" style="transform: rotate(45deg)"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center text-xl font-bold text-primary">
+                                        86%
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-600">完成度</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-outline mr-2 text-sm">
+                            <i class="fa-solid fa-table mr-1"></i>详细数据
+                        </button>
+                        <button class="btn-outline text-sm">
+                            <i class="fa-solid fa-chart-simple mr-1"></i>图表
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Control Panel + Environment Settings -->
+            <div class="col-span-1 flex flex-col gap-4">
+                <!-- Control Panel -->
+                <div id="control-panel" class="card h-[48%]">
+                    <div class="card-header bg-success bg-opacity-10">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-sliders text-success mr-2"></i>
+                            <h2 class="text-lg font-semibold">控制面板</h2>
+                        </div>
+                    </div>
+                    <div class="card-body space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">🤖 仿真模型:</label>
+                            <select class="select-control">
+                                <option>FR3双臂+底盘</option>
+                                <option>UR5机械臂</option>
+                                <option>KUKA LBR iiwa</option>
+                                <option>ABB IRB 120</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">🎯 仿真模式:</label>
+                            <div class="space-y-1">
+                                <div class="flex items-center">
+                                    <input type="radio" name="sim-mode" id="mode1" checked="" class="mr-2">
+                                    <label for="mode1" class="text-sm">运动学仿真</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="sim-mode" id="mode2" class="mr-2">
+                                    <label for="mode2" class="text-sm">动力学仿真</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" name="sim-mode" id="mode3" class="mr-2">
+                                    <label for="mode3" class="text-sm">碰撞检测</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">⚡ 仿真速度:</label>
+                            <div class="flex items-center">
+                                <input type="range" min="0.1" max="2" step="0.1" value="0.8" class="slider flex-1 mr-2">
+                                <span class="text-sm font-medium">0.8x</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">📊 仿真精度:</label>
+                            <select class="select-control">
+                                <option>高精度</option>
+                                <option>标准精度</option>
+                                <option>低精度(快速)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">🎮 仿真控制:</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="btn-success text-sm">
+                                    <i class="fa-solid fa-play mr-1"></i>开始
+                                </button>
+                                <button class="btn-warning text-sm">
+                                    <i class="fa-solid fa-pause mr-1"></i>暂停
+                                </button>
+                                <button class="btn-danger text-sm">
+                                    <i class="fa-solid fa-stop mr-1"></i>停止
+                                </button>
+                                <button class="btn-outline text-sm">
+                                    <i class="fa-solid fa-rotate mr-1"></i>重置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Environment Settings -->
+                <div id="environment-settings" class="card h-[52%]">
+                    <div class="card-header bg-warning bg-opacity-10">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-screwdriver-wrench text-warning mr-2"></i>
+                            <h2 class="text-lg font-semibold">环境设置</h2>
+                        </div>
+                    </div>
+                    <div class="card-body space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">🏠 场景模板:</label>
+                            <select class="select-control">
+                                <option>办公室</option>
+                                <option>工厂</option>
+                                <option>仓库</option>
+                                <option>实验室</option>
+                                <option>空场景</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">📦 障碍物:</label>
+                            <div class="space-y-1 max-h-[120px] overflow-y-auto">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="obj1" checked="" class="mr-2">
+                                    <label for="obj1" class="text-sm">桌子</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="obj2" checked="" class="mr-2">
+                                    <label for="obj2" class="text-sm">椅子</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="obj3" class="mr-2">
+                                    <label for="obj3" class="text-sm">柜子</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="obj4" class="mr-2">
+                                    <label for="obj4" class="text-sm">墙壁</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="obj5" class="mr-2">
+                                    <label for="obj5" class="text-sm">显示器</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="obj6" class="mr-2">
+                                    <label for="obj6" class="text-sm">键盘</label>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-2">
+                                <button class="btn-outline text-xs py-1 flex-1">
+                                    <i class="fa-solid fa-plus mr-1"></i>添加障碍
+                                </button>
+                                <button class="btn-outline text-xs py-1 flex-1">
+                                    <i class="fa-solid fa-trash mr-1"></i>清空
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">🌍 重力设置:</label>
+                            <select class="select-control">
+                                <option>9.8 m/s² (地球)</option>
+                                <option>1.6 m/s² (月球)</option>
+                                <option>3.7 m/s² (火星)</option>
+                                <option>0.0 m/s² (零重力)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-1">🔆 光照条件:</label>
+                            <div class="flex items-center">
+                                <input type="range" min="0" max="100" value="70" class="slider flex-1 mr-2">
+                                <span class="text-sm font-medium">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn-primary mr-2">
+                            <i class="fa-solid fa-check mr-1"></i>应用环境
+                        </button>
+                        <button class="btn-outline">
+                            <i class="fa-solid fa-rotate-left mr-1"></i>重置
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // This would initialize a Three.js scene in a real implementation
+        // Simplified mock implementation for demo purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mock simulation status updates
+            let simulationRunning = false;
+            const startBtn = document.querySelector('.btn-success');
+            const pauseBtn = document.querySelector('.btn-warning');
+            const stopBtn = document.querySelector('.btn-danger');
+            const resetBtn = document.querySelector('.btn-outline:has(.fa-rotate)');
+            
+            startBtn.addEventListener('click', function() {
+                simulationRunning = true;
+                updateSimulationStatus();
+            });
+            
+            pauseBtn.addEventListener('click', function() {
+                simulationRunning = false;
+                updateSimulationStatus();
+            });
+            
+            stopBtn.addEventListener('click', function() {
+                simulationRunning = false;
+                updateSimulationStatus();
+            });
+            
+            resetBtn.addEventListener('click', function() {
+                simulationRunning = false;
+                updateSimulationStatus();
+            });
+            
+            function updateSimulationStatus() {
+                const statusIndicator = startBtn.querySelector('i');
+                if (simulationRunning) {
+                    statusIndicator.className = 'fa-solid fa-pause mr-1';
+                    startBtn.innerHTML = '<i class="fa-solid fa-pause mr-1"></i>运行中';
+                } else {
+                    statusIndicator.className = 'fa-solid fa-play mr-1';
+                    startBtn.innerHTML = '<i class="fa-solid fa-play mr-1"></i>开始';
+                }
+            }
+        });
+    </script>
+
+</body></html>

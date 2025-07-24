@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>STL_NAMING_GUIDE</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/markdown.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">STL_NAMING_GUIDE</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#fr3机械臂-stl文件命名规则" id="toc-fr3机械臂-stl文件命名规则"><span class="toc-section-number">1</span> FR3机械臂 STL文件命名规则</a>
+<ul>
+<li><a href="#概述" id="toc-概述"><span class="toc-section-number">1.1</span> 概述</a></li>
+<li><a href="#命名规则" id="toc-命名规则"><span class="toc-section-number">1.2</span> 命名规则</a>
+<ul>
+<li><a href="#基本格式" id="toc-基本格式"><span class="toc-section-number">1.2.1</span> 基本格式</a></li>
+<li><a href="#fr3机械臂部件命名" id="toc-fr3机械臂部件命名"><span class="toc-section-number">1.2.2</span> FR3机械臂部件命名</a></li>
+<li><a href="#关节对应关系" id="toc-关节对应关系"><span class="toc-section-number">1.2.3</span> 关节对应关系</a></li>
+</ul></li>
+<li><a href="#犀牛导出设置" id="toc-犀牛导出设置"><span class="toc-section-number">1.3</span> 犀牛导出设置</a>
+<ul>
+<li><a href="#导出参数" id="toc-导出参数"><span class="toc-section-number">1.3.1</span> 导出参数</a></li>
+<li><a href="#坐标系对齐" id="toc-坐标系对齐"><span class="toc-section-number">1.3.2</span> 坐标系对齐</a></li>
+<li><a href="#部件分离要求" id="toc-部件分离要求"><span class="toc-section-number">1.3.3</span> 部件分离要求</a></li>
+</ul></li>
+<li><a href="#示例文件结构" id="toc-示例文件结构"><span class="toc-section-number">1.4</span> 示例文件结构</a></li>
+<li><a href="#注意事项" id="toc-注意事项"><span class="toc-section-number">1.5</span> 注意事项</a></li>
+<li><a href="#在robotsim中使用" id="toc-在robotsim中使用"><span class="toc-section-number">1.6</span> 在RobotSim中使用</a></li>
+<li><a href="#支持格式" id="toc-支持格式"><span class="toc-section-number">1.7</span> 支持格式</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="fr3机械臂-stl文件命名规则"><span class="header-section-number">1</span> FR3机械臂 STL文件命名规则</h1>
+<h2 data-number="1.1" id="概述"><span class="header-section-number">1.1</span> 概述</h2>
+<p>本文档说明FR3机械臂各部件STL文件的标准命名规则，用于RobotSim仿真系统。</p>
+<h2 data-number="1.2" id="命名规则"><span class="header-section-number">1.2</span> 命名规则</h2>
+<h3 data-number="1.2.1" id="基本格式"><span class="header-section-number">1.2.1</span> 基本格式</h3>
+<pre><code>fr3_&lt;部件名&gt;_&lt;编号&gt;.stl</code></pre>
+<h3 data-number="1.2.2" id="fr3机械臂部件命名"><span class="header-section-number">1.2.2</span> FR3机械臂部件命名</h3>
+<table>
+<thead>
+<tr>
+<th>部件名称</th>
+<th>文件名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基座</td>
+<td><code>fr3_base.stl</code></td>
+<td>机械臂固定基座</td>
+</tr>
+<tr>
+<td>连杆1</td>
+<td><code>fr3_link1.stl</code></td>
+<td>第一个连杆（底部旋转）</td>
+</tr>
+<tr>
+<td>连杆2</td>
+<td><code>fr3_link2.stl</code></td>
+<td>第二个连杆（大臂）</td>
+</tr>
+<tr>
+<td>连杆3</td>
+<td><code>fr3_link3.stl</code></td>
+<td>第三个连杆（小臂）</td>
+</tr>
+<tr>
+<td>连杆4</td>
+<td><code>fr3_link4.stl</code></td>
+<td>第四个连杆（腕部1）</td>
+</tr>
+<tr>
+<td>连杆5</td>
+<td><code>fr3_link5.stl</code></td>
+<td>第五个连杆（腕部2）</td>
+</tr>
+<tr>
+<td>连杆6</td>
+<td><code>fr3_link6.stl</code></td>
+<td>第六个连杆（腕部3）</td>
+</tr>
+<tr>
+<td>末端执行器</td>
+<td><code>fr3_gripper.stl</code></td>
+<td>末端夹爪（可选）</td>
+</tr>
+</tbody>
+</table>
+<h3 data-number="1.2.3" id="关节对应关系"><span class="header-section-number">1.2.3</span> 关节对应关系</h3>
+<table>
+<thead>
+<tr>
+<th>关节编号</th>
+<th>连接部件</th>
+<th>旋转轴</th>
+<th>角度范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint1</td>
+<td>base → link1</td>
+<td>Z轴</td>
+<td>-165° ~ 165°</td>
+</tr>
+<tr>
+<td>Joint2</td>
+<td>link1 → link2</td>
+<td>Y轴</td>
+<td>-110° ~ 110°</td>
+</tr>
+<tr>
+<td>Joint3</td>
+<td>link2 → link3</td>
+<td>Y轴</td>
+<td>-165° ~ 165°</td>
+</tr>
+<tr>
+<td>Joint4</td>
+<td>link3 → link4</td>
+<td>X轴</td>
+<td>-110° ~ 110°</td>
+</tr>
+<tr>
+<td>Joint5</td>
+<td>link4 → link5</td>
+<td>Y轴</td>
+<td>-165° ~ 165°</td>
+</tr>
+<tr>
+<td>Joint6</td>
+<td>link5 → link6</td>
+<td>X轴</td>
+<td>-180° ~ 180°</td>
+</tr>
+</tbody>
+</table>
+<h2 data-number="1.3" id="犀牛导出设置"><span class="header-section-number">1.3</span> 犀牛导出设置</h2>
+<h3 data-number="1.3.1" id="导出参数"><span class="header-section-number">1.3.1</span> 导出参数</h3>
+<ul>
+<li><strong>文件格式</strong>: STL (Binary)</li>
+<li><strong>单位</strong>: 毫米 (mm)</li>
+<li><strong>精度</strong>: 0.1mm</li>
+<li><strong>法线</strong>: 确保法线方向正确</li>
+</ul>
+<h3 data-number="1.3.2" id="坐标系对齐"><span class="header-section-number">1.3.2</span> 坐标系对齐</h3>
+<ul>
+<li><strong>X轴</strong>: 水平方向 (左右)</li>
+<li><strong>Y轴</strong>: 景深方向 (前后)</li>
+<li><strong>Z轴</strong>: 垂直方向 (上下)</li>
+<li><strong>原点</strong>: 基座底部中心</li>
+</ul>
+<h3 data-number="1.3.3" id="部件分离要求"><span class="header-section-number">1.3.3</span> 部件分离要求</h3>
+<ol type="1">
+<li><strong>独立部件</strong>: 每个连杆必须是独立的STL文件</li>
+<li><strong>无重叠</strong>: 部件之间不应有几何重叠</li>
+<li><strong>关节中心</strong>: 每个部件的关节轴应通过坐标原点或指定位置</li>
+<li><strong>统一比例</strong>: 所有部件使用相同的单位和比例</li>
+</ol>
+<h2 data-number="1.4" id="示例文件结构"><span class="header-section-number">1.4</span> 示例文件结构</h2>
+<pre><code>models/
+├── fr3_base.stl      # 已存在
+├── fr3_link1.stl     # 待添加
+├── fr3_link2.stl     # 待添加
+├── fr3_link3.stl     # 待添加
+├── fr3_link4.stl     # 待添加
+├── fr3_link5.stl     # 待添加
+├── fr3_link6.stl     # 待添加
+└── fr3_gripper.stl   # 可选</code></pre>
+<h2 data-number="1.5" id="注意事项"><span class="header-section-number">1.5</span> 注意事项</h2>
+<ol type="1">
+<li><strong>文件大小</strong>: 建议单个STL文件不超过10MB</li>
+<li><strong>面数控制</strong>: 建议三角面片数量在10K-50K之间</li>
+<li><strong>命名一致性</strong>: 严格按照命名规则，便于程序自动识别</li>
+<li><strong>版本管理</strong>: 如有模型更新，可在文件名后添加版本号 (如: <code>fr3_base_v2.stl</code>)</li>
+</ol>
+<h2 data-number="1.6" id="在robotsim中使用"><span class="header-section-number">1.6</span> 在RobotSim中使用</h2>
+<ol type="1">
+<li>将STL文件放入 <code>models/</code> 目录</li>
+<li>启动RobotSim: <code>python start_robotsim.py</code></li>
+<li>在界面中点击”浏览”选择STL文件</li>
+<li>点击”加载模型”进行显示</li>
+</ol>
+<h2 data-number="1.7" id="支持格式"><span class="header-section-number">1.7</span> 支持格式</h2>
+<ul>
+<li><strong>主要格式</strong>: STL (推荐)</li>
+<li><strong>其他格式</strong>: OBJ, PLY (部分支持)</li>
+<li><strong>不支持</strong>: STEP, IGES, SolidWorks原生格式</li>
+</ul>
+<hr />
+<p><em>本文档用于XC-ROBOT项目的RobotSim仿真系统</em></p>
+</body>
+</html>

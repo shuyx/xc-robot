@@ -1,0 +1,528 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "hover": "rgba(255,255,255,0.1)",
+        "groupBg": "rgba(255,255,255,0.05)"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="bg-gray-100 font-sans">
+    <div id="app" class="flex h-screen">
+        <!-- Sidebar Navigation - Expanded Mode -->
+        <div id="sidebar" class="w-60 bg-secondary text-white flex-shrink-0 transition-all duration-300 ease-in-out overflow-y-auto">
+            <!-- System Logo -->
+            <div id="logo" class="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-robot text-primary text-xl mr-2"></i>
+                    <span class="font-bold text-lg">XC-OS v3.0</span>
+                </div>
+                <button id="toggle-sidebar" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </div>
+            
+            <!-- Global Search -->
+            <div id="search" class="px-4 py-3 border-b border-gray-700">
+                <div class="relative">
+                    <input type="text" placeholder="搜索功能..." class="w-full bg-gray-700 text-white px-3 py-2 rounded-md pl-9 focus:outline-none focus:ring-1 focus:ring-primary">
+                    <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+            
+            <!-- Menu Groups -->
+            <div id="menu-groups" class="py-2">
+                <!-- Quick Launch -->
+                <div id="quick-launch" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-bolt text-yellow-400 w-5 text-center mr-2"></i>
+                            <span>快速启动</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-clipboard-list text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">主界面</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-star text-yellow-400 mr-2 text-sm"></i>
+                                <span class="text-sm">收藏功能</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-clock text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">最近使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Device Connection -->
+                <div id="device-connection" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-plug text-green-400 w-5 text-center mr-2"></i>
+                            <span>设备连接</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg hidden">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-link text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">设备连接</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-globe text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">网络配置</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-flask text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">设备测试</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Robot Control - Currently Selected -->
+                <div id="robot-control" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer bg-primary bg-opacity-20 hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-robot text-primary w-5 text-center mr-2"></i>
+                            <span>机器人控制</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg">
+                        <div class="menu-item py-2 px-4 bg-primary bg-opacity-30 cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-robot text-primary mr-2 text-sm"></i>
+                                <span class="text-sm">机械臂控制</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-bullseye text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">底盘控制</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-sync text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">联动控制</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Intelligent Interaction -->
+                <div id="intelligent-interaction" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-handshake text-blue-400 w-5 text-center mr-2"></i>
+                            <span>智能交互</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg hidden">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-user text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">人脸识别</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-comment text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">智能对话</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-building text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">梯控系统</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scene Testing - Expanded -->
+                <div id="scene-testing" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-flask text-purple-400 w-5 text-center mr-2"></i>
+                            <span>场景测试</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-up text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-flask text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">组件测试</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-link text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">集成测试</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-eye text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">视觉引导测试</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-bullseye text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">端到端场景</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Simulation Planning -->
+                <div id="simulation-planning" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-bullseye text-red-400 w-5 text-center mr-2"></i>
+                            <span>仿真规划</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg hidden">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-gamepad text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">机器人仿真</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">路径规划</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-clipboard-list text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">任务编排</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visual Perception -->
+                <div id="visual-perception" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-eye text-teal-400 w-5 text-center mr-2"></i>
+                            <span>视觉感知</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg hidden">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-eye text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">视觉系统</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-camera text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">相机标定</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-cloud text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">点云处理</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-image text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">图像处理</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Monitoring -->
+                <div id="data-monitoring" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chart-bar text-indigo-400 w-5 text-center mr-2"></i>
+                            <span>数据监控</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg hidden">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-chart-bar text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">系统监控</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-chart-pie text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">数据分析</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-chart-line text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">性能统计</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Management -->
+                <div id="system-management" class="menu-group">
+                    <div class="menu-group-header flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-hover">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-cog text-gray-400 w-5 text-center mr-2"></i>
+                            <span>系统管理</span>
+                        </div>
+                        <div class="menu-toggle">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="menu-items pl-11 bg-groupBg hidden">
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-cog text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">系统设置</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-sliders-h text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">参数配置</span>
+                            </div>
+                        </div>
+                        <div class="menu-item py-2 px-4 hover:bg-hover cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-tools text-gray-400 mr-2 text-sm"></i>
+                                <span class="text-sm">维护管理</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- System Status -->
+            <div id="system-status" class="mt-auto border-t border-gray-700 px-4 py-3">
+                <div class="flex items-center mb-2">
+                    <i class="fa-solid fa-circle text-success mr-2"></i>
+                    <span class="text-sm">系统状态: 正常</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fa-solid fa-signal text-primary mr-2"></i>
+                    <span class="text-sm">连接设备: 3台</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar Navigation - Collapsed Mode -->
+        <div id="sidebar-collapsed" class="hidden w-[60px] bg-secondary text-white flex-shrink-0 transition-all duration-300 ease-in-out overflow-y-auto">
+            <!-- System Logo -->
+            <div class="flex items-center justify-center px-2 py-3 border-b border-gray-700">
+                <i class="fa-solid fa-robot text-primary text-xl"></i>
+            </div>
+            
+            <!-- Collapsed Menu Items -->
+            <div class="py-2">
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="快速启动">
+                    <i class="fa-solid fa-bolt text-yellow-400"></i>
+                </div>
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="设备连接">
+                    <i class="fa-solid fa-plug text-green-400"></i>
+                </div>
+                <div class="py-3 flex justify-center bg-primary bg-opacity-20 cursor-pointer" title="机器人控制">
+                    <i class="fa-solid fa-robot text-primary"></i>
+                </div>
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="智能交互">
+                    <i class="fa-solid fa-handshake text-blue-400"></i>
+                </div>
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="场景测试">
+                    <i class="fa-solid fa-flask text-purple-400"></i>
+                </div>
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="仿真规划">
+                    <i class="fa-solid fa-bullseye text-red-400"></i>
+                </div>
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="视觉感知">
+                    <i class="fa-solid fa-eye text-teal-400"></i>
+                </div>
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="数据监控">
+                    <i class="fa-solid fa-chart-bar text-indigo-400"></i>
+                </div>
+                <div class="py-3 flex justify-center hover:bg-hover cursor-pointer" title="系统管理">
+                    <i class="fa-solid fa-cog text-gray-400"></i>
+                </div>
+            </div>
+            
+            <!-- System Status Icons -->
+            <div class="mt-auto border-t border-gray-700 py-3">
+                <div class="py-2 flex justify-center" title="系统状态: 正常">
+                    <i class="fa-solid fa-circle text-success"></i>
+                </div>
+                <div class="py-2 flex justify-center" title="连接设备: 3台">
+                    <i class="fa-solid fa-signal text-primary"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area (Placeholder) -->
+        <div class="flex-grow bg-gray-100 p-6">
+            <h1 class="text-2xl font-bold text-secondary mb-4">机械臂控制</h1>
+            <p class="text-gray-600 mb-6">这是主导航菜单示例页面，这里将显示实际内容。</p>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold text-secondary mb-4">导航菜单使用说明</h2>
+                <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                    <li>点击菜单组标题可展开/折叠子菜单</li>
+                    <li>点击左上角箭头可收起/展开侧边栏</li>
+                    <li>按数字键1-9可快速跳转到对应菜单组</li>
+                    <li>使用顶部搜索框可快速查找功能</li>
+                    <li>当前选中的菜单项会高亮显示</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar expansion/collapse
+        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarCollapsed = document.getElementById('sidebar-collapsed');
+            
+            sidebar.classList.add('hidden');
+            sidebarCollapsed.classList.remove('hidden');
+        });
+        
+        // Toggle menu groups expansion/collapse
+        document.querySelectorAll('.menu-group-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const menuItems = this.nextElementSibling;
+                const menuToggle = this.querySelector('.menu-toggle i');
+                
+                if (menuItems.classList.contains('hidden')) {
+                    menuItems.classList.remove('hidden');
+                    menuToggle.classList.remove('fa-chevron-down');
+                    menuToggle.classList.add('fa-chevron-up');
+                } else {
+                    menuItems.classList.add('hidden');
+                    menuToggle.classList.remove('fa-chevron-up');
+                    menuToggle.classList.add('fa-chevron-down');
+                }
+            });
+        });
+        
+        // Keyboard shortcuts for menu navigation
+        document.addEventListener('keydown', function(event) {
+            // Numbers 1-9 for quick access to menu groups
+            if (event.key >= '1' && event.key <= '9') {
+                const index = parseInt(event.key) - 1;
+                const menuGroups = document.querySelectorAll('.menu-group');
+                
+                if (index < menuGroups.length) {
+                    menuGroups[index].querySelector('.menu-group-header').click();
+                    // Scroll to the selected menu group
+                    menuGroups[index].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+        
+        // Handle collapsed sidebar expansion
+        document.getElementById('sidebar-collapsed').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarCollapsed = document.getElementById('sidebar-collapsed');
+            
+            sidebar.classList.remove('hidden');
+            sidebarCollapsed.classList.add('hidden');
+        });
+    </script>
+
+</body></html>

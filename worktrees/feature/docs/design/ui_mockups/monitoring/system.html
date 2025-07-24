@@ -1,0 +1,630 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/highcharts@10.3.3/highcharts.js"></script>
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#67C23A",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399",
+        "green": "#00A870",
+        "lightBg": "#E8F4FD"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans bg-gray-100 text-secondary">
+    <div id="main-content" class="p-6 w-full h-[calc(100vh-100px)] overflow-auto">
+        <!-- Page Header -->
+        <div id="page-header" class="mb-6">
+            <h1 class="text-2xl font-bold text-secondary">系统性能监控</h1>
+            <p class="text-gray-500">实时监控系统资源与设备状态</p>
+        </div>
+
+        <!-- System Resources Section -->
+        <div id="system-resources" class="mb-6">
+            <div class="flex items-center mb-4">
+                <i class="fa-solid fa-computer text-primary mr-2"></i>
+                <h2 class="text-xl font-semibold">系统资源</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- CPU Usage Card -->
+                <div id="cpu-card" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-rotate text-primary mr-2"></i>
+                            <h3 class="font-medium">CPU使用率</h3>
+                        </div>
+                        <button class="text-primary hover:text-blue-600 text-sm">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="mb-2 flex items-center">
+                            <div class="w-full bg-gray-200 rounded-full h-4 mr-3">
+                                <div class="bg-success h-4 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <span class="font-semibold text-success">45%</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                            <div>
+                                <span class="text-gray-500">8核心 i7-13620Hz</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">温度: <span class="text-warning">65°C</span></span>
+                            </div>
+                        </div>
+                        <button class="text-primary text-sm hover:underline">详细信息</button>
+                    </div>
+                </div>
+
+                <!-- Memory Usage Card -->
+                <div id="memory-card" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-memory text-primary mr-2"></i>
+                            <h3 class="font-medium">内存使用率</h3>
+                        </div>
+                        <button class="text-primary hover:text-blue-600 text-sm">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="mb-2 flex items-center">
+                            <div class="w-full bg-gray-200 rounded-full h-4 mr-3">
+                                <div class="bg-warning h-4 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <span class="font-semibold text-warning">85%</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                            <div>
+                                <span class="text-gray-500">16GB DDR4</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">可用: <span class="text-danger">2.4GB</span></span>
+                            </div>
+                        </div>
+                        <button class="text-primary text-sm hover:underline">详细信息</button>
+                    </div>
+                </div>
+
+                <!-- Disk Usage Card -->
+                <div id="disk-card" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-hard-drive text-primary mr-2"></i>
+                            <h3 class="font-medium">磁盘使用率</h3>
+                        </div>
+                        <button class="text-primary hover:text-blue-600 text-sm">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="mb-2 flex items-center">
+                            <div class="w-full bg-gray-200 rounded-full h-4 mr-3">
+                                <div class="bg-warning h-4 rounded-full" style="width: 65%"></div>
+                            </div>
+                            <span class="font-semibold text-warning">65%</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                            <div>
+                                <span class="text-gray-500">500GB SSD</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">可用: <span class="text-success">175GB</span></span>
+                            </div>
+                        </div>
+                        <button class="text-primary text-sm hover:underline">详细信息</button>
+                    </div>
+                </div>
+
+                <!-- Network Traffic Card -->
+                <div id="network-card" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-globe text-primary mr-2"></i>
+                            <h3 class="font-medium">网络流量</h3>
+                        </div>
+                        <button class="text-primary hover:text-blue-600 text-sm">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                            <div>
+                                <i class="fa-solid fa-arrow-up text-success mr-1"></i>
+                                <span class="text-gray-500">上传: <span class="text-success">2.5MB/s</span></span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-arrow-down text-primary mr-1"></i>
+                                <span class="text-gray-500">下载: <span class="text-primary">8.1MB/s</span></span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-clock text-gray-500 mr-1"></i>
+                                <span class="text-gray-500">延迟: <span class="text-success">5ms</span></span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-wifi text-success mr-1"></i>
+                                <span class="text-gray-500">连接: <span class="text-success">稳定</span></span>
+                            </div>
+                        </div>
+                        <button class="text-primary text-sm hover:underline">详细信息</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Device Monitoring Section -->
+        <div id="device-monitoring" class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-robot text-primary mr-2"></i>
+                    <h2 class="text-xl font-semibold">设备监控</h2>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="px-3 py-1 bg-primary text-white rounded-md text-sm hover:bg-blue-600 flex items-center">
+                        <i class="fa-solid fa-plus mr-1"></i> 添加设备
+                    </button>
+                    <button class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded-md text-sm hover:bg-gray-50">
+                        <i class="fa-solid fa-filter mr-1"></i> 筛选
+                    </button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">设备名称</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPU</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">温度</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">电流</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最后心跳</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-hand text-green mr-2"></i>
+                                        <span>FR3右臂</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-success bg-opacity-10 text-success">
+                                        <i class="fa-solid fa-circle text-success mr-1"></i> 正常
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15%</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-success">25°C</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2.1A</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">刚刚</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary hover:text-blue-700">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-hand text-green mr-2"></i>
+                                        <span>FR3左臂</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-success bg-opacity-10 text-success">
+                                        <i class="fa-solid fa-circle text-success mr-1"></i> 正常
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">18%</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-success">26°C</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2.3A</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">刚刚</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary hover:text-blue-700">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-truck-fast text-green mr-2"></i>
+                                        <span>Hermes底盘</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-success bg-opacity-10 text-success">
+                                        <i class="fa-solid fa-circle text-success mr-1"></i> 正常
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">25%</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-warning">35°C</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5.2A</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">刚刚</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary hover:text-blue-700">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-camera text-green mr-2"></i>
+                                        <span>TOF相机</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-success bg-opacity-10 text-success">
+                                        <i class="fa-solid fa-circle text-success mr-1"></i> 正常
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-warning">45%</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-warning">42°C</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.8A</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">刚刚</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary hover:text-blue-700">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-camera text-gray-400 mr-2"></i>
+                                        <span>2D相机1</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-danger bg-opacity-10 text-danger">
+                                        <i class="fa-solid fa-circle text-danger mr-1"></i> 离线
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-danger">5分钟前</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary hover:text-blue-700">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-camera text-gray-400 mr-2"></i>
+                                        <span>鱼眼相机</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-danger bg-opacity-10 text-danger">
+                                        <i class="fa-solid fa-circle text-danger mr-1"></i> 离线
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-danger">10分钟前</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-primary hover:text-blue-700">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Charts Section -->
+        <div id="performance-charts" class="mb-6">
+            <div class="flex items-center mb-4">
+                <i class="fa-solid fa-chart-line text-primary mr-2"></i>
+                <h2 class="text-xl font-semibold">性能图表</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- CPU Usage Chart -->
+                <div id="cpu-chart-card" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                        <h3 class="font-medium">CPU使用率 (24小时)</h3>
+                        <div class="flex space-x-2">
+                            <button class="text-sm text-gray-500 hover:text-primary">小时</button>
+                            <button class="text-sm text-primary border-b border-primary">天</button>
+                            <button class="text-sm text-gray-500 hover:text-primary">周</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div id="cpu-chart" class="h-64"></div>
+                    </div>
+                </div>
+
+                <!-- Memory Usage Chart -->
+                <div id="memory-chart-card" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                        <h3 class="font-medium">内存使用率 (24小时)</h3>
+                        <div class="flex space-x-2">
+                            <button class="text-sm text-gray-500 hover:text-primary">小时</button>
+                            <button class="text-sm text-primary border-b border-primary">天</button>
+                            <button class="text-sm text-gray-500 hover:text-primary">周</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div id="memory-chart" class="h-64"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts and Summary Section -->
+        <div id="alerts-summary" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Alerts Section -->
+            <div id="alerts-section">
+                <div class="flex items-center mb-4">
+                    <i class="fa-solid fa-bell text-primary mr-2"></i>
+                    <h2 class="text-xl font-semibold">告警信息</h2>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-warning pl-3 py-2">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-triangle-exclamation text-warning mr-2"></i>
+                                <span class="font-medium">内存使用率超过80%</span>
+                            </div>
+                            <div class="text-sm text-gray-500 mt-1">时间: 14:25</div>
+                            <div class="mt-2 flex space-x-2">
+                                <button class="px-3 py-1 bg-primary text-white rounded text-sm hover:bg-blue-600">处理</button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300">忽略</button>
+                            </div>
+                        </div>
+                        <div class="border-l-4 border-danger pl-3 py-2">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-circle-exclamation text-danger mr-2"></i>
+                                <span class="font-medium">2D相机1连接丢失</span>
+                            </div>
+                            <div class="text-sm text-gray-500 mt-1">时间: 14:20</div>
+                            <div class="mt-2 flex space-x-2">
+                                <button class="px-3 py-1 bg-primary text-white rounded text-sm hover:bg-blue-600">处理</button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300">忽略</button>
+                            </div>
+                        </div>
+                        <div class="border-l-4 border-danger pl-3 py-2">
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-circle-exclamation text-danger mr-2"></i>
+                                <span class="font-medium">鱼眼相机连接丢失</span>
+                            </div>
+                            <div class="text-sm text-gray-500 mt-1">时间: 14:10</div>
+                            <div class="mt-2 flex space-x-2">
+                                <button class="px-3 py-1 bg-primary text-white rounded text-sm hover:bg-blue-600">处理</button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm hover:bg-gray-300">忽略</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div id="summary-section">
+                <div class="flex items-center mb-4">
+                    <i class="fa-solid fa-chart-pie text-primary mr-2"></i>
+                    <h2 class="text-xl font-semibold">统计摘要</h2>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="border-b border-gray-100 pb-3">
+                            <div class="text-sm text-gray-500">运行时间</div>
+                            <div class="font-semibold mt-1">15天6小时</div>
+                        </div>
+                        <div class="border-b border-gray-100 pb-3">
+                            <div class="text-sm text-gray-500">重启次数</div>
+                            <div class="font-semibold mt-1">2次</div>
+                        </div>
+                        <div class="border-b border-gray-100 pb-3">
+                            <div class="text-sm text-gray-500">平均CPU</div>
+                            <div class="font-semibold mt-1 text-success">35%</div>
+                        </div>
+                        <div class="border-b border-gray-100 pb-3">
+                            <div class="text-sm text-gray-500">平均内存</div>
+                            <div class="font-semibold mt-1 text-warning">70%</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">告警总数</div>
+                            <div class="font-semibold mt-1 text-danger">8次</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">设备在线率</div>
+                            <div class="font-semibold mt-1 text-warning">66%</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-lightBg rounded-md">
+                        <div class="text-sm font-medium mb-2">系统健康状态</div>
+                        <div class="flex items-center">
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                                <div class="bg-warning h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <span class="text-sm font-medium text-warning">75%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CPU Usage Chart
+        Highcharts.chart('cpu-chart', {
+            chart: {
+                type: 'spline',
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: ['0h', '3h', '6h', '9h', '12h', '15h', '18h', '21h', '24h'],
+                labels: {
+                    style: {
+                        color: '#718096'
+                    }
+                },
+                gridLineWidth: 0,
+                lineColor: '#E2E8F0'
+            },
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    format: '{value}%',
+                    style: {
+                        color: '#718096'
+                    }
+                },
+                gridLineColor: '#E2E8F0',
+                min: 0,
+                max: 100
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: 'CPU',
+                data: [25, 30, 45, 38, 42, 65, 55, 40, 35],
+                color: '#409EFF',
+                marker: {
+                    enabled: false
+                }
+            }]
+        });
+
+        // Memory Usage Chart
+        Highcharts.chart('memory-chart', {
+            chart: {
+                type: 'spline',
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: ['0h', '3h', '6h', '9h', '12h', '15h', '18h', '21h', '24h'],
+                labels: {
+                    style: {
+                        color: '#718096'
+                    }
+                },
+                gridLineWidth: 0,
+                lineColor: '#E2E8F0'
+            },
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    format: '{value}%',
+                    style: {
+                        color: '#718096'
+                    }
+                },
+                gridLineColor: '#E2E8F0',
+                min: 0,
+                max: 100
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '内存',
+                data: [65, 68, 70, 72, 75, 80, 85, 82, 78],
+                color: '#E6A23C',
+                marker: {
+                    enabled: false
+                }
+            }]
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const now = new Date();
+            const timeString = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes() + ':' + (now.getSeconds() < 10 ? '0' : '') + now.getSeconds();
+            
+            // Update CPU random value
+            const cpuValue = Math.floor(Math.random() * 30) + 30; // 30-60%
+            const cpuBar = document.querySelector('#cpu-card .bg-success');
+            const cpuText = document.querySelector('#cpu-card .font-semibold');
+            cpuBar.style.width = cpuValue + '%';
+            cpuText.textContent = cpuValue + '%';
+            
+            // Update Memory random value
+            const memValue = Math.floor(Math.random() * 15) + 75; // 75-90%
+            const memBar = document.querySelector('#memory-card .bg-warning');
+            const memText = document.querySelector('#memory-card .font-semibold');
+            memBar.style.width = memValue + '%';
+            memText.textContent = memValue + '%';
+        }, 5000);
+    </script>
+
+</body></html>

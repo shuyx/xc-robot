@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>【FR8】8. 机器人WebAPP程序使用 — 法奥意威协作机器人用户手册 3.8.2 文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">【FR8】8. 机器人WebAPP程序使用 — 法奥意威协作机器人用户手册 3.8.2 文档</h1>
+</header>
+<blockquote>
+<p><a href="https://fairino-doc-zhs.readthedocs.io/latest/index.html">伶</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/index.html">SDK</a> / <a href="https://fairino-doc-zhs.readthedocs.io/latest/SDKManual/python_intro.html">Python</a> / 8. 机器⼈WebAPP程序使⽤</p>
+</blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image1.png" style="width:6.78125in" /></p>
+<blockquote>
+<p><strong>8.</strong> 机器⼈<strong>WebAPP</strong>程序使⽤</p>
+<p><strong>8.1.</strong> 设置开机⾃动加载默认的作业程序</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 23%" />
+<col style="width: 46%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="4"><blockquote>
+<p>LoadDefaultProgConfig(flag,program_name)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>设置开机⾃动加载默认的作业程序</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>选参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>. flag ：1-开机⾃动加载默认程序，0-不⾃动加载默认程序</p>
+</blockquote>
+<p>. program_name ：作业程序名及路径，如 “/fruser/movej.lua” ，其中 “/fruser/”为固定路</p></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>认参数</p>
+</blockquote></td>
+<td colspan="6"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>返回值</td>
+<td colspan="6"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.2.</strong> 加载指定的作业程序</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 2%" />
+<col style="width: 2%" />
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 60%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>ProgramLoad(program_name)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>加载指定的作业程序</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image2.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>program_name</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="2" style="text-align: right;">：作业程序名及路径，如 “/fruser/movej.lua” ，其中 “/fruser/”为固定路</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>返回值</td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.3.</strong> 获取当前机器⼈作业程序的执⾏⾏号</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 3%" />
+<col style="width: 5%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 47%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetCurrentLine()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取当前机器⼈作业程序的执⾏⾏号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"><p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image3.png" /></p>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image4.png" /></p></td>
+<td colspan="3">错误码 成功-0 失败- errcode</td>
+</tr>
+<tr>
+<td><blockquote>
+<p>line_num</p>
+</blockquote></td>
+<td colspan="2" rowspan="2"><blockquote>
+<p>： 当前机器⼈作业程序的执⾏⾏号</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.4.</strong> 运⾏当前加载的作业程序</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>ProgramRun()</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image5.png" style="width:0.52794in;height:0.87487in" /></p>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image6.png" style="width:0.16601in;height:0.18748in" /> latest <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image7.png" style="width:0.11458in" /></p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>运⾏当前加载的作业程序</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.5.</strong> 暂停当前运⾏的作业程序</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 32%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ProgramPause()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>暂停当前运⾏的作业程序</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.6.</strong> 恢复当前暂停的作业程序</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 34%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ProgramResume()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>恢复当前暂停的作业程序</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image8.png" style="width:0.34028in;height:0.40449in" /><strong>8.7.</strong> 终⽌当前运⾏的作业程序</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 5%" />
+<col style="width: 29%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>ProgramStop()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>终⽌当前运⾏的作业程序</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.8.</strong> 获取机器⼈作业程序执⾏状态</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 2%" />
+<col style="width: 18%" />
+<col style="width: 69%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>GetProgramState()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>描述</td>
+<td colspan="3"><blockquote>
+<p>获取机器⼈作业程序执⾏状态</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>选参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>认参数</p>
+</blockquote></td>
+<td colspan="3"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 5%" />
+<col style="width: 7%" />
+<col style="width: 77%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="2">返回值</td>
+<td colspan="3"><blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image11.png" /> 错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image12.png" /></td>
+<td><blockquote>
+<p>state</p>
+</blockquote></td>
+<td style="text-align: right;">:机器⼈作业程序执⾏状态，1-程序停⽌或⽆程序运⾏ ，2-程序运⾏中，3-程序暂</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.9.</strong> 获取已加载的作业程序名</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 24%" />
+<col style="width: 4%" />
+<col style="width: 38%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetLoadedProgram()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取已加载的作业程序名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image13.png" /> 错误码 成功-0 失败- errcode</p>
+<p>. program_name ： 已加载的作业程序名</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image14.png" style="width:0.11458in" /><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image15.png" style="width:0.34028in;height:0.40449in" /><strong>8.9.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image16.png" style="height:0.17401in" /> <strong>from fairino import</strong> Robot</p>
+<p>2 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image17.png" style="height:0.17401in" /> <strong>import time</strong></p>
+<p>3 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image18.png" style="height:0.17449in" /> <em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em> 4 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image19.png" style="height:0.16423in" /> robot = Robot.RPC( I192.168.58.2I)</p>
+<p>5 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image20.png" style="height:0.16963in" /> <strong>def</strong> print_program_state():</p>
+<p>6 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image21.png" style="height:0.17459in" /> pstate = robot.GetProgramState() <em>#查询程序运⾏状态,1-程序停⽌或⽆程序运⾏，2-程序</em></p>
+<p><em>运⾏中，3-程序暂停</em></p>
+<p>7 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image22.png" style="height:0.17459in" /> linenum = robot.GetCurrentLine() <em>#查询当前作业程序执⾏的⾏号</em></p>
+<p>8 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image23.png" style="height:0.15944in" /> name = robot.GetLoadedProgram() <em>#查询已加载的作业程序名</em></p>
+<p>9 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image24.png" style="height:0.16963in" /> print("the robot program state is:",pstate[1])</p>
+<p>10 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image25.png" style="height:0.1721in" /> print("the robot program line number is:",linenum [1])</p>
+<p>11 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image26.png" style="height:0.1721in" /> print("the robot program name is:",name [1])</p>
+<p>12 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image27.png" style="height:0.17295in" /> time.sleep(1)</p>
+<p>13 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image28.png" style="height:0.1602in" /> <em>#机器⼈webapp程序使⽤接⼝</em></p>
+<p>14 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image29.png" style="height:0.1733in" /> robot.Mode(0) <em>#机器⼈切⼊⾃动运⾏模式</em> 15 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image30.png" style="height:0.1733in" /> print_program_state()</p>
+<p>16 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image31.png" style="height:0.17572in" /> ret = robot.ProgramLoad( I/fruser/test0923.luaI) <em>#加载要执⾏的机器⼈程序，</em> <em>testPTP.lua程序需要先在webapp上编写好</em></p>
+<p>17 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image32.png" style="height:0.16186in" /> print("加载要执⾏的机器⼈程序错误码", ret)</p>
+<p>18 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image33.png" style="height:0.16963in" /> ret = robot.ProgramRun() <em>#执⾏机器⼈程序</em></p>
+<p>19 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image34.png" style="height:0.1721in" /> print("执⾏机器⼈程序错误码", ret)</p>
+<p>20 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image35.png" style="height:0.1721in" /> time.sleep(2)</p>
+<p>21 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image36.png" style="height:0.1721in" /> print_program_state()</p>
+<p>22 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image37.png" style="height:0.15944in" /> ret = robot.ProgramPause() <em>#暂停正在执⾏的机器⼈程序</em></p>
+<p>23 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image38.png" style="height:0.16963in" /> print("暂停正在执⾏的机器⼈程序错误码", ret)</p>
+<p>24 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image39.png" style="height:0.1721in" /> time.sleep(2)</p>
+<p>25 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image40.png" style="height:0.1721in" /> print_program_state()</p>
+<p>26 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image41.png" style="height:0.17325in" /> ret = robot.ProgramResume() <em>#恢复暂停执⾏的机器⼈程序</em> 27 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image42.png" style="height:0.16306in" /> print("恢复暂停执⾏的机器⼈程序错误码", ret)</p>
+<p>28 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image43.png" style="height:0.16963in" /> time.sleep(2)</p>
+<p>29 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image44.png" style="height:0.1721in" /> print_program_state()</p>
+<p>30 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image45.png" style="height:0.1721in" /> ret = robot.ProgramStop() <em>#停⽌正在执⾏的机器⼈程序</em></p>
+<p>31 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image46.png" style="height:0.1721in" /> print("停⽌正在执⾏的机器⼈程序", ret)</p>
+<p>32 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image47.png" style="height:0.15944in" /> time.sleep(2)</p>
+<p>33 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image48.png" style="height:0.16963in" /> print_program_state()</p>
+<p>34 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image49.png" style="height:0.14929in" /> flag = 1 <em>#0-开机不⾃动加载默认程序，1-开机⾃动加载默认程序</em></p>
+<p>35 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image50.png" style="height:0.15697in" /> ret = robot.LoadDefaultProgConfig(flag, I/fruser/testPTP.luaI) <em>#</em> <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image51.png" style="width:0.16601in;height:0.16618in" /> latest</p>
+<p><em>认程序</em></p>
+<p>36 <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image52.png" style="height:0.16667in" /> print("设置开机⾃动加载默认程序", ret)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image53.png" style="width:6.78125in;height:0.23892in" /></p>
+<blockquote>
+<p><strong>8.10.</strong> 下载<strong>Lua</strong>⽂件</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.2</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 14%" />
+<col style="width: 28%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>LuaDownLoad(fileName, savePath)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>下载Lua⽂件</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>. fileName ：要下载的lua⽂件名 如 “test.lua”</p>
+<p>. savePath ：保存⽂件本地路径 如 “D://Down/”</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.10.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>robot.LuaDownLoad("test", "D://Desktop/test_download/")</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.11.</strong> 上传<strong>Lua</strong>⽂件</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.2</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="3"></td>
+<td colspan="2"></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>LuaUpload(filePath)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>上传Lua⽂件</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2"><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image54.png" /></td>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>filePath</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td colspan="2"><blockquote>
+<p>：上传⽂件的全路径名 如D://test/test.lua</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image55.png" /> 错误码 成功-0 失败- errcode <img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image56.png" /> errorStr(lua⽂件存在错误返回)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image57.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image59.png" style="width:0.11458in" /><strong>8.11.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>robot.LuaUpload("D://test/test.lua")</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.12.</strong> 删除<strong>Lua</strong>⽂件</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.2</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 15%" />
+<col style="width: 12%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>LuaDelete(fileName)</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>删除Lua⽂件</p>
+</blockquote></td>
+</tr>
+<tr>
+<td rowspan="3"><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="2" rowspan="3"></td>
+<td></td>
+<td colspan="2" rowspan="3"><blockquote>
+<p>：要删除的lua⽂件名 “test.lua”</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>fileName</p>
+</blockquote></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>错误码 成功-0 失败- errcode</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.12.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret = robot.GetSoftwareVersion()</p>
+<p>robot.LuaDelete("test2")</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>8.13.</strong> 获取当前所有<strong>lua</strong>⽂件名称</p>
+<p><em>在</em> <em>python 版本加⼊:</em> SDK-v2.0.2</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 15%" />
+<col style="width: 3%" />
+<col style="width: 42%" />
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="3"><blockquote>
+<p>原型</p>
+</blockquote></td>
+<td rowspan="2"></td>
+<td></td>
+<td></td>
+<td></td>
+<td rowspan="3"></td>
+</tr>
+<tr>
+<td colspan="3"><blockquote>
+<p>GetLuaList()</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>获取当前所有lua⽂件名称</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>必选参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>默认参数</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p>⽆</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>返回值</p>
+</blockquote></td>
+<td colspan="5"><blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image60.png" /> 错误码 成功-0 失败- errcode . lua_num ： lua⽂件数量</p>
+<p>. luaNames ： lua⽂件名列表</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image61.png" style="width:0.34028in;height:0.40449in" /><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image63.png" style="width:0.11458in" /><strong>8.13.1.</strong> 代码示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 95%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+</blockquote></td>
+<td><blockquote>
+<p><strong>from fairino import</strong> Robot</p>
+<p><em># 与机器⼈控制器建⽴连接，</em> <em>连接成功返回—个机器⼈对象</em></p>
+<p>robot = Robot.RPC( I192.168.58.2I)</p>
+<p>ret,num,name = robot.GetLuaList()</p>
+<p>print(num)</p>
+<p>print(name)</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/_FR8_8_____WebAPP_____________________3_8_2___/media/image67.png" style="width:0.34028in;height:0.40449in" /></p>
+</body>
+</html>

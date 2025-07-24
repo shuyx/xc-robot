@@ -1,0 +1,272 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#409EFF",
+        "secondary": "#2c3e50",
+        "success": "#00A870",
+        "warning": "#E6A23C",
+        "danger": "#F56C6C",
+        "info": "#909399"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="font-sans">
+    <footer id="footer" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-md h-16 z-50">
+        <div class="container mx-auto px-4 h-full">
+            <div class="flex flex-col md:flex-row items-center justify-between h-full">
+                <!-- System Info Section -->
+                <div id="system-info" class="flex items-center space-x-4 text-sm text-secondary">
+                    <div id="version-info" class="flex items-center cursor-pointer group relative" onclick="showVersionDetails()">
+                        <span class="font-medium text-primary">XC-OS System v3.0</span>
+                        <i class="fa-solid fa-caret-down ml-1 text-xs text-gray-500"></i>
+                        
+                        <!-- Version Details Tooltip (Hidden by default) -->
+                        <div id="version-tooltip" class="hidden group-hover:block absolute bottom-full left-0 mb-2 p-3 bg-white shadow-lg rounded-md border border-gray-200 w-64 z-10">
+                            <h4 class="font-semibold text-secondary mb-2">版本详情</h4>
+                            <p class="text-xs mb-1">版本号: 3.0.1452</p>
+                            <p class="text-xs mb-1">构建时间: 2025-06-15</p>
+                            <p class="text-xs mb-1">更新日志: <span class="text-primary hover:underline cursor-pointer">查看</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center space-x-4">
+                        <div class="flex items-center cursor-pointer group relative" onclick="showDeviceDetails()">
+                            <i class="fa-solid fa-server mr-1 text-primary"></i>
+                            <span>设备: <span class="font-medium">6</span>台</span>
+                            
+                            <!-- Devices Tooltip (Hidden by default) -->
+                            <div id="devices-tooltip" class="hidden group-hover:block absolute bottom-full left-0 mb-2 p-3 bg-white shadow-lg rounded-md border border-gray-200 w-64 z-10">
+                                <h4 class="font-semibold text-secondary mb-2">设备状态</h4>
+                                <div class="flex items-center mb-1">
+                                    <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                                    <span class="text-xs">在线: 5台</span>
+                                </div>
+                                <div class="flex items-center mb-1">
+                                    <span class="w-2 h-2 bg-warning rounded-full mr-2"></span>
+                                    <span class="text-xs">警告: 1台</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-2 h-2 bg-danger rounded-full mr-2"></span>
+                                    <span class="text-xs">离线: 0台</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center cursor-pointer group relative" onclick="showUptimeDetails()">
+                            <i class="fa-regular fa-clock mr-1 text-primary"></i>
+                            <span>运行: <span class="font-medium">2</span>天<span class="font-medium">15</span>小时</span>
+                            
+                            <!-- Uptime Tooltip (Hidden by default) -->
+                            <div id="uptime-tooltip" class="hidden group-hover:block absolute bottom-full left-0 mb-2 p-3 bg-white shadow-lg rounded-md border border-gray-200 w-64 z-10">
+                                <h4 class="font-semibold text-secondary mb-2">运行详情</h4>
+                                <p class="text-xs mb-1">启动时间: 2025-07-17 03:05:32</p>
+                                <p class="text-xs mb-1">最后重启: 2025-07-17 03:05:32</p>
+                                <p class="text-xs">计划维护: <span class="text-success">无</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center cursor-pointer group relative" onclick="showMemoryDetails()">
+                            <i class="fa-solid fa-memory mr-1 text-primary"></i>
+                            <span>内存: <span class="font-medium">45%</span></span>
+                            
+                            <!-- Memory Tooltip (Hidden by default) -->
+                            <div id="memory-tooltip" class="hidden group-hover:block absolute bottom-full left-0 mb-2 p-3 bg-white shadow-lg rounded-md border border-gray-200 w-64 z-10">
+                                <h4 class="font-semibold text-secondary mb-2">内存使用</h4>
+                                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                                    <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+                                </div>
+                                <p class="text-xs mb-1">总内存: 32GB</p>
+                                <p class="text-xs mb-1">已使用: 14.4GB</p>
+                                <p class="text-xs">可用: 17.6GB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Copyright and Quick Actions -->
+                <div id="actions-section" class="flex items-center space-x-4">
+                    <div class="text-sm text-secondary">
+                        <span>©2025 Kevin Yuan</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-2">
+                        <button id="btn-docs" class="flex items-center px-2 py-1 text-xs rounded hover:bg-gray-100 text-secondary transition-colors">
+                            <i class="fa-solid fa-book text-primary mr-1"></i>
+                            <span class="hidden sm:inline">文档</span>
+                        </button>
+                        
+                        <button id="btn-support" class="flex items-center px-2 py-1 text-xs rounded hover:bg-gray-100 text-secondary transition-colors">
+                            <i class="fa-solid fa-wrench text-primary mr-1"></i>
+                            <span class="hidden sm:inline">支持</span>
+                        </button>
+                        
+                        <button id="btn-diagnostic" class="flex items-center px-2 py-1 text-xs rounded hover:bg-gray-100 text-secondary transition-colors" onclick="toggleDiagnosticPanel()">
+                            <i class="fa-solid fa-stethoscope text-primary mr-1"></i>
+                            <span class="hidden sm:inline">诊断</span>
+                        </button>
+                        
+                        <button id="btn-about" class="flex items-center px-2 py-1 text-xs rounded hover:bg-gray-100 text-secondary transition-colors">
+                            <i class="fa-solid fa-circle-info text-primary mr-1"></i>
+                            <span class="hidden sm:inline">关于</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Diagnostic Panel (Hidden by default) -->
+        <div id="diagnostic-panel" class="hidden fixed bottom-16 right-0 w-full md:w-96 bg-white border-t border-l border-gray-200 shadow-lg p-4 rounded-tl-md z-50">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-secondary">系统诊断</h3>
+                <button onclick="toggleDiagnosticPanel()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm">CPU 负载</span>
+                    <div class="flex items-center">
+                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                            <div class="bg-success h-2 rounded-full" style="width: 32%"></div>
+                        </div>
+                        <span class="text-xs font-medium">32%</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <span class="text-sm">磁盘使用</span>
+                    <div class="flex items-center">
+                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                            <div class="bg-warning h-2 rounded-full" style="width: 78%"></div>
+                        </div>
+                        <span class="text-xs font-medium">78%</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <span class="text-sm">网络流量</span>
+                    <div class="flex items-center">
+                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+                        </div>
+                        <span class="text-xs font-medium">8.2 MB/s</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <span class="text-sm">系统状态</span>
+                    <div class="flex items-center">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-success text-white">
+                            <i class="fa-solid fa-check mr-1"></i>正常
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="pt-2">
+                    <button class="w-full flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md text-sm hover:bg-blue-600 transition-colors">
+                        <i class="fa-solid fa-file-export mr-2"></i>
+                        导出诊断报告
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Function to toggle the diagnostic panel
+        function toggleDiagnosticPanel() {
+            const panel = document.getElementById('diagnostic-panel');
+            panel.classList.toggle('hidden');
+        }
+        
+        // Functions to handle tooltip displays
+        function showVersionDetails() {
+            console.log('显示版本详情');
+            // In a real implementation, this could toggle a modal or update a tooltip
+        }
+        
+        function showDeviceDetails() {
+            console.log('显示设备详情');
+            // In a real implementation, this could fetch and display real-time device data
+        }
+        
+        function showUptimeDetails() {
+            console.log('显示运行时间详情');
+            // In a real implementation, this could show detailed uptime statistics
+        }
+        
+        function showMemoryDetails() {
+            console.log('显示内存使用详情');
+            // In a real implementation, this could show detailed memory usage
+        }
+        
+        // In a real Vue implementation, these would be methods or computed properties
+        // For demonstration purposes, we're using vanilla JS
+        
+        // Example of how to update memory usage in real-time
+        function updateMemoryUsage() {
+            // Simulate changing memory usage
+            const memoryPercentage = Math.floor(Math.random() * 30) + 30; // Random between 30-60%
+            const memoryElement = document.querySelector('#system-info span:contains("内存")');
+            if (memoryElement) {
+                memoryElement.innerHTML = `内存: <span class="font-medium">${memoryPercentage}%</span>`;
+            }
+            
+            // Update the tooltip bar as well
+            const memoryBar = document.querySelector('#memory-tooltip .bg-primary');
+            if (memoryBar) {
+                memoryBar.style.width = `${memoryPercentage}%`;
+            }
+        }
+        
+        // In a real implementation, this would be called periodically
+        // setInterval(updateMemoryUsage, 30000); // Update every 30 seconds
+    </script>
+
+</body></html>

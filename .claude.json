@@ -1,9 +1,11 @@
 {
   "mcpServers": {
-    "context7": {
+    "filesystem": {
       "command": "npx",
-      "args": ["tsx", "/path/to/folder/context7-mcp/src/index.ts"]
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/shushu/xc-robot"
+      ]
     }
   }
 }
-
