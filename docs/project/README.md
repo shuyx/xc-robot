@@ -26,6 +26,7 @@
 - [📝 **py_files_analysis.md**](./analysis/py_files_analysis.md) - Python文件详细分析
 - [📋 **文档重组任务进度报告.md**](./analysis/文档重组任务进度报告.md) - 文档整理进度
 - [🏗️ **项目重构进度报告.md**](./analysis/项目重构进度报告.md) - 项目重构进展
+- [🗂️ **PROJECT_STRUCTURE_ANALYSIS.md**](./PROJECT_STRUCTURE_ANALYSIS.md) - 项目文件结构分析报告
 
 ### 📋 规划文档 (`planning/`)
 - [📺 **Monitor_Planning_doc.md**](./planning/Monitor_Planning_doc.md) - 监控系统规划
