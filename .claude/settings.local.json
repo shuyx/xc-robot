@@ -37,7 +37,8 @@
       "Bash(curl:*)",
       "Bash(git add:*)",
       "Bash(tree:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(diff:*)"
     ],
     "deny": []
   }
