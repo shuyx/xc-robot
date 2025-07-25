@@ -23,7 +23,11 @@
       "Bash(npm install:*)",
       "Bash(node:*)",
       "mcp__zen__version",
-      "mcp__zen__listmodels"
+      "mcp__zen__listmodels",
+      "Bash(git stash:*)",
+      "Bash(git push:*)",
+      "Bash(git remote:*)",
+      "Bash(git branch:*)"
     ],
     "deny": []
   }
