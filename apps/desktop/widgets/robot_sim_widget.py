@@ -22,7 +22,8 @@ try:
     VTK_AVAILABLE = True
 except ImportError:
     VTK_AVAILABLE = False
-    print("Warning: VTK not available. Install with: pip install vtk")
+    print("Warning: VTK not available. VTK是可选依赖，如需3D仿真功能:")
+    print("pip install -r requirements/simulation_vtk.txt 或使用Web端Three.js方案")
 
 class RobotSimWidget(QWidget):
     """机器人仿真控制界面"""

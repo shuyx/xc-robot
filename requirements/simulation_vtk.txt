@@ -1,0 +1,11 @@
+# VTK 3D仿真依赖（可选）
+# 仅在需要使用桌面端VTK仿真时安装
+# 安装命令: pip install -r requirements/simulation_vtk.txt
+
+vtk>=9.0.0
+
+# 使用说明：
+# 1. 这是可选依赖，用于传统的桌面端3D仿真功能
+# 2. 如果不需要VTK仿真，可以跳过安装
+# 3. 推荐使用Web端Three.js方案替代VTK
+# 4. VTK包大小约380M，安装前请确保有足够空间

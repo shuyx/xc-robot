@@ -27,8 +27,11 @@ def main():
         import vtk
         print("✅ VTK 已安装")
     except ImportError:
-        print("❌ VTK 未安装，请运行: pip install vtk")
-        return
+        print("⚠️ VTK 未安装")
+        print("VTK是可选依赖，如需使用3D仿真功能，请安装:")
+        print("pip install -r requirements/simulation_vtk.txt")
+        print("或推荐使用Web端Three.js方案 (更轻量)")
+        print("继续启动...")
     
     try:
         import numpy

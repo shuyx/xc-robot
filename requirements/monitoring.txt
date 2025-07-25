@@ -1,0 +1,9 @@
+# XC-ROBOT 监控和图表依赖（可选）
+# 用于生成图表和数据可视化
+
+# 图表绘制（轻量级替代matplotlib的选项）
+plotly>=5.0.0
+bokeh>=2.4.0
+
+# 如果确实需要matplotlib（不推荐，因为包体积较大）
+# matplotlib>=3.3.0
