@@ -38,7 +38,8 @@
       "Bash(git add:*)",
       "Bash(tree:*)",
       "Bash(git commit:*)",
-      "Bash(diff:*)"
+      "Bash(diff:*)",
+      "Bash(git fetch:*)"
     ],
     "deny": []
   }

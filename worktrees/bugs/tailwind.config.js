@@ -1,1 +1,0 @@
-../xc-recon-frontend/tailwind.config.js
