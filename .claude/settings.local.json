@@ -36,7 +36,8 @@
       "Bash(chmod:*)",
       "Bash(curl:*)",
       "Bash(git add:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
