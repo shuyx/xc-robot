@@ -27,7 +27,15 @@
       "Bash(git stash:*)",
       "Bash(git push:*)",
       "Bash(git remote:*)",
-      "Bash(git branch:*)"
+      "Bash(git branch:*)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
