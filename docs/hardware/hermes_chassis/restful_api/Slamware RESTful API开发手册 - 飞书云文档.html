@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Slamware RESTful API开发手册 - 飞书云文档</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Slamware RESTful API开发手册 - 飞书云文档</h1>
+</header>
+<blockquote>
+<p>Slamware RESTful API开发⼿册</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image1.png" style="width:0.11111in" /><img src="images/Slamware_RESTful_API____________/media/image2.png" style="width:0.13889in;height:0.13889in" /> 李振峰 <img src="images/Slamware_RESTful_API____________/media/image3.png" /> 4⽉1⽇修改 <img src="images/Slamware_RESTful_API____________/media/image4.png" /> AI 速览</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>本⽂讨论了 Slamware RESTful API 的开发⼿册，涵盖其基本信息、接⼝规范、分类、部署流程、业务流程示例以及⼆维码精准对接等内容。关键要点包括： 1. API …</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>1. 概述</p>
+<p>4.0 及更⾼版本的 Slamware 固件提供 RESTful API ，相⽐ C++ SDK ，该接⼝更易于使⽤且提供更丰富 的功能，并且兼容任意客户端系统和编程语⾔。</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image5.png" style="height:0.18056in" />该服务的端⼝为 1448 , 本⽂介绍API的基本使⽤⽅法，接⼝的具体定义请参阅在线⽂档：<a href="https://docs.slamtec.com/#/"><u>https://docs.slamtec.com/#/</u></a>。</p>
+<p>如果固件版本在4.6.0以上，通过在浏览器输⼊ IP:1448 ,即可在线调试API。例：</p>
+<p>例如，连上机器⼈热点并获取机器⼈电源状态的接⼝如下：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET <a href="http://192.168.11.1:1448/api/core/system/v1/power/status">http://192.168.11.1:1448/api/core/system/v1/power/status</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>返回内容为</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ {</p>
+<p>"batteryPercentage" : 90,</p>
+<p>"dockingStatus" : " on_dock", "isCharging" : true,</p>
+<p>"isDCConnected" : false, " powerStage" : " running", " sleepMode" : " awake"</p>
+<p>}</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2. 接⼝规范</p>
+<p>2.1 命名⽅式</p>
+<p>API 接⼝的 endpoint 规范</p>
+<p>⼤部分接⼝都以如下的结构组织：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ /api/{plugin}/{feature}/{version}/{resource …}</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>plugin</p>
+<p>。 core : Agent核⼼框架和通⽤服务</p>
+<p>。 platform : 通⽤底盘的插件，提供上报设备事件、上传⽇志等基础功能</p>
+<p>。 multi_floor : 提供多楼层地图管理和跨楼层移动能⼒的插件，同时兼容单楼层地图</p>
+<p>。 delivery : 提供配送服务的插件，可应⽤于餐厅、酒店等场景</p>
+<p>feature</p>
+<p>。机器⼈功能⼤类</p>
+<p>version</p>
+<p>。版本号</p>
+<p>2.2 Method类型</p>
+</blockquote>
+<p><a href="https://slamtec.feishu.cn/docx/StfqdFhcmo8ivSxXQYcceagTnen1/19">https://slamtec.feishu.cn/docx/StfqdFhcmo8ivSxXQYcceagTnen 1/19</a></p>
+<blockquote>
+<p>⽬前⽤到 GET、PUT、POST、DELETE 四类⽅法</p>
+<p>• GET 获取资源(安全、幂等)</p>
+<p>• PUT 创建、更新资源(⾮安全、幂等)</p>
+<p>• POST 创建资源或执⾏—个动作(⾮安全、⾮幂等)</p>
+<p>• DELETE 删除资源(⾮安全、幂等)</p>
+<p>2.3 API参数</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image6.png" style="height:0.18056in" />query类型</p>
+<p>query 参数是问号后⾯带—对或者多对 key=value ， 如下表示获取E撞2楼的POI：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET <a href="http://127.0.0.1:1448/api/multi-floor/map/v1/pois?floor=2F&amp;building=E">http://127.0.0.1 :1448/api/multi-floor/map/v1/pois?floor=2F&amp;building=E</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image7.png" style="height:0.41667in" />path类型</p>
+<p>DELETE /api/core/artifact/v1/lines/{usage}/{id} ，</p>
+<p>如下表示删除id为199的虚拟墙：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ DELETE <a href="http://127.0.0.1:1448/api/core/artifact/v1/lines/walls/199">http://127.0.0.1 :1448/api/core/artifact/v1/lines/walls/199</a></p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image8.png" style="height:0.18056in" />Request Body</p>
+<p>即 API 请求的 Content-Type 为 application/json , 如：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 curl -X 'POST ' \</p>
+<p>2 '<a href="http://127.0.0.1:1448/api/core/motion/v1/actions">http://127.0.0.1:1448/api/core/motion/v1/actions</a> ' \</p>
+<p>3 -H 'accept: application/json ' \</p>
+<p>4 -H 'Content-Type: application/json ' \</p>
+<p>5 -d '{</p>
+<p>6 "action_name":"slamtec.agent.actions.MoveToAction", 7 "options":{</p>
+<p>8 "target":{</p>
+<p>9 "x":0, 10 "y":0, 11 "z":0</p>
+<p>12 },</p>
+<p>13 "move_options":{</p>
+<p>14 "mode":0,</p>
+<p>15 "flags":[], 16 "yaw":0,</p>
+<p>17 "acceptable_precision":0, 18 "fail_retry_count":0</p>
+<p>19 }</p>
+<p>20 }</p>
+<p>21 } '</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2.4 返回状态码</p>
+<p>2xx：成功</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ 200（OK） 表示成功执⾏了客户端请求的任何操作。</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image9.png" style="width:0.79861in" /></p>
+<p>204（ ⽆内容） 表示服务器已成功完成请求，并且在响应有效负载正⽂中没有要发送的内容.</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>4xx：客户端错误</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="2"><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+<tr>
+<td><table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>404（未找到）</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5xx：服务器错误</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ 500 服务器内部错误</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>2.5 返回值</p>
+<p>当接⼝返回状态码是200时， Content-Type 有如下⼏种类型：</p>
+<p>⼤部分接⼝的返回数据都是这种json格式</p>
+<p>⼆进制流，获取explore map 和stcm map的返回值是⼆进制流 <img src="images/Slamware_RESTful_API____________/media/image10.png" style="width:0.86726in;height:0.16933in" /></p>
+<p>部分接⼝的返回值是单纯的字符串</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image11.png" style="height:0.18056in" />2.6 如何在API⽂档中查看接⼝</p>
+<p>请求/响应概览 ：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 POST <a href="http://127.0.0.1:1448/api/core/motion/v1/actions">http:<em>//127.0.0.1:1448/api/core/motion/v1/actions</em></a></p>
+<p>2 Curl:</p>
+<p>3 curl -X 'POST ' \</p>
+<p>4 '<a href="http://127.0.0.1:1448/api/core/motion/v1/actions">http://127.0.0.1:1448/api/core/motion/v1/actions</a> ' \</p>
+<p>5 -H 'accept: application/json ' \</p>
+<p>6 -H 'Content-Type: application/json ' \</p>
+<p>7 -d '{</p>
+<p>8 "action_name":"slamtec.agent.actions.MoveToAction", 9 "options":{</p>
+<p>10 "target":{</p>
+<p>11 "x":0.1, 12 "y":0.2</p>
+<p>13 },</p>
+<p>14 "move_options":{</p>
+<p>15 "mode":0, 16 "flags":[</p>
+<p>17 "with_yaw" 18 ],</p>
+<p>19 "yaw":1</p>
+<p>20 }</p>
+<p>21 }</p>
+<p>22 } ' 23</p>
+<p>24 Response Body</p>
+<p>25 {</p>
+<p>26 "action_id":θ ,</p>
+<p>27 "action_name":"string",</p>
+<p>28 "stage":"GOING_TO_TARGET", 29 "state":{</p>
+<p>30 "status":θ , 31 "result":θ , 32 "reason":""</p>
+<p>33 }</p>
+<p>34 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image12.png" style="height:0.77778in" />接⼝ Request Body 和 Responses Body 详细说明</p>
+<p>下图中左侧从上到下三个箭头，第—个箭头处有 required 字样，接⼝⽂档中凡是带有该字样的都</p>
+<p>是必填项，第⼆个和第三个箭头处有 Schema 和 Example Value 字样，默认显示 Example Value 字样下的详细内容，也即是 Request Body 或 Responses Body 的 Json 结构体， Schema 字样可</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image13.png" style="height:0.18056in" />以点开，点击 Schema 即可看到 Example Value 的 Json 结构的⽣成规则。</p>
+</blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image14.png" style="width:7.37489in;height:5.81945in" /></p>
+<blockquote>
+<p>接⼝⽂档中 Schema 的查看⽅式</p>
+<p>Schema 在 Request Body 和 Responses 中都有可能出现，这⾥以 Request Body 来举例说明， 两者查看⽅式类似。</p>
+<p>下图是 Request body 的 Schema 展开后的细节。</p>
+<p>带有红⾊ required 字样 和 * 的参数都是必填项</p>
+<p>红框内的参数是 Json 结构的字段 key , 蓝⾊框的字样只是辅助说明⽂字，如果有⼤括号内省略号 项，可点开查看详情</p>
+<p>图中—对绿⾊框为相对应的值：如 action_name 值是图中—对绿⾊框为相对应的值：如</p>
+</blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image15.png" /></p>
+<blockquote>
+<p>oneOf 则取对应的 MultiFloorMoveActionOptions 结构</p>
+</blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image16.png" style="width:5.63889in;height:5.43056in" /></p>
+<blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image17.png" style="height:0.18056in" />Response Body <em>详情</em></p>
+<p>Response Body 展示了返回 200 的 Response Body 、以及 Body 对应的解析规则 Shcema 或者返回其他状态码及其描述</p>
+</blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image18.png" style="width:7.37489in;height:6.19445in" /></p>
+<p><img src="images/Slamware_RESTful_API____________/media/image19.png" style="width:7.37489in;height:4.8125in" /></p>
+<blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image20.png" style="height:0.18056in" />3. 接⼝分类</p>
+<p>即2.1节 feature 的分类</p>
+<p>3.1 system 系统资源</p>
+<p>该类接⼝可以访问机器⼈的系统级资源，如读取电源状态，重启机器，设置系统参数等。</p>
+<p>3.2 slam 定位建图相关功能</p>
+<p>获取机器⼈位姿，获取/注册充电桩，打开/关闭建图，获取地图数据等。</p>
+<p>完成建图并添加所需的 POI 后，可调⽤ 获取复合地图 接⼝导出地图：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/slam/v1/maps/stcm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>3.3 artifact ⼈⼯标记地图元素</p>
+<p>可以在地图中添加如下元素</p>
+<p>• 虚拟轨道(tracks)： 通过参数控制可以使得机器⼈沿预设轨道⾏进。</p>
+<p>• 虚拟墙(walls): 禁⽌机器⼈进⼊某些区域。</p>
+<p>• 禁⾏区域(forbidden_area)： 效果类似虚拟墙，⽀持⾃动逃脱功能，机器⼈在外部时不会进⼊禁区，—旦被⼈为推进去，则可以往最近的边缘⽅向 逃离禁区。</p>
+<p>• 电梯区域(elevator_area)： 应⽤于多楼层环境时，需要添加电梯信息，并且通过RS将多个楼层的地图合并为—个⽂件。</p>
+<p>• 危险区域(dangerous_area) ：有斜坡、窄道等，可以限制机器⼈的最⼤移动速度。</p>
+<p>• 覆盖区域(coverage_area): 机器⼈会规划路径覆盖整个区域，其⾏为类似扫地机。</p>
+<p>• 运维区域(maintenance_area)：机器⼈重新打开建图时，只会更新运维区域内的地图。</p>
+<p>3.4 motion 机器⼈运控控制</p>
+<p>该类接⼝提供：获取机器⼈⽀持的所有运动⾏为；机器⼈获取/终⽌/创建新的运动⾏为；查询路径与⽬标点；获取/设置运动策略；开启/查询⼿动重定位 等⾏为控制。</p>
+<p>• 机器⼈需要创建新的运动⾏为开始运动。</p>
+<p>/api/core/motion/v1/actions</p>
+<p>• 机器⼈运动过程中，需要不断查询Action状态，以判断当前运动状态。</p>
+<p>/api/core/motion/v1/actions/{action_id}</p>
+<p>3.5 firmware 固件升级</p>
+<p>该类接⼝提供机器⼈固件升级和查询相关升级信息的功能。</p>
+<p>3.6 statistics 运⾏数据统计</p>
+<p>该类接⼝主要是获取机器⼈的运动⾥程和运⾏时间。</p>
+<p>3.7 application 安卓应⽤程序管理（仅限ARM平台）</p>
+<p>该类接⼝提供机器⼈安装/卸载App，以及获取已安装的App的功能。</p>
+<p>3.8 platform 通⽤底盘和平台相关的功能</p>
+<p>该类接⼝提供获取机器⼈系统时间戳和获取机器⼈事件信息的功能。</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image21.png" style="width:0.46528in" /><img src="images/Slamware_RESTful_API____________/media/image22.png" style="width:0.46528in" />• 机器⼈运动过程中，可能会遇到—系列如：遇到障碍物， 电量过低，等情况，所以调⽤⽅需要不断地获取事件信息实时掌握机器⼈情况， <img src="images/Slamware_RESTful_API____________/media/image23.png" style="height:0.16665in" />获取事件</p>
+<p>信息： GET /api/platform/v1/events 。</p>
+<p>3.9 multi-floor 地图管理，跨楼层移动</p>
+<p>多楼层地图管理，乘电梯等功能：如查找距离机器⼈最近的充电桩，持久化保存当前地图，重新加载地图，同步地图等。</p>
+<p>3.10 delivery 配送服务相关接⼝</p>
+<p>注意事项：delivery相关接⼝仅限整机使⽤ ，通⽤底盘默认不⽀持，如需使⽤ ，请联系FAE。</p>
+<p>整体上分为系统配置、cargo管理、任务管理等三⼤类</p>
+<p>该类接⼝提供针对配送、引领、迎宾等机器⼈场景集成好的功能，如果有类似需求也可直接使⽤deliver服务接⼝ 。主要包含功能：创建任务、查询任 务、取消任务、暂停/继续执⾏任务、结束任务、开始取物、结束取物、完成操作等</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image24.png" style="height:0.77778in" /><em>两类地图操作说明</em></p>
+<p>• /api/core/slam 类地图操作接⼝ ：</p>
+<p>如果设置地图，则会设置到定位导航统内存中，地图不会持久化保存, 可以导出地图⽂件。</p>
+<p>• /api/multi-floor/map 类地图操作接⼝ ：</p>
+<p>可以上传地图或者从定位导航统内存中获取地图，并持久化保存到磁盘中。</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image25.png" style="height:0.77778in" /><em>两类</em>poi<em>操作说明</em></p>
+<p>• /api/core/artifact 类POI操作接⼝ ：</p>
+<p>可对poi进⾏增删改查操作。</p>
+<p>• /api/multi-floor/map 类POI操作接⼝ ：</p>
+<p>只能查找poi信息，其中/api/multi-floor/map/v1/pois可获取额外的building、floor、poi_name、type信息。</p>
+<p>4 部署流程示例</p>
+<p>该阶段是完成机器⼈初始化操作，给机器⼈使能，使其处于就绪待⽤状态。 主要包含： 开启/关闭建图、添加pois、添加禁区、导出地图 等操作。</p>
+<p>注意事项：</p>
+<p>1.如采⽤RoboStudio部署⽅式，可忽略此流程；</p>
+<p>2.设置禁⾏区域时，相⽐虚拟墙，建议使⽤虚拟禁区。</p>
+<p>4.1 <em>建图</em></p>
+<p><img src="images/Slamware_RESTful_API____________/media/image26.png" style="height:0.41667in" />开启/关闭建图：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/core/slam/v1/mapping/:enable</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>请求体中 enable 设为 false 则为关闭建图</p>
+<p>返回值 true 表示操作成功</p>
+<p>4.2 添加 poi</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image27.png" style="height:0.65278in" />添加POI：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/artifact/v1/pois</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>调⽤⽅应当随机⽣成—个UUID作为id, metadata中的display_name⽤于界⾯显示, type⽤于区分POI类型。</p>
+<p>在建图过程中添加POI时，建议不包含Pose，此时会⽤机器⼈当前位置创建POI，并且记录传感器观测信息，在闭环后会进⾏位姿调整。</p>
+<p>请点击接⼝⽂档中 Schema 查看详细说明</p>
+<p>4.3 添加虚拟墙</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image28.png" style="height:0.41667in" />添加虚拟线段</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/artifact/v1/lines/{usage}</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>添加时id为⽆效字段，可为任意值。</p>
+<p>请点击接⼝⽂档中 Schema 查看详细说明</p>
+<p>4.4 设置虚拟禁区</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image29.png" style="height:0.18056in" />添加矩形区域</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/artifact/v1/rectangle-areas/{usage}</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>不同类型的矩形区域，所需要的 metadata 也不同，请点击接⼝⽂档中 Schema 查看详细说明</p>
+<p>4.5 导出地图</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image30.png" style="height:0.41667in" />获取复合地图：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/slam/v1/maps/stcm</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>包含所有数据的复合地图</p>
+<p>响应报⽂为⼆进制字节流，可直接保存为stcm⽂件.</p>
+<p>4.6 保存地图</p>
+<p>如果想将4.5导出的地图，通过API的⽅式保存到机器⼈中，有两种⽅式可以保存地图。</p>
+<p>⽅法1:</p>
+<p>将地图导出后，通过API的⽅式保存到机器⼈中，请按照下述接⼝调⽤顺序保存地图：</p>
+<p>1. 上传地图到机器⼈</p>
+<p>上传的地图会持久化保存在⽂件系统中, 但不会加载到Slamware中。【注意】当机器⼈由云端管理时，从云端下载的地图会覆盖本地地图。</p>
+<p>2. 重新加载地图</p>
+<p>3. 持久化保存当前地图</p>
+<p>⽅法2：</p>
+<p>通过RoboStudio把地图加载到固件后；调⽤端只需要调⽤同步地图接⼝即可保存地图</p>
+<p>1. 同步地图</p>
+<p>【注意】：保存当前地图到⽂件，并重新加载，相当于save和reload 2个接⼝的组合。多楼层环境中禁⽌该操作，否则会丢失其他楼层的地图。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/multi-floor/map/v1/stcm/:sync</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.业务流程示例</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><img src="images/Slamware_RESTful_API____________/media/image31.png" style="width:5.68056in;height:5.47917in" /></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.1 初始化系统</p>
+<p>机器⼈启动时，通过轮询如下接⼝判断系统是否完成初始化。</p>
+<p>只有在每个组件都 enable 后，机器⼈才能进⼊正常的业务逻辑。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/system/v1/capabilities</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.2 获取系统资源信息</p>
+<p>使⽤API可以实现对机器⼈系统级资源的读取和设置，从⽽更加⾼效地控制和管理机器⼈ 。通过API，您可以获取设备信息、设备健康状况、 电源状态等 关键数据，确保机器⼈的正常运⾏和合理使⽤ 。此外，您还可以关闭或重启机器⼈以及获取和修改系统参数，以满⾜特定的使⽤需求。</p>
+<p>获取机器⼈电源状态：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/system/v1/power/status</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>获取设备信息：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/system/v1/robot/info</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>获取设备健康状态信息：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/system/v1/robot/health</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>获取系统参数：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/system/v1/parameter</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>设置系统参数：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/core/system/v1/parameter</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>关闭或重启机器⼈：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/system/v1/power/:shutdown</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.3 获取POI信息</p>
+<p>获取地图中设置的POI信息列表，即机器⼈可以前往的⽬标点。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/multi-floor/map/v1/pois</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>通过参数可以获取指定楼层、建筑物、POI类型、POI分组的POI列表，不带参数时获取所有POI。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>参数名</p>
+</blockquote></td>
+<td><blockquote>
+<p>类型</p>
+</blockquote></td>
+<td><blockquote>
+<p>必填</p>
+</blockquote></td>
+<td><blockquote>
+<p>说明</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>floor</p>
+</blockquote></td>
+<td><blockquote>
+<p>string</p>
+</blockquote></td>
+<td><blockquote>
+<p>否</p>
+</blockquote></td>
+<td><blockquote>
+<p>楼层名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>building</p>
+</blockquote></td>
+<td><blockquote>
+<p>string</p>
+</blockquote></td>
+<td><blockquote>
+<p>否</p>
+</blockquote></td>
+<td><blockquote>
+<p>建筑物名</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>type</p>
+</blockquote></td>
+<td><blockquote>
+<p>string</p>
+</blockquote></td>
+<td><blockquote>
+<p>否</p>
+</blockquote></td>
+<td><blockquote>
+<p>poi类型</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>group</p>
+</blockquote></td>
+<td><blockquote>
+<p>string</p>
+</blockquote></td>
+<td><blockquote>
+<p>否</p>
+</blockquote></td>
+<td><blockquote>
+<p>poi分组</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.4 获取事件信息</p>
+<p>机器⼈开机状态下，获取机器⼈当前状态、充电状态、运⾏状态、可能会遇到障碍物，进出电梯、健康状态报警等情况，建议调⽤⽅轮询此接⼝ ，实时 知晓机器⼈遇到的情况。</p>
+<p>获取事件信息:</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/platform/v1/events</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image32.png" style="height:0.77778in" />机器⼈通知调⽤端⾃身发⽣的事件，上位机可以播报语⾳或进⾏别的交互，启⽤不同的插件会扩展出不同的事件类型。</p>
+<p>机器⼈事件信息，type在不同场景下会扩展新的定义，调⽤⽅只需处理⾃⼰关⼼的事件即可。 GeneralEventType为通⽤的事件，ElevatorEventType 为进出电梯相关的事件, DeliveryEventType为配送相关事件。</p>
+<p>请点击接⼝⽂档中 Schema 查看详细说明</p>
+<p>5.5 ⽤户开始操作机器⼈</p>
+<p>⽤户操作机器⼈时，⾸先调⽤以下接⼝ enable_task_execution 设为false来禁⽌机器⼈移动 ,⽤户完成操作时， enable_task_execution 设 为true允许机器⼈运动，此时机器⼈有任务则执⾏任务，没任务则回桩或回到类型为PARKING的POI。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/tasks/:task_execution</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>request body 示例如下</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "enable_task_execution": false</p>
+<p>3 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.6 ⾃主导航流程示例</p>
+<p>本示例，展示—个由调⽤⽅创建action控制机器⼈移动到指定POI 的例⼦。</p>
+<p>5.6.1 获取所有⽀持的Action</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/motion/v1/action-factories</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 98%" />
+</colgroup>
+<tbody>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.MoveToAction ⾃主导航移动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.MultiFloorMoveAction ⾃主导航移动，⽀持跨楼层、POI⽬标点、多级调度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.MultiFloorBackHomeAction 跨楼层⾃主回桩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.SeriesMoveToAction 包含多个⽬标点的⾃主导航移动</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.MoveByAction 遥控移动, 需要定时调⽤以达到连续运动效果</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.GoHomeAction ⾃主回桩</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.RotateToAction 原地旋转，转到指定⻆度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.RotateAction 原地旋转，转动指定⻆度</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.MoveToTagAction ⼆维码精准对接</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.BackOffFromTagAction 从⼆维码前后退,防⽌碰撞。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.Recover LocalizationAction 重定位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.ManualRelocalizationAction ⼿动重定位</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>slamtec.agent.actions.SweepAction 覆盖规划运动，适⽤于清扫、消毒等场景，所需固件版本为4.4</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td style="text-align: right;">slamtec.agent.actions.ReturnToParkingAction ⾃主返航回到待命点（ POI类型为PARKING），⽀持多机避障和排队功能（ 需要Lora模</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>块），所需固件版本为4.5.5</p>
+<p>5.6.2 创建新的运动⾏为</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/motion/v1/actions</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>action_name选择 slamtec.agent.actions.MultiFloorMoveAction ，不同运动⾏为可通过5.6.1中获取到的action类型选择</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>5.6.2.1 Request Body</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>示例如下，表示以精确到点、精确到⻆（yaw值为弧度1 .0）的⽅式移动到A101.</p>
+<p>1. mode:默认是 0</p>
+<p>。 0 ： ⾃由导航</p>
+<p>。 1 ：严格轨道模式(遇障碍物停⽌并等待)</p>
+<p>。 2 ：轨道优先模式(遇障碍物下轨绕⾏)</p>
+<p>2. flags:</p>
+<p>。 precise 精确到点模式，使机器⼈到点时更加精准</p>
+<p>。 with_yaw 精确到⻆模式，只有包含该flag，yaw字段的值才会⽣效</p>
+<p>。 fail_retry_count 指定搜路失败后的重试次数，不指定时采⽤默认配置</p>
+<p>。 find_path_ignoring_dynamic_obstacles 搜路时忽略动态障碍物，适⽤于⼈群拥挤、通道狭窄的区域</p>
+<p>3. yaw：</p>
+<p>到⽬标点后机器⼈的朝向，精确到⻆</p>
+<p>4. acceptable_precision：</p>
+<p>可接受的到点范围，当⽬标点被占据时，机器⼈离⽬标点距离在该范围内都算成功， 默认值为0.1⽶或0.18⽶ ，该值不影响机器⼈到点精度。</p>
+<p>5. fail_retry_count：</p>
+<p>失败重试次数</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>5.6.2.2 Response Body</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "action_id": 1,</p>
+<p>3 "action_name":"slamtec.agent.actions.MultiFloorMoveAction", 4 "stage": "GOING_TO_TARGET",</p>
+<p>5 "state": {</p>
+<p>6 "status": 0, 7 "result": 0, 8 "reason": ""</p>
+<p>9 }</p>
+<p>10 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>1. action_id:</p>
+<p>为整数，是Action的标识，后续查询状态要⽤该值；</p>
+<p>2. action_name:</p>
+<p>和 Request Body 请求传⼊的参数—致；</p>
+<p>3. stage:表⽰Action执⾏的阶段;</p>
+<p>4. state:表⽰action的状态 status :</p>
+<p>0：新创建，1 ：正在运⾏ ， 4 ：已结束 ◦ result :</p>
+<p>0 ：成功， -1： 失败， -2：被取消 ◦</p>
+<p>reason 如果result是-1 ，则该字段表⽰失败的原因</p>
+<p>先判断state.status， 如果不是4，则Action还在运⾏ ，如果是4再根据result判断是成功还是失败。</p>
+<p>5.6.3 查询 Action 状态</p>
+<p>创建action时会返回—个action_id，根据此id查询action的当前状态，机器⼈运⾏过程中，需要通过轮询此接⼝ ，实时查看 Action 状态，建议调⽤间隔 1秒。</p>
+<p>该接⼝的返回数据与POST /api/core/motion/v1/actions接⼝—样。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/motion/v1/actions/{action_id}</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.6.4 终⽌当前⾏为</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ DELETE /api/core/motion/v1/actions/:current</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7 配送业务流程示例 （需⽀持delivey配送服务）</p>
+<p>注意事项：delivery相关接⼝仅限整机使⽤ ，通⽤底盘默认不⽀持，如需使⽤ ，请联系FAE</p>
+<p>整体上分为系统配置、cargo管理、任务管理等三⼤类</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image33.png" /> 5.7.1 ⽤户开始操作机器⼈</p>
+<p><img src="images/Slamware_RESTful_API____________/media/image34.png" /> 5.7.2 <em>获取配送相关的设置信息</em></p>
+<p>5.7.3 <em>设置任务的超时时间</em></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/settings/timeout</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>request body 示例如下，food_pickup_timeout表示到达⽬标点后等待时间，单位为秒。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "food_pickup_timeout": 0</p>
+<p>3 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7.4 操作Cargo</p>
+<p>如果是<u>H2</u>酒店配送机器⼈ ，APP通过cargo接⼝来打开/关闭舱⻔ 。 如果没有cargo，请忽略此操作。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/cargos/{cargo_id}/boxes/{box_id}/{op}</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7.5 创建任务</p>
+<p>⽤户放⼊物品并关闭舱⻔后，调⽤以下接⼝创建Task。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/delivery/v1/tasks</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>TAKEOUT（外卖配送）、GUIDE（ 引领）、 FOOD_DELIVERY（送餐）、RECYCLE（ 回</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>如果要—次性创建多个任务，调⽤如下接⼝</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/delivery/v1/tasks/:batch</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7.6 开始执⾏任务</p>
+<p>⽤户完成操作时， enable_task_execution 设为true允许机器⼈运动，此时机器⼈有任务则执⾏任务，没任务则回桩或回到类型为PARKING的</p>
+<p>POI。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/tasks/:task_execution</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>request body 示例如下</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "enable_task_execution": true</p>
+<p>3 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7.7 暂停/继续执⾏任务</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/tasks/:task_execution</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>参数名</p>
+</blockquote></td>
+<td><blockquote>
+<p>类型</p>
+</blockquote></td>
+<td><blockquote>
+<p>必填</p>
+</blockquote></td>
+<td><blockquote>
+<p>说明</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>enable_task_execution</p>
+</blockquote></td>
+<td><blockquote>
+<p>boolean</p>
+</blockquote></td>
+<td><blockquote>
+<p>是</p>
+</blockquote></td>
+<td><blockquote>
+<p>true :继续执⾏任务</p>
+<p>false:暂停任务</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>request body 示例如下</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "enable_task_execution": false</p>
+<p>3 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7.8 查询任务状态</p>
+<p>在机器⼈执⾏任务过程中，APP需要定时查询任务状态来切换⾃身的界⾯</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/delivery/v1/stage</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 98%" />
+</colgroup>
+<tbody>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>DEVICE_ERROR 设备故障，底盘上报了Error信息，机器⼈⽆法移动，调⽤端应当显示故障⻚⾯。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td style="text-align: right;">GOING_TO_TASK_POINT 正在前往任务点，有些任务（如回盘、取物配送）需要中途停靠某些任务点，完成操作后再前往⽬标点。</td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>ARRIVED_AT_TASK_POINT 到达任务点，机器⼈会等待操作完成或超时后再继续下—阶段。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>ON_DELIVERING 正在前往⽬标点，为了兼容采⽤该名称，实际不—定是配送任务。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>ARRIVED_AT_TARGET 到达最终⽬标点。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>ON_RETURNING 正在返航，当机器⼈有默认停靠点时，该状态表示机器⼈正在前往该停靠点。</p>
+</blockquote></td>
+</tr>
+<tr>
+<td>•</td>
+<td><blockquote>
+<p>GOING_HOME 正在回桩。</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>• IDLE 空闲，机器⼈在默认停靠点或桩上时处于该状态</p>
+<p>此外还需要轮询事件接⼝来查询—些突发事件，⽐如路径被挡、收到新任务等 ，可参考5.4 获取事件信息</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/platform/v1/events</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7.9 开始取物</p>
+<p>当APP查询到 Stage 为 ARRIVED_AT_TARGET 时，应当显示取物界⾯。</p>
+<p>如果机器⼈有Cargo，需要显示【开舱】按钮，⽤户点击后，调⽤如下接⼝</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/tasks/:start_pickup</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>接着调⽤cargo接⼝来打开舱⻔</p>
+<p>5.7.10 完成取物</p>
+<p>⽤户完成取物后调⽤该接⼝通知机器⼈</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/tasks/:end_pickup</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.7.11 执⾏下⼀个任务</p>
+<p>APP调⽤以下接⼝来允许机器⼈⾃主移动，如果有下—个任务则执⾏ ，如果没有则回桩或回待命点 （ POI类型为PARKING）</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/delivery/v1/tasks/:task_execution</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.8 回充电桩</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/motion/v1/actions</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>slamtec.agent.actions.MultiFloorBackHomeAction</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>request body 示例如下.</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "action_name":"slamtec.agent.actions.MultiFloorBackHomeAction", 3 "options":{}</p>
+<p>4 } 5</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.9 机器⼈异常恢复</p>
+<p>将机器⼈位姿设置到指定的POI上，—般⽤于发⽣异常后的恢复操作，如<em>恢复机器⼈定位信息。</em></p>
+<p>注意事项：此接⼝通常在定位丢失后调⽤ ，如果把机器⼈推回充电桩后，则⽆需调⽤此接⼝ ，系统会⾃动做恢复动作。</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/multi-floor/localization/v1/pose</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.10 运动策略</p>
+<p>运动策略为Slamware的—系列内部参数，涉及到运动速度、避障⾏为等各个⽅⾯，不同的策略可适⽤于不同的场景。—般情况下采⽤默认策略即可。 所需最低固件版本 4.2.4</p>
+<p>获取⽀持的所有运动策略：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/motion/v1/strategies</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>获取当前运动策略：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/motion/v1/strategies/:current</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>设置运动策略：</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ PUT /api/core/motion/v1/strategies/:current</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>5.11 设备健康状态常见问题</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 30%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>描述</p>
+</blockquote></td>
+<td><blockquote>
+<p>触发条件</p>
+</blockquote></td>
+<td><blockquote>
+<p>触发后底盘 动作</p>
+</blockquote></td>
+<td><blockquote>
+<p>等级</p>
+</blockquote></td>
+<td><blockquote>
+<p>错误代码</p>
+</blockquote></td>
+<td><blockquote>
+<p>显示信息</p>
+</blockquote></td>
+<td><blockquote>
+<p>消除⽅法</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>急停开关</p>
+</blockquote></td>
+<td><blockquote>
+<p>急停开关触 发</p>
+</blockquote></td>
+<td><blockquote>
+<p>紧急停⽌，</p>
+<p>下发速度不 再响应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x02010100</p>
+</blockquote></td>
+<td><blockquote>
+<p>" system emergency stop"</p>
+</blockquote></td>
+<td><blockquote>
+<p>释放急停开关恢复</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>低电量报 警</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量低于</p>
+<p>15%</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+<td><blockquote>
+<p>WARNIN G</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01020100</p>
+</blockquote></td>
+<td><blockquote>
+<p>" power low"</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量⾼于15%</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>低电量报 警</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量低于5%</p>
+</blockquote></td>
+<td><blockquote>
+<p>⾃动关机，</p>
+<p>所有电源关 闭</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>" power low"</p>
+</blockquote></td>
+<td><blockquote>
+<p>电量⾼于5%</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>刹⻋释放</p>
+</blockquote></td>
+<td><blockquote>
+<p>刹⻋释放按 钮触发</p>
+</blockquote></td>
+<td><blockquote>
+<p>电机松轴，</p>
+<p>下发速度不 再响应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x02010700</p>
+</blockquote></td>
+<td><blockquote>
+<p>" motor brake released"</p>
+</blockquote></td>
+<td><blockquote>
+<p>刹⻋释放按钮恢复</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>驱动电机 报警</p>
+</blockquote></td>
+<td><blockquote>
+<p>驱动电机驱 动器报警</p>
+</blockquote></td>
+<td><blockquote>
+<p>依赖驱动器</p>
+<p>固件，如过</p>
+<p>流报警时会 松轴。</p>
+</blockquote></td>
+<td><blockquote>
+<p>WARNIN G</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x01030100</p>
+</blockquote></td>
+<td><blockquote>
+<p>" motor alarm"</p>
+</blockquote></td>
+<td><blockquote>
+<p>底盘固件会尝试清除驱</p>
+<p>动器报警后，再次检测</p>
+<p>是否有报警，若⽆再次 报警则⾃动清除health</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>电机⾥程 计报警</p>
+</blockquote></td>
+<td><blockquote>
+<p>电机在停⽌</p>
+<p>时（ ⽆下发</p>
+<p>速度，或下 发速度为</p>
+<p>0），电机移 动超过</p>
+<p>500mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽆</p>
+</blockquote></td>
+<td><blockquote>
+<p>WARNIN G</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0103010x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" motor[y]odometry alarm"</p>
+</blockquote></td>
+<td><blockquote>
+<p>有速度下发，或刹⻋释 放触发</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>底盘开⻔ 狗触发</p>
+</blockquote></td>
+<td><blockquote>
+<p>底盘固件看</p>
+<p>⻔狗触发， 固件重启</p>
+</blockquote></td>
+<td><blockquote>
+<p>固件重启</p>
+<p>后，下发速</p>
+<p>度不再响应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0203040 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" watchdog overflow"</p>
+</blockquote></td>
+<td><blockquote>
+<p>⼿动消除</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>磁传感器 触发</p>
+</blockquote></td>
+<td><blockquote>
+<p>磁传感器触 发</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0204050 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" magtape[x] triggered"</p>
+</blockquote></td>
+<td><blockquote>
+<p>急停开关触发，或⼿动 清除</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>磁传感器</p>
+<p>通信错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>磁传感器通 信错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td><blockquote>
+<p>FATAL</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0404060 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" magnetic [x]:y."</p>
+</blockquote></td>
+<td><blockquote>
+<p>检查连接线是否可靠连</p>
+<p>接，检查传感器是否损</p>
+<p>坏，⼿动清除错误，必 要时重启底盘</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tof跌落通 信错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>tof跌落通信 错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td><blockquote>
+<p>FATAL</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0404020 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" cliff[x]:y."</p>
+</blockquote></td>
+<td><blockquote>
+<p>检查连接线是否可靠连</p>
+<p>接，检查传感器是否损</p>
+<p>坏，⼿动清除错误，必 要时重启底盘</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>碰撞传感 器错误</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞持续触</p>
+<p>发且向前⾏ ⾛200mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0204010x</p>
+</blockquote></td>
+<td><blockquote>
+<p>"bumper sensor error"</p>
+</blockquote></td>
+<td><blockquote>
+<p>碰撞信号消除</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 30%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>tof跌落信 号错误</p>
+</blockquote></td>
+<td style="text-align: left;"><blockquote>
+<p>tof跌落持续 触发且向前 ⾏⾛200mm</p>
+</blockquote></td>
+<td><blockquote>
+<p>⽴即停⽌</p>
+<p>后，下发的</p>
+<p>速度不再响 应</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0204020 x</p>
+</blockquote></td>
+<td><blockquote>
+<p>" cliff sensor error"</p>
+</blockquote></td>
+<td><blockquote>
+<p>tof跌落信号消除</p>
+</blockquote></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>低定位错 误</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0201090 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" Low localization due to great</p>
+<p>environmental change, because visual coarse pose received"</p>
+<p>或" Low localization quality"</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>重定位错 误</p>
+</blockquote></td>
+<td></td>
+<td></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0201080 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" Relocalization has failed last time, clear the error to move"</p>
+</blockquote></td>
+<td></td>
+</tr>
+<tr>
+<td><blockquote>
+<p>onlinesla</p>
+<p>m reboot 定位异常</p>
+</blockquote></td>
+<td><blockquote>
+<p>onlineslam 重新启动</p>
+</blockquote></td>
+<td><blockquote>
+<p>不执⾏action</p>
+</blockquote></td>
+<td><blockquote>
+<p>ERROR</p>
+</blockquote></td>
+<td><blockquote>
+<p>0x0201060 0</p>
+</blockquote></td>
+<td><blockquote>
+<p>" slamware has rebooted, clear the error to move"</p>
+</blockquote></td>
+<td><blockquote>
+<p>将机器⼈推回充电桩会</p>
+<p>回复（若在同—个区域</p>
+<p>重复出现多次，请重新 建图）</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>6. ⼆维码精准对接</p>
+<p>关于精准对接功能⼆维码部署流程请参考《⼆维码精准对接部署⼿册》。 本⽂只讲解如何通过API调⽤</p>
+<p>6.1 获取部署好的POI信息</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ GET /api/core/artifact/v1/pois</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>找到type为TAG的POI，根据display_name找到所需POI，记下pose和tag_ids，填⼊MoveToTagAction参数中。如果缺少tag_ids信息，请检查POI部署 流程。</p>
+<p>6.2. 创建精准对接运动⾏为</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/motion/v1/actions</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>slamtec.agent.actions.MoveToTagAction</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>request body 示例如下</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>代码块</p>
+<p>1 {</p>
+<p>2 "action_name": "slamtec.agent.actions.MoveToTagAction", 3 "options": {</p>
+<p>4 "target": {</p>
+<p>5 "x": 0.590,</p>
+<p>6 "y": 0.110,</p>
+<p>7 "yaw": -3.130</p>
+<p>8 },</p>
+<p>9 "tag_ids": [0,50],</p>
+<p>10 "relative_pose_to_tag":{</p>
+<p>11 "x":0.4, 12 "y":0.0</p>
+<p>13 }</p>
+<p>14 }</p>
+<p>15 } 16</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>其中target和tag_ids为6.1记录的数据。</p>
+<p>relative_pose_to_tag字段可以不填，x表示离⼆维码中⼼的纵向距离， y表示离⼆维码中⼼的横向偏差。</p>
+<p>若不填写，⼆维码对接默认使precise_move_to_tag.safe_distance_to_tag（7.5cm）作为x的默认值，y值默认为0。</p>
+<p>6.3. 操作完成后先调⽤后退action，以免碰撞</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>■ POST /api/core/motion/v1/actions</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p>slamtec.agent.actions.BackOffFromTagAction</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 89%" />
+<col style="width: 10%" />
+</colgroup>
+<tbody>
+<tr>
+<td><blockquote>
+<p><img src="images/Slamware_RESTful_API____________/media/image35.png" /> 代码块 Java</p>
+</blockquote></td>
+<td><blockquote>
+<p>复制</p>
+</blockquote></td>
+</tr>
+<tr>
+<td colspan="2"><blockquote>
+<p>1 <img src="images/Slamware_RESTful_API____________/media/image36.png" /> {</p>
+<p>2 "action_name":"slamtec.agent.actions.BackOffFromTagAction", 3 "options":{}</p>
+<p>4 }</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

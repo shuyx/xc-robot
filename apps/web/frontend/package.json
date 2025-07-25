@@ -1,0 +1,23 @@
+{
+  "name": "xc-robot-web-frontend",
+  "version": "1.0.0",
+  "description": "XC-ROBOT 解耦测试控制台前端",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "python ../dev_server/simple_server.py",
+    "serve": "python -m http.server 3000",
+    "build": "echo 'Build process for production deployment'",
+    "lint": "echo 'Linting JavaScript files'"
+  },
+  "keywords": [
+    "robotics",
+    "fr3",
+    "hermes",
+    "web-interface",
+    "testing"
+  ],
+  "author": "XC-ROBOT Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
