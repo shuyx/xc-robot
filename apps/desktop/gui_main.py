@@ -38,6 +38,9 @@ def check_dependencies():
 
 def main():
     """主函数"""
+    # 设置Qt WebEngine所需的属性
+    QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
+    
     # 创建应用程序
     app = QApplication(sys.argv)
     app.setApplicationName("XC-ROBOT")

@@ -107,7 +107,7 @@ def main():
     
     try:
         # 使用延迟导入
-        sys.path.insert(0, str(desktop_dir))
+        sys.path.insert(0, str(gui_dir))
         from gui_main import main as gui_main
         
         # 启动GUI主程序
