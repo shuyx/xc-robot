@@ -6,6 +6,7 @@
 
 # 可选功能依赖（按需安装）:
 # pip install -r requirements/dev.txt          # 开发工具
+# pip install -r requirements/web.txt          # Web界面服务
 # pip install -r requirements/monitoring.txt   # 监控图表
 # pip install -r requirements/simulation_vtk.txt  # VTK 3D仿真（不推荐，建议使用Web端方案）
 

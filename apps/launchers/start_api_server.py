@@ -28,19 +28,41 @@ def check_dependencies():
     """检查依赖包"""
     missing = []
     
-    required_packages = [
-        "fastapi",
-        "uvicorn",
-        "websockets",
-        "pydantic",
-        "multipart"  # python-multipart is imported as 'multipart'
-    ]
+    # 检查基本依赖
+    try:
+        import fastapi
+    except ImportError:
+        missing.append("fastapi")
     
-    for package in required_packages:
+    try:
+        import uvicorn
+    except ImportError:
+        missing.append("uvicorn")
+    
+    try:
+        import websockets
+    except ImportError:
+        missing.append("websockets")
+    
+    try:
+        import pydantic
+    except ImportError:
+        missing.append("pydantic")
+    
+    # python-multipart 特殊检查 - 尝试多种导入方式
+    multipart_found = False
+    try:
+        from multipart import parse_options_header
+        multipart_found = True
+    except ImportError:
         try:
-            __import__(package)
+            import multipart
+            multipart_found = True
         except ImportError:
-            missing.append(package)
+            pass
+    
+    if not multipart_found:
+        missing.append("python-multipart")
     
     return missing
 

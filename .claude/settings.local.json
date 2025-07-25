@@ -39,7 +39,16 @@
       "Bash(tree:*)",
       "Bash(git commit:*)",
       "Bash(diff:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(claude --version)",
+      "Bash(claude update)",
+      "Bash(sudo:*)",
+      "Bash(claude migrate-installer:*)",
+      "Bash(npm i:*)",
+      "Bash(npm config:*)",
+      "Bash(export PATH=~/.npm-global/bin:$PATH)",
+      "Bash(claude-code --version)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

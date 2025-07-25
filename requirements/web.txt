@@ -1,0 +1,28 @@
+# XC-ROBOT Web服务依赖
+# 用于Web界面和API服务
+
+# Web框架
+fastapi>=0.68.0
+uvicorn>=0.15.0
+
+# HTTP服务器
+starlette>=0.14.0
+
+# 文件上传支持
+python-multipart>=0.0.5
+
+# 模板引擎
+jinja2>=3.0.0
+
+# 静态文件服务
+aiofiles>=0.7.0
+
+# CORS支持
+fastapi-cors>=0.0.6
+
+# WebSocket支持
+websockets>=9.1
+
+# 数据模型
+pydantic>=1.8.0
+pydantic-settings>=2.0.0

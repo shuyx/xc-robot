@@ -439,6 +439,13 @@ python core/platform/config.py
 - **Mac/Linux**: `logs/xc-robot.log`
 - **运行时错误**: 控制台输出
 
+### 🔧 Windows特有功能
+
+- **自动启动脚本**: 项目根目录已提供 `start_xc_robot.bat` 和 `start_web_interface.bat`
+- **环境检测**: 启动时自动检查 PyQt5、NumPy 等关键依赖
+- **中文支持**: 启动脚本支持中文界面和提示信息
+- **权限管理**: 自动检测管理员权限，提供权限相关指导
+
 ---
 
 **📝 维护信息**  
