@@ -31,6 +31,18 @@ YOU MUST 记住这些内容
 
 - xc_os_context.md，为项目的基本情况介绍
 - start_web_gui.py，为当前 webgui 的启动文件
+- PROJECT_STRUCTURE_ANALYSIS.md，为项目文件结构分析报告（根目录和docs/project/目录各有一份，需要同步更新）
+
+## 文档同步机制
+
+⚠️ **重要提醒**：PROJECT_STRUCTURE_ANALYSIS.md 存在于两个位置：
+- 根目录：`PROJECT_STRUCTURE_ANALYSIS.md`
+- 项目文档：`docs/project/PROJECT_STRUCTURE_ANALYSIS.md`
+
+**同步要求**：
+- 修改任一文档后，必须同时更新另一个文档
+- 可使用同步脚本：`python scripts/sync_project_analysis.py`
+- 两个文档内容必须保持一致，只有同步提醒部分不同
 
 ## 使用 zen mcp
 

@@ -2,7 +2,7 @@
 
 > 基于已完成文件夹重组的完整项目架构分析
 
-**📄 文档同步**: 本文档与根目录 `PROJECT_STRUCTURE_ANALYSIS.md` 保持同步  
+**📄 文档同步**: 本文档与 `docs/project/PROJECT_STRUCTURE_ANALYSIS.md` 保持同步  
 **⚠️ 更新提醒**: 修改时请同时更新两个位置的文档内容
 
 **更新时间**: 2025-07-25  
