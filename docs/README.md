@@ -48,7 +48,8 @@
 - [🎮 RobotSim指南](./hardware/simulation/ROBOTSIM_GUIDE.md) - 机器人仿真系统使用
 
 ### 🧪 测试与质量
-- [📋 测试计划](./testing/plans/ROBOT_TESTING_PLAN.md) - 系统综合测试规划
+- [📋 测试系统](../testing/README.md) - 完整的测试框架和质量保证体系
+- [📋 测试计划](../testing/docs/plans/ROBOT_TESTING_PLAN.md) - 系统综合测试规划
 
 ### 📚 开发指南
 - [🔧 开发调试日志](./project/development/development_log.md) - 开发过程记录
