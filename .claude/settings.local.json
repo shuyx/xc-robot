@@ -39,7 +39,8 @@
       "Bash(tree:*)",
       "Bash(git commit:*)",
       "Bash(diff:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(pip3 install:*)"
     ],
     "deny": []
   }

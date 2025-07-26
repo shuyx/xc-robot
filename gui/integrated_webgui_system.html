@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祥承 XC-ROBOT MVP1.0 - 集成WebGUI系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2ECC71 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 1000;
+            height: 40px;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2ECC71;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .emergency-stop-btn {
+            background: #e74c3c;
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .emergency-stop-btn:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .main-container {
+            display: flex;
+            height: calc(100vh - 40px);
+            gap: 1px;
+        }
+
+        /* 三模块主体布局 */
+        .module {
+            flex: 1;
+            background: white;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .module-header {
+            background: linear-gradient(135deg, #34495e 0%, #2ECC71 100%);
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .module-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .module-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .module-action-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .module-action-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .module-content {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        /* 连接测试模块样式 */
+        .connection-module {
+            background: #f8f9fa;
+        }
+
+        .device-section {
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .device-section:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-info {
+            font-size: 11px;
+            color: #95a5a6;
+            font-weight: normal;
+        }
+
+        .device-controls {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .device-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .test-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .test-btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .test-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .switch-btn {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .switch-btn:hover {
+            background: #7f8c8d;
+        }
+
+        .switch-btn.active {
+            background: #2ECC71;
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.3);
+        }
+
+        .lua-test-btn {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .lua-test-btn:hover {
+            background: #8e44ad;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 8px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .status-online {
+            background: #2ECC71;
+            box-shadow: 0 0 6px rgba(46, 204, 113, 0.5);
+        }
+
+        .status-offline {
+            background: #e74c3c;
+        }
+
+        .status-warning {
+            background: #f39c12;
+        }
+
+        .status-testing {
+            background: #3498db;
+            animation: pulse 1s infinite;
+        }
+
+        .device-info {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #2ECC71;
+        }
+
+        /* 测试程序加载模块样式 */
+        .testing-module {
+            background: #f8f9fa;
+        }
+
+        .test-suite-selector {
+            margin-bottom: 16px;
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .suite-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .suite-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .suite-btn {
+            padding: 6px 12px;
+            border: 1px solid #dee2e6;
+            background: white;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .suite-btn:hover {
+            border-color: #2ECC71;
+            color: #2ECC71;
+        }
+
+        .suite-btn.active {
+            background: #2ECC71;
+            color: white;
+            border-color: #2ECC71;
+        }
+
+        .test-category {
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .test-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .test-card:hover {
+            border-color: #2ECC71;
+            background: #f0fff0;
+            transform: translateY(-2px);
+        }
+
+        .test-card.running {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .test-card.success {
+            border-color: #2ECC71;
+            background: #f0fff0;
+        }
+
+        .test-card.failed {
+            border-color: #e74c3c;
+            background: #fff0f0;
+        }
+
+        .test-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .test-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .test-status {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #dee2e6;
+        }
+
+        .test-status.success {
+            background: #2ECC71;
+        }
+
+        .test-status.failed {
+            background: #e74c3c;
+        }
+
+        .test-status.running {
+            background: #3498db;
+            animation: pulse 1s infinite;
+        }
+
+        /* 系统日志模块样式 */
+        .log-module {
+            background: #f8f9fa;
+        }
+
+        .log-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .log-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .export-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .filter-btn {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .filter-btn.active {
+            background: #2ECC71;
+        }
+
+        .auto-scroll-btn {
+            background: #f39c12;
+            color: white;
+        }
+
+        .auto-scroll-btn.active {
+            background: #e67e22;
+        }
+
+        .log-stats {
+            font-size: 10px;
+            color: #7f8c8d;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .log-content {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            height: calc(100% - 100px);
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin-bottom: 4px;
+            display: flex;
+            gap: 8px;
+            padding: 2px 0;
+            border-radius: 2px;
+            transition: background 0.2s;
+        }
+
+        .log-entry:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .log-entry.new {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .log-time {
+            color: #95a5a6;
+            white-space: nowrap;
+        }
+
+        .log-level {
+            font-weight: 600;
+            width: 50px;
+            text-align: center;
+        }
+
+        .log-level-info {
+            color: #3498db;
+        }
+
+        .log-level-success {
+            color: #2ECC71;
+        }
+
+        .log-level-warning {
+            color: #f39c12;
+        }
+
+        .log-level-error {
+            color: #e74c3c;
+        }
+
+        .log-level-lua {
+            color: #9b59b6;
+        }
+
+        /* 模态对话框样式 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #95a5a6;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .modal-btn-primary {
+            background: #2ECC71;
+            color: white;
+        }
+
+        .modal-btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .file-list {
+            max-height: 350px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+
+        .file-item {
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-item:hover {
+            background: #f8f9fa;
+        }
+
+        .file-item.selected {
+            background: #e8f5e8;
+            border-left: 4px solid #2ECC71;
+        }
+
+        .file-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .file-desc {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 2px;
+        }
+
+        .file-type {
+            background: #3498db;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .file-type.lua {
+            background: #9b59b6;
+        }
+
+        .safety-check {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+
+        .safety-title {
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .safety-content {
+            font-size: 13px;
+            color: #856404;
+            line-height: 1.4;
+        }
+
+        /* 进度条 */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #ecf0f1;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ECC71, #27ae60);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                min-height: calc(100vh - 40px);
+            }
+            
+            .module {
+                flex: none;
+                height: 400px;
+            }
+        }
+
+        /* 工具提示 */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tooltip:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 118%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #2c3e50;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>祥承 XC-ROBOT MVP1.0 - 集成WebGUI控制系统</h1>
+        <div class="header-right">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <span>系统运行中</span>
+            </div>
+            <button class="emergency-stop-btn" onclick="emergencyStop()">
+                ⏹ 紧急停止
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- 模块1: 连接测试与设备控制 -->
+        <div class="module connection-module">
+            <div class="module-header">
+                <div class="module-title">
+                    🔗 连接测试与设备控制
+                </div>
+                <div class="module-actions">
+                    <button class="module-action-btn tooltip" data-tooltip="批量测试所有设备连接" onclick="batchTestConnections()">批量测试</button>
+                    <button class="module-action-btn tooltip" data-tooltip="刷新设备状态" onclick="refreshDeviceStatus()">刷新</button>
+                </div>
+            </div>
+            <div class="module-content">
+                <!-- FR3机械臂模块 -->
+                <div class="device-section">
+                    <div class="section-title">
+                        <span>🦾 FR3机械臂模块</span>
+                        <span class="section-info">双臂协作系统</span>
+                    </div>
+                    <div class="device-controls">
+                        <button class="device-btn switch-btn active" id="leftArmBtn" onclick="switchArm('left')">左臂</button>
+                        <button class="device-btn switch-btn" id="rightArmBtn" onclick="switchArm('right')">右臂</button>
+                        <button class="device-btn test-btn" onclick="testCurrentArm()" id="armTestBtn">连接测试</button>
+                        <button class="device-btn lua-test-btn" onclick="runLuaArmTest()">Lua测试</button>
+                        <span class="status-indicator status-offline" id="armStatus"></span>
+                    </div>
+                    <div class="device-info" id="armInfo">
+                        当前选择: 左臂 (192.168.58.3) | SDK状态: 未连接
+                    </div>
+                </div>
+
+                <!-- Gemini335视觉模块 -->
+                <div class="device-section">
+                    <div class="section-title">
+                        <span>📷 Gemini335视觉模块</span>
+                        <span class="section-info">双目立体视觉</span>
+                    </div>
+                    <div class="device-controls">
+                        <button class="device-btn test-btn" onclick="testVision()">连通性测试</button>
+                        <button class="device-btn lua-test-btn" onclick="runLuaVisionTest()">视觉引导测试</button>
+                        <button class="device-btn switch-btn" onclick="calibrateVision()">标定</button>
+                        <span class="status-indicator status-offline" id="visionStatus"></span>
+                    </div>
+                    <div class="device-info" id="visionInfo">
+                        左相机: 未连接 | 右相机: 未连接 | 分辨率: 1280x720
+                    </div>
+                </div>
+
+                <!-- 升降轴模块 -->
+                <div class="device-section">
+                    <div class="section-title">
+                        <span>⬆️ 升降轴模块</span>
+                        <span class="section-info">垂直定位系统</span>
+                    </div>
+                    <div class="device-controls">
+                        <button class="device-btn test-btn" onclick="testElevator()">连接测试</button>
+                        <button class="device-btn switch-btn" onclick="moveElevator('up')">⬆️ 上升</button>
+                        <button class="device-btn switch-btn" onclick="moveElevator('down')">⬇️ 下降</button>
+                        <button class="device-btn switch-btn" onclick="homeElevator()">🏠 归位</button>
+                        <span class="status-indicator status-offline" id="elevatorStatus"></span>
+                    </div>
+                    <div class="device-info" id="elevatorInfo">
+                        当前高度: 0mm | 行程范围: 0-1000mm | 精度: ±0.1mm
+                    </div>
+                </div>
+
+                <!-- 夹爪模块 -->
+                <div class="device-section">
+                    <div class="section-title">
+                        <span>🤏 夹爪模块</span>
+                        <span class="section-info">RS485电动夹爪</span>
+                    </div>
+                    <div class="device-controls">
+                        <button class="device-btn test-btn" onclick="testGripper()">RS485测试</button>
+                        <button class="device-btn switch-btn" onclick="controlGripper('open')">🤏 张开</button>
+                        <button class="device-btn switch-btn" onclick="controlGripper('close')">✊ 闭合</button>
+                        <button class="device-btn lua-test-btn" onclick="runGripperTest()">力控测试</button>
+                        <span class="status-indicator status-offline" id="gripperStatus"></span>
+                    </div>
+                    <div class="device-info" id="gripperInfo">
+                        开合度: 0% | 夹持力: 0N | 通信: RS485
+                    </div>
+                </div>
+
+                <!-- Hermes底盘模块 -->
+                <div class="device-section">
+                    <div class="section-title">
+                        <span>🚛 Hermes底盘模块</span>
+                        <span class="section-info">全向移动平台</span>
+                    </div>
+                    <div class="device-controls">
+                        <button class="device-btn test-btn" onclick="testChassis()">连接测试</button>
+                        <button class="device-btn lua-test-btn" onclick="runLuaChassisTest()">移动测试</button>
+                        <button class="device-btn switch-btn" onclick="resetChassis()">复位</button>
+                        <span class="status-indicator status-offline" id="chassisStatus"></span>
+                    </div>
+                    <div class="device-info" id="chassisInfo">
+                        IP: 192.168.31.211:1448 | 电量: --% | 位置: (0.0, 0.0, 0.0°)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块2: 测试程序执行与管理 -->
+        <div class="module testing-module">
+            <div class="module-header">
+                <div class="module-title">
+                    🧪 测试程序执行与管理
+                </div>
+                <div class="module-actions">
+                    <button class="module-action-btn tooltip" data-tooltip="运行完整测试套件" onclick="runFullTestSuite()">完整套件</button>
+                    <button class="module-action-btn tooltip" data-tooltip="停止所有测试" onclick="stopAllTests()">停止全部</button>
+                </div>
+            </div>
+            <div class="module-content">
+                <!-- 测试套件选择器 -->
+                <div class="test-suite-selector">
+                    <div class="suite-title">🎯 测试套件快捷选择</div>
+                    <div class="suite-buttons">
+                        <button class="suite-btn active" onclick="selectTestSuite('basic')">基础功能</button>
+                        <button class="suite-btn" onclick="selectTestSuite('coordination')">协作测试</button>
+                        <button class="suite-btn" onclick="selectTestSuite('vision')">视觉系统</button>
+                        <button class="suite-btn" onclick="selectTestSuite('integration')">集成测试</button>
+                        <button class="suite-btn" onclick="selectTestSuite('lua_suite')">Lua测试套件</button>
+                    </div>
+                </div>
+
+                <!-- 单元测试类别 -->
+                <div class="test-category" id="unitTests">
+                    <div class="section-title">
+                        <span>🔧 单元测试 (SAT系列)</span>
+                        <span class="section-info">单一组件功能验证</span>
+                    </div>
+                    <div class="test-grid">
+                        <div class="test-card" onclick="loadTestProgram('chassis_basic')" data-test-type="chassis">
+                            <div class="test-status" id="status_chassis_basic"></div>
+                            <div class="test-icon">🚛</div>
+                            <div class="test-name">底盘基础</div>
+                        </div>
+                        <div class="test-card" onclick="loadTestProgram('left_arm_basic')" data-test-type="left_arm">
+                            <div class="test-status" id="status_left_arm_basic"></div>
+                            <div class="test-icon">🦾</div>
+                            <div class="test-name">左臂基础</div>
+                        </div>
+                        <div class="test-card" onclick="loadTestProgram('right_arm_basic')" data-test-type="right_arm">
+                            <div class="test-status" id="status_right_arm_basic"></div>
+                            <div class="test-icon">🦾</div>
+                            <div class="test-name">右臂基础</div>
+                        </div>
+                        <div class="test-card" onclick="loadTestProgram('vision_basic')" data-test-type="vision">
+                            <div class="test-status" id="status_vision_basic"></div>
+                            <div class="test-icon">📷</div>
+                            <div class="test-name">视觉基础</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 协作测试类别 -->
+                <div class="test-category" id="coordinationTests">
+                    <div class="section-title">
+                        <span>🔗 协作测试 (DAT系列)</span>
+                        <span class="section-info">多组件协同验证</span>
+                    </div>
+                    <div class="test-grid">
+                        <div class="test-card" onclick="loadTestProgram('dual_arm_sync')" data-test-type="dual_arm">
+                            <div class="test-status" id="status_dual_arm_sync"></div>
+                            <div class="test-icon">🤝</div>
+                            <div class="test-name">双臂同步</div>
+                        </div>
+                        <div class="test-card" onclick="loadTestProgram('chassis_arm_coord')" data-test-type="coordination">
+                            <div class="test-status" id="status_chassis_arm_coord"></div>
+                            <div class="test-icon">🔄</div>
+                            <div class="test-name">底盘臂联动</div>
+                        </div>
+                        <div class="test-card" onclick="loadTestProgram('vision_guided')" data-test-type="vision_guided">
+                            <div class="test-status" id="status_vision_guided"></div>
+                            <div class="test-icon">👁️</div>
+                            <div class="test-name">视觉引导</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lua测试类别 -->
+                <div class="test-category" id="luaTests" style="display: none;">
+                    <div class="section-title">
+                        <span>🟣 Lua脚本测试</span>
+                        <span class="section-info">基于WebApp Lua调用</span>
+                    </div>
+                    <div class="test-grid">
+                        <div class="test-card" onclick="loadLuaTest('SAT001_lua_left')" data-test-type="lua">
+                            <div class="test-status" id="status_lua_left"></div>
+                            <div class="test-icon">🟣</div>
+                            <div class="test-name">左臂Lua</div>
+                        </div>
+                        <div class="test-card" onclick="loadLuaTest('SAT001_lua_right')" data-test-type="lua">
+                            <div class="test-status" id="status_lua_right"></div>
+                            <div class="test-icon">🟣</div>
+                            <div class="test-name">右臂Lua</div>
+                        </div>
+                        <div class="test-card" onclick="loadLuaTest('DAT001_lua_sync')" data-test-type="lua">
+                            <div class="test-status" id="status_lua_sync"></div>
+                            <div class="test-icon">🟣</div>
+                            <div class="test-name">双臂同步Lua</div>
+                        </div>
+                        <div class="test-card" onclick="loadLuaTest('chassis_lua_basic')" data-test-type="lua">
+                            <div class="test-status" id="status_lua_chassis"></div>
+                            <div class="test-icon">🟣</div>
+                            <div class="test-name">底盘Lua</div>
+                        </div>
+                        <div class="test-card" onclick="loadLuaTest('integration_lua_full')" data-test-type="lua">
+                            <div class="test-status" id="status_lua_integration"></div>
+                            <div class="test-icon">🟣</div>
+                            <div class="test-name">全系统Lua</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 场景测试类别 -->
+                <div class="test-category" id="scenarioTests">
+                    <div class="section-title">
+                        <span>🎯 场景测试</span>
+                        <span class="section-info">端到端业务流程</span>
+                    </div>
+                    <div class="test-grid">
+                        <div class="test-card" onclick="loadTestProgram('pickup_place')" data-test-type="e2e">
+                            <div class="test-status" id="status_pickup_place"></div>
+                            <div class="test-icon">📋</div>
+                            <div class="test-name">抓取放置</div>
+                        </div>
+                        <div class="test-card" onclick="loadTestProgram('mobile_manipulation')" data-test-type="e2e">
+                            <div class="test-status" id="status_mobile_manipulation"></div>
+                            <div class="test-icon">🤖</div>
+                            <div class="test-name">移动操作</div>
+                        </div>
+                        <div class="test-card" onclick="loadTestProgram('assembly_task')" data-test-type="e2e">
+                            <div class="test-status" id="status_assembly_task"></div>
+                            <div class="test-icon">🔧</div>
+                            <div class="test-name">装配任务</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模块3: 系统日志与监控 -->
+        <div class="module log-module">
+            <div class="module-header">
+                <div class="module-title">
+                    📋 系统日志与监控
+                </div>
+                <div class="module-actions">
+                    <button class="module-action-btn tooltip" data-tooltip="打开系统监控面板" onclick="openSystemMonitor()">监控面板</button>
+                    <button class="module-action-btn tooltip" data-tooltip="日志高级筛选" onclick="openLogFilter()">高级筛选</button>
+                </div>
+            </div>
+            <div class="module-content">
+                <div class="log-controls">
+                    <button class="log-btn filter-btn active" onclick="filterLogs('all')">全部</button>
+                    <button class="log-btn filter-btn" onclick="filterLogs('info')">信息</button>
+                    <button class="log-btn filter-btn" onclick="filterLogs('success')">成功</button>
+                    <button class="log-btn filter-btn" onclick="filterLogs('warning')">警告</button>
+                    <button class="log-btn filter-btn" onclick="filterLogs('error')">错误</button>
+                    <button class="log-btn filter-btn" onclick="filterLogs('lua')">Lua</button>
+                    <button class="log-btn auto-scroll-btn active" onclick="toggleAutoScroll()" id="autoScrollBtn">自动滚动</button>
+                    <button class="log-btn clear-btn" onclick="clearLogs()">清空</button>
+                    <button class="log-btn export-btn" onclick="exportLogs()">导出</button>
+                </div>
+                <div class="log-stats" id="logStats">
+                    总计: 0 | 信息: 0 | 成功: 0 | 警告: 0 | 错误: 0 | Lua: 0
+                </div>
+                <div class="log-content" id="logContent">
+                    <!-- 日志条目将动态添加到这里 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 测试程序选择模态框 -->
+    <div class="modal" id="testProgramModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="modalTitle">选择测试程序</span>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="file-list" id="programFileList">
+                    <!-- 动态生成文件列表 -->
+                </div>
+                <div class="safety-check" id="safetyCheck" style="display: none;">
+                    <div class="safety-title">
+                        🛡️ 安全校验与功能说明
+                    </div>
+                    <div class="safety-content" id="safetyContent">
+                        <!-- 安全校验和功能说明内容 -->
+                    </div>
+                </div>
+                <div class="progress-bar" id="progressBar" style="display: none;">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closeModal()">取消</button>
+                <button class="modal-btn modal-btn-primary" onclick="confirmAndRun()" id="confirmBtn" disabled>确认执行</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量和状态管理
+        const SystemState = {
+            currentArm: 'left',
+            selectedFile: null,
+            currentTestType: '',
+            autoScroll: true,
+            logStats: {
+                total: 0,
+                info: 0,
+                success: 0,
+                warning: 0,
+                error: 0,
+                lua: 0
+            },
+            deviceStatus: {
+                leftArm: 'offline',
+                rightArm: 'offline',
+                vision: 'offline',
+                elevator: 'offline',
+                gripper: 'offline',
+                chassis: 'offline'
+            },
+            runningTests: new Set(),
+            testResults: {}
+        };
+
+        // 系统初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSystem();
+        });
+
+        function initializeSystem() {
+            addLog('系统初始化开始...', 'INFO');
+            addLog('三模块集成WebGUI启动成功', 'SUCCESS');
+            addLog('Lua测试框架已加载', 'LUA');
+            addLog('设备连接检查准备就绪', 'INFO');
+            addLog('系统初始化完成，可以开始操作', 'SUCCESS');
+            
+            // 更新日志统计
+            updateLogStats();
+        }
+
+        // ============ 设备连接与控制功能 ============
+
+        function switchArm(arm) {
+            SystemState.currentArm = arm;
+            document.getElementById('leftArmBtn').classList.toggle('active', arm === 'left');
+            document.getElementById('rightArmBtn').classList.toggle('active', arm === 'right');
+            
+            const armInfo = document.getElementById('armInfo');
+            const ip = arm === 'left' ? '192.168.58.3' : '192.168.58.2';
+            const status = SystemState.deviceStatus[arm + 'Arm'];
+            armInfo.textContent = `当前选择: ${arm === 'left' ? '左臂' : '右臂'} (${ip}) | SDK状态: ${getStatusText(status)}`;
+            
+            // 更新状态指示器
+            const statusEl = document.getElementById('armStatus');
+            statusEl.className = `status-indicator status-${status}`;
+            
+            addLog(`切换到${arm === 'left' ? '左臂' : '右臂'}模式 (${ip})`, 'INFO');
+        }
+
+        function testCurrentArm() {
+            const arm = SystemState.currentArm;
+            const ip = arm === 'left' ? '192.168.58.3' : '192.168.58.2';
+            const btnId = 'armTestBtn';
+            const statusId = 'armStatus';
+            
+            setTestingState(btnId, statusId, true);
+            addLog(`开始测试${arm === 'left' ? '左臂' : '右臂'}连接 (${ip})...`, 'INFO');
+            
+            // 模拟连接测试 - 实际应该调用后端API
+            setTimeout(() => {
+                const success = Math.random() > 0.3; // 70%成功率
+                const newStatus = success ? 'online' : 'offline';
+                
+                SystemState.deviceStatus[arm + 'Arm'] = newStatus;
+                updateDeviceStatus(statusId, newStatus);
+                setTestingState(btnId, statusId, false);
+                
+                if (success) {
+                    addLog(`${arm === 'left' ? '左臂' : '右臂'}连接成功，SDK版本: v2.1.3`, 'SUCCESS');
+                    updateArmInfo(arm, ip, 'v2.1.3');
+                } else {
+                    addLog(`${arm === 'left' ? '左臂' : '右臂'}连接失败，请检查网络`, 'ERROR');
+                    updateArmInfo(arm, ip, '连接失败');
+                }
+            }, 1500);
+        }
+
+        function updateArmInfo(arm, ip, sdkInfo) {
+            const armInfo = document.getElementById('armInfo');
+            armInfo.textContent = `当前选择: ${arm === 'left' ? '左臂' : '右臂'} (${ip}) | SDK状态: ${sdkInfo}`;
+        }
+
+        function runLuaArmTest() {
+            const arm = SystemState.currentArm;
+            addLog(`启动${arm === 'left' ? '左臂' : '右臂'}Lua连接测试...`, 'LUA');
+            
+            // 这里应该调用后端的lua测试接口
+            setTimeout(() => {
+                const success = Math.random() > 0.4;
+                if (success) {
+                    addLog(`${arm === 'left' ? '左臂' : '右臂'}Lua测试完成: 连接正常，基础运动测试通过`, 'SUCCESS');
+                } else {
+                    addLog(`${arm === 'left' ? '左臂' : '右臂'}Lua测试失败: 程序执行异常`, 'ERROR');
+                }
+            }, 3000);
+        }
+
+        function testVision() {
+            const btnQuery = 'button[onclick="testVision()"]';
+            const statusId = 'visionStatus';
+            
+            setTestingState(btnQuery, statusId, true);
+            addLog('开始测试Gemini335双目相机连通性...', 'INFO');
+            
+            setTimeout(() => {
+                const leftCamera = Math.random() > 0.3;
+                const rightCamera = Math.random() > 0.3;
+                const success = leftCamera && rightCamera;
+                
+                const newStatus = success ? 'online' : (leftCamera || rightCamera ? 'warning' : 'offline');
+                SystemState.deviceStatus.vision = newStatus;
+                updateDeviceStatus(statusId, newStatus);
+                setTestingState(btnQuery, statusId, false);
+                
+                if (success) {
+                    addLog('Gemini335双目相机连接成功，分辨率: 1280x720', 'SUCCESS');
+                    updateVisionInfo('已连接', '已连接');
+                } else if (leftCamera || rightCamera) {
+                    addLog('Gemini335相机部分连接异常，请检查设备', 'WARNING');
+                    updateVisionInfo(leftCamera ? '已连接' : '断开', rightCamera ? '已连接' : '断开');
+                } else {
+                    addLog('Gemini335相机连接失败，无法检测到设备', 'ERROR');
+                    updateVisionInfo('断开', '断开');
+                }
+            }, 2000);
+        }
+
+        function updateVisionInfo(leftStatus, rightStatus) {
+            const visionInfo = document.getElementById('visionInfo');
+            visionInfo.textContent = `左相机: ${leftStatus} | 右相机: ${rightStatus} | 分辨率: 1280x720`;
+        }
+
+        function runLuaVisionTest() {
+            addLog('启动视觉引导Lua测试...', 'LUA');
+            setTimeout(() => {
+                const success = Math.random() > 0.5;
+                if (success) {
+                    addLog('视觉引导Lua测试完成: 检测到3个目标，抓取成功率95%', 'SUCCESS');
+                } else {
+                    addLog('视觉引导Lua测试失败: 目标检测精度不足', 'ERROR');
+                }
+            }, 4000);
+        }
+
+        function calibrateVision() {
+            addLog('开始视觉系统标定...', 'INFO');
+            setTimeout(() => {
+                addLog('视觉标定完成，精度: ±0.5mm', 'SUCCESS');
+            }, 3000);
+        }
+
+        function testElevator() {
+            const btnQuery = 'button[onclick="testElevator()"]';
+            const statusId = 'elevatorStatus';
+            
+            setTestingState(btnQuery, statusId, true);
+            addLog('开始测试升降轴连接...', 'INFO');
+            
+            setTimeout(() => {
+                const success = Math.random() > 0.2;
+                const newStatus = success ? 'online' : 'offline';
+                
+                SystemState.deviceStatus.elevator = newStatus;
+                updateDeviceStatus(statusId, newStatus);
+                setTestingState(btnQuery, statusId, false);
+                
+                if (success) {
+                    addLog('升降轴连接成功，行程: 0-1000mm，精度: ±0.1mm', 'SUCCESS');
+                } else {
+                    addLog('升降轴连接失败，请检查电源和通信线', 'ERROR');
+                }
+            }, 1000);
+        }
+
+        function moveElevator(direction) {
+            if (SystemState.deviceStatus.elevator !== 'online') {
+                addLog('升降轴未连接，无法执行操作', 'WARNING');
+                return;
+            }
+            
+            const info = document.getElementById('elevatorInfo');
+            const currentHeight = parseInt(info.textContent.match(/当前高度: (\d+)mm/)?.[1] || 0);
+            let newHeight;
+            
+            if (direction === 'up') {
+                newHeight = Math.min(1000, currentHeight + 50);
+            } else {
+                newHeight = Math.max(0, currentHeight - 50);
+            }
+            
+            info.textContent = `当前高度: ${newHeight}mm | 行程范围: 0-1000mm | 精度: ±0.1mm`;
+            addLog(`升降轴${direction === 'up' ? '上升' : '下降'}到 ${newHeight}mm`, 'INFO');
+        }
+
+        function homeElevator() {
+            if (SystemState.deviceStatus.elevator !== 'online') {
+                addLog('升降轴未连接，无法执行归位', 'WARNING');
+                return;
+            }
+            
+            addLog('升降轴开始归位...', 'INFO');
+            setTimeout(() => {
+                const info = document.getElementById('elevatorInfo');
+                info.textContent = `当前高度: 0mm | 行程范围: 0-1000mm | 精度: ±0.1mm`;
+                addLog('升降轴归位完成', 'SUCCESS');
+            }, 2000);
+        }
+
+        function testGripper() {
+            const btnQuery = 'button[onclick="testGripper()"]';
+            const statusId = 'gripperStatus';
+            
+            setTestingState(btnQuery, statusId, true);
+            addLog('开始测试夹爪RS485连接...', 'INFO');
+            
+            setTimeout(() => {
+                const success = Math.random() > 0.3;
+                const newStatus = success ? 'online' : 'offline';
+                
+                SystemState.deviceStatus.gripper = newStatus;
+                updateDeviceStatus(statusId, newStatus);
+                setTestingState(btnQuery, statusId, false);
+                
+                if (success) {
+                    addLog('夹爪RS485连接成功，设备ID: 01，波特率: 115200', 'SUCCESS');
+                    updateGripperInfo(0, 0);
+                } else {
+                    addLog('夹爪RS485连接失败，请检查接线和设备地址', 'ERROR');
+                }
+            }, 1500);
+        }
+
+        function controlGripper(action) {
+            if (SystemState.deviceStatus.gripper !== 'online') {
+                addLog('夹爪未连接，无法执行操作', 'WARNING');
+                return;
+            }
+            
+            const openness = action === 'open' ? 100 : 0;
+            const force = action === 'close' ? 50 : 0;
+            
+            updateGripperInfo(openness, force);
+            addLog(`夹爪${action === 'open' ? '张开' : '闭合'}，开合度: ${openness}%，夹持力: ${force}N`, 'INFO');
+        }
+
+        function updateGripperInfo(openness, force) {
+            const gripperInfo = document.getElementById('gripperInfo');
+            gripperInfo.textContent = `开合度: ${openness}% | 夹持力: ${force}N | 通信: RS485`;
+        }
+
+        function runGripperTest() {
+            addLog('启动夹爪力控测试...', 'LUA');
+            setTimeout(() => {
+                const success = Math.random() > 0.4;
+                if (success) {
+                    addLog('夹爪力控测试完成: 最大夹持力120N，精度±2N', 'SUCCESS');
+                } else {
+                    addLog('夹爪力控测试失败: 力传感器异常', 'ERROR');
+                }
+            }, 2500);
+        }
+
+        function testChassis() {
+            const btnQuery = 'button[onclick="testChassis()"]';
+            const statusId = 'chassisStatus';
+            
+            setTestingState(btnQuery, statusId, true);
+            addLog('开始测试Hermes底盘连接 (192.168.31.211:1448)...', 'INFO');
+            
+            setTimeout(() => {
+                const success = Math.random() > 0.3;
+                const newStatus = success ? 'online' : 'offline';
+                
+                SystemState.deviceStatus.chassis = newStatus;
+                updateDeviceStatus(statusId, newStatus);
+                setTestingState(btnQuery, statusId, false);
+                
+                if (success) {
+                    const battery = Math.floor(Math.random() * 30) + 70;
+                    addLog(`Hermes底盘连接成功，电量: ${battery}%，定位精度: ±5cm`, 'SUCCESS');
+                    updateChassisInfo(battery, 0.0, 0.0, 0.0);
+                } else {
+                    addLog('Hermes底盘连接失败，请检查网络和设备状态', 'ERROR');
+                }
+            }, 1800);
+        }
+
+        function updateChassisInfo(battery, x, y, theta) {
+            const chassisInfo = document.getElementById('chassisInfo');
+            chassisInfo.textContent = `IP: 192.168.31.211:1448 | 电量: ${battery}% | 位置: (${x.toFixed(1)}, ${y.toFixed(1)}, ${theta.toFixed(1)}°)`;
+        }
+
+        function runLuaChassisTest() {
+            addLog('启动底盘移动Lua测试...', 'LUA');
+            setTimeout(() => {
+                const success = Math.random() > 0.5;
+                if (success) {
+                    addLog('底盘Lua测试完成: 6个路径点全部完成，精度±3cm', 'SUCCESS');
+                    updateChassisInfo(85, 1.2, 0.8, 15.0);
+                } else {
+                    addLog('底盘Lua测试失败: 路径规划异常', 'ERROR');
+                }
+            }, 5000);
+        }
+
+        function resetChassis() {
+            if (SystemState.deviceStatus.chassis !== 'online') {
+                addLog('底盘未连接，无法执行复位', 'WARNING');
+                return;
+            }
+            
+            addLog('底盘开始复位到原点...', 'INFO');
+            setTimeout(() => {
+                updateChassisInfo(85, 0.0, 0.0, 0.0);
+                addLog('底盘复位完成', 'SUCCESS');
+            }, 3000);
+        }
+
+        // ============ 批量测试功能 ============
+
+        function batchTestConnections() {
+            addLog('开始批量测试所有设备连接...', 'INFO');
+            
+            // 依次测试所有设备
+            setTimeout(() => testCurrentArm(), 500);
+            setTimeout(() => testVision(), 1000);
+            setTimeout(() => testElevator(), 1500);
+            setTimeout(() => testGripper(), 2000);
+            setTimeout(() => testChassis(), 2500);
+            
+            setTimeout(() => {
+                addLog('批量连接测试完成', 'SUCCESS');
+            }, 8000);
+        }
+
+        function refreshDeviceStatus() {
+            addLog('刷新所有设备状态...', 'INFO');
+            // 重置所有状态为offline
+            Object.keys(SystemState.deviceStatus).forEach(device => {
+                SystemState.deviceStatus[device] = 'offline';
+            });
+            
+            // 更新UI显示
+            ['armStatus', 'visionStatus', 'elevatorStatus', 'gripperStatus', 'chassisStatus'].forEach(id => {
+                updateDeviceStatus(id, 'offline');
+            });
+            
+            addLog('设备状态已刷新，请重新进行连接测试', 'INFO');
+        }
+
+        // ============ 测试程序管理功能 ============
+
+        function selectTestSuite(suiteType) {
+            // 更新按钮状态
+            document.querySelectorAll('.suite-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 显示/隐藏对应的测试类别
+            const testCategories = {
+                'basic': ['unitTests'],
+                'coordination': ['coordinationTests'],
+                'vision': ['coordinationTests'], // 视觉相关的协作测试
+                'integration': ['coordinationTests', 'scenarioTests'],
+                'lua_suite': ['luaTests']
+            };
+            
+            // 隐藏所有类别
+            ['unitTests', 'coordinationTests', 'scenarioTests', 'luaTests'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            
+            // 显示选中的类别
+            if (testCategories[suiteType]) {
+                testCategories[suiteType].forEach(id => {
+                    document.getElementById(id).style.display = 'block';
+                });
+            }
+            
+            addLog(`切换到测试套件: ${getSuiteDisplayName(suiteType)}`, 'INFO');
+        }
+
+        function getSuiteDisplayName(suiteType) {
+            const names = {
+                'basic': '基础功能测试',
+                'coordination': '协作测试',
+                'vision': '视觉系统测试',
+                'integration': '集成测试',
+                'lua_suite': 'Lua测试套件'
+            };
+            return names[suiteType] || suiteType;
+        }
+
+        function loadTestProgram(testType) {
+            SystemState.currentTestType = testType;
+            const modal = document.getElementById('testProgramModal');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            modalTitle.textContent = `选择${getTestTypeName(testType)}测试程序`;
+            modal.style.display = 'flex';
+            
+            loadTestFiles(testType);
+            addLog(`打开${getTestTypeName(testType)}测试程序选择`, 'INFO');
+        }
+
+        function loadLuaTest(testType) {
+            SystemState.currentTestType = testType;
+            const modal = document.getElementById('testProgramModal');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            modalTitle.textContent = `选择${testType}测试程序`;
+            modal.style.display = 'flex';
+            
+            loadLuaTestFiles(testType);
+            addLog(`打开${testType} Lua测试程序选择`, 'LUA');
+        }
+
+        function getTestTypeName(testType) {
+            const names = {
+                'chassis_basic': '底盘基础',
+                'left_arm_basic': '左臂基础',
+                'right_arm_basic': '右臂基础',
+                'vision_basic': '视觉基础',
+                'dual_arm_sync': '双臂同步',
+                'chassis_arm_coord': '底盘臂联动',
+                'vision_guided': '视觉引导',
+                'pickup_place': '抓取放置',
+                'mobile_manipulation': '移动操作',
+                'assembly_task': '装配任务'
+            };
+            return names[testType] || testType;
+        }
+
+        function loadTestFiles(testType) {
+            const fileList = document.getElementById('programFileList');
+            fileList.innerHTML = '';
+            
+            // 传统Python测试文件
+            const testFiles = {
+                'chassis_basic': [
+                    { name: 'chassis_basic_move.py', desc: '基础移动测试', type: 'python' },
+                    { name: 'chassis_navigation.py', desc: '导航功能测试', type: 'python' },
+                    { name: 'chassis_calibration.py', desc: '底盘标定测试', type: 'python' }
+                ],
+                'left_arm_basic': [
+                    { name: 'SAT001_left.py', desc: '左臂连接测试', type: 'python' },
+                    { name: 'SAT002_left.py', desc: '左臂运动测试', type: 'python' },
+                    { name: 'left_arm_workspace.py', desc: '左臂工作空间测试', type: 'python' }
+                ],
+                'right_arm_basic': [
+                    { name: 'SAT001_right.py', desc: '右臂连接测试', type: 'python' },
+                    { name: 'SAT002_right.py', desc: '右臂运动测试', type: 'python' },
+                    { name: 'right_arm_workspace.py', desc: '右臂工作空间测试', type: 'python' }
+                ],
+                'dual_arm_sync': [
+                    { name: 'DAT001_sync.py', desc: '双臂同步测试', type: 'python' },
+                    { name: 'DAT002_coordination.py', desc: '双臂协调测试', type: 'python' },
+                    { name: 'dual_arm_safety.py', desc: '双臂安全测试', type: 'python' }
+                ]
+            };
+            
+            const files = testFiles[testType] || [];
+            files.forEach(file => {
+                createFileItem(file.name, file.desc, file.type);
+            });
+        }
+
+        function loadLuaTestFiles(testType) {
+            const fileList = document.getElementById('programFileList');
+            fileList.innerHTML = '';
+            
+            // Lua测试文件
+            const luaTestFiles = {
+                'SAT001_lua_left': [
+                    { name: 'SAT001_lua_left.py', desc: '左臂Lua连接测试，包含脚本上传和执行监控', type: 'lua' }
+                ],
+                'SAT001_lua_right': [
+                    { name: 'SAT001_lua_right.py', desc: '右臂Lua连接测试，包含脚本上传和执行监控', type: 'lua' }
+                ],
+                'DAT001_lua_sync': [
+                    { name: 'DAT001_lua_sync.py', desc: '双臂同步Lua测试，多线程协调执行', type: 'lua' }
+                ],
+                'chassis_lua_basic': [
+                    { name: 'chassis_lua_basic.py', desc: '底盘基础移动Lua测试，包含路径点序列', type: 'lua' }
+                ],
+                'integration_lua_full': [
+                    { name: 'integration_lua_full.py', desc: '全系统集成Lua测试，FR3+Hermes+视觉', type: 'lua' }
+                ]
+            };
+            
+            const files = luaTestFiles[testType] || [];
+            files.forEach(file => {
+                createFileItem(file.name, file.desc, file.type);
+            });
+        }
+
+        function createFileItem(filename, description, type) {
+            const fileList = document.getElementById('programFileList');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.onclick = () => selectFile(filename, fileItem, type);
+            
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <div class="file-name">${filename}</div>
+                    <div class="file-desc">${description}</div>
+                </div>
+                <div class="file-type ${type}">${type.toUpperCase()}</div>
+            `;
+            
+            fileList.appendChild(fileItem);
+        }
+
+        function selectFile(filename, element, type) {
+            // 清除之前的选择
+            document.querySelectorAll('.file-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // 选中当前文件
+            element.classList.add('selected');
+            SystemState.selectedFile = filename;
+            
+            // 显示安全校验
+            performSafetyCheck(filename, type);
+            
+            // 启用确认按钮
+            document.getElementById('confirmBtn').disabled = false;
+        }
+
+        function performSafetyCheck(filename, type) {
+            const safetyCheck = document.getElementById('safetyCheck');
+            const safetyContent = document.getElementById('safetyContent');
+            
+            safetyCheck.style.display = 'block';
+            
+            // 模拟安全校验
+            setTimeout(() => {
+                const safetyInfo = generateSafetyInfo(filename, type);
+                safetyContent.innerHTML = safetyInfo;
+            }, 500);
+        }
+
+        function generateSafetyInfo(filename, type) {
+            const baseInfo = {
+                'SAT001': {
+                    desc: '单臂基础连接测试，验证机械臂网络连接和SDK通信',
+                    safety: '✅ 仅读取状态，无运动风险',
+                    time: '30-60秒',
+                    deps: '机械臂网络连接正常'
+                },
+                'DAT001': {
+                    desc: '双臂同步连接测试，验证双臂协调控制能力',
+                    safety: '⚠️ 涉及双臂运动，需确认安全距离',
+                    time: '2-3分钟',
+                    deps: '双臂连接正常，安全区域清空'
+                },
+                'chassis': {
+                    desc: '底盘基础移动测试，验证导航和路径规划',
+                    safety: '⚠️ 涉及底盘移动，需确认周围环境',
+                    time: '1-2分钟',
+                    deps: '底盘连接正常，移动区域清空'
+                },
+                'integration': {
+                    desc: '全系统集成测试，包含机械臂、底盘、视觉协调',
+                    safety: '🔴 高风险操作，需要完整的安全检查',
+                    time: '5-10分钟',
+                    deps: '所有子系统连接正常，操作区域完全清空'
+                }
+            };
+            
+            // 根据文件名匹配安全信息
+            let info = null;
+            for (const [key, data] of Object.entries(baseInfo)) {
+                if (filename.includes(key)) {
+                    info = data;
+                    break;
+                }
+            }
+            
+            if (!info) {
+                info = {
+                    desc: `${filename} - 系统测试程序`,
+                    safety: '✅ 常规测试，风险较低',
+                    time: '1-2分钟',
+                    deps: '相关硬件连接正常'
+                };
+            }
+            
+            const luaExtra = type === 'lua' ? `
+                <br><strong>Lua特性:</strong> 🟣 基于WebApp Lua调用，包含脚本上传、执行监控和资源清理
+                <br><strong>执行方式:</strong> 动态生成Lua脚本 → 上传到控制器 → 监控执行状态 → 自动清理
+            ` : '';
+            
+            return `
+                <strong>功能说明:</strong> ${info.desc}<br>
+                <strong>安全评估:</strong> ${info.safety}<br>
+                <strong>预计耗时:</strong> ${info.time}<br>
+                <strong>依赖条件:</strong> ${info.deps}${luaExtra}
+            `;
+        }
+
+        function confirmAndRun() {
+            if (!SystemState.selectedFile) return;
+            
+            closeModal();
+            const testId = generateTestId();
+            
+            SystemState.runningTests.add(testId);
+            updateTestCardStatus(SystemState.currentTestType, 'running');
+            
+            const isLuaTest = SystemState.selectedFile.includes('lua');
+            const logType = isLuaTest ? 'LUA' : 'INFO';
+            
+            addLog(`开始执行测试程序: ${SystemState.selectedFile}`, logType);
+            
+            // 显示进度条
+            showProgress();
+            
+            // 模拟程序执行
+            const executionTime = Math.random() * 4000 + 2000; // 2-6秒
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 95) progress = 95;
+                updateProgress(progress);
+            }, 200);
+            
+            setTimeout(() => {
+                clearInterval(progressInterval);
+                updateProgress(100);
+                
+                const success = Math.random() > 0.2; // 80%成功率
+                SystemState.runningTests.delete(testId);
+                SystemState.testResults[testId] = success;
+                
+                updateTestCardStatus(SystemState.currentTestType, success ? 'success' : 'failed');
+                
+                if (success) {
+                    addLog(`测试程序 ${SystemState.selectedFile} 执行完成 ✅`, 'SUCCESS');
+                    if (isLuaTest) {
+                        addLog(`Lua脚本执行详情: 程序状态=completed, 执行时长=${(executionTime/1000).toFixed(1)}s`, 'LUA');
+                    }
+                } else {
+                    addLog(`测试程序 ${SystemState.selectedFile} 执行失败 ❌`, 'ERROR');
+                    if (isLuaTest) {
+                        addLog(`Lua脚本执行错误: 程序状态=error, 错误码=101`, 'ERROR');
+                    }
+                }
+                
+                hideProgress();
+            }, executionTime);
+        }
+
+        function generateTestId() {
+            return `test_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        }
+
+        function updateTestCardStatus(testType, status) {
+            const statusElement = document.getElementById(`status_${testType}`);
+            if (statusElement) {
+                statusElement.className = `test-status ${status}`;
+            }
+            
+            const card = document.querySelector(`[data-test-type="${testType}"], [onclick*="${testType}"]`);
+            if (card) {
+                card.className = card.className.replace(/\b(running|success|failed)\b/g, '');
+                if (status !== 'offline') {
+                    card.classList.add(status);
+                }
+            }
+        }
+
+        function showProgress() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.display = 'block';
+        }
+
+        function updateProgress(percent) {
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${percent}%`;
+        }
+
+        function hideProgress() {
+            setTimeout(() => {
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.display = 'none';
+                updateProgress(0);
+            }, 1000);
+        }
+
+        function closeModal() {
+            document.getElementById('testProgramModal').style.display = 'none';
+            SystemState.selectedFile = null;
+            document.getElementById('confirmBtn').disabled = true;
+            document.getElementById('safetyCheck').style.display = 'none';
+            hideProgress();
+        }
+
+        function runFullTestSuite() {
+            addLog('开始运行完整测试套件...', 'INFO');
+            
+            // 模拟运行多个测试
+            const tests = ['chassis_basic', 'left_arm_basic', 'right_arm_basic', 'dual_arm_sync'];
+            tests.forEach((test, index) => {
+                setTimeout(() => {
+                    updateTestCardStatus(test, 'running');
+                    addLog(`执行 ${getTestTypeName(test)} 测试...`, 'INFO');
+                    
+                    setTimeout(() => {
+                        const success = Math.random() > 0.3;
+                        updateTestCardStatus(test, success ? 'success' : 'failed');
+                        addLog(`${getTestTypeName(test)} 测试${success ? '完成' : '失败'}`, success ? 'SUCCESS' : 'ERROR');
+                    }, 2000 + Math.random() * 2000);
+                }, index * 1000);
+            });
+            
+            setTimeout(() => {
+                addLog('完整测试套件执行完成', 'SUCCESS');
+            }, 8000);
+        }
+
+        function stopAllTests() {
+            SystemState.runningTests.clear();
+            
+            // 重置所有测试卡片状态
+            document.querySelectorAll('.test-card').forEach(card => {
+                card.className = card.className.replace(/\b(running|success|failed)\b/g, '');
+            });
+            
+            document.querySelectorAll('.test-status').forEach(status => {
+                status.className = 'test-status';
+            });
+            
+            addLog('所有运行中的测试已停止', 'WARNING');
+        }
+
+        // ============ 日志系统功能 ============
+
+        function addLog(message, level = 'INFO') {
+            const logContent = document.getElementById('logContent');
+            const timestamp = new Date().toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const levelClass = {
+                'INFO': 'log-level-info',
+                'SUCCESS': 'log-level-success',
+                'WARNING': 'log-level-warning',
+                'ERROR': 'log-level-error',
+                'LUA': 'log-level-lua'
+            }[level] || 'log-level-info';
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry new';
+            logEntry.innerHTML = `
+                <span class="log-time">${timestamp}</span>
+                <span class="log-level ${levelClass}">[${level}]</span>
+                <span class="log-message">${message}</span>
+            `;
+            
+            logContent.appendChild(logEntry);
+            
+            // 移除new类避免动画重复
+            setTimeout(() => {
+                logEntry.classList.remove('new');
+            }, 500);
+            
+            // 自动滚动
+            if (SystemState.autoScroll) {
+                logContent.scrollTop = logContent.scrollHeight;
+            }
+            
+            // 更新统计
+            SystemState.logStats.total++;
+            SystemState.logStats[level.toLowerCase()]++;
+            updateLogStats();
+        }
+
+        function updateLogStats() {
+            const stats = SystemState.logStats;
+            const statsText = `总计: ${stats.total} | 信息: ${stats.info} | 成功: ${stats.success} | 警告: ${stats.warning} | 错误: ${stats.error} | Lua: ${stats.lua}`;
+            document.getElementById('logStats').textContent = statsText;
+        }
+
+        function filterLogs(level) {
+            // 更新按钮状态
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 过滤日志条目
+            const entries = document.querySelectorAll('.log-entry');
+            entries.forEach(entry => {
+                const entryLevel = entry.querySelector('.log-level').textContent.replace(/[\[\]]/g, '');
+                if (level === 'all' || entryLevel === level.toUpperCase()) {
+                    entry.style.display = 'flex';
+                } else {
+                    entry.style.display = 'none';
+                }
+            });
+            
+            addLog(`日志筛选: ${level === 'all' ? '显示全部' : level.toUpperCase()}`, 'INFO');
+        }
+
+        function toggleAutoScroll() {
+            SystemState.autoScroll = !SystemState.autoScroll;
+            const btn = document.getElementById('autoScrollBtn');
+            btn.classList.toggle('active', SystemState.autoScroll);
+            btn.textContent = SystemState.autoScroll ? '自动滚动' : '手动滚动';
+            
+            addLog(`自动滚动已${SystemState.autoScroll ? '开启' : '关闭'}`, 'INFO');
+        }
+
+        function clearLogs() {
+            const logContent = document.getElementById('logContent');
+            logContent.innerHTML = '';
+            
+            // 重置统计
+            Object.keys(SystemState.logStats).forEach(key => {
+                SystemState.logStats[key] = 0;
+            });
+            updateLogStats();
+            
+            addLog('日志已清空', 'INFO');
+        }
+
+        function exportLogs() {
+            const logContent = document.getElementById('logContent');
+            const logs = Array.from(logContent.children).map(entry => entry.textContent).join('\n');
+            
+            const blob = new Blob([logs], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `xc-robot-logs-${new Date().toISOString().slice(0,10)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addLog('日志已导出到本地文件', 'SUCCESS');
+        }
+
+        function openSystemMonitor() {
+            addLog('打开系统监控面板...', 'INFO');
+            // 这里可以集成更高级的监控功能
+        }
+
+        function openLogFilter() {
+            addLog('打开日志高级筛选...', 'INFO');
+            // 这里可以实现更复杂的筛选逻辑
+        }
+
+        // ============ 通用工具函数 ============
+
+        function setTestingState(elementSelector, statusId, isTesting) {
+            let element;
+            if (elementSelector.startsWith('button[')) {
+                element = document.querySelector(elementSelector);
+            } else {
+                element = document.getElementById(elementSelector);
+            }
+            
+            if (element) {
+                element.disabled = isTesting;
+            }
+            
+            const statusEl = document.getElementById(statusId);
+            if (statusEl) {
+                if (isTesting) {
+                    statusEl.className = 'status-indicator status-testing';
+                }
+            }
+        }
+
+        function updateDeviceStatus(statusId, status) {
+            const statusEl = document.getElementById(statusId);
+            if (statusEl) {
+                statusEl.className = `status-indicator status-${status}`;
+            }
+        }
+
+        function getStatusText(status) {
+            const statusTexts = {
+                'online': '已连接',
+                'offline': '未连接',
+                'warning': '异常',
+                'testing': '测试中'
+            };
+            return statusTexts[status] || '未知';
+        }
+
+        function emergencyStop() {
+            addLog('🚨 执行紧急停止！所有设备停止运行', 'ERROR');
+            
+            // 停止所有测试
+            stopAllTests();
+            
+            // 重置所有设备状态
+            Object.keys(SystemState.deviceStatus).forEach(device => {
+                SystemState.deviceStatus[device] = 'offline';
+            });
+            
+            // 更新UI
+            ['armStatus', 'visionStatus', 'elevatorStatus', 'gripperStatus', 'chassisStatus'].forEach(id => {
+                updateDeviceStatus(id, 'offline');
+            });
+            
+            addLog('紧急停止执行完成，所有设备已断开', 'WARNING');
+        }
+    </script>
+</body>
+</html>

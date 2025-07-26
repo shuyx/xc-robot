@@ -21,6 +21,7 @@ sys.path.insert(0, widgets_dir)
 
 # 导入桥接模块
 from web_bridge import HelpBridge, FaceRecognitionBridge
+from enhanced_web_bridge import EnhancedWebBridge
 
 class WebBridge(QObject):
     """Python与HTML界面的通信桥接"""
@@ -2136,7 +2137,11 @@ class XCRobotWebMainWindow(QMainWindow):
         self.setGeometry(100, 100, 1400, 900)
         
         # 创建通信桥接
-        self.bridge = WebBridge()
+        self.bridge = EnhancedWebBridge()
+        
+        # 连接增强桥接的日志信号到主窗口
+        self.bridge.log_message.connect(self.on_log_message)
+        self.bridge.connection_status_changed.connect(self.on_connection_status_changed)
         
         # 创建专门的桥接实例
         self.help_bridge = HelpBridge(self)
@@ -2168,8 +2173,8 @@ class XCRobotWebMainWindow(QMainWindow):
     def load_html_page(self):
         """加载HTML页面"""
         try:
-            # 获取HTML文件路径
-            html_path = os.path.join(os.path.dirname(__file__), '..', 'UI', 'xc_os_newui.html')
+            # 获取HTML文件路径 - 使用新设计的三模块界面
+            html_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'design', 'ui', 'xc_os_webgui_redesign.html')
             
             if os.path.exists(html_path):
                 # 读取HTML文件并注入JS桥接代码
@@ -2455,7 +2460,7 @@ class XCRobotWebMainWindow(QMainWindow):
                 <body>
                     <h1>XC-ROBOT</h1>
                     <div class="error">HTML界面文件未找到</div>
-                    <p>请检查 UI/xc_os_newui.html 文件是否存在</p>
+                    <p>请检查 docs/design/ui/xc_os_webgui_redesign.html 文件是否存在</p>
                 </body>
                 </html>
                 """
@@ -2818,6 +2823,22 @@ class XCRobotWebMainWindow(QMainWindow):
         layout.addLayout(button_layout)
         
         return dialog.exec_() == QDialog.Accepted
+    
+    def on_log_message(self, message, level):
+        """处理增强桥接的日志消息"""
+        try:
+            print(f"[{level}] {message}")
+            # 这里可以添加更多的日志处理逻辑，例如显示在GUI中
+        except Exception as e:
+            print(f"处理日志消息时出错: {e}")
+    
+    def on_connection_status_changed(self, device_type, status):
+        """处理设备连接状态变化"""
+        try:
+            print(f"设备状态变化: {device_type} -> {status}")
+            # 这里可以添加更多的状态处理逻辑，例如更新UI状态指示器
+        except Exception as e:
+            print(f"处理连接状态变化时出错: {e}")
     
     def closeEvent(self, event):
         """关闭事件"""
