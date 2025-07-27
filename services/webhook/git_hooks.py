@@ -12,7 +12,14 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List
 import yaml
 
-from .webhook_service import get_webhook_notifier
+try:
+    from .webhook_service import get_webhook_notifier
+except ImportError:
+    # 当作为脚本直接运行时的备用导入
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent))
+    from webhook_service import get_webhook_notifier
 
 
 class GitHookManager:
