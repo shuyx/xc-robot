@@ -876,6 +876,958 @@
             margin-top: 12px;
         }
 
+        /* 三模块主界面样式 */
+        .three-module-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .module-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .module-main-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #2c3e50 0%, #2ECC71 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .module-main-description {
+            font-size: 16px;
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .main-modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .main-module-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2ECC71 0%, #27ae60 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .main-module-card:hover {
+            transform: translateY(-4px);
+            border-color: #2ECC71;
+            box-shadow: 0 8px 32px rgba(46, 204, 113, 0.2);
+        }
+
+        .main-module-card:hover::before {
+            opacity: 1;
+        }
+
+        .module-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .module-content {
+            margin-bottom: 20px;
+        }
+
+        .module-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .module-description {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .module-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ECC71;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .module-status {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .status-indicator {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-indicator.connecting {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .status-indicator.ready {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ECC71;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .status-indicator.active {
+            background: rgba(241, 196, 15, 0.1);
+            color: #f1c40f;
+            border: 1px solid rgba(241, 196, 15, 0.3);
+        }
+
+        /* 连接测试详细界面样式 */
+        .connection-test-detail {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+            transform: translateX(-2px);
+        }
+
+        .detail-title h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin: 0 0 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-title p {
+            color: #6c757d;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* 设备类型选项卡 */
+        .device-type-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 24px;
+            gap: 4px;
+        }
+
+        .device-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .device-tab.active {
+            background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+        }
+
+        .device-tab:hover:not(.active) {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ECC71;
+        }
+
+        /* 设备内容区域 */
+        .device-content {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 机械臂模式选择器 */
+        .arm-control-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .arm-mode-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .radio-option:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .radio-option input[type="radio"] {
+            display: none;
+        }
+
+        .radio-custom {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom {
+            border-color: #2ECC71;
+            background: #2ECC71;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* 设备网格 */
+        .device-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* 设备卡片 */
+        .device-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .device-card:hover {
+            border-color: #2ECC71;
+            box-shadow: 0 4px 20px rgba(46, 204, 113, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .device-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .device-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+
+        .device-info {
+            flex: 1;
+        }
+
+        .device-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .device-info p {
+            margin: 0;
+            font-size: 12px;
+            color: #6c757d;
+            font-family: 'Consolas', monospace;
+        }
+
+        /* 连接指示器 */
+        .connection-indicator {
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+
+        .indicator-light {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #dee2e6;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .indicator-light.connected {
+            background: #2ECC71;
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
+        }
+
+        .indicator-light.connecting {
+            background: #f1c40f;
+            animation: pulse 1.5s infinite;
+        }
+
+        .indicator-light.error {
+            background: #e74c3c;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 设备状态 */
+        .device-status {
+            margin-bottom: 16px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            font-size: 13px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .status-value {
+            font-size: 13px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-family: 'Consolas', monospace;
+        }
+
+        /* 设备操作按钮 */
+        .device-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+
+        .action-btn.secondary:hover {
+            background: #e9ecef;
+            color: #495057;
+            border-color: #adb5bd;
+        }
+
+        /* 测试程序加载模块样式 */
+        .test-program-detail {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .program-status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2ECC71;
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
+        }
+
+        .test-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .test-category-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2ECC71 0%, #27ae60 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .test-category-card:hover {
+            border-color: #2ECC71;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(46, 204, 113, 0.2);
+        }
+
+        .test-category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .category-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0 0 8px 0;
+        }
+
+        .category-content p {
+            font-size: 14px;
+            color: #6c757d;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .category-programs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .program-count {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ECC71;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* 程序管理区域 */
+        .program-management-section {
+            margin-top: 30px;
+        }
+
+        .program-list-container {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            overflow: hidden;
+        }
+
+        .program-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .back-to-categories-btn {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .back-to-categories-btn:hover {
+            background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+            transform: translateX(-2px);
+        }
+
+        .program-search input {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 200px;
+        }
+
+        .program-content-area {
+            display: flex;
+            height: 500px;
+        }
+
+        .program-list {
+            width: 300px;
+            border-right: 1px solid #e9ecef;
+            overflow-y: auto;
+        }
+
+        .program-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f8f9fa;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .program-item:hover {
+            background: rgba(46, 204, 113, 0.05);
+        }
+
+        .program-item.selected {
+            background: rgba(46, 204, 113, 0.1);
+            border-right: 3px solid #2ECC71;
+        }
+
+        .program-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .program-item-desc {
+            font-size: 12px;
+            color: #6c757d;
+            line-height: 1.3;
+        }
+
+        .program-details {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .no-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #6c757d;
+        }
+
+        .no-selection-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .program-detail-header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .program-detail-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .program-detail-path {
+            font-size: 12px;
+            color: #6c757d;
+            font-family: 'Consolas', monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .program-actions {
+            display: flex;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .program-action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .program-action-btn.primary {
+            background: linear-gradient(135deg, #2ECC71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        .program-action-btn.primary:hover {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+
+        .program-action-btn.secondary {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+
+        .program-action-btn.secondary:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        /* 系统日志模块样式 */
+        .system-log-detail {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .log-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .log-filters {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        .filter-checkbox:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .filter-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #dee2e6;
+            border-radius: 3px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .filter-checkbox input[type="checkbox"]:checked + .checkmark {
+            background: #2ECC71;
+            border-color: #2ECC71;
+        }
+
+        .filter-checkbox input[type="checkbox"]:checked + .checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 1px;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .checkmark.info { border-color: #3498db; }
+        .checkmark.success { border-color: #2ECC71; }
+        .checkmark.warning { border-color: #f1c40f; }
+        .checkmark.error { border-color: #e74c3c; }
+
+        .log-display-area {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .log-stats {
+            display: flex;
+            gap: 16px;
+        }
+
+        .log-count, .log-rate {
+            font-size: 12px;
+            color: #6c757d;
+            font-family: 'Consolas', monospace;
+        }
+
+        .auto-scroll-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 20px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #2ECC71;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+
+        .log-container {
+            height: 400px;
+            overflow-y: auto;
+            padding: 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .log-entry {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            transition: background 0.2s ease;
+        }
+
+        .log-entry:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .log-timestamp {
+            color: #6c757d;
+            min-width: 80px;
+            font-size: 11px;
+        }
+
+        .log-level {
+            min-width: 60px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+
+        .log-level.info { color: #3498db; }
+        .log-level.success { color: #2ECC71; }
+        .log-level.warning { color: #f1c40f; }
+        .log-level.error { color: #e74c3c; }
+
+        .log-source {
+            min-width: 80px;
+            color: #6c757d;
+            font-size: 11px;
+        }
+
+        .log-message {
+            flex: 1;
+            color: #2c3e50;
+        }
+
         .connection-card {
             background: white;
             border: 1px solid #e9ecef;
@@ -5573,10 +6525,560 @@
                 设备连接 > <span class="current">连接测试</span>
             </div>
             <div class="page-content" id="pageContent">
-                <div class="page-header">
-                    <div>
-                        <h2 class="page-title">🔗 连接测试</h2>
-                        <p class="page-description">测试控制计算机与机器人各个硬件模块之间的网络连通性</p>
+                <!-- 三模块主界面 -->
+                <div class="three-module-container">
+                    <div class="module-header">
+                        <h2 class="module-main-title">🤖 XC-ROBOT 控制中心</h2>
+                        <p class="module-main-description">双臂机械臂系统集成控制与测试平台</p>
+                    </div>
+                    
+                    <!-- 三个主要模块 -->
+                    <div class="main-modules-grid">
+                        <!-- 模块1: 连接测试 -->
+                        <div class="main-module-card" onclick="showConnectionTestModule()">
+                            <div class="module-icon">🔗</div>
+                            <div class="module-content">
+                                <h3 class="module-title">连接测试</h3>
+                                <p class="module-description">设备连通性测试与状态监控</p>
+                                <div class="module-features">
+                                    <span class="feature-tag">左右臂切换</span>
+                                    <span class="feature-tag">视觉模块</span>
+                                    <span class="feature-tag">升降轴</span>
+                                    <span class="feature-tag">夹爪控制</span>
+                                </div>
+                            </div>
+                            <div class="module-status">
+                                <div class="status-indicator connecting" id="connection-status">待检测</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 模块2: 测试程序加载 -->
+                        <div class="main-module-card" onclick="showTestProgramModule()">
+                            <div class="module-icon">📋</div>
+                            <div class="module-content">
+                                <h3 class="module-title">测试程序加载</h3>
+                                <p class="module-description">测试程序管理与执行控制</p>
+                                <div class="module-features">
+                                    <span class="feature-tag">底盘测试</span>
+                                    <span class="feature-tag">单臂测试</span>
+                                    <span class="feature-tag">双臂协作</span>
+                                    <span class="feature-tag">场景测试</span>
+                                </div>
+                            </div>
+                            <div class="module-status">
+                                <div class="status-indicator ready" id="program-status">就绪</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 模块3: 系统日志 -->
+                        <div class="main-module-card" onclick="showSystemLogModule()">
+                            <div class="module-icon">📊</div>
+                            <div class="module-content">
+                                <h3 class="module-title">系统日志</h3>
+                                <p class="module-description">实时日志监控与历史记录</p>
+                                <div class="module-features">
+                                    <span class="feature-tag">实时监控</span>
+                                    <span class="feature-tag">错误分析</span>
+                                    <span class="feature-tag">性能统计</span>
+                                    <span class="feature-tag">报告导出</span>
+                                </div>
+                            </div>
+                            <div class="module-status">
+                                <div class="status-indicator active" id="log-status">监控中</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 连接测试模块详细界面 -->
+                <div class="connection-test-detail" id="connectionTestDetail" style="display: none;">
+                    <div class="detail-header">
+                        <button class="back-btn" onclick="showMainModules()">← 返回</button>
+                        <div class="detail-title">
+                            <h2>🔗 连接测试</h2>
+                            <p>设备连通性测试与状态监控</p>
+                        </div>
+                        <div class="test-all-section">
+                            <button class="test-all-btn" onclick="testAllDevicesConnection()">
+                                <span class="btn-icon">🔍</span>
+                                一键检测全部设备
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 设备类型切换选项卡 -->
+                    <div class="device-type-tabs">
+                        <button class="device-tab active" onclick="switchDeviceType('arms')" data-type="arms">
+                            🦾 机械臂系统
+                        </button>
+                        <button class="device-tab" onclick="switchDeviceType('chassis')" data-type="chassis">
+                            🚛 底盘系统
+                        </button>
+                        <button class="device-tab" onclick="switchDeviceType('vision')" data-type="vision">
+                            📷 视觉系统
+                        </button>
+                        <button class="device-tab" onclick="switchDeviceType('actuators')" data-type="actuators">
+                            🔧 执行器系统
+                        </button>
+                    </div>
+                    
+                    <!-- 机械臂系统 -->
+                    <div class="device-content" id="arms-content">
+                        <div class="arm-control-section">
+                            <div class="arm-mode-selector">
+                                <label class="radio-option">
+                                    <input type="radio" name="armMode" value="left" checked>
+                                    <span class="radio-custom"></span>
+                                    左臂单独
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="armMode" value="right">
+                                    <span class="radio-custom"></span>
+                                    右臂单独
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="armMode" value="both">
+                                    <span class="radio-custom"></span>
+                                    双臂协调
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="device-grid">
+                            <div class="device-card" id="left-arm-card">
+                                <div class="device-header">
+                                    <div class="device-icon">🦾</div>
+                                    <div class="device-info">
+                                        <h4>FR3 左臂</h4>
+                                        <p>IP: 192.168.58.3</p>
+                                    </div>
+                                    <div class="connection-indicator" id="left-arm-indicator">
+                                        <div class="indicator-light"></div>
+                                    </div>
+                                </div>
+                                <div class="device-status" id="left-arm-status">
+                                    <div class="status-item">
+                                        <span class="status-label">连接状态:</span>
+                                        <span class="status-value" id="left-arm-connection">未测试</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">响应延迟:</span>
+                                        <span class="status-value" id="left-arm-latency">--</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">最后更新:</span>
+                                        <span class="status-value" id="left-arm-update">从未</span>
+                                    </div>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="action-btn primary" onclick="testSingleDevice('left-arm')">测试连接</button>
+                                    <button class="action-btn secondary" onclick="resetDevice('left-arm')">复位</button>
+                                </div>
+                            </div>
+                            
+                            <div class="device-card" id="right-arm-card">
+                                <div class="device-header">
+                                    <div class="device-icon">🦾</div>
+                                    <div class="device-info">
+                                        <h4>FR3 右臂</h4>
+                                        <p>IP: 192.168.58.2</p>
+                                    </div>
+                                    <div class="connection-indicator" id="right-arm-indicator">
+                                        <div class="indicator-light"></div>
+                                    </div>
+                                </div>
+                                <div class="device-status" id="right-arm-status">
+                                    <div class="status-item">
+                                        <span class="status-label">连接状态:</span>
+                                        <span class="status-value" id="right-arm-connection">未测试</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">响应延迟:</span>
+                                        <span class="status-value" id="right-arm-latency">--</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">最后更新:</span>
+                                        <span class="status-value" id="right-arm-update">从未</span>
+                                    </div>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="action-btn primary" onclick="testSingleDevice('right-arm')">测试连接</button>
+                                    <button class="action-btn secondary" onclick="resetDevice('right-arm')">复位</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 底盘系统 -->
+                    <div class="device-content" id="chassis-content" style="display: none;">
+                        <div class="device-grid">
+                            <div class="device-card">
+                                <div class="device-header">
+                                    <div class="device-icon">🚛</div>
+                                    <div class="device-info">
+                                        <h4>Hermes 底盘</h4>
+                                        <p>IP: 192.168.31.211:1448</p>
+                                    </div>
+                                    <div class="connection-indicator" id="chassis-indicator">
+                                        <div class="indicator-light"></div>
+                                    </div>
+                                </div>
+                                <div class="device-status">
+                                    <div class="status-item">
+                                        <span class="status-label">API状态:</span>
+                                        <span class="status-value" id="chassis-api-status">未测试</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">电池电量:</span>
+                                        <span class="status-value" id="chassis-battery">--</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">定位状态:</span>
+                                        <span class="status-value" id="chassis-localization">--</span>
+                                    </div>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="action-btn primary" onclick="testSingleDevice('chassis')">测试连接</button>
+                                    <button class="action-btn secondary" onclick="resetDevice('chassis')">复位</button>
+                                </div>
+                            </div>
+                            
+                            <div class="device-card">
+                                <div class="device-header">
+                                    <div class="device-icon">⬆️</div>
+                                    <div class="device-info">
+                                        <h4>升降轴</h4>
+                                        <p>RS485: 通道3</p>
+                                    </div>
+                                    <div class="connection-indicator" id="elevator-indicator">
+                                        <div class="indicator-light"></div>
+                                    </div>
+                                </div>
+                                <div class="device-status">
+                                    <div class="status-item">
+                                        <span class="status-label">当前高度:</span>
+                                        <span class="status-value" id="elevator-height">--</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">运行状态:</span>
+                                        <span class="status-value" id="elevator-status">停止</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">限位状态:</span>
+                                        <span class="status-value" id="elevator-limits">正常</span>
+                                    </div>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="action-btn primary" onclick="testSingleDevice('elevator')">测试连接</button>
+                                    <button class="action-btn secondary" onclick="controlElevator('home')">归零点</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 视觉系统 -->
+                    <div class="device-content" id="vision-content" style="display: none;">
+                        <div class="device-grid">
+                            <div class="device-card">
+                                <div class="device-header">
+                                    <div class="device-icon">📷</div>
+                                    <div class="device-info">
+                                        <h4>Gemini 335 主相机</h4>
+                                        <p>USB: 0x8086</p>
+                                    </div>
+                                    <div class="connection-indicator" id="main-camera-indicator">
+                                        <div class="indicator-light"></div>
+                                    </div>
+                                </div>
+                                <div class="device-status">
+                                    <div class="status-item">
+                                        <span class="status-label">连接状态:</span>
+                                        <span class="status-value" id="main-camera-status">未测试</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">分辨率:</span>
+                                        <span class="status-value" id="main-camera-resolution">1280x720</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">帧率:</span>
+                                        <span class="status-value" id="main-camera-fps">30 FPS</span>
+                                    </div>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="action-btn primary" onclick="testSingleDevice('main-camera')">测试连接</button>
+                                    <button class="action-btn secondary" onclick="captureImage('main-camera')">抓拍测试</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 执行器系统 -->
+                    <div class="device-content" id="actuators-content" style="display: none;">
+                        <div class="device-grid">
+                            <div class="device-card">
+                                <div class="device-header">
+                                    <div class="device-icon">🤏</div>
+                                    <div class="device-info">
+                                        <h4>左臂夹爪</h4>
+                                        <p>RS485: 左臂通道</p>
+                                    </div>
+                                    <div class="connection-indicator" id="left-gripper-indicator">
+                                        <div class="indicator-light"></div>
+                                    </div>
+                                </div>
+                                <div class="device-status">
+                                    <div class="status-item">
+                                        <span class="status-label">开合状态:</span>
+                                        <span class="status-value" id="left-gripper-state">未知</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">握力:</span>
+                                        <span class="status-value" id="left-gripper-force">0%</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">位置:</span>
+                                        <span class="status-value" id="left-gripper-position">--</span>
+                                    </div>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="action-btn primary" onclick="testSingleDevice('left-gripper')">测试连接</button>
+                                    <button class="action-btn secondary" onclick="controlGripper('left', 'toggle')">开合测试</button>
+                                </div>
+                            </div>
+                            
+                            <div class="device-card">
+                                <div class="device-header">
+                                    <div class="device-icon">🤏</div>
+                                    <div class="device-info">
+                                        <h4>右臂夹爪</h4>
+                                        <p>RS485: 右臂通道</p>
+                                    </div>
+                                    <div class="connection-indicator" id="right-gripper-indicator">
+                                        <div class="indicator-light"></div>
+                                    </div>
+                                </div>
+                                <div class="device-status">
+                                    <div class="status-item">
+                                        <span class="status-label">开合状态:</span>
+                                        <span class="status-value" id="right-gripper-state">未知</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">握力:</span>
+                                        <span class="status-value" id="right-gripper-force">0%</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">位置:</span>
+                                        <span class="status-value" id="right-gripper-position">--</span>
+                                    </div>
+                                </div>
+                                <div class="device-actions">
+                                    <button class="action-btn primary" onclick="testSingleDevice('right-gripper')">测试连接</button>
+                                    <button class="action-btn secondary" onclick="controlGripper('right', 'toggle')">开合测试</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 测试程序加载模块详细界面 -->
+                <div class="test-program-detail" id="testProgramDetail" style="display: none;">
+                    <div class="detail-header">
+                        <button class="back-btn" onclick="showMainModules()">← 返回</button>
+                        <div class="detail-title">
+                            <h2>📋 测试程序加载</h2>
+                            <p>测试程序管理与执行控制</p>
+                        </div>
+                        <div class="program-status-indicator">
+                            <div class="status-light" id="program-status-light"></div>
+                            <span id="program-status-text">就绪</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 7种测试分类 -->
+                    <div class="test-categories-grid">
+                        <div class="test-category-card" onclick="loadTestCategory('chassis')">
+                            <div class="category-icon">🚛</div>
+                            <div class="category-content">
+                                <h3>底盘测试</h3>
+                                <p>Hermes底盘移动控制测试</p>
+                                <div class="category-programs">
+                                    <span class="program-count">3个程序</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-category-card" onclick="loadTestCategory('left-arm')">
+                            <div class="category-icon">🦾</div>
+                            <div class="category-content">
+                                <h3>左臂测试</h3>
+                                <p>FR3左机械臂单独功能测试</p>
+                                <div class="category-programs">
+                                    <span class="program-count">4个程序</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-category-card" onclick="loadTestCategory('right-arm')">
+                            <div class="category-icon">🦾</div>
+                            <div class="category-content">
+                                <h3>右臂测试</h3>
+                                <p>FR3右机械臂单独功能测试</p>
+                                <div class="category-programs">
+                                    <span class="program-count">4个程序</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-category-card" onclick="loadTestCategory('dual-arm')">
+                            <div class="category-icon">🤖</div>
+                            <div class="category-content">
+                                <h3>双臂协作</h3>
+                                <p>双机械臂协调控制测试</p>
+                                <div class="category-programs">
+                                    <span class="program-count">2个程序</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-category-card" onclick="loadTestCategory('function-validation')">
+                            <div class="category-icon">✅</div>
+                            <div class="category-content">
+                                <h3>功能校验</h3>
+                                <p>系统功能完整性验证</p>
+                                <div class="category-programs">
+                                    <span class="program-count">5个程序</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-category-card" onclick="loadTestCategory('integration')">
+                            <div class="category-icon">🔗</div>
+                            <div class="category-content">
+                                <h3>联动测试</h3>
+                                <p>底盘与机械臂集成测试</p>
+                                <div class="category-programs">
+                                    <span class="program-count">3个程序</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-category-card" onclick="loadTestCategory('scenario')">
+                            <div class="category-icon">🎭</div>
+                            <div class="category-content">
+                                <h3>场景测试</h3>
+                                <p>综合应用场景测试</p>
+                                <div class="category-programs">
+                                    <span class="program-count">6个程序</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 程序列表和详情 -->
+                    <div class="program-management-section" id="programManagementSection" style="display: none;">
+                        <div class="program-list-container">
+                            <div class="program-list-header">
+                                <button class="back-to-categories-btn" onclick="backToCategories()">← 返回分类</button>
+                                <h3 id="selectedCategoryTitle">选择测试程序</h3>
+                                <div class="program-search">
+                                    <input type="text" placeholder="搜索程序..." id="programSearchInput" onkeyup="filterPrograms()">
+                                </div>
+                            </div>
+                            
+                            <div class="program-content-area">
+                                <!-- 左侧程序列表 -->
+                                <div class="program-list" id="programList">
+                                    <!-- 动态生成程序列表 -->
+                                </div>
+                                
+                                <!-- 右侧程序详情 -->
+                                <div class="program-details" id="programDetails">
+                                    <div class="no-selection">
+                                        <div class="no-selection-icon">📋</div>
+                                        <p>请选择一个测试程序查看详情</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 系统日志模块详细界面 -->
+                <div class="system-log-detail" id="systemLogDetail" style="display: none;">
+                    <div class="detail-header">
+                        <button class="back-btn" onclick="showMainModules()">← 返回</button>
+                        <div class="detail-title">
+                            <h2>📊 系统日志</h2>
+                            <p>实时日志监控与历史记录</p>
+                        </div>
+                        <div class="log-controls">
+                            <button class="control-btn" onclick="clearLogs()">清空日志</button>
+                            <button class="control-btn" onclick="exportLogs()">导出日志</button>
+                            <button class="control-btn" onclick="pauseLogging()" id="pauseBtn">暂停</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 日志过滤器 -->
+                    <div class="log-filters">
+                        <div class="filter-group">
+                            <label>日志级别:</label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" checked onchange="filterLogs()" data-level="info">
+                                <span class="checkmark info"></span>
+                                INFO
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" checked onchange="filterLogs()" data-level="success">
+                                <span class="checkmark success"></span>
+                                SUCCESS
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" checked onchange="filterLogs()" data-level="warning">
+                                <span class="checkmark warning"></span>
+                                WARNING
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" checked onchange="filterLogs()" data-level="error">
+                                <span class="checkmark error"></span>
+                                ERROR
+                            </label>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>日志来源:</label>
+                            <select onchange="filterLogs()" id="sourceFilter">
+                                <option value="all">全部来源</option>
+                                <option value="connection">连接测试</option>
+                                <option value="testing">程序测试</option>
+                                <option value="system">系统消息</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label>搜索:</label>
+                            <input type="text" placeholder="搜索日志内容..." onkeyup="filterLogs()" id="logSearchInput">
+                        </div>
+                    </div>
+                    
+                    <!-- 日志显示区域 -->
+                    <div class="log-display-area">
+                        <div class="log-header">
+                            <div class="log-stats">
+                                <span class="log-count" id="logCount">总计: 0 条</span>
+                                <span class="log-rate" id="logRate">速率: 0/s</span>
+                            </div>
+                            <div class="auto-scroll-toggle">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked id="autoScrollToggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span>自动滚动</span>
+                            </div>
+                        </div>
+                        
+                        <div class="log-container" id="logContainer">
+                            <!-- 日志条目将动态添加到这里 -->
+                        </div>
                     </div>
                 </div>
 
@@ -7605,6 +9107,582 @@ window.show()</code></pre>
         }
         
         // Connection Test Page
+        // 三模块主界面控制函数
+        function showMainModules() {
+            const threeModuleContainer = document.querySelector('.three-module-container');
+            const connectionTestDetail = document.getElementById('connectionTestDetail');
+            
+            if (threeModuleContainer) threeModuleContainer.style.display = 'block';
+            if (connectionTestDetail) connectionTestDetail.style.display = 'none';
+        }
+
+        function showConnectionTestModule() {
+            const threeModuleContainer = document.querySelector('.three-module-container');
+            const connectionTestDetail = document.getElementById('connectionTestDetail');
+            
+            if (threeModuleContainer) threeModuleContainer.style.display = 'none';
+            if (connectionTestDetail) connectionTestDetail.style.display = 'block';
+        }
+
+        function showTestProgramModule() {
+            const threeModuleContainer = document.querySelector('.three-module-container');
+            const testProgramDetail = document.getElementById('testProgramDetail');
+            
+            if (threeModuleContainer) threeModuleContainer.style.display = 'none';
+            if (testProgramDetail) testProgramDetail.style.display = 'block';
+        }
+
+        function showSystemLogModule() {
+            const threeModuleContainer = document.querySelector('.three-module-container');
+            const systemLogDetail = document.getElementById('systemLogDetail');
+            
+            if (threeModuleContainer) threeModuleContainer.style.display = 'none';
+            if (systemLogDetail) systemLogDetail.style.display = 'block';
+            
+            // 启动日志模拟
+            startLogSimulation();
+        }
+
+        // 测试程序分类数据
+        const testPrograms = {
+            'chassis': [
+                { name: 'chassis_relative_move.py', desc: '底盘相对移动测试', path: 'testing/functional/chassis_tests/chassis_relative_move.py' },
+                { name: 'chassis_reset_brake.py', desc: '底盘制动复位测试', path: 'testing/functional/chassis_tests/chassis_reset_brake.py' },
+                { name: 'hermes_test_connection.py', desc: 'Hermes连接测试', path: 'testing/unit/core/hermes_test_connection.py' }
+            ],
+            'left-arm': [
+                { name: 'SAT001.py', desc: '左臂连接性测试', path: 'testing/hardware/SAT001.py' },
+                { name: 'SAT002.py', desc: '左臂基础运动测试', path: 'testing/hardware/SAT002.py' },
+                { name: 'SAT003.py', desc: '左臂笛卡尔空间运动测试', path: 'testing/hardware/SAT003.py' },
+                { name: 'SAT004.py', desc: '左臂工作空间测试', path: 'testing/hardware/SAT004.py' }
+            ],
+            'right-arm': [
+                { name: 'SAT001.py', desc: '右臂连接性测试', path: 'testing/hardware/SAT001.py' },
+                { name: 'SAT002.py', desc: '右臂基础运动测试', path: 'testing/hardware/SAT002.py' },
+                { name: 'SAT003.py', desc: '右臂笛卡尔空间运动测试', path: 'testing/hardware/SAT003.py' },
+                { name: 'SAT004.py', desc: '右臂工作空间测试', path: 'testing/hardware/SAT004.py' }
+            ],
+            'dual-arm': [
+                { name: 'DAT001.py', desc: '双臂同步连接测试', path: 'testing/hardware/DAT001.py' },
+                { name: 'DAT002.py', desc: '双臂安全距离测试', path: 'testing/hardware/DAT002.py' }
+            ],
+            'function-validation': [
+                { name: 'fr3_diagnostic.py', desc: 'FR3诊断工具', path: 'testing/scripts/fr3_diagnostic.py' },
+                { name: 'dual_arm_connection.py', desc: '双臂连接验证', path: 'testing/unit/core/dual_arm_connection.py' },
+                { name: 'fr3_simple_test.py', desc: 'FR3简单测试', path: 'testing/unit/core/fr3_simple_test.py' },
+                { name: 'hermes_controller.py', desc: 'Hermes控制器测试', path: 'testing/unit/core/hermes_controller.py' },
+                { name: 'stl_validation.py', desc: 'STL模型验证', path: 'testing/utilities/validators/stl_validation.py' }
+            ],
+            'integration': [
+                { name: 'dual_arm_realtime_monitor.py', desc: '双臂实时监控', path: 'testing/integration/dual_arm_realtime_monitor.py' },
+                { name: 'chassis_relative_move.py', desc: '底盘集成移动', path: 'testing/integration/chassis_relative_move.py' },
+                { name: 'dual_arm_wave_controller.py', desc: '双臂挥手控制器', path: 'testing/unit/core/dual_arm_wave_controller.py' }
+            ],
+            'scenario': [
+                { name: 'dual_arm_simulation_trajectory.py', desc: '双臂仿真轨迹', path: 'testing/simulation/dual_arm_simulation_trajectory.py' },
+                { name: 'dh_parameter_analyzer.py', desc: 'DH参数分析', path: 'testing/utilities/dh_parameter_analyzer.py' },
+                { name: 'quick_test.py', desc: '快速测试工具', path: 'testing/utilities/quick_test.py' },
+                { name: 'robodk_converter.py', desc: 'RoboDK转换器', path: 'testing/utilities/robodk_converter.py' },
+                { name: 'pdf_to_text.py', desc: 'PDF文档处理', path: 'testing/utilities/pdf_to_text.py' },
+                { name: 'DAT001.py', desc: '双臂验收测试', path: 'testing/integration/acceptance/DAT001.py' }
+            ]
+        };
+
+        // 加载测试分类
+        function loadTestCategory(category) {
+            const categoriesGrid = document.querySelector('.test-categories-grid');
+            const programManagementSection = document.getElementById('programManagementSection');
+            const selectedCategoryTitle = document.getElementById('selectedCategoryTitle');
+            const programList = document.getElementById('programList');
+            const programDetails = document.getElementById('programDetails');
+            
+            // 隐藏分类网格，显示程序管理区域
+            categoriesGrid.style.display = 'none';
+            programManagementSection.style.display = 'block';
+            
+            // 更新标题
+            const categoryNames = {
+                'chassis': '底盘测试',
+                'left-arm': '左臂测试',
+                'right-arm': '右臂测试',
+                'dual-arm': '双臂协作',
+                'function-validation': '功能校验',
+                'integration': '联动测试',
+                'scenario': '场景测试'
+            };
+            selectedCategoryTitle.textContent = categoryNames[category] || category;
+            
+            // 生成程序列表
+            const programs = testPrograms[category] || [];
+            programList.innerHTML = programs.map(program => `
+                <div class="program-item" onclick="selectProgram('${category}', '${program.name}')">
+                    <div class="program-item-title">${program.name}</div>
+                    <div class="program-item-desc">${program.desc}</div>
+                </div>
+            `).join('');
+            
+            // 重置程序详情
+            programDetails.innerHTML = `
+                <div class="no-selection">
+                    <div class="no-selection-icon">📋</div>
+                    <p>请选择一个测试程序查看详情</p>
+                </div>
+            `;
+        }
+
+        // 返回分类选择
+        function backToCategories() {
+            const categoriesGrid = document.querySelector('.test-categories-grid');
+            const programManagementSection = document.getElementById('programManagementSection');
+            
+            categoriesGrid.style.display = 'grid';
+            programManagementSection.style.display = 'none';
+        }
+
+        // 选择程序
+        function selectProgram(category, programName) {
+            // 更新选中状态
+            document.querySelectorAll('.program-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            event.target.closest('.program-item').classList.add('selected');
+            
+            // 获取程序信息
+            const programs = testPrograms[category] || [];
+            const program = programs.find(p => p.name === programName);
+            
+            if (program) {
+                showProgramDetails(program);
+            }
+        }
+
+        // 显示程序详情
+        function showProgramDetails(program) {
+            const programDetails = document.getElementById('programDetails');
+            
+            programDetails.innerHTML = `
+                <div class="program-detail-header">
+                    <div class="program-detail-title">${program.name}</div>
+                    <div class="program-detail-path">${program.path}</div>
+                </div>
+                
+                <div class="program-actions">
+                    <button class="program-action-btn primary" onclick="loadAndValidateProgram('${program.path}')">
+                        加载程序
+                    </button>
+                    <button class="program-action-btn secondary" onclick="previewProgram('${program.path}')">
+                        预览代码
+                    </button>
+                </div>
+                
+                <div class="program-info">
+                    <h4>程序描述</h4>
+                    <p>${program.desc}</p>
+                    
+                    <h4>安全检查</h4>
+                    <div class="safety-status" id="safety-status-${program.name.replace('.py', '')}">
+                        <div class="safety-item">
+                            <span class="safety-label">语法检查:</span>
+                            <span class="safety-value pending">待检查</span>
+                        </div>
+                        <div class="safety-item">
+                            <span class="safety-label">安全性验证:</span>
+                            <span class="safety-value pending">待检查</span>
+                        </div>
+                        <div class="safety-item">
+                            <span class="safety-label">碰撞风险:</span>
+                            <span class="safety-value pending">待评估</span>
+                        </div>
+                    </div>
+                    
+                    <h4>预计执行时间</h4>
+                    <p>约 2-5 分钟</p>
+                    
+                    <h4>依赖项</h4>
+                    <p>FR3 SDK, Python 3.8+, NumPy</p>
+                </div>
+            `;
+        }
+
+        // 程序搜索过滤
+        function filterPrograms() {
+            const searchInput = document.getElementById('programSearchInput');
+            const programItems = document.querySelectorAll('.program-item');
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            programItems.forEach(item => {
+                const title = item.querySelector('.program-item-title').textContent.toLowerCase();
+                const desc = item.querySelector('.program-item-desc').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 加载并验证程序
+        function loadAndValidateProgram(programPath) {
+            addLogEntry('info', 'testing', `开始加载程序: ${programPath}`);
+            
+            // 模拟程序加载和安全检查
+            setTimeout(() => {
+                addLogEntry('success', 'testing', '语法检查通过');
+                addLogEntry('success', 'testing', '安全性验证通过');
+                addLogEntry('info', 'testing', '碰撞风险评估: 低风险');
+                addLogEntry('success', 'testing', `程序 ${programPath} 加载完成，可以安全执行`);
+                
+                // 显示确认执行对话框
+                if (confirm('程序加载成功！安全检查通过，是否立即执行测试？')) {
+                    executeProgram(programPath);
+                }
+            }, 3000);
+        }
+
+        // 预览程序
+        function previewProgram(programPath) {
+            alert(`预览程序代码功能 - 开发中...\n文件: ${programPath}`);
+        }
+
+        // 执行程序
+        function executeProgram(programPath) {
+            addLogEntry('info', 'testing', `开始执行程序: ${programPath}`);
+            
+            // 模拟程序执行
+            const steps = [
+                '初始化机器人连接...',
+                '验证设备状态...',
+                '开始测试流程...',
+                '执行测试步骤 1/3...',
+                '执行测试步骤 2/3...',
+                '执行测试步骤 3/3...',
+                '收集测试数据...',
+                '生成测试报告...'
+            ];
+            
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    addLogEntry('info', 'testing', step);
+                    if (index === steps.length - 1) {
+                        addLogEntry('success', 'testing', `程序 ${programPath} 执行完成`);
+                    }
+                }, (index + 1) * 1000);
+            });
+        }
+
+        // 日志系统相关变量
+        let logEntries = [];
+        let logSimulationInterval;
+        let isLoggingPaused = false;
+        let logCounter = 0;
+
+        // 添加日志条目
+        function addLogEntry(level, source, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = {
+                id: ++logCounter,
+                timestamp,
+                level,
+                source,
+                message,
+                time: Date.now()
+            };
+            
+            logEntries.push(entry);
+            
+            // 限制日志条目数量
+            if (logEntries.length > 1000) {
+                logEntries = logEntries.slice(-500);
+            }
+            
+            updateLogDisplay();
+            updateLogStats();
+        }
+
+        // 更新日志显示
+        function updateLogDisplay() {
+            if (isLoggingPaused) return;
+            
+            const logContainer = document.getElementById('logContainer');
+            const autoScrollToggle = document.getElementById('autoScrollToggle');
+            
+            if (!logContainer) return;
+            
+            // 应用过滤器
+            const filteredEntries = filterLogEntries();
+            
+            // 显示最新的100条日志
+            const displayEntries = filteredEntries.slice(-100);
+            
+            logContainer.innerHTML = displayEntries.map(entry => `
+                <div class="log-entry" data-level="${entry.level}" data-source="${entry.source}">
+                    <span class="log-timestamp">${entry.timestamp}</span>
+                    <span class="log-level ${entry.level}">${entry.level.toUpperCase()}</span>
+                    <span class="log-source">${entry.source}</span>
+                    <span class="log-message">${entry.message}</span>
+                </div>
+            `).join('');
+            
+            // 自动滚动到底部
+            if (autoScrollToggle && autoScrollToggle.checked) {
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+        }
+
+        // 过滤日志条目
+        function filterLogEntries() {
+            const levelFilters = Array.from(document.querySelectorAll('input[data-level]:checked')).map(cb => cb.dataset.level);
+            const sourceFilter = document.getElementById('sourceFilter')?.value || 'all';
+            const searchTerm = document.getElementById('logSearchInput')?.value.toLowerCase() || '';
+            
+            return logEntries.filter(entry => {
+                const levelMatch = levelFilters.includes(entry.level);
+                const sourceMatch = sourceFilter === 'all' || entry.source === sourceFilter;
+                const searchMatch = !searchTerm || entry.message.toLowerCase().includes(searchTerm);
+                
+                return levelMatch && sourceMatch && searchMatch;
+            });
+        }
+
+        // 更新日志统计
+        function updateLogStats() {
+            const logCount = document.getElementById('logCount');
+            const logRate = document.getElementById('logRate');
+            
+            if (logCount) {
+                logCount.textContent = `总计: ${logEntries.length} 条`;
+            }
+            
+            // 计算最近一分钟的日志速率
+            const oneMinuteAgo = Date.now() - 60000;
+            const recentEntries = logEntries.filter(entry => entry.time > oneMinuteAgo);
+            const rate = Math.round(recentEntries.length / 60 * 10) / 10;
+            
+            if (logRate) {
+                logRate.textContent = `速率: ${rate}/s`;
+            }
+        }
+
+        // 启动日志模拟
+        function startLogSimulation() {
+            if (logSimulationInterval) {
+                clearInterval(logSimulationInterval);
+            }
+            
+            // 添加初始日志
+            addLogEntry('info', 'system', 'XC-ROBOT 系统启动');
+            addLogEntry('success', 'connection', '系统初始化完成');
+            
+            // 模拟定期产生日志
+            logSimulationInterval = setInterval(() => {
+                if (!isLoggingPaused) {
+                    const messages = [
+                        { level: 'info', source: 'system', message: '系统状态检查正常' },
+                        { level: 'info', source: 'connection', message: '心跳检测 - 所有设备在线' },
+                        { level: 'success', source: 'testing', message: '定期健康检查完成' },
+                        { level: 'info', source: 'system', message: 'CPU使用率: 15%, 内存使用率: 32%' },
+                        { level: 'info', source: 'connection', message: '网络延迟检测 - 平均 25ms' }
+                    ];
+                    
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    addLogEntry(randomMessage.level, randomMessage.source, randomMessage.message);
+                    
+                    // 偶尔添加警告或错误日志
+                    if (Math.random() < 0.1) {
+                        const warningMessages = [
+                            { level: 'warning', source: 'system', message: '磁盘空间使用率超过80%' },
+                            { level: 'warning', source: 'connection', message: '右臂响应延迟较高: 150ms' },
+                            { level: 'error', source: 'connection', message: '视觉系统临时连接中断' }
+                        ];
+                        const warningMessage = warningMessages[Math.floor(Math.random() * warningMessages.length)];
+                        addLogEntry(warningMessage.level, warningMessage.source, warningMessage.message);
+                    }
+                }
+            }, 3000);
+        }
+
+        // 日志控制函数
+        function clearLogs() {
+            logEntries = [];
+            logCounter = 0;
+            updateLogDisplay();
+            updateLogStats();
+            addLogEntry('info', 'system', '日志已清空');
+        }
+
+        function exportLogs() {
+            const dataStr = JSON.stringify(logEntries, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `xc-robot-logs-${new Date().toISOString().slice(0,10)}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            addLogEntry('info', 'system', `日志已导出: ${exportFileDefaultName}`);
+        }
+
+        function pauseLogging() {
+            const pauseBtn = document.getElementById('pauseBtn');
+            isLoggingPaused = !isLoggingPaused;
+            
+            if (isLoggingPaused) {
+                pauseBtn.textContent = '恢复';
+                addLogEntry('warning', 'system', '日志记录已暂停');
+            } else {
+                pauseBtn.textContent = '暂停';
+                addLogEntry('info', 'system', '日志记录已恢复');
+            }
+        }
+
+        function filterLogs() {
+            updateLogDisplay();
+        }
+
+        // 设备类型切换函数
+        function switchDeviceType(deviceType) {
+            // 更新选项卡状态
+            document.querySelectorAll('.device-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-type="${deviceType}"]`).classList.add('active');
+            
+            // 显示对应内容
+            document.querySelectorAll('.device-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(`${deviceType}-content`).style.display = 'block';
+        }
+
+        // 单设备测试函数
+        function testSingleDevice(deviceId) {
+            const indicator = document.querySelector(`#${deviceId}-indicator .indicator-light`);
+            const statusElements = {
+                connection: document.getElementById(`${deviceId}-connection`),
+                latency: document.getElementById(`${deviceId}-latency`),
+                update: document.getElementById(`${deviceId}-update`)
+            };
+            
+            // 设置连接中状态
+            indicator.className = 'indicator-light connecting';
+            if (statusElements.connection) {
+                statusElements.connection.textContent = '连接中...';
+                statusElements.connection.style.color = '#f1c40f';
+            }
+            
+            // 模拟连接测试
+            setTimeout(() => {
+                const isSuccess = Math.random() > 0.3; // 70% success rate
+                const latency = Math.floor(Math.random() * 50) + 10;
+                
+                if (isSuccess) {
+                    indicator.className = 'indicator-light connected';
+                    if (statusElements.connection) {
+                        statusElements.connection.textContent = '已连接';
+                        statusElements.connection.style.color = '#2ECC71';
+                    }
+                    if (statusElements.latency) {
+                        statusElements.latency.textContent = `${latency} ms`;
+                    }
+                } else {
+                    indicator.className = 'indicator-light error';
+                    if (statusElements.connection) {
+                        statusElements.connection.textContent = '连接失败';
+                        statusElements.connection.style.color = '#e74c3c';
+                    }
+                    if (statusElements.latency) {
+                        statusElements.latency.textContent = 'N/A';
+                    }
+                }
+                
+                if (statusElements.update) {
+                    statusElements.update.textContent = new Date().toLocaleTimeString();
+                }
+            }, 2000);
+        }
+
+        // 设备复位函数
+        function resetDevice(deviceId) {
+            const indicator = document.querySelector(`#${deviceId}-indicator .indicator-light`);
+            const statusElements = {
+                connection: document.getElementById(`${deviceId}-connection`),
+                latency: document.getElementById(`${deviceId}-latency`),
+                update: document.getElementById(`${deviceId}-update`)
+            };
+            
+            indicator.className = 'indicator-light';
+            if (statusElements.connection) {
+                statusElements.connection.textContent = '未测试';
+                statusElements.connection.style.color = '#6c757d';
+            }
+            if (statusElements.latency) {
+                statusElements.latency.textContent = '--';
+            }
+            if (statusElements.update) {
+                statusElements.update.textContent = '从未';
+            }
+        }
+
+        // 电梯控制函数
+        function controlElevator(action) {
+            if (action === 'home') {
+                document.getElementById('elevator-height').textContent = '0 mm';
+                document.getElementById('elevator-status').textContent = '归零中...';
+                setTimeout(() => {
+                    document.getElementById('elevator-status').textContent = '已归零';
+                }, 2000);
+            }
+        }
+
+        // 图像抓拍函数
+        function captureImage(cameraId) {
+            alert(`${cameraId} 抓拍功能 - 开发中...`);
+        }
+
+        // 夹爪控制函数
+        function controlGripper(side, action) {
+            const stateElement = document.getElementById(`${side}-gripper-state`);
+            if (action === 'toggle') {
+                const currentState = stateElement.textContent;
+                if (currentState === '未知' || currentState === '闭合') {
+                    stateElement.textContent = '张开';
+                    stateElement.style.color = '#2ECC71';
+                } else {
+                    stateElement.textContent = '闭合';
+                    stateElement.style.color = '#e74c3c';
+                }
+            }
+        }
+
+        // 一键检测所有设备
+        function testAllDevicesConnection() {
+            // 获取当前激活的设备类型
+            const activeTab = document.querySelector('.device-tab.active');
+            const deviceType = activeTab.dataset.type;
+            
+            // 根据设备类型测试相应设备
+            switch(deviceType) {
+                case 'arms':
+                    testSingleDevice('left-arm');
+                    setTimeout(() => testSingleDevice('right-arm'), 1000);
+                    break;
+                case 'chassis':
+                    testSingleDevice('chassis');
+                    setTimeout(() => testSingleDevice('elevator'), 1000);
+                    break;
+                case 'vision':
+                    testSingleDevice('main-camera');
+                    break;
+                case 'actuators':
+                    testSingleDevice('left-gripper');
+                    setTimeout(() => testSingleDevice('right-gripper'), 1000);
+                    break;
+            }
+        }
+
         function showConnectionTestPage() {
             const pageContent = document.getElementById('pageContent');
             
@@ -14302,6 +16380,341 @@ window.show()</code></pre>
             // 未来可以在这里添加其他页面的清理逻辑
             // 例如：清理3D渲染器、停止视频流等
         }
+
+        // ===========================================
+        // Lua-based 测试系统 API 集成
+        // ===========================================
+        
+        // API配置
+        const TEST_API_BASE_URL = 'http://localhost:5000/api';
+        
+        // 全局测试状态
+        let testSystemStatus = {
+            apiConnected: false,
+            lastTestResults: {},
+            currentTestType: null,
+            testInProgress: false
+        };
+        
+        // 检查测试API连接状态
+        async function checkTestApiConnection() {
+            try {
+                const response = await fetch(`${TEST_API_BASE_URL}/status`);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    testSystemStatus.apiConnected = true;
+                    console.log('测试API连接正常:', data);
+                    return true;
+                } else {
+                    testSystemStatus.apiConnected = false;
+                    console.error('测试API状态异常:', data);
+                    return false;
+                }
+            } catch (error) {
+                testSystemStatus.apiConnected = false;
+                console.error('无法连接到测试API:', error);
+                return false;
+            }
+        }
+        
+        // 设备连接测试函数 (替换原有的testConnection)
+        async function testConnection(deviceType) {
+            if (!testSystemStatus.apiConnected) {
+                const connected = await checkTestApiConnection();
+                if (!connected) {
+                    alert('无法连接到测试系统API，请检查测试服务是否启动');
+                    return;
+                }
+            }
+            
+            console.log('开始测试连接:', deviceType);
+            
+            // 显示连接测试状态
+            updateConnectionStatus(deviceType, 'testing');
+            
+            try {
+                // 准备设备参数
+                let deviceInfo = {
+                    device_type: deviceType
+                };
+                
+                // 设置设备IP地址
+                switch(deviceType) {
+                    case 'left_arm':
+                        deviceInfo.device_type = 'fr3_left';
+                        deviceInfo.device_ip = '192.168.58.3';
+                        break;
+                    case 'right_arm':
+                        deviceInfo.device_type = 'fr3_right';
+                        deviceInfo.device_ip = '192.168.58.2';
+                        break;
+                    case 'chassis':
+                        deviceInfo.device_ip = '192.168.31.211:1448';
+                        break;
+                    case 'vision':
+                        deviceInfo.device_type = 'vision';
+                        break;
+                    case 'gripper':
+                        deviceInfo.device_type = 'gripper';
+                        break;
+                }
+                
+                // 调用测试API
+                const response = await fetch(`${TEST_API_BASE_URL}/test/connection`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(deviceInfo)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success' && result.data && result.data.status === 'passed') {
+                    updateConnectionStatus(deviceType, 'connected');
+                    console.log(`${deviceType} 连接测试成功:`, result.data);
+                } else {
+                    updateConnectionStatus(deviceType, 'failed');
+                    console.error(`${deviceType} 连接测试失败:`, result);
+                }
+                
+                // 存储测试结果
+                testSystemStatus.lastTestResults[deviceType] = result.data;
+                
+            } catch (error) {
+                updateConnectionStatus(deviceType, 'failed');
+                console.error(`${deviceType} 连接测试异常:`, error);
+            }
+        }
+        
+        // 更新连接状态显示
+        function updateConnectionStatus(deviceType, status) {
+            // 这里应该更新UI中对应设备的状态显示
+            const statusColors = {
+                'testing': '#FFA500',
+                'connected': '#2ECC71',
+                'failed': '#E74C3C',
+                'disconnected': '#95A5A6'
+            };
+            
+            const statusTexts = {
+                'testing': '测试中...',
+                'connected': '已连接',
+                'failed': '连接失败',
+                'disconnected': '未连接'
+            };
+            
+            // 查找对应的状态元素并更新
+            const statusElement = document.querySelector(`[data-device="${deviceType}"] .status-indicator`);
+            if (statusElement) {
+                statusElement.style.backgroundColor = statusColors[status];
+                statusElement.textContent = statusTexts[status];
+            }
+            
+            console.log(`设备 ${deviceType} 状态更新为: ${status}`);
+        }
+        
+        // 运行测试程序
+        async function runTestProgram(testType, testFile = null) {
+            if (!testSystemStatus.apiConnected) {
+                const connected = await checkTestApiConnection();
+                if (!connected) {
+                    alert('无法连接到测试系统API，请检查测试服务是否启动');
+                    return false;
+                }
+            }
+            
+            if (testSystemStatus.testInProgress) {
+                alert('有测试正在进行中，请等待完成后再开始新的测试');
+                return false;
+            }
+            
+            console.log('开始运行测试程序:', testType, testFile);
+            
+            try {
+                testSystemStatus.testInProgress = true;
+                testSystemStatus.currentTestType = testType;
+                
+                // 显示测试进度
+                updateTestProgress(testType, 'starting');
+                
+                const requestData = {
+                    test_type: testType,
+                    test_file: testFile
+                };
+                
+                const response = await fetch(`${TEST_API_BASE_URL}/test/run`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    updateTestProgress(testType, 'completed');
+                    console.log(`测试 ${testType} 执行成功:`, result.data);
+                    
+                    // 显示测试结果
+                    displayTestResult(testType, result.data);
+                    
+                } else if (result.status === 'safety_check_failed') {
+                    updateTestProgress(testType, 'safety_failed');
+                    console.warn(`测试 ${testType} 安全检查未通过:`, result.safety_result);
+                    
+                    // 显示安全警告
+                    displaySafetyWarning(testType, result.safety_result);
+                    
+                } else {
+                    updateTestProgress(testType, 'failed');
+                    console.error(`测试 ${testType} 执行失败:`, result);
+                }
+                
+                return result.status === 'success';
+                
+            } catch (error) {
+                updateTestProgress(testType, 'error');
+                console.error(`测试 ${testType} 执行异常:`, error);
+                return false;
+            } finally {
+                testSystemStatus.testInProgress = false;
+                testSystemStatus.currentTestType = null;
+            }
+        }
+        
+        // 更新测试进度显示
+        function updateTestProgress(testType, status) {
+            const statusTexts = {
+                'starting': '正在启动测试...',
+                'running': '测试进行中...',
+                'completed': '测试完成',
+                'failed': '测试失败',
+                'safety_failed': '安全检查失败',
+                'error': '测试异常'
+            };
+            
+            console.log(`测试 ${testType} 进度: ${statusTexts[status]}`);
+            
+            // 这里可以更新UI中的进度显示
+            // 例如更新进度条、状态文本等
+        }
+        
+        // 显示测试结果
+        function displayTestResult(testType, result) {
+            console.log('测试结果:', result);
+            
+            // 这里可以在UI中显示详细的测试结果
+            // 例如弹出结果对话框、更新结果列表等
+            
+            alert(`测试 ${testType} 完成\n状态: ${result.status}\n详情: ${result.message || '无详细信息'}`);
+        }
+        
+        // 显示安全警告
+        function displaySafetyWarning(testType, safetyResult) {
+            console.log('安全警告:', safetyResult);
+            
+            let warningMessage = `测试 ${testType} 安全检查未通过:\n\n`;
+            
+            if (safetyResult.data && safetyResult.data.errors) {
+                safetyResult.data.errors.forEach(error => {
+                    warningMessage += `❌ ${error}\n`;
+                });
+            }
+            
+            if (safetyResult.data && safetyResult.data.warnings) {
+                warningMessage += '\n注意事项:\n';
+                safetyResult.data.warnings.forEach(warning => {
+                    warningMessage += `⚠️ ${warning}\n`;
+                });
+            }
+            
+            alert(warningMessage);
+        }
+        
+        // 验证测试文件
+        async function validateTestFile(testFile) {
+            try {
+                const response = await fetch(`${TEST_API_BASE_URL}/test/file/validate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ test_file: testFile })
+                });
+                
+                const result = await response.json();
+                return result;
+                
+            } catch (error) {
+                console.error('测试文件验证异常:', error);
+                return { valid: false, message: '验证失败' };
+            }
+        }
+        
+        // 获取系统日志
+        async function getSystemLogs(filterLevel = 'all', maxLines = 100) {
+            try {
+                const response = await fetch(`${TEST_API_BASE_URL}/logs?level=${filterLevel}&max_lines=${maxLines}`);
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    return result.data;
+                } else {
+                    console.error('获取日志失败:', result);
+                    return [];
+                }
+                
+            } catch (error) {
+                console.error('获取日志异常:', error);
+                return [];
+            }
+        }
+        
+        // 紧急停止功能
+        async function emergencyStop() {
+            try {
+                console.log('发送紧急停止指令...');
+                
+                const response = await fetch(`${TEST_API_BASE_URL}/emergency_stop`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    console.log('紧急停止指令发送成功:', result.results);
+                    alert('紧急停止指令已发送，所有设备正在停止');
+                } else {
+                    console.error('紧急停止指令发送失败:', result);
+                    alert('紧急停止指令发送失败，请手动停止设备');
+                }
+                
+            } catch (error) {
+                console.error('紧急停止异常:', error);
+                alert('紧急停止系统异常，请立即手动停止所有设备');
+            }
+        }
+        
+        // 页面加载时初始化测试系统
+        document.addEventListener('DOMContentLoaded', function() {
+            // 延迟检查测试API连接，避免影响页面加载
+            setTimeout(checkTestApiConnection, 2000);
+        });
+        
+        // 添加全局键盘快捷键支持紧急停止
+        document.addEventListener('keydown', function(event) {
+            // Ctrl + Shift + E 或 空格键 触发紧急停止
+            if ((event.ctrlKey && event.shiftKey && event.key === 'E') || event.key === ' ') {
+                event.preventDefault();
+                emergencyStop();
+            }
+        });
         
     </script>
 </body>
