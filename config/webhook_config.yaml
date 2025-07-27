@@ -1,0 +1,101 @@
+# XC-ROBOT Webhook 自动通知配置
+# 支持关键词触发的webhook消息发送
+
+webhook:
+  # Webhook基础配置
+  enabled: true
+  url: "https://open.feishu.cn/open-apis/bot/v2/hook/dcd482ef-8259-461e-845e-702571abbd9c"  # 您的飞书webhook URL
+  timeout: 30
+  retry_count: 3
+  
+  # 关键词配置 - 在webhook机器人中设置统一关键词 "infobot"
+  keyword: "infobot"                  # 统一关键词
+    
+  # 消息格式配置
+  message_format:
+    timestamp_format: "%Y-%m-%d %H:%M:%S"
+    include_hostname: true
+    include_project_name: true
+    max_message_length: 1000
+
+# 监控配置
+monitoring:
+  # 文件监控设置
+  file_watch:
+    enabled: true
+    patterns: ["*.py", "*.js", "*.html", "*.css", "*.md"]
+    exclude_dirs: ["__pycache__", ".git", "node_modules", "venv"]
+    debounce_seconds: 2  # 防抖动时间
+    
+  # 调试监控设置  
+  debug_watch:
+    enabled: true
+    success_patterns:
+      - "Test passed"
+      - "SUCCESS"
+      - "✓"
+      - "完成"
+      - "成功"
+    log_files: ["logs/*.log", "testing/logs/*.json"]
+    
+  # Git监控设置
+  git_watch:
+    enabled: true
+    hook_types: ["post-commit", "pre-push"]
+
+# 通知内容模板
+templates:
+  file_created:
+    keyword: "infobot"
+    title: "📄 代码文件创建"
+    format: |
+      infobot **文件**: {filename}
+      **功能**: {description}
+      **时间**: {timestamp}
+      **项目**: XC-ROBOT
+      
+  file_modified:
+    keyword: "infobot"  
+    title: "✏️ 代码文件修改"
+    format: |
+      infobot **文件**: {filename}
+      **变更**: {changes}
+      **时间**: {timestamp}
+      **项目**: XC-ROBOT
+      
+  debug_success:
+    keyword: "infobot"
+    title: "✅ 调试成功"
+    format: |
+      infobot **调试内容**: {debug_info}
+      **结果**: {result}
+      **时间**: {timestamp}
+      **项目**: XC-ROBOT
+      
+  commit_event:
+    keyword: "infobot"
+    title: "📦 代码提交"
+    format: |
+      infobot **提交信息**: {commit_message}
+      **文件数量**: {file_count}
+      **作者**: {author}
+      **时间**: {timestamp}
+      **项目**: XC-ROBOT
+      
+  test_complete:
+    keyword: "infobot"
+    title: "🧪 测试完成"
+    format: |
+      infobot **测试类型**: {test_type}
+      **结果**: {result}
+      **时间**: {timestamp}
+      **项目**: XC-ROBOT
+      
+  error_alert:
+    keyword: "infobot"
+    title: "⚠️ 错误警告"
+    format: |
+      infobot **错误类型**: {error_type}
+      **详情**: {error_details}
+      **时间**: {timestamp}
+      **项目**: XC-ROBOT

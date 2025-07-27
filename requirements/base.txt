@@ -20,6 +20,7 @@ configparser>=5.0.0
 # 系统工具
 psutil>=5.8.0
 pathlib2>=2.3.6; python_version<'3.4'
+watchdog>=2.1.0
 
 # 平台特定依赖
 pywin32>=227; sys_platform=="win32"
