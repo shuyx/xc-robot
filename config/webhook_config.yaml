@@ -13,10 +13,10 @@ webhook:
     
   # 消息格式配置
   message_format:
-    timestamp_format: "%Y-%m-%d %H:%M:%S"
-    include_hostname: true
-    include_project_name: true
-    max_message_length: 1000
+    timestamp_format: "%m-%d %H:%M"
+    include_hostname: false
+    include_project_name: false
+    max_message_length: 100
 
 # 监控配置
 monitoring:
@@ -47,55 +47,36 @@ monitoring:
 templates:
   file_created:
     keyword: "infobot"
-    title: "📄 代码文件创建"
+    title: ""
     format: |
-      infobot **文件**: {filename}
-      **功能**: {description}
-      **时间**: {timestamp}
-      **项目**: XC-ROBOT
+      infobot 📄创建文件 {filename} | {description} | {timestamp}
       
   file_modified:
     keyword: "infobot"  
-    title: "✏️ 代码文件修改"
+    title: ""
     format: |
-      infobot **文件**: {filename}
-      **变更**: {changes}
-      **时间**: {timestamp}
-      **项目**: XC-ROBOT
+      infobot ✏️修改文件 {filename} | {changes} | {timestamp}
       
   debug_success:
     keyword: "infobot"
-    title: "✅ 调试成功"
+    title: ""
     format: |
-      infobot **调试内容**: {debug_info}
-      **结果**: {result}
-      **时间**: {timestamp}
-      **项目**: XC-ROBOT
+      infobot ✅调试成功 {debug_info} | 结果:{result} | {timestamp}
       
   commit_event:
     keyword: "infobot"
-    title: "📦 代码提交"
+    title: ""
     format: |
-      infobot **提交信息**: {commit_message}
-      **文件数量**: {file_count}
-      **作者**: {author}
-      **时间**: {timestamp}
-      **项目**: XC-ROBOT
+      infobot 📦提交代码 {commit_message} | 文件数:{file_count} | 作者:{author} | {timestamp}
       
   test_complete:
     keyword: "infobot"
-    title: "🧪 测试完成"
+    title: ""
     format: |
-      infobot **测试类型**: {test_type}
-      **结果**: {result}
-      **时间**: {timestamp}
-      **项目**: XC-ROBOT
+      infobot 🧪测试完成 {test_type} | 结果:{result} | {timestamp}
       
   error_alert:
     keyword: "infobot"
-    title: "⚠️ 错误警告"
+    title: ""
     format: |
-      infobot **错误类型**: {error_type}
-      **详情**: {error_details}
-      **时间**: {timestamp}
-      **项目**: XC-ROBOT
+      infobot ⚠️错误警告 {error_type} | {error_details} | {timestamp}

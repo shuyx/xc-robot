@@ -101,11 +101,18 @@ class WebhookNotifier:
             # 格式化消息内容
             formatted_message = message_format.format(**message_data)
             
-            # 构建飞书webhook payload
+            # 限制消息长度在100字以内
+            max_length = self.config.get('webhook', {}).get('message_format', {}).get('max_message_length', 100)
+            if len(formatted_message) > max_length:
+                # 截断并添加省略号
+                formatted_message = formatted_message[:max_length-3] + "..."
+            
+            # 构建飞书webhook payload (简化格式，去掉title)
+            final_message = f"{title}\n\n{formatted_message}" if title else formatted_message
             payload = {
                 'msg_type': 'text',
                 'content': {
-                    'text': f"{title}\n\n{formatted_message}"
+                    'text': final_message
                 }
             }
             
