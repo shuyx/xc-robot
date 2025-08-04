@@ -28,7 +28,12 @@
 ## 项目介绍
 
 YOU MUST 记住这些内容
-
+1，用中文跟我交流
+2，每次写代码除非我测试完给你说完美了之外，不要自己写md说明文件和过多注释
+3，关于机械臂和底盘的控制可以参考C:\xc
+  robot\mvp-1\xc-robot\testpy\combined_robot_control.py和C:\xc robot\mvp-1\xc-robot\testpy\机械臂+底盘联合控制系统说明文档.md。
+  4，关于相机的知识可以参考C:\xc
+  robot\mvp-1\xc-robot\test_camera_copy\相机脚本重要记忆点.md。
 - xc_os_context.md，为项目的基本情况介绍
 - start_web_gui.py，为当前 webgui 的启动文件
 - PROJECT_STRUCTURE_ANALYSIS.md，为项目文件结构分析报告（根目录和docs/project/目录各有一份，需要同步更新）

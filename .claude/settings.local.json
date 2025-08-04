@@ -69,7 +69,11 @@
       "Bash(cmake:*)",
       "Bash(./ob_enumerate.exe)",
       "Bash(PYTHONPATH=install/lib python3 examples/enumerate.py)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "WebFetch(domain:graphics.stanford.edu)",
+      "WebFetch(domain:blog.csdn.net)",
+      "WebFetch(domain:www.open3d.org)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": []
   }
