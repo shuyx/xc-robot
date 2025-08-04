@@ -68,7 +68,8 @@
       "Bash(pip3:*)",
       "Bash(cmake:*)",
       "Bash(./ob_enumerate.exe)",
-      "Bash(PYTHONPATH=install/lib python3 examples/enumerate.py)"
+      "Bash(PYTHONPATH=install/lib python3 examples/enumerate.py)",
+      "Bash(cat:*)"
     ],
     "deny": []
   }
