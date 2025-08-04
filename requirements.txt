@@ -9,6 +9,7 @@
 # pip install -r requirements/web.txt          # Web界面服务
 # pip install -r requirements/monitoring.txt   # 监控图表
 # pip install -r requirements/simulation_vtk.txt  # VTK 3D仿真（不推荐，建议使用Web端方案）
+# pip install -r requirements/camera.txt          # 相机工具
 
 # 机器人控制（如果可用）
 # fairino  # 通过本地路径导入

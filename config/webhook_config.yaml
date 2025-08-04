@@ -16,7 +16,7 @@ webhook:
     timestamp_format: "%m-%d %H:%M"
     include_hostname: false
     include_project_name: false
-    max_message_length: 100
+    max_message_length: 200
 
 # 监控配置
 monitoring:
@@ -49,34 +49,46 @@ templates:
     keyword: "infobot"
     title: ""
     format: |
-      infobot 📄创建文件 {filename} | {description} | {timestamp}
+      infobot 📄创建文件：{filename}
+      工作内容：{description}。新建文件完成相关功能开发，包含核心业务逻辑实现，为项目增加了新的功能模块和代码结构。
+      完成时间：{timestamp}
       
   file_modified:
     keyword: "infobot"  
     title: ""
     format: |
-      infobot ✏️修改文件 {filename} | {changes} | {timestamp}
+      infobot ✏️修改文件：{filename}
+      工作内容：{changes}。对现有代码进行优化改进，修复了相关问题并增强了功能性能，确保代码质量和系统稳定性得到提升。
+      完成时间：{timestamp}
       
   debug_success:
     keyword: "infobot"
     title: ""
     format: |
-      infobot ✅调试成功 {debug_info} | 结果:{result} | {timestamp}
+      infobot ✅调试完成：{debug_info}
+      工作内容：系统调试测试成功完成，验证了核心功能的正确性和稳定性。通过全面的测试流程，确保了代码质量达到预期标准，系统运行状态良好。
+      测试结果：{result} | 完成时间：{timestamp}
       
   commit_event:
     keyword: "infobot"
     title: ""
     format: |
-      infobot 📦提交代码 {commit_message} | 文件数:{file_count} | 作者:{author} | {timestamp}
+      infobot 📦代码提交：{commit_message}
+      工作内容：完成了重要的代码开发和优化工作，涉及{file_count}个文件的修改。本次提交包含功能增强、问题修复或新特性开发，为项目持续改进做出贡献。
+      提交信息：作者{author} | 完成时间：{timestamp}
       
   test_complete:
     keyword: "infobot"
     title: ""
     format: |
-      infobot 🧪测试完成 {test_type} | 结果:{result} | {timestamp}
+      infobot 🧪测试完成：{test_type}
+      工作内容：执行了全面的系统测试，验证了各项功能模块的正确性和稳定性。测试过程涵盖核心业务逻辑、异常处理和性能指标，确保系统质量达标。
+      测试结果：{result} | 完成时间：{timestamp}
       
   error_alert:
     keyword: "infobot"
     title: ""
     format: |
-      infobot ⚠️错误警告 {error_type} | {error_details} | {timestamp}
+      infobot ⚠️错误警告：{error_type}
+      问题详情：{error_details}。检测到系统运行异常，需要及时关注和处理。建议检查相关日志文件和系统状态，确保问题得到快速解决。
+      发生时间：{timestamp}

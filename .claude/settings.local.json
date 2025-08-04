@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "Bash(claude mcp get:*)",
@@ -48,7 +49,26 @@
       "Bash(npm config:*)",
       "Bash(export PATH=~/.npm-global/bin:$PATH)",
       "Bash(claude-code --version)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(pip3 install:*)",
+      "Bash(/usr/bin/python3:*)",
+      "Bash(apt:*)",
+      "Bash(apt install:*)",
+      "Bash(~/.local/bin/pip install watchdog)",
+      "Bash(git config:*)",
+      "Bash(ssh:*)",
+      "WebFetch(domain:lebai.ltd)",
+      "Bash(venv/Scripts/python.exe:*)",
+      "Bash(venv/Scripts/pip.exe list:*)",
+      "Bash(venv/Scripts/pip.exe install:*)",
+      "Bash(timeout 30 venv/Scripts/python.exe:*)",
+      "WebFetch(domain:192.168.31.211)",
+      "WebFetch(domain:192.168.11.1)",
+      "Bash(timeout:*)",
+      "Bash(pip3:*)",
+      "Bash(cmake:*)",
+      "Bash(./ob_enumerate.exe)",
+      "Bash(PYTHONPATH=install/lib python3 examples/enumerate.py)"
     ],
     "deny": []
   }

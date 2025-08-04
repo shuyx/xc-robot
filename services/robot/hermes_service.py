@@ -16,13 +16,13 @@ from datetime import datetime
 SIMULATION_MODE = True  # 设为True启用仿真模式，避免真实硬件依赖
 
 if SIMULATION_MODE:
-    print("🔧 Hermes仿真模式已启用（适用于Mac开发环境）")
+    print("[SIMULATION] Hermes仿真模式已启用（适用于Mac开发环境）")
 else:
     try:
         import httpx
-        print("✅ HTTP客户端库可用")
+        print("[SUCCESS] HTTP客户端库可用")
     except ImportError as e:
-        print(f"⚠️ HTTP客户端库导入失败: {e}")
+        print(f"[WARNING] HTTP客户端库导入失败: {e}")
 
 class SimulatedHermesClient:
     """Hermes底盘仿真类 - 用于Mac开发环境"""
@@ -155,7 +155,7 @@ class HermesDeviceService:
                 with open(config_path, 'r', encoding='utf-8') as f:
                     config = yaml.safe_load(f)
                     self.device_configs = config.get('devices', {})
-                    self.logger.info("✅ 从robot_config.yaml加载设备配置成功")
+                    self.logger.info("[SUCCESS] 从robot_config.yaml加载设备配置成功")
             else:
                 # 备用配置
                 self.device_configs = {
@@ -201,7 +201,7 @@ class HermesDeviceService:
             # 步骤1: 建立连接（仿真模式）
             if SIMULATION_MODE:
                 client = SimulatedHermesClient(chassis_ip, chassis_port)
-                self.logger.info("🔧 使用仿真Hermes底盘")
+                self.logger.info("[SIMULATION] 使用仿真Hermes底盘")
             else:
                 # 真实模式下的HTTP连接（当部署到Windows时使用）
                 import httpx
@@ -235,7 +235,7 @@ class HermesDeviceService:
                 "device_info": device_info
             }
             
-            self.logger.info(f"✅ {device_id}连接成功完成")
+            self.logger.info(f"[SUCCESS] {device_id}连接成功完成")
             
             return {
                 "status": "success",
